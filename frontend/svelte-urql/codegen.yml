@@ -1,0 +1,9 @@
+schema: http://localhost:8080/graphql
+documents: src/**/*.ts
+generates:
+  src/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      # strict: trueと型が合わない
+      # - urql-svelte-operations-store
