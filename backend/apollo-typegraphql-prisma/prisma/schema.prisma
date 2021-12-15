@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  birthday     DateTime
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  Article      Article[]
+  likes        Like[]
+}
+
+model Article {
+  slug      String   @id @default(cuid())
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  tags      Tag[]
+  likes     Like[]
+}
+
+model Tag {
+  id          Int      @id @default(autoincrement())
+  name        String
+  Article     Article? @relation(fields: [articleSlug], references: [slug])
+  articleSlug String?
+}
+
+model Like {
+  id          String   @id @default(cuid())
+  /// 誰がいいねしたか
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  /// どの投稿にいいねしたか
+  article     Article  @relation(fields: [articleSlug], references: [slug])
+  articleSlug String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, articleSlug], name: "unique_like")
+}
