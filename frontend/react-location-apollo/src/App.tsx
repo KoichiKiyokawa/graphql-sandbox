@@ -1,11 +1,12 @@
 import { ApolloProvider } from "@apollo/client"
 import { Outlet, ReactLocation, Router } from "react-location"
-import { ArticleShow, getArticleBySlug } from "./domains/articles/pages/Show"
+import { ArticleShow } from "./domains/articles/pages/Show"
+import { getArticleBySlug, getArticles } from "./domains/articles/query"
 import { Login } from "./domains/auth/pages/login"
 import { Register } from "./domains/auth/pages/register"
 import { client } from "./domains/core/graphql"
 import { MainLayout } from "./domains/core/layouts/MainLayout"
-import { getArticles, Index } from "./domains/core/pages/Index"
+import { Index } from "./domains/core/pages/Index"
 
 const location = new ReactLocation()
 

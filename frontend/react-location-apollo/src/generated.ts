@@ -1872,6 +1872,11 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
 };
 
+export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, body: string, authorId: string }> };
+
 export type GetArticleQueryVariables = Exact<{
   where: ArticleWhereUniqueInput;
 }>;
@@ -1879,7 +1884,9 @@ export type GetArticleQueryVariables = Exact<{
 
 export type GetArticleQuery = { __typename?: 'Query', article?: { __typename?: 'Article', slug: string, title: string, body: string } | null | undefined };
 
-export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreateArticleMutationVariables = Exact<{
+  input: ArticleCreateInput;
+}>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, body: string }> };
+export type CreateArticleMutation = { __typename?: 'Mutation', createArticle: { __typename?: 'Article', slug: string } };
