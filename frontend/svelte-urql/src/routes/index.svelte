@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createArticleOperation, createLikeOperation } from '$lib/graphql/mutations';
+	import { createArticleOperation, incrementLikeOperation } from '$lib/graphql/mutations';
 	import { getArticleWithAuthorOperation } from '$lib/graphql/queries';
 	import { mutation, query } from '@urql/svelte';
 	import type { ArticleCreateInput } from 'src/generated';
@@ -9,7 +9,7 @@
 	let form = {} as ArticleCreateInput;
 
 	const createArticle = mutation(createArticleOperation);
-	const createLike = mutation(createLikeOperation);
+	const incrementLike = mutation(incrementLikeOperation);
 
 	$: currentUserId = $getArticleWithAuthorOperation.data?.articles[0].author.id;
 
@@ -52,12 +52,7 @@
 			<li>
 				<button
 					on:click={() => {
-						createLike({
-							data: {
-								article: { connect: { slug: article.slug } },
-								user: { connect: { id: currentUserId } }
-							}
-						}).then(() => getArticleWithAuthorOperation.reexecute());
+						incrementLike({ articleSlug: article.slug, userId: currentUserId ?? '' });
 					}}>いいね: {article._count?.likes ?? 0}</button
 				>
 			</li>

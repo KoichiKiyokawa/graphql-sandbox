@@ -2,8 +2,8 @@ import { gql, operationStore } from '@urql/svelte';
 import type {
 	CreateArticleMutation,
 	CreateArticleMutationVariables,
-	CreateLikeMutation,
-	CreateLikeMutationVariables
+	IncrementLikeMutation,
+	IncrementLikeMutationVariables
 } from 'src/generated';
 
 const CREATE_ARTICLE = gql`
@@ -14,11 +14,13 @@ const CREATE_ARTICLE = gql`
 	}
 `;
 
-const CREATE_LIKE = gql`
-	mutation CreateLike($data: LikeCreateInput!) {
-		createLike(data: $data) {
-			id
-			userId
+const INCREMENT_LIKE = gql`
+	mutation IncrementLike($userId: String!, $articleSlug: String!) {
+		updateArticle(
+			data: { likes: { create: { user: { connect: { id: $userId } } } } }
+			where: { slug: $articleSlug }
+		) {
+			slug
 		}
 	}
 `;
@@ -28,6 +30,7 @@ export const createArticleOperation = operationStore<
 	CreateArticleMutationVariables
 >(CREATE_ARTICLE);
 
-export const createLikeOperation = operationStore<CreateLikeMutation, CreateLikeMutationVariables>(
-	CREATE_LIKE
-);
+export const incrementLikeOperation = operationStore<
+	IncrementLikeMutation,
+	IncrementLikeMutationVariables
+>(INCREMENT_LIKE);

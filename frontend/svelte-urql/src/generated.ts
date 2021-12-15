@@ -1879,12 +1879,13 @@ export type CreateArticleMutationVariables = Exact<{
 
 export type CreateArticleMutation = { __typename?: 'Mutation', createArticle: { __typename?: 'Article', slug: string } };
 
-export type CreateLikeMutationVariables = Exact<{
-  data: LikeCreateInput;
+export type IncrementLikeMutationVariables = Exact<{
+  userId: Scalars['String'];
+  articleSlug: Scalars['String'];
 }>;
 
 
-export type CreateLikeMutation = { __typename?: 'Mutation', createLike: { __typename?: 'Like', id: string, userId: string } };
+export type IncrementLikeMutation = { __typename?: 'Mutation', updateArticle?: { __typename?: 'Article', slug: string } | null | undefined };
 
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 
