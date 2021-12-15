@@ -1879,9 +1879,7 @@ export type CreateArticleMutationVariables = Exact<{
 
 export type CreateArticleMutation = { __typename?: 'Mutation', createArticle: { __typename?: 'Article', slug: string } };
 
-export type GetArticlesQueryVariables = Exact<{
-  orderBy?: InputMaybe<Array<ArticleOrderByWithRelationInput> | ArticleOrderByWithRelationInput>;
-}>;
+export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, body: string, author: { __typename?: 'User', id: string, name: string } }> };

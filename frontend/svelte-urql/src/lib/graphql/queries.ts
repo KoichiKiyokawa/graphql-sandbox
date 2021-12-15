@@ -1,10 +1,9 @@
 import { gql, operationStore } from '@urql/svelte';
-import type { GetArticlesQuery, GetArticlesQueryVariables } from '../../generated';
-import { SortOrder } from '../../generated';
+import type { GetArticlesQuery } from '../../generated';
 
 const GET_ARTICLES = gql`
-	query GetArticles($orderBy: [ArticleOrderByWithRelationInput!]) {
-		articles(orderBy: $orderBy) {
+	query GetArticles {
+		articles(orderBy: { createdAt: desc }) {
 			slug
 			title
 			body
@@ -16,7 +15,4 @@ const GET_ARTICLES = gql`
 	}
 `;
 
-export const getArticleWithAuthorOperation = operationStore<
-	GetArticlesQuery,
-	GetArticlesQueryVariables
->(GET_ARTICLES, { orderBy: { createdAt: SortOrder.Desc } });
+export const getArticleWithAuthorOperation = operationStore<GetArticlesQuery>(GET_ARTICLES);
