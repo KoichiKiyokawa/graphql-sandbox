@@ -11,6 +11,9 @@ const GET_ARTICLES = gql`
 				id
 				name
 			}
+			_count {
+				likes
+			}
 		}
 	}
 `;

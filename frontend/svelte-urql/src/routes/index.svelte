@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createArticleOperation } from '$lib/graphql/mutations';
+	import { createArticleOperation, createLikeOperation } from '$lib/graphql/mutations';
 	import { getArticleWithAuthorOperation } from '$lib/graphql/queries';
 	import { mutation, query } from '@urql/svelte';
 	import type { ArticleCreateInput } from 'src/generated';
@@ -9,6 +9,9 @@
 	let form = {} as ArticleCreateInput;
 
 	const createArticle = mutation(createArticleOperation);
+	const createLike = mutation(createLikeOperation);
+
+	$: currentUserId = $getArticleWithAuthorOperation.data?.articles[0].author.id;
 
 	let submitting = false;
 	async function onSubmit() {
@@ -16,7 +19,7 @@
 		const { error } = await createArticle({
 			data: {
 				...form,
-				author: { connect: { id: $getArticleWithAuthorOperation.data?.articles[0].author.id } }
+				author: { connect: { id: currentUserId } }
 			}
 		});
 		submitting = false;
@@ -42,10 +45,22 @@
 		<button disabled={submitting} class="bg-blue-400 p-2 text-white">submit</button>
 	</form>
 
-	{#each $getArticleWithAuthorOperation.data?.articles ?? [] as article}
+	{#each $getArticleWithAuthorOperation.data?.articles ?? [] as article (article.slug)}
 		<ul>
 			<li>title: {article.title}</li>
 			<li>body: {article.body}</li>
+			<li>
+				<button
+					on:click={() => {
+						createLike({
+							data: {
+								article: { connect: { slug: article.slug } },
+								user: { connect: { id: currentUserId } }
+							}
+						}).then(() => getArticleWithAuthorOperation.reexecute());
+					}}>いいね: {article._count?.likes ?? 0}</button
+				>
+			</li>
 		</ul>
 	{/each}
 {/if}
