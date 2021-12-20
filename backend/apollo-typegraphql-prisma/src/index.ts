@@ -34,7 +34,8 @@ async function bootstrap() {
       keys: [env.SESSION_SECRET],
       secure: true,
       httpOnly: true,
-      sameSite: isProduction ? "strict" : "none",
+      // apollo studio上でこのサーバーにログインを行うためには'none'にする必要があり，ローカルのフロントエンドからログインするためには'lax'にする必要がある
+      sameSite: isProduction ? "lax" : "none",
     })
   )
 
