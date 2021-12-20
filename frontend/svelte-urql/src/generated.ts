@@ -792,6 +792,8 @@ export type Mutation = {
   deleteManyUser: AffectedRowsOutput;
   deleteTag?: Maybe<Tag>;
   deleteUser?: Maybe<User>;
+  login: User;
+  logout: Scalars['Boolean'];
   updateArticle?: Maybe<Article>;
   updateLike?: Maybe<Like>;
   updateManyArticle: AffectedRowsOutput;
@@ -864,6 +866,12 @@ export type MutationDeleteTagArgs = {
 
 export type MutationDeleteUserArgs = {
   where: UserWhereUniqueInput;
+};
+
+
+export type MutationLoginArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
@@ -1096,6 +1104,7 @@ export type Query = {
   groupByUser: Array<UserGroupBy>;
   like?: Maybe<Like>;
   likes: Array<Like>;
+  me: User;
   tag?: Maybe<Tag>;
   tags: Array<Tag>;
   user?: Maybe<User>;
@@ -1886,6 +1895,19 @@ export type IncrementLikeMutationVariables = Exact<{
 
 
 export type IncrementLikeMutation = { __typename?: 'Mutation', updateArticle?: { __typename?: 'Article', slug: string } | null | undefined };
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'User', id: string } };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 

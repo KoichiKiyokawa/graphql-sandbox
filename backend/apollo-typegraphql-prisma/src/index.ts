@@ -40,7 +40,7 @@ async function bootstrap() {
 
   const corsOption = {
     credentials: true,
-    origin: "https://studio.apollographql.com",
+    origin: ["https://studio.apollographql.com", "http://localhost:3000"],
   }
   app.use(cors(corsOption))
 

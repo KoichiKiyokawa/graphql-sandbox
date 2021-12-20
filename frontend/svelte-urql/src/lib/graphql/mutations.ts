@@ -3,7 +3,10 @@ import type {
 	CreateArticleMutation,
 	CreateArticleMutationVariables,
 	IncrementLikeMutation,
-	IncrementLikeMutationVariables
+	IncrementLikeMutationVariables,
+	LoginMutation,
+	LoginMutationVariables,
+	LogoutMutation
 } from 'src/generated';
 
 const CREATE_ARTICLE = gql`
@@ -25,6 +28,20 @@ const INCREMENT_LIKE = gql`
 	}
 `;
 
+const LOGIN = gql`
+	mutation Login($email: String!, $password: String!) {
+		login(email: $email, password: $password) {
+			id
+		}
+	}
+`;
+
+const LOGOUT = gql`
+	mutation Logout {
+		logout
+	}
+`;
+
 export const createArticleOperation = operationStore<
 	CreateArticleMutation,
 	CreateArticleMutationVariables
@@ -34,3 +51,7 @@ export const incrementLikeOperation = operationStore<
 	IncrementLikeMutation,
 	IncrementLikeMutationVariables
 >(INCREMENT_LIKE);
+
+export const loginOperation = operationStore<LoginMutation, LoginMutationVariables>(LOGIN);
+
+export const logoutOperation = operationStore<LogoutMutation>(LOGOUT);

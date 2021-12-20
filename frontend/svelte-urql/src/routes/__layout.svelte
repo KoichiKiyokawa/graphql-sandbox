@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { createClient, setClient } from '@urql/svelte';
+	import Header from '$lib/components/Header.svelte';
+	import { client } from '$lib/graphql/client';
+	import { setClient } from '@urql/svelte';
 
-	const client = createClient({
-		url: 'http://localhost:8080/graphql'
-	});
 	setClient(client);
 </script>
 
-<slot />
+<Header />
+<main>
+	<slot />
+</main>
