@@ -13,9 +13,9 @@
 	}
 </script>
 
-<nav>
-	<a href="/">svelte-urql</a>
-	<ul>
+<nav class="flex items-center bg-indigo-400 px-4 py-2">
+	<a href="/" class="text-2xl text-white">svelte-urql</a>
+	<ul class="flex ml-auto space-x-2 text-white">
 		<li><a href="/login">login</a></li>
 		<li><button on:click={handleLogout}>logout</button></li>
 	</ul>
