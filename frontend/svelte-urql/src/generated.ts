@@ -1902,12 +1902,17 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'User', id: string } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'User', id: string, name: string } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
+
+export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string, name: string, email: string } };
 
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 

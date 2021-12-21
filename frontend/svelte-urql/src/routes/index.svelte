@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createArticleOperation, incrementLikeOperation } from '$lib/graphql/mutations';
+	import { createArticleOperation, incrementLikeOperation } from '$lib/graphql/mutations/article';
 	import { getArticleWithAuthorOperation } from '$lib/graphql/queries';
 	import { mutation, query } from '@urql/svelte';
 	import type { ArticleCreateInput } from 'src/generated';
