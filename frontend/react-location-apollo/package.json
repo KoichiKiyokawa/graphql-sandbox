@@ -27,7 +27,7 @@
     "windicss": "^3.3.0"
   },
   "volta": {
-    "node": "16.13.1"
+    "node": "16.13.2"
   },
   "packageManager": "pnpm@6.25.1"
 }
