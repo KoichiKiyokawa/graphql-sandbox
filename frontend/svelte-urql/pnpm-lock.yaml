@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@graphql-codegen/cli': 2.3.0
   '@graphql-codegen/typescript-operations': 2.2.1
-  '@graphql-codegen/urql-svelte-operations-store': 1.1.8
+  '@graphql-codegen/urql-svelte-operations-store': 1.1.12
   '@sveltejs/adapter-static': 1.0.0-next.22
   '@sveltejs/kit': 1.0.0-next.285
   '@typescript-eslint/eslint-plugin': 5.0.0
@@ -31,7 +31,7 @@ dependencies:
 devDependencies:
   '@graphql-codegen/cli': 2.3.0_graphql@16.1.0+typescript@4.4.3
   '@graphql-codegen/typescript-operations': 2.2.1_graphql@16.1.0
-  '@graphql-codegen/urql-svelte-operations-store': 1.1.8_graphql@16.1.0
+  '@graphql-codegen/urql-svelte-operations-store': 1.1.12_graphql@16.1.0
   '@sveltejs/adapter-static': 1.0.0-next.22
   '@sveltejs/kit': 1.0.0-next.285_svelte@3.44.0
   '@typescript-eslint/eslint-plugin': 5.0.0_23617e02451b63a8997d0f18b2622d8e
@@ -723,7 +723,7 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': 2.3.1_graphql@16.1.0
+      '@graphql-codegen/plugin-helpers': 2.4.1_graphql@16.1.0
       '@graphql-tools/schema': 8.3.1_graphql@16.1.0
       '@graphql-tools/utils': 8.5.5_graphql@16.1.0
       graphql: 16.1.0
@@ -744,12 +744,26 @@ packages:
       tslib: 2.3.1
     dev: true
 
+  /@graphql-codegen/plugin-helpers/2.4.1_graphql@16.1.0:
+    resolution: {integrity: sha512-OPMma7aUnES3Dh+M0BfiNBnJLmYuH60EnbULAhufxFDn/Y2OA0Ht/LQok9beX6VN4ASZEMCOAGItJezGJr5DJw==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-tools/utils': 8.5.5_graphql@16.1.0
+      change-case-all: 1.0.14
+      common-tags: 1.8.2
+      graphql: 16.1.0
+      import-from: 4.0.0
+      lodash: 4.17.21
+      tslib: 2.3.1
+    dev: true
+
   /@graphql-codegen/schema-ast/2.4.0_graphql@16.1.0:
     resolution: {integrity: sha512-xsLd4mF0H3mPp7Z2PHZ2Sv1KKIb/FOORqhDc9XHCnHJJ/h9nmaleKSTxTGzSUfIAQ1aCNzVilcaUwlenK+MMBQ==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': 2.3.1_graphql@16.1.0
+      '@graphql-codegen/plugin-helpers': 2.4.1_graphql@16.1.0
       '@graphql-tools/utils': 8.5.5_graphql@16.1.0
       graphql: 16.1.0
       tslib: 2.3.1
@@ -775,7 +789,7 @@ packages:
     peerDependencies:
       graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': 2.3.1_graphql@16.1.0
+      '@graphql-codegen/plugin-helpers': 2.4.1_graphql@16.1.0
       '@graphql-codegen/schema-ast': 2.4.0_graphql@16.1.0
       '@graphql-codegen/visitor-plugin-common': 2.5.1_graphql@16.1.0
       auto-bind: 4.0.0
@@ -785,15 +799,15 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/urql-svelte-operations-store/1.1.8_graphql@16.1.0:
-    resolution: {integrity: sha512-oYP+sUAhVkbCIhcBpfZVMfzb1T3/J/ruaNsNxhSAnebbx+fxOMkPWVsyUZAJBPBI88qY0BpuiRVD+pLMcLcz8A==}
+  /@graphql-codegen/urql-svelte-operations-store/1.1.12_graphql@16.1.0:
+    resolution: {integrity: sha512-Qso56/CxHXtAHVwZAcEGgIYH0r5UtZ22q2/G59VGLxVfF3GbXNGNmgmPrxYWd4PSYUkePVh20jT5yFXhGhlEeQ==}
     peerDependencies:
       '@urql/exchange-graphcache': ^4.1.1
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-tag: ^2.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': 2.3.1_graphql@16.1.0
-      '@graphql-codegen/visitor-plugin-common': 2.5.1_graphql@16.1.0
+      '@graphql-codegen/plugin-helpers': 2.4.1_graphql@16.1.0
+      '@graphql-codegen/visitor-plugin-common': 2.7.1_graphql@16.1.0
       auto-bind: 4.0.0
       change-case-all: 1.0.14
       graphql: 16.1.0
@@ -807,7 +821,27 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': 2.3.1_graphql@16.1.0
+      '@graphql-codegen/plugin-helpers': 2.4.1_graphql@16.1.0
+      '@graphql-tools/optimize': 1.1.1_graphql@16.1.0
+      '@graphql-tools/relay-operation-optimizer': 6.4.1_graphql@16.1.0
+      '@graphql-tools/utils': 8.5.5_graphql@16.1.0
+      auto-bind: 4.0.0
+      change-case-all: 1.0.14
+      dependency-graph: 0.11.0
+      graphql: 16.1.0
+      graphql-tag: 2.12.6_graphql@16.1.0
+      parse-filepath: 1.0.2
+      tslib: 2.3.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/visitor-plugin-common/2.7.1_graphql@16.1.0:
+    resolution: {integrity: sha512-Ew/+0GwGwL3ZSXS0cYz6lVvE7S5SkbTr7caRpLa4FpAdLGNskCgdA1n6W5tX5c7qsaYstqlxp30hJTfgTsYS6A==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.4.1_graphql@16.1.0
       '@graphql-tools/optimize': 1.1.1_graphql@16.1.0
       '@graphql-tools/relay-operation-optimizer': 6.4.1_graphql@16.1.0
       '@graphql-tools/utils': 8.5.5_graphql@16.1.0
@@ -2185,6 +2219,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [android]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2193,6 +2228,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [darwin]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2201,6 +2237,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [darwin]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2209,6 +2246,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [freebsd]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2217,6 +2255,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [freebsd]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2225,6 +2264,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [ia32]
     os: [linux]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2233,6 +2273,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [linux]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2241,6 +2282,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [arm]
     os: [linux]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2249,6 +2291,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [linux]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2257,6 +2300,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [mips64el]
     os: [linux]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2265,6 +2309,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [ppc64]
     os: [linux]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2273,6 +2318,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [riscv64]
     os: [linux]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2281,6 +2327,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [s390x]
     os: [linux]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2289,6 +2336,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [netbsd]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2297,6 +2345,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [openbsd]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2305,6 +2354,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [sunos]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2313,6 +2363,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [ia32]
     os: [win32]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2321,6 +2372,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2329,6 +2381,7 @@ packages:
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [win32]
+    requiresBuild: true
     dev: true
     optional: true
 
