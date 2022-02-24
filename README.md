@@ -1,5 +1,5 @@
 # graphql-sandbox
 
-[![Node.js CI status](/workflows/Node.js%20CI/badge.svg)](/actions)
+[![Node.js CI](https://github.com/KoichiKiyokawa/graphql-sandbox/actions/workflows/node.js.yml/badge.svg)](https://github.com/KoichiKiyokawa/graphql-sandbox/actions/workflows/node.js.yml)
 
 graphql で色々試した結果を残しておく
