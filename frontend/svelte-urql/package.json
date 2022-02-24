@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"@graphql-codegen/cli": "2.3.0",
 		"@graphql-codegen/typescript-operations": "2.2.1",
-		"@graphql-codegen/urql-svelte-operations-store": "1.1.8",
+		"@graphql-codegen/urql-svelte-operations-store": "1.1.12",
 		"@sveltejs/adapter-static": "1.0.0-next.22",
 		"@sveltejs/kit": "1.0.0-next.285",
 		"@typescript-eslint/eslint-plugin": "5.0.0",
