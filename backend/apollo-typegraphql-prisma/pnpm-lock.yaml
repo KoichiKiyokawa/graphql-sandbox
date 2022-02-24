@@ -7,7 +7,7 @@ specifiers:
   '@types/graphql-fields': 1.3.4
   '@types/http-errors': 1.8.2
   '@types/node': 16.11.25
-  apollo-server: 3.5.0
+  apollo-server: 3.6.3
   apollo-server-core: 3.6.3
   apollo-server-express: 3.6.3
   bcryptjs: 2.4.3
@@ -30,7 +30,7 @@ specifiers:
 
 dependencies:
   '@prisma/client': 3.10.0_prisma@3.9.2
-  apollo-server: 3.5.0_graphql@15.3.0
+  apollo-server: 3.6.3_graphql@15.3.0
   apollo-server-core: 3.6.3_graphql@15.3.0
   apollo-server-express: 3.6.3_express@4.17.3+graphql@15.3.0
   bcryptjs: 2.4.3
@@ -774,8 +774,8 @@ packages:
       - encoding
     dev: false
 
-  /apollo-server/3.5.0_graphql@15.3.0:
-    resolution: {integrity: sha512-7NkCgK9wjyx/jAbdytId/EPwp+dU4Bn+nktZERh3PGU4sv3TO9Twlsg62eAw5FRRTYQglbGDlCIcx9o1bvg0Ww==}
+  /apollo-server/3.6.3_graphql@15.3.0:
+    resolution: {integrity: sha512-kNvOiDNkIaO+MsfR9v40Vz4ArlDdc9VwVKGJy5dniLW9AoDa/tSF99m8ItfGoMypqlRPMgrNGxkMuToBnvYXNQ==}
     peerDependencies:
       graphql: ^15.3.0 || ^16.0.0
     dependencies:
