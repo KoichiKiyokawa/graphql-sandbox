@@ -19,7 +19,7 @@ specifiers:
   prettier-plugin-svelte: 2.6.0
   svelte: 3.44.0
   svelte-check: 2.4.5
-  svelte-preprocess: 4.9.4
+  svelte-preprocess: 4.10.4
   tailwindcss: 3.0.23
   tslib: 2.3.1
   typescript: 4.4.3
@@ -45,7 +45,7 @@ devDependencies:
   prettier-plugin-svelte: 2.6.0_prettier@2.5.1+svelte@3.44.0
   svelte: 3.44.0
   svelte-check: 2.4.5_postcss@8.4.6+svelte@3.44.0
-  svelte-preprocess: 4.9.4_c12023daea7bc644ffe577c4930324ae
+  svelte-preprocess: 4.10.4_c12023daea7bc644ffe577c4930324ae
   tailwindcss: 3.0.23_autoprefixer@10.4.2
   tslib: 2.3.1
   typescript: 4.4.3
@@ -4547,7 +4547,7 @@ packages:
       sade: 1.7.4
       source-map: 0.7.3
       svelte: 3.44.0
-      svelte-preprocess: 4.10.0_36fa7ccc10c6fb11d88b2c51365a0246
+      svelte-preprocess: 4.10.4_36fa7ccc10c6fb11d88b2c51365a0246
       typescript: 4.5.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -4570,23 +4570,23 @@ packages:
       svelte: 3.44.0
     dev: true
 
-  /svelte-preprocess/4.10.0_36fa7ccc10c6fb11d88b2c51365a0246:
-    resolution: {integrity: sha512-uZgGyC4SwkFoby2ceiMgGYs4qHYGz2fT06cAsHO8FHdDbvj1dKQyQ/fD9OB0KLymVv0fmzuJo/On7Kv7AeVhWA==}
+  /svelte-preprocess/4.10.4_36fa7ccc10c6fb11d88b2c51365a0246:
+    resolution: {integrity: sha512-fuwol0N4UoHsNQolLFbMqWivqcJ9N0vfWO9IuPAiX/5okfoGXURyJ6nECbuEIv0nU3M8Xe2I1ONNje2buk7l6A==}
     engines: {node: '>= 9.11.2'}
     requiresBuild: true
     peerDependencies:
       '@babel/core': ^7.10.2
       coffeescript: ^2.5.1
-      less: ^3.11.3
+      less: ^3.11.3 || ^4.0.0
       node-sass: '*'
       postcss: ^7 || ^8
       postcss-load-config: ^2.1.0 || ^3.0.0
       pug: ^3.0.0
       sass: ^1.26.8
-      stylus: ^0.54.7
+      stylus: ^0.55.0
       sugarss: ^2.0.0
       svelte: ^3.23.0
-      typescript: ^4.5.2
+      typescript: ^3.9.5 || ^4.0.0
     peerDependenciesMeta:
       '@babel/core':
         optional: true
@@ -4622,20 +4622,20 @@ packages:
       typescript: 4.5.4
     dev: true
 
-  /svelte-preprocess/4.9.4_c12023daea7bc644ffe577c4930324ae:
-    resolution: {integrity: sha512-Z0mUQBGtE+ZZSv/HerRSHe7ukJokxjiPeHe7iPOIXseEoRw51H3K/Vh6OMIMstetzZ11vWO9rCsXSD/uUUArmA==}
+  /svelte-preprocess/4.10.4_c12023daea7bc644ffe577c4930324ae:
+    resolution: {integrity: sha512-fuwol0N4UoHsNQolLFbMqWivqcJ9N0vfWO9IuPAiX/5okfoGXURyJ6nECbuEIv0nU3M8Xe2I1ONNje2buk7l6A==}
     engines: {node: '>= 9.11.2'}
     requiresBuild: true
     peerDependencies:
       '@babel/core': ^7.10.2
       coffeescript: ^2.5.1
-      less: ^3.11.3
+      less: ^3.11.3 || ^4.0.0
       node-sass: '*'
       postcss: ^7 || ^8
       postcss-load-config: ^2.1.0 || ^3.0.0
       pug: ^3.0.0
       sass: ^1.26.8
-      stylus: ^0.54.7
+      stylus: ^0.55.0
       sugarss: ^2.0.0
       svelte: ^3.23.0
       typescript: ^3.9.5 || ^4.0.0
