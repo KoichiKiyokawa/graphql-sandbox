@@ -4,7 +4,7 @@ specifiers:
   '@graphql-codegen/cli': 2.3.0
   '@graphql-codegen/typescript-operations': 2.2.1
   '@graphql-codegen/urql-svelte-operations-store': 1.1.12
-  '@sveltejs/adapter-static': 1.0.0-next.22
+  '@sveltejs/adapter-static': 1.0.0-next.28
   '@sveltejs/kit': 1.0.0-next.285
   '@typescript-eslint/eslint-plugin': 5.12.1
   '@typescript-eslint/parser': 5.0.0
@@ -32,7 +32,7 @@ devDependencies:
   '@graphql-codegen/cli': 2.3.0_graphql@16.1.0+typescript@4.4.3
   '@graphql-codegen/typescript-operations': 2.2.1_graphql@16.1.0
   '@graphql-codegen/urql-svelte-operations-store': 1.1.12_graphql@16.1.0
-  '@sveltejs/adapter-static': 1.0.0-next.22
+  '@sveltejs/adapter-static': 1.0.0-next.28
   '@sveltejs/kit': 1.0.0-next.285_svelte@3.44.0
   '@typescript-eslint/eslint-plugin': 5.12.1_23617e02451b63a8997d0f18b2622d8e
   '@typescript-eslint/parser': 5.0.0_eslint@8.0.0+typescript@4.4.3
@@ -1218,8 +1218,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /@sveltejs/adapter-static/1.0.0-next.22:
-    resolution: {integrity: sha512-Dc1V9Z72dA7caVwNxxzl9Jhcq4uN9N1udA2GKNTLMu3aWX3Cq+v6C2CddY9Aazr+F9h6J0vi9AienuH+ySRXzQ==}
+  /@sveltejs/adapter-static/1.0.0-next.28:
+    resolution: {integrity: sha512-c4xLyeSwnbGQxe4f1SLpHTbxZDm3TEr43scR3tOlVgQN+mnAL9aDdl3nTtdzWmrUDmDEmY4GriAwLyFLZuINLw==}
+    dependencies:
+      tiny-glob: 0.2.9
     dev: true
 
   /@sveltejs/kit/1.0.0-next.285_svelte@3.44.0:
@@ -2892,6 +2894,10 @@ packages:
       type-fest: 0.20.2
     dev: true
 
+  /globalyzer/0.1.0:
+    resolution: {integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==}
+    dev: true
+
   /globby/11.0.4:
     resolution: {integrity: sha512-9O4MVG9ioZJ08ffbcyVYyLOJLk5JQ688pJ4eMGLpdWLHq/Wr1D9BlriLQyL0E+jbkuePVZXYFj47QM/v093wHg==}
     engines: {node: '>=10'}
@@ -2902,6 +2908,10 @@ packages:
       ignore: 5.1.9
       merge2: 1.4.1
       slash: 3.0.0
+    dev: true
+
+  /globrex/0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
     dev: true
 
   /got/9.6.0:
@@ -4752,6 +4762,13 @@ packages:
 
   /through/2.3.8:
     resolution: {integrity: sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=}
+    dev: true
+
+  /tiny-glob/0.2.9:
+    resolution: {integrity: sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==}
+    dependencies:
+      globalyzer: 0.1.0
+      globrex: 0.1.2
     dev: true
 
   /title-case/3.0.3:
