@@ -10,7 +10,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@prisma/client": "3.9.2",
+    "@prisma/client": "3.10.0",
     "apollo-server": "3.5.0",
     "apollo-server-core": "3.6.3",
     "apollo-server-express": "3.5.0",
