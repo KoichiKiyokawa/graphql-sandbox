@@ -5,7 +5,7 @@ specifiers:
   '@types/bcryptjs': 2.4.2
   '@types/cookie-session': 2.0.44
   '@types/graphql-fields': 1.3.4
-  '@types/http-errors': 1.8.1
+  '@types/http-errors': 1.8.2
   '@types/node': 16.11.13
   apollo-server: 3.5.0
   apollo-server-core: 3.5.0
@@ -51,7 +51,7 @@ devDependencies:
   '@types/bcryptjs': 2.4.2
   '@types/cookie-session': 2.0.44
   '@types/graphql-fields': 1.3.4
-  '@types/http-errors': 1.8.1
+  '@types/http-errors': 1.8.2
   '@types/node': 16.11.13
   nodemon: 2.0.15
   prisma: 3.9.2
@@ -505,8 +505,8 @@ packages:
       graphql: 15.8.0
     dev: true
 
-  /@types/http-errors/1.8.1:
-    resolution: {integrity: sha512-e+2rjEwK6KDaNOm5Aa9wNGgyS9oSZU/4pfSMMPYNOfjvFI0WVXm29+ITRFr6aKDvvKo7uU1jV68MW4ScsfDi7Q==}
+  /@types/http-errors/1.8.2:
+    resolution: {integrity: sha512-EqX+YQxINb+MeXaIqYDASb6U6FCHbWjkj4a1CKDBks3d/QiB2+PqBLyO72vLDgAO1wUI4O+9gweRcQK11bTL/w==}
     dev: true
 
   /@types/keygrip/1.0.2:
