@@ -1,0 +1,35 @@
+name: Node.js CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 16.x
+    steps:
+      - uses: actions/checkout@v2
+      - run: corepack enable pnpm
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      # - name: react-location-apollo
+      #   run: |
+      #     cd backend/apollo-typegraphql-prisma && pnpm i && pnpm dev &
+      #     cd ../../frontend/react-location-apollo && pnpm i && pnpm codegen
+      - name: svelte-urql
+        run: |
+          cd backend/apollo-typegraphql-prisma
+          pnpm i
+          cp src/env.sample.ts src/env.ts
+          pnpm dev &
+          cd ../../frontend/svelte-urql
+          pnpm i
+          pnpm codegen
