@@ -19,7 +19,7 @@
     "cookie-session": "2.0.0",
     "cors": "2.8.5",
     "dayjs": "1.10.7",
-    "express": "4.17.2",
+    "express": "4.17.3",
     "graphql": "15.3.0",
     "graphql-fields": "2.0.3",
     "graphql-scalars": "1.14.1",
