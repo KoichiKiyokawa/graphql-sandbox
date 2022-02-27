@@ -15,7 +15,7 @@ specifiers:
   typescript: 4.4.4
   vite: 2.8.4
   vite-plugin-windicss: 1.8.1
-  windicss: 3.4.4
+  windicss: 3.5.0
 
 dependencies:
   '@apollo/client': 3.5.6_graphql@16.3.0+react@17.0.2
@@ -34,7 +34,7 @@ devDependencies:
   typescript: 4.4.4
   vite: 2.8.4
   vite-plugin-windicss: 1.8.1_vite@2.8.4
-  windicss: 3.4.4
+  windicss: 3.5.0
 
 packages:
 
@@ -4130,12 +4130,6 @@ packages:
 
   /which-module/2.0.0:
     resolution: {integrity: sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho=}
-    dev: true
-
-  /windicss/3.4.4:
-    resolution: {integrity: sha512-M3ZTw8wiluUjg16Pu7nwqZmmCiX+eEX6yArzXX0a/HFQWhwyghi7ouT2m95XQsXqvnzAw9FKiF2eFHGfOezdsg==}
-    engines: {node: '>= 12'}
-    hasBin: true
     dev: true
 
   /windicss/3.5.0:
