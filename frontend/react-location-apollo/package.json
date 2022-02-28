@@ -26,5 +26,5 @@
     "vite-plugin-windicss": "1.8.1",
     "windicss": "3.5.0"
   },
-  "packageManager": "pnpm@6.32.1"
+  "packageManager": "pnpm@6.32.2"
 }
