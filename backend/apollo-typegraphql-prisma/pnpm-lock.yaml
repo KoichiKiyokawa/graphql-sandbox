@@ -14,7 +14,7 @@ specifiers:
   class-validator: 0.13.2
   cookie-session: 2.0.0
   cors: 2.8.5
-  dayjs: 1.10.7
+  dayjs: 1.10.8
   express: 4.17.3
   graphql: 15.8.0
   graphql-fields: 2.0.3
@@ -37,7 +37,7 @@ dependencies:
   class-validator: 0.13.2
   cookie-session: 2.0.0
   cors: 2.8.5
-  dayjs: 1.10.7
+  dayjs: 1.10.8
   express: 4.17.3
   graphql: 15.8.0
   graphql-fields: 2.0.3
@@ -1184,8 +1184,8 @@ packages:
     resolution: {integrity: sha1-xtJnJjKi5cg+AT5oZKQs6N79IK4=}
     dev: false
 
-  /dayjs/1.10.7:
-    resolution: {integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==}
+  /dayjs/1.10.8:
+    resolution: {integrity: sha512-wbNwDfBHHur9UOzNUjeKUOJ0fCb0a52Wx0xInmQ7Y8FstyajiV1NmK1e00cxsr9YrE9r7yAChE0VvpuY5Rnlow==}
     dev: false
 
   /debug/2.6.9:
