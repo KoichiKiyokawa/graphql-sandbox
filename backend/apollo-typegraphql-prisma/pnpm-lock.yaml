@@ -18,7 +18,7 @@ specifiers:
   express: 4.17.3
   graphql: 15.8.0
   graphql-fields: 2.0.3
-  graphql-scalars: 1.14.1
+  graphql-scalars: 1.15.0
   http-errors: 2.0.0
   nodemon: 2.0.15
   prisma: 3.10.0
@@ -41,11 +41,11 @@ dependencies:
   express: 4.17.3
   graphql: 15.8.0
   graphql-fields: 2.0.3
-  graphql-scalars: 1.14.1_graphql@15.8.0
+  graphql-scalars: 1.15.0_graphql@15.8.0
   http-errors: 2.0.0
   reflect-metadata: 0.1.13
   type-graphql: 1.1.1_aea24acf06b899fbc466d3b3b949c72d
-  typegraphql-prisma: 0.19.1_a03764005221e9f07485f097af80b24a
+  typegraphql-prisma: 0.19.1_54b363f64ed92aa926cb23ad69ef7816
 
 devDependencies:
   '@types/bcryptjs': 2.4.2
@@ -1591,8 +1591,8 @@ packages:
       lodash.get: 4.4.2
     dev: false
 
-  /graphql-scalars/1.14.1_graphql@15.8.0:
-    resolution: {integrity: sha512-IrJ2SI9IkCmWHyr7yIvtPNGWTWF3eTS+iNnw1DQMmEtsOgs1dUmT0ge+8M1+1xm+q3/5ZqB95yUYyThDyOTE+Q==}
+  /graphql-scalars/1.15.0_graphql@15.8.0:
+    resolution: {integrity: sha512-uLi71egHsfF+A4XmnltPYRUnvy8uBsobRjhW6aBi305gpE/v52xkuKcjygV0CqeqdvRKmFhczh9HRx1lho2MRw==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -2960,7 +2960,7 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typegraphql-prisma/0.19.1_a03764005221e9f07485f097af80b24a:
+  /typegraphql-prisma/0.19.1_54b363f64ed92aa926cb23ad69ef7816:
     resolution: {integrity: sha512-wzjzd4isFFkc3ZKQBd6SwxrbNvUelqvSDqIwIL5ltik9b5q+VeVpfgBuLcgUk1obfJqnhm6huYztxtCreW8yUA==}
     engines: {node: '>=12.4'}
     hasBin: true
@@ -2979,7 +2979,7 @@ packages:
       '@types/graphql-fields': 1.3.4
       '@types/node': 16.11.26
       graphql-fields: 2.0.3
-      graphql-scalars: 1.14.1_graphql@15.8.0
+      graphql-scalars: 1.15.0_graphql@15.8.0
       pluralize: 8.0.0
       prisma: 3.10.0
       semver: 7.3.5
