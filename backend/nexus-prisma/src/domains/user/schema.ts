@@ -1,4 +1,5 @@
 import { extendType, nonNull, objectType, stringArg } from "nexus";
+import { connectionFromPromisedArray } from "graphql-relay";
 import { Context } from "../../context";
 
 export const User = objectType({
@@ -7,12 +8,15 @@ export const User = objectType({
     t.nonNull.string("id");
     t.nonNull.string("name");
     t.nonNull.string("email");
-    t.nonNull.list.field("articles", {
+    t.connectionField("articles", {
       type: "Article",
-      resolve(parent, _args, context: Context) {
-        return context.prisma.user
-          .findUnique({ where: { id: parent.id } })
-          .articles();
+      async resolve(parent, args, context: Context) {
+        return connectionFromPromisedArray(
+          context.prisma.user
+            .findUnique({ where: { id: parent.id } })
+            .articles(),
+          args
+        );
       },
     });
   },

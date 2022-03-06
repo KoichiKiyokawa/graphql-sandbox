@@ -14,8 +14,9 @@ export const Article = objectType({
     t.nonNull.string("body");
     t.nonNull.field("createdAt", { type: "DateTime" });
     t.nonNull.field("updatedAt", { type: "DateTime" });
+
     t.nonNull.field("author", {
-      type: User.name,
+      type: User,
       description: "The author of the article",
       async resolve({ slug }, _args, context) {
         const author = await context.prisma.article

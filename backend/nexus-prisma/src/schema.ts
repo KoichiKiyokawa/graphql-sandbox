@@ -1,4 +1,5 @@
-import { makeSchema } from "nexus";
+import pkg from "nexus";
+const { connectionPlugin, makeSchema } = pkg;
 import { resolve } from "path";
 import * as ArticleTypes from "./domains/article/schema";
 import * as AuthTypes from "./domains/auth/schema";
@@ -13,4 +14,5 @@ export const schema = makeSchema({
     schema: resolve("src/generated/schema.graphql"),
     typegen: resolve("src/generated/nexus.ts"),
   },
+  plugins: [connectionPlugin()],
 });
