@@ -10,4 +10,3 @@ build({
 }).then(() => {
   console.log("\n📦️ Build finished!!!");
 });
-
