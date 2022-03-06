@@ -1,34 +1,34 @@
-import { extendType, intArg, nonNull, objectType, stringArg } from "nexus"
-import { User } from "../user/schema"
+import { extendType, intArg, nonNull, objectType, stringArg } from "nexus";
+import { User } from "../user/schema";
 
 export const Article = objectType({
   name: "Article",
   definition(t) {
     t.nonNull.string("slug", {
       description: "The unique slug for the article",
-    })
-    t.nonNull.string("title", { description: "The title of the article" })
+    });
+    t.nonNull.string("title", { description: "The title of the article" });
     t.nonNull.string("description", {
       description: "The description of the article",
-    })
-    t.nonNull.string("body")
-    t.nonNull.field("createdAt", { type: "DateTime" })
-    t.nonNull.field("updatedAt", { type: "DateTime" })
+    });
+    t.nonNull.string("body");
+    t.nonNull.field("createdAt", { type: "DateTime" });
+    t.nonNull.field("updatedAt", { type: "DateTime" });
     t.nonNull.field("author", {
       type: User.name,
       description: "The author of the article",
       async resolve({ slug }, _args, context) {
         const author = await context.prisma.article
           .findUnique({ where: { slug } })
-          .author()
+          .author();
 
-        if (!author) throw Error("Author not found")
+        if (!author) throw Error("Author not found");
 
-        return author
+        return author;
       },
-    })
+    });
   },
-})
+});
 
 export const ArticleQuery = extendType({
   type: "Query",
@@ -41,9 +41,9 @@ export const ArticleQuery = extendType({
       resolve(_parent, args, context) {
         return context.prisma.article.findUnique({
           where: { slug: args.slug },
-        })
+        });
       },
-    })
+    });
     t.list.field("articles", {
       type: Article.name,
       args: {
@@ -52,10 +52,10 @@ export const ArticleQuery = extendType({
       resolve(_parent, args, context) {
         return context.prisma.article.findMany({
           take: args.first ?? undefined,
-        })
+        });
       },
-    })
+    });
   },
-})
+});
 
-export const ArticleTypes = [Article, ArticleQuery]
+export const ArticleTypes = [Article, ArticleQuery];
