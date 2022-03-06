@@ -1,14 +1,14 @@
-name: nexus-prisma
+name: nexus-realworld
 on:
   push:
     paths:
-      - nexus-prisma/**
+      - nexus-realworld/**
       - .github/**
     branches:
       - main
   pull_request:
     paths:
-      - nexus-prisma/**
+      - nexus-realworld/**
       - .github/**
     branches:
       - main
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: nexus-prisma
+        working-directory: nexus-realworld
     strategy:
       matrix:
         node-version:
