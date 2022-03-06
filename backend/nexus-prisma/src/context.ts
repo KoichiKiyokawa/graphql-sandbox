@@ -6,7 +6,7 @@ export interface Context {
   prisma: tPrismaClient
 }
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({ log: ["error", "info", "query", "warn"] })
 
 export const context: Context = {
   prisma: prisma,

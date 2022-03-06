@@ -1,4 +1,5 @@
 import { context } from "../src/context"
+import bcrypt from "bcryptjs"
 
 const { prisma } = context
 
@@ -11,7 +12,7 @@ async function seed() {
       data: {
         name: `user${i}`,
         email: `user${i}@example.com`,
-        passwordHash: "password",
+        passwordHash: bcrypt.hashSync("password"),
       },
     })
     for (let j = 0; j < 100; j++) {

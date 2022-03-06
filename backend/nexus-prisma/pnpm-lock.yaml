@@ -2,7 +2,9 @@ lockfileVersion: 5.3
 
 specifiers:
   '@prisma/client': 3.10.0
+  '@types/bcryptjs': 2.4.2
   apollo-server: 3.6.3
+  bcryptjs: 2.4.3
   esbuild: 0.14.25
   eslint: 8.10.0
   graphql: 16.3.0
@@ -17,11 +19,13 @@ specifiers:
 dependencies:
   '@prisma/client': 3.10.0_prisma@3.10.0
   apollo-server: 3.6.3_graphql@16.3.0
+  bcryptjs: 2.4.3
   graphql: 16.3.0
   graphql-scalars: 1.15.0_graphql@16.3.0
   nexus: 1.3.0_graphql@16.3.0
 
 devDependencies:
+  '@types/bcryptjs': 2.4.2
   esbuild: 0.14.25
   eslint: 8.10.0
   lint-staged: 12.3.5
@@ -225,6 +229,10 @@ packages:
     dependencies:
       '@types/node': 17.0.21
     dev: false
+
+  /@types/bcryptjs/2.4.2:
+    resolution: {integrity: sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==}
+    dev: true
 
   /@types/body-parser/1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
@@ -534,6 +542,10 @@ packages:
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
     dev: true
+
+  /bcryptjs/2.4.3:
+    resolution: {integrity: sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=}
+    dev: false
 
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
