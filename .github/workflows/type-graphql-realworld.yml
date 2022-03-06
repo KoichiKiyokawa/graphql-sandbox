@@ -1,30 +1,27 @@
-name: nexus-prisma
+name: type-graphql-realworld
 on:
   push:
     paths:
-      - nexus-prisma/**
+      - type-graphql-realworld/**
       - .github/**
     branches:
       - main
   pull_request:
     paths:
-      - nexus-prisma/**
+      - type-graphql-realworld/**
       - .github/**
     branches:
       - main
-
+defaults:
+  run:
+    working-directory: type-graphql-realworld
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: nexus-prisma
     strategy:
       matrix:
         node-version:
-          - 14.x
           - 16.x
-          - 17.x
     steps:
       - uses: actions/checkout@v3
       - run: corepack enable pnpm
@@ -32,10 +29,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: pnpm
-          cache-dependency-path: nexus-prisma/pnpm-lock.yaml
       - run: pnpm i
-      - run: pnpm --dir apps/server run typegen
-      - run: pnpm --dir apps/server lint
-      - run: pnpm --dir apps/server tsc --noEmit
-      - run: pnpm --dir apps/server run build
+      - name: codegen and typecheck
+        run: |
+          cp apps/apollo-typegraphql-prisma/src/env.sample.ts apps/apollo-typegraphql-prisma/src/env.ts
+          pnpm --dir apps/apollo-typegraphql-prisma dev &
+          pnpm --dir apps/react-location-apollo codegen
+          pnpm --dir apps/svelte-urql codegen
