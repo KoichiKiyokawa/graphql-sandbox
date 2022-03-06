@@ -7,7 +7,7 @@
     "postinstall": "prisma generate",
     "dev": "nodemon -w src --exec esmo src/index.ts",
     "typegen": "esmo scripts/typegen.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --minify --sourcemap --outfile=dist/index.js",
+    "build": "esmo scripts/build.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "esmo prisma/seed.ts",
     "lint": "prettier --check . && eslint --ignore-path .gitignore .",
