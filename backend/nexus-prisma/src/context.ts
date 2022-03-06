@@ -1,9 +1,7 @@
-import type { PrismaClient as tPrismaClient } from "@prisma/client";
-import * as pkg from "@prisma/client";
-const { PrismaClient } = pkg;
+import { PrismaClient } from "@prisma/client";
 
 export interface Context {
-  prisma: tPrismaClient;
+  prisma: PrismaClient;
 }
 
 const prisma = new PrismaClient({ log: ["error", "info", "query", "warn"] });
