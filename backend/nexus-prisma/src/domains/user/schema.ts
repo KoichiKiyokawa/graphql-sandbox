@@ -1,6 +1,6 @@
 import { extendType, nonNull, objectType, stringArg } from "nexus";
 import { connectionFromPromisedArray } from "graphql-relay";
-import { Context } from "src/context";
+import { Context } from "~/context";
 
 export const User = objectType({
   name: "User",
@@ -10,7 +10,7 @@ export const User = objectType({
     t.nonNull.string("email");
     t.connectionField("articles", {
       type: "Article",
-      async resolve(parent, args, context: Context) {
+      resolve(parent, args, context: Context) {
         return connectionFromPromisedArray(
           context.prisma.user
             .findUnique({ where: { id: parent.id } })

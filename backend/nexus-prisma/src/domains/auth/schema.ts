@@ -1,6 +1,6 @@
 import { extendType, nonNull, stringArg } from "nexus";
 import bcrypt from "bcryptjs";
-import { MaybeError } from "src/domains/core/schema";
+import { MaybeError } from "~/domains/core/schema";
 
 export const Mutation = extendType({
   type: "Mutation",
