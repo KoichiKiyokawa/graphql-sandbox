@@ -1,3 +1,2 @@
-(async function () {
-  await import("~/root-schema");
-})();
+import { schema } from "~/root-schema";
+schema;
