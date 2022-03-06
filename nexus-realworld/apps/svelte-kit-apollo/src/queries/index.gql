@@ -1,0 +1,12 @@
+query GetArticles {
+	articles {
+		slug
+		title
+		description
+		body
+		author {
+			id
+			name
+		}
+	}
+}
