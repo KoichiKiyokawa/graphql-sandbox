@@ -1,4 +1,4 @@
-import { context } from "../src/context";
+import { context } from "src/context";
 import bcrypt from "bcryptjs";
 
 const { prisma } = context;

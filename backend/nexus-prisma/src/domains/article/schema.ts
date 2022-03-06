@@ -1,5 +1,5 @@
 import { extendType, intArg, nonNull, objectType, stringArg } from "nexus";
-import { User } from "../user/schema";
+import { User } from "src/domains/user/schema";
 
 export const Article = objectType({
   name: "Article",

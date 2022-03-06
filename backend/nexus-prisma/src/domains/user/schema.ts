@@ -1,6 +1,6 @@
 import { extendType, nonNull, objectType, stringArg } from "nexus";
 import { connectionFromPromisedArray } from "graphql-relay";
-import { Context } from "../../context";
+import { Context } from "src/context";
 
 export const User = objectType({
   name: "User",
