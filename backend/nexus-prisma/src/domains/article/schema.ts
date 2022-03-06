@@ -30,7 +30,7 @@ export const Article = objectType({
   },
 });
 
-export const ArticleQuery = extendType({
+export const Query = extendType({
   type: "Query",
   definition(t) {
     t.field("article", {
@@ -58,4 +58,4 @@ export const ArticleQuery = extendType({
   },
 });
 
-export const ArticleTypes = [Article, ArticleQuery];
+export const ArticleTypes = [Article, Query];
