@@ -35,6 +35,7 @@ jobs:
           cache: pnpm
           cache-dependency-path: backend/nexus-prisma/pnpm-lock.yaml
       - run: pnpm i
+      - run: pnpm run typegen
       - run: pnpm lint
       - run: pnpm tsc --noEmit
       - run: pnpm run build
