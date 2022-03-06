@@ -4,9 +4,10 @@ import { ArticleTypes } from "./domains/article/schema"
 import { User } from "./domains/user/schema"
 import { DateTime } from "./scalar"
 import { AuthTypes } from "./domains/auth/schema"
+import { CoreTypes } from "./domains/core/schema"
 
 export const schema = makeSchema({
-  types: [User, ArticleTypes, AuthTypes, DateTime],
+  types: [User, ArticleTypes, AuthTypes, CoreTypes, DateTime],
   contextType: { module: resolve("src/context.ts"), export: "Context" },
   outputs: {
     schema: resolve("src/generated/schema.graphql"),

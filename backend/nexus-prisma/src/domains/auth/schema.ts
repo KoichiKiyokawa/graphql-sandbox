@@ -1,9 +1,10 @@
 import { nonNull, objectType, stringArg } from "nexus"
+import bcrypt from "bcryptjs"
 
 const LoginResponse = objectType({
   name: "LoginResponse",
   definition(t) {
-    t.string("message")
+    t.string("error")
   },
 })
 
@@ -16,8 +17,17 @@ export const AuthQuery = objectType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve(_parent, args, context) {
-        return { message: "ok" }
+      async resolve(_parent, args, context) {
+        const targetUser = await context.prisma.user.findUnique({
+          where: { email: args.email },
+        })
+        const loginErrorMessage = "Login failed"
+        if (!targetUser) return { error: loginErrorMessage }
+
+        if (!bcrypt.compareSync(args.password, targetUser.passwordHash))
+          return { error: loginErrorMessage }
+
+        return {}
       },
     })
   },
