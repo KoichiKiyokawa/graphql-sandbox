@@ -7,6 +7,7 @@
     "prepare": "simple-git-hooks",
     "postinstall": "prisma generate",
     "dev": "nodemon -w src --exec tsm src/index.ts",
+    "build": "esbuild src/index.ts --bundle --platform=node --minify --sourcemap --outfile=dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "tsm prisma/seed.ts",
     "lint": "eslint --ignore-path .gitignore"
