@@ -7,13 +7,15 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
+    "start": "node dist",
     "dev": "nodemon -w src --exec esno src/index.ts",
     "typegen": "prisma generate && esno scripts/typegen.ts",
     "build": "esno scripts/build.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "esno prisma/seed.ts",
     "lint": "prettier --check . && eslint --ignore-path .gitignore .",
-    "lint:fix": "prettier --write . && eslint --fix --ignore-path .gitignore ."
+    "lint:fix": "prettier --write . && eslint --fix --ignore-path .gitignore .",
+    "deploy": "pnpm build && git push heroku main"
   },
   "devDependencies": {
     "@prisma/client": "3.10.0",
@@ -36,5 +38,8 @@
     "typescript": "4.6.2"
   },
   "packageManager": "pnpm@6.32.2",
+  "engines": {
+    "node": "16.14.0"
+  },
   "prettier": {}
 }
