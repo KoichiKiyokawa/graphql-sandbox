@@ -1,3 +1,3 @@
 (async function () {
-  await import("~/schema");
+  await import("~/root-schema");
 })();

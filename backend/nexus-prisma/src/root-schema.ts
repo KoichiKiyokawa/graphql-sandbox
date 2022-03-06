@@ -5,7 +5,7 @@ import * as ArticleTypes from "./domains/article/schema";
 import * as AuthTypes from "./domains/auth/schema";
 import * as CoreTypes from "./domains/core/schema";
 import * as UserTypes from "./domains/user/schema";
-import * as Scalars from "./scalar";
+import * as Scalars from "./domains/core/scalar";
 
 export const schema = makeSchema({
   types: [UserTypes, ArticleTypes, AuthTypes, CoreTypes, Scalars],
