@@ -4,6 +4,7 @@
  */
 
 
+import type { Context } from "./../context"
 import type { core } from "nexus"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
@@ -51,6 +52,9 @@ export interface NexusGenObjects {
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
+  LoginResponse: { // root type
+    message?: string | null; // String
+  }
   Query: {};
   User: { // root type
     email: string; // String!
@@ -79,9 +83,13 @@ export interface NexusGenFieldTypes {
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
+  LoginResponse: { // field return type
+    message: string | null; // String
+  }
   Query: { // field return type
     article: NexusGenRootTypes['Article'] | null; // Article
     articles: Array<NexusGenRootTypes['Article'] | null> | null; // [Article]
+    login: NexusGenRootTypes['LoginResponse'] | null; // LoginResponse
   }
   User: { // field return type
     articles: Array<NexusGenRootTypes['Article'] | null>; // [Article]!
@@ -101,9 +109,13 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
   }
+  LoginResponse: { // field return type name
+    message: 'String'
+  }
   Query: { // field return type name
     article: 'Article'
     articles: 'Article'
+    login: 'LoginResponse'
   }
   User: { // field return type name
     articles: 'Article'
@@ -120,6 +132,10 @@ export interface NexusGenArgTypes {
     }
     articles: { // args
       first?: number | null; // Int
+    }
+    login: { // args
+      email: string; // String!
+      password: string; // String!
     }
   }
 }
@@ -155,7 +171,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;

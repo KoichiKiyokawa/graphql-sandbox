@@ -1,5 +1,4 @@
-import { intArg, nonNull, objectType, stringArg } from "nexus"
-import { Context } from "../../context"
+import { extendType, intArg, nonNull, objectType, stringArg } from "nexus"
 import { User } from "../user/schema"
 
 export const Article = objectType({
@@ -18,7 +17,7 @@ export const Article = objectType({
     t.nonNull.field("author", {
       type: User.name,
       description: "The author of the article",
-      async resolve({ slug }, _args, context: Context) {
+      async resolve({ slug }, _args, context) {
         const author = await context.prisma.article
           .findUnique({ where: { slug } })
           .author()
@@ -31,15 +30,15 @@ export const Article = objectType({
   },
 })
 
-export const ArticleQuery = objectType({
-  name: "Query",
+export const ArticleQuery = extendType({
+  type: "Query",
   definition(t) {
     t.field("article", {
       type: Article.name,
       args: {
         slug: nonNull(stringArg()),
       },
-      resolve(_parent, args, context: Context) {
+      resolve(_parent, args, context) {
         return context.prisma.article.findUnique({
           where: { slug: args.slug },
         })
@@ -50,7 +49,7 @@ export const ArticleQuery = objectType({
       args: {
         first: intArg(),
       },
-      resolve(_parent, args, context: Context) {
+      resolve(_parent, args, context) {
         return context.prisma.article.findMany({
           take: args.first ?? undefined,
         })
@@ -58,3 +57,5 @@ export const ArticleQuery = objectType({
     })
   },
 })
+
+export const ArticleTypes = [Article, ArticleQuery]
