@@ -1,9 +1,9 @@
-import { nonNull, objectType, stringArg } from "nexus";
+import { extendType, nonNull, stringArg } from "nexus";
 import bcrypt from "bcryptjs";
 import { MaybeError } from "../core/schema";
 
-export const Query = objectType({
-  name: "Query",
+export const Mutation = extendType({
+  type: "Mutation",
   definition(t) {
     t.field("login", {
       type: MaybeError,
