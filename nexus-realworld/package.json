@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:sever": "pnpm --dir apps/server run dev"
+    "dev:server": "pnpm --dir apps/server run dev",
+    "dev:db": "cd apps/server && docker-compose up -d",
+    "codegen:all": "pnpm run codegen --filter !server"
   },
   "keywords": [],
   "author": "",

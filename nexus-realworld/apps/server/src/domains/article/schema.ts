@@ -45,7 +45,7 @@ export const Query = extendType({
         });
       },
     });
-    t.nonNull.list.field("articles", {
+    t.nonNull.list.nonNull.field("articles", {
       type: Article.name,
       args: {
         first: intArg(),

@@ -85,7 +85,7 @@ export type PageInfo = {
 export type Query = {
   __typename?: 'Query';
   article?: Maybe<Article>;
-  articles: Array<Maybe<Article>>;
+  articles: Array<Article>;
   /** Get the specified user */
   user: User;
   /** Get all users */
@@ -126,7 +126,7 @@ export type UserArticlesArgs = {
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, description: string, body: string, author: { __typename?: 'User', id: string, name: string } } | null> };
+export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, description: string, body: string, author: { __typename?: 'User', id: string, name: string } }> };
 
 
 export const GetArticlesDoc = gql`

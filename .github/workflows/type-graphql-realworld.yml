@@ -3,13 +3,13 @@ on:
   push:
     paths:
       - type-graphql-realworld/**
-      - .github/**
+      - .github/workflows/type-graphql-realworld.yml
     branches:
       - main
   pull_request:
     paths:
       - type-graphql-realworld/**
-      - .github/**
+      - .github/workflows/type-graphql-realworld.yml
     branches:
       - main
 defaults:

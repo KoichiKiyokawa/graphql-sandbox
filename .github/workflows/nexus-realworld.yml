@@ -3,13 +3,13 @@ on:
   push:
     paths:
       - nexus-realworld/**
-      - .github/**
+      - .github/workflows/nexus-realworld.yml
     branches:
       - main
   pull_request:
     paths:
       - nexus-realworld/**
-      - .github/**
+      - .github/workflows/nexus-realworld.yml
     branches:
       - main
 
@@ -39,15 +39,11 @@ jobs:
       - run: pnpm --dir apps/server run build
       - name: codegen and typecheck for nextjs-apollo
         run: |
-          pnpm --dir apps/server run dev &
-          sleep 5
           pnpm --dir apps/nextjs-apollo run codegen
           pnpm --dir apps/nextjs-apollo exec tsc --noEmit
           pnpm --dir apps/nextjs-apollo run lint
       - name: codegen and typecheck for svelte-kit-apollo
         run: |
-          pnpm --dir apps/server run dev &
-          sleep 5
           pnpm --dir apps/svelte-kit-apollo run codegen
           pnpm --dir apps/svelte-kit-apollo exec tsc --noEmit
           pnpm --dir apps/svelte-kit-apollo run lint

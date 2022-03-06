@@ -1,4 +1,4 @@
-schema: http://localhost:4000/graphql
+schema: ../server/src/generated/schema.graphql
 documents: './src/**/*.gql'
 generates:
   ./src/graphql/generated.ts:
@@ -7,4 +7,4 @@ generates:
       - typescript-operations
       - graphql-codegen-svelte-apollo
 config:
-  clientPath: "src/plugins/apollo"
+  clientPath: 'src/plugins/apollo'
