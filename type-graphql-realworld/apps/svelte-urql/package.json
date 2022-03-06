@@ -37,7 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"@urql/svelte": "1.3.3",
-		"graphql": "16.1.0"
+		"graphql": "15.8.0"
 	},
 	"packageManager": "pnpm@6.32.2"
 }

@@ -34,5 +34,6 @@ jobs:
         run: |
           cp apps/apollo-typegraphql-prisma/src/env.sample.ts apps/apollo-typegraphql-prisma/src/env.ts
           pnpm --dir apps/apollo-typegraphql-prisma dev &
+          sleep 5
           pnpm --dir apps/react-location-apollo codegen
           pnpm --dir apps/svelte-urql codegen

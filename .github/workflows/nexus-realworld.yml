@@ -22,9 +22,7 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 14.x
           - 16.x
-          - 17.x
     steps:
       - uses: actions/checkout@v3
       - run: corepack enable pnpm
@@ -33,9 +31,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
-          cache-dependency-path: nexus-prisma/pnpm-lock.yaml
+          cache-dependency-path: nexus-realworld/pnpm-lock.yaml
       - run: pnpm i
       - run: pnpm --dir apps/server run typegen
-      - run: pnpm --dir apps/server lint
-      - run: pnpm --dir apps/server tsc --noEmit
+      - run: pnpm --dir apps/server run lint
+      - run: pnpm --dir apps/server exec tsc --noEmit
       - run: pnpm --dir apps/server run build
