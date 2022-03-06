@@ -1,4 +1,4 @@
-import { context } from "src/context";
+import { context } from "~/context";
 import bcrypt from "bcryptjs";
 
 const { prisma } = context;
@@ -19,7 +19,7 @@ async function seed() {
       await prisma.article.create({
         data: {
           title: `user${i}-title${j}`,
-          description: `user${i}description${j}`,
+          description: `user${i}-description${j}`,
           body: `user${i}-body${j}`,
           authorId: user.id,
         },
