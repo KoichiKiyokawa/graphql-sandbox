@@ -13,9 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "esno prisma/seed.ts",
     "lint": "prettier --check . && eslint --ignore-path .gitignore .",
-    "lint:fix": "prettier --write . && eslint --fix --ignore-path .gitignore .",
-    "deploy": "pnpm build && gcloud app deploy --project kiyo-dev-944",
-    "gcp-build": "npx prisma db push"
+    "lint:fix": "prettier --write . && eslint --fix --ignore-path .gitignore ."
   },
   "devDependencies": {
     "@prisma/client": "3.10.0",
