@@ -1,18 +1,12 @@
 import { nonNull, objectType, stringArg } from "nexus";
 import bcrypt from "bcryptjs";
+import { MaybeError } from "../core/schema";
 
-const LoginResponse = objectType({
-  name: "LoginResponse",
-  definition(t) {
-    t.string("error");
-  },
-});
-
-export const AuthQuery = objectType({
+export const Query = objectType({
   name: "Query",
   definition(t) {
     t.field("login", {
-      type: LoginResponse,
+      type: MaybeError,
       args: {
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
@@ -33,4 +27,4 @@ export const AuthQuery = objectType({
   },
 });
 
-export const AuthTypes = [LoginResponse, AuthQuery];
+export const AuthTypes = [Query];
