@@ -1,4 +1,4 @@
-import pkg from "nexus";
+import * as pkg from "nexus";
 const { connectionPlugin, makeSchema } = pkg;
 import { resolve } from "path";
 import * as ArticleTypes from "./domains/article/schema";
