@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepare": "simple-git-hooks",
     "postinstall": "prisma generate",
     "dev": "nodemon -w src --exec tsm src/index.ts",
     "build": "esbuild src/index.ts --bundle --platform=node --minify --sourcemap --outfile=dist/index.js",
