@@ -6,5 +6,3 @@ export const MaybeError = objectType({
     t.string("error", { description: "Error message" });
   },
 });
-
-export const CoreTypes = [MaybeError];

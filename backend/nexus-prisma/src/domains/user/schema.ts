@@ -46,5 +46,3 @@ export const Query = extendType({
     });
   },
 });
-
-export const UserTypes = [User, Query];

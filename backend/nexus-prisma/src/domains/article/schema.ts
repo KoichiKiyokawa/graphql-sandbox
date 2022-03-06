@@ -57,5 +57,3 @@ export const Query = extendType({
     });
   },
 });
-
-export const ArticleTypes = [Article, Query];

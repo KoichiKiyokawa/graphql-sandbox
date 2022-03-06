@@ -26,5 +26,3 @@ export const Query = objectType({
     });
   },
 });
-
-export const AuthTypes = [Query];
