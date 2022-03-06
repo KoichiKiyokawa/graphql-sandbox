@@ -1,11 +1,11 @@
-import { context } from "../src/context"
-import bcrypt from "bcryptjs"
+import { context } from "../src/context";
+import bcrypt from "bcryptjs";
 
-const { prisma } = context
+const { prisma } = context;
 
 async function seed() {
-  await prisma.article.deleteMany()
-  await prisma.user.deleteMany()
+  await prisma.article.deleteMany();
+  await prisma.user.deleteMany();
 
   for (let i = 0; i < 10; i++) {
     const user = await prisma.user.create({
@@ -14,7 +14,7 @@ async function seed() {
         email: `user${i}@example.com`,
         passwordHash: bcrypt.hashSync("password"),
       },
-    })
+    });
     for (let j = 0; j < 100; j++) {
       await prisma.article.create({
         data: {
@@ -23,9 +23,9 @@ async function seed() {
           body: `user${i}-body${j}`,
           authorId: user.id,
         },
-      })
+      });
     }
   }
 }
 
-seed()
+seed();
