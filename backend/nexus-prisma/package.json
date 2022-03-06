@@ -16,23 +16,21 @@
   "author": "",
   "license": "UNLICENSED",
   "private": true,
-  "dependencies": {
+  "devDependencies": {
     "@prisma/client": "3.10.0",
+    "@types/bcryptjs": "2.4.2",
+    "@typescript-eslint/eslint-plugin": "5.13.0",
+    "@typescript-eslint/parser": "5.13.0",
     "apollo-server": "3.6.3",
     "bcryptjs": "2.4.3",
     "graphql": "16.3.0",
     "graphql-relay": "0.10.0",
     "graphql-scalars": "1.15.0",
-    "nexus": "1.3.0"
-  },
-  "devDependencies": {
-    "@types/bcryptjs": "2.4.2",
-    "@typescript-eslint/eslint-plugin": "5.13.0",
-    "@typescript-eslint/parser": "5.13.0",
     "esbuild": "0.14.25",
     "eslint": "8.10.0",
     "eslint-config-prettier": "8.5.0",
     "esno": "0.14.1",
+    "nexus": "1.3.0",
     "nodemon": "2.0.15",
     "prettier": "2.5.1",
     "prisma": "3.10.0",
