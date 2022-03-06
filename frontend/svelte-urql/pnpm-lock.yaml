@@ -4,7 +4,7 @@ specifiers:
   '@graphql-codegen/cli': 2.6.2
   '@graphql-codegen/typescript-operations': 2.3.2
   '@graphql-codegen/urql-svelte-operations-store': 1.1.12
-  '@sveltejs/adapter-static': 1.0.0-next.28
+  '@sveltejs/adapter-static': 1.0.0-next.29
   '@sveltejs/kit': 1.0.0-next.292
   '@typescript-eslint/eslint-plugin': 5.13.0
   '@typescript-eslint/parser': 5.13.0
@@ -32,7 +32,7 @@ devDependencies:
   '@graphql-codegen/cli': 2.6.2_graphql@16.1.0+typescript@4.6.2
   '@graphql-codegen/typescript-operations': 2.3.2_graphql@16.1.0
   '@graphql-codegen/urql-svelte-operations-store': 1.1.12_graphql@16.1.0
-  '@sveltejs/adapter-static': 1.0.0-next.28
+  '@sveltejs/adapter-static': 1.0.0-next.29
   '@sveltejs/kit': 1.0.0-next.292_svelte@3.46.4
   '@typescript-eslint/eslint-plugin': 5.13.0_33fffc354ccfa91fbe7d1677b9395a0a
   '@typescript-eslint/parser': 5.13.0_eslint@8.10.0+typescript@4.6.2
@@ -1184,8 +1184,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /@sveltejs/adapter-static/1.0.0-next.28:
-    resolution: {integrity: sha512-c4xLyeSwnbGQxe4f1SLpHTbxZDm3TEr43scR3tOlVgQN+mnAL9aDdl3nTtdzWmrUDmDEmY4GriAwLyFLZuINLw==}
+  /@sveltejs/adapter-static/1.0.0-next.29:
+    resolution: {integrity: sha512-0hjGnfT3BRyoHnzJ2w0/xL+xICRpKneDTm45ZzggiRrc0r71WJfF6toGeg8N4QUQnj8EJ3Itm453gsS1kt7VUQ==}
     dependencies:
       tiny-glob: 0.2.9
     dev: true
