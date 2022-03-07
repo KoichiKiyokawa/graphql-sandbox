@@ -1,7 +1,7 @@
 import { context } from "~/context";
 import bcrypt from "bcryptjs";
 
-const { prisma } = context;
+const { db: prisma } = context;
 
 async function seed() {
   await prisma.article.deleteMany();

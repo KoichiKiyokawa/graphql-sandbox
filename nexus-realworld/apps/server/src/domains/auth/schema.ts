@@ -12,7 +12,7 @@ export const Mutation = extendType({
         password: nonNull(stringArg()),
       },
       async resolve(_parent, args, context) {
-        const targetUser = await context.prisma.user.findUnique({
+        const targetUser = await context.db.user.findUnique({
           where: { email: args.email },
         });
         const loginErrorMessage = "Login failed";
