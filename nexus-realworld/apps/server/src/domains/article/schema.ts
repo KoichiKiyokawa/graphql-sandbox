@@ -39,7 +39,7 @@ export const Query = extendType({
       args: {
         slug: nonNull(stringArg()),
       },
-      resolve(_parent, args, ctx) {
+      resolve(_root, args, ctx) {
         return ctx.db.article.findUnique({
           where: { slug: args.slug },
         });
@@ -50,7 +50,7 @@ export const Query = extendType({
       args: {
         first: intArg(),
       },
-      resolve(_parent, args, ctx) {
+      resolve(_root, args, ctx) {
         return ctx.db.article.findMany({
           take: args.first ?? undefined,
         });

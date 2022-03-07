@@ -11,7 +11,7 @@ export const Mutation = extendType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      async resolve(_parent, args, ctx) {
+      async resolve(_root, args, ctx) {
         const targetUser = await ctx.db.user.findUnique({
           where: { email: args.email },
         });

@@ -9,9 +9,9 @@ export const User = objectType({
     t.nonNull.string("email");
     t.connectionField("articles", {
       type: "Article",
-      resolve(parent, args, ctx) {
+      resolve(root, args, ctx) {
         return connectionFromPromisedArray(
-          ctx.db.user.findUnique({ where: { id: parent.id } }).articles(),
+          ctx.db.user.findUnique({ where: { id: root.id } }).articles(),
           args
         );
       },
