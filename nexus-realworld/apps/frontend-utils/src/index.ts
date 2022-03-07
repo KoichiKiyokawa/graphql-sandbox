@@ -5,6 +5,9 @@ type Connection<T> = {
     | undefined
 }
 
-export function getNodes<T>(connection: Connection<T>) {
-  return connection?.edges?.flatMap((edge) => edge?.node ?? []) ?? []
-}
+const isNonNullable = <T>(
+  value: T | null | undefined
+): value is NonNullable<T> => value != null
+
+export const getNodes = <T>(connection: Connection<T>): NonNullable<T>[] =>
+  connection?.edges?.map((edge) => edge?.node).filter(isNonNullable) ?? []
