@@ -1,12 +1,16 @@
 query GetArticles {
 	articles {
-		slug
-		title
-		description
-		body
-		author {
-			id
-			name
+		edges {
+			node {
+				slug
+				title
+				description
+				body
+				author {
+					id
+					name
+				}
+			}
 		}
 	}
 }
