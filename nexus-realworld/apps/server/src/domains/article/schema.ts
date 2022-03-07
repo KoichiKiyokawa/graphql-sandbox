@@ -18,8 +18,8 @@ export const Article = objectType({
     t.nonNull.field("author", {
       type: User,
       description: "The author of the article",
-      async resolve({ slug }, _args, context) {
-        const author = await context.db.article
+      async resolve({ slug }, _args, ctx) {
+        const author = await ctx.db.article
           .findUnique({ where: { slug } })
           .author();
 
@@ -39,8 +39,8 @@ export const Query = extendType({
       args: {
         slug: nonNull(stringArg()),
       },
-      resolve(_parent, args, context) {
-        return context.db.article.findUnique({
+      resolve(_root, args, ctx) {
+        return ctx.db.article.findUnique({
           where: { slug: args.slug },
         });
       },
@@ -50,8 +50,8 @@ export const Query = extendType({
       args: {
         first: intArg(),
       },
-      resolve(_parent, args, context) {
-        return context.db.article.findMany({
+      resolve(_root, args, ctx) {
+        return ctx.db.article.findMany({
           take: args.first ?? undefined,
         });
       },

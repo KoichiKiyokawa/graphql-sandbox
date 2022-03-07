@@ -1,6 +1,5 @@
-import { extendType, nonNull, objectType, stringArg } from "nexus";
 import { connectionFromPromisedArray } from "graphql-relay";
-import { Context } from "~/context";
+import { extendType, nonNull, objectType, stringArg } from "nexus";
 
 export const User = objectType({
   name: "User",
@@ -10,9 +9,9 @@ export const User = objectType({
     t.nonNull.string("email");
     t.connectionField("articles", {
       type: "Article",
-      resolve(parent, args, context: Context) {
+      resolve(root, args, ctx) {
         return connectionFromPromisedArray(
-          context.db.user.findUnique({ where: { id: parent.id } }).articles(),
+          ctx.db.user.findUnique({ where: { id: root.id } }).articles(),
           args
         );
       },
@@ -29,8 +28,8 @@ export const Query = extendType({
       args: {
         id: nonNull(stringArg()),
       },
-      async resolve(_parent, args, context) {
-        const user = await context.db.user.findUnique({
+      async resolve(_root, args, ctx) {
+        const user = await ctx.db.user.findUnique({
           where: { id: args.id },
         });
         if (!user) throw Error("User not found");
@@ -42,8 +41,8 @@ export const Query = extendType({
     t.nonNull.list.nonNull.field("users", {
       type: "User",
       description: "Get all users",
-      resolve(_parent, _args, context) {
-        return context.db.user.findMany();
+      resolve(_root, _args, ctx) {
+        return ctx.db.user.findMany();
       },
     });
   },

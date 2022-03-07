@@ -11,8 +11,8 @@ export const Mutation = extendType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      async resolve(_parent, args, context) {
-        const targetUser = await context.db.user.findUnique({
+      async resolve(_root, args, ctx) {
+        const targetUser = await ctx.db.user.findUnique({
           where: { email: args.email },
         });
         const loginErrorMessage = "Login failed";
