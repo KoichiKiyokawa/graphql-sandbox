@@ -44,9 +44,12 @@ export const Subscription = subscriptionType({
   definition(t) {
     t.nonNull.field("messageAdded", {
       type: Message,
-      subscribe: (_root, _args, ctx) =>
-        ctx.pubsub.asyncIterator(PUBSUB_KEYS.MESSAGE_ADDED),
-      resolve: (event) => event as any,
+      subscribe: (_root, _args, ctx) => {
+        return ctx.pubsub.asyncIterator(PUBSUB_KEYS.MESSAGE_ADDED);
+      },
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      resolve: (event) => event,
     });
   },
 });
