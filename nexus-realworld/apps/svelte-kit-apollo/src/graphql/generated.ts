@@ -52,15 +52,35 @@ export type ArticleEdge = {
   node?: Maybe<Article>;
 };
 
+export type CreateMessageInput = {
+  text: Scalars['String'];
+  toUserId: Scalars['ID'];
+};
+
 export type MaybeError = {
   __typename?: 'MaybeError';
   /** Error message */
   error?: Maybe<Scalars['String']>;
 };
 
+/** A message between two users. */
+export type Message = {
+  __typename?: 'Message';
+  from: User;
+  id: Scalars['ID'];
+  text: Scalars['String'];
+  to: User;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  addMessage: Message;
   login?: Maybe<MaybeError>;
+};
+
+
+export type MutationAddMessageArgs = {
+  message: CreateMessageInput;
 };
 
 
@@ -85,7 +105,7 @@ export type PageInfo = {
 export type Query = {
   __typename?: 'Query';
   article?: Maybe<Article>;
-  articles: Array<Article>;
+  articles: ArticleConnection;
   /** Get the specified user */
   user: User;
   /** Get all users */
@@ -99,12 +119,20 @@ export type QueryArticleArgs = {
 
 
 export type QueryArticlesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type QueryUserArgs = {
   id: Scalars['String'];
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  messageAdded: Message;
 };
 
 export type User = {
@@ -126,19 +154,23 @@ export type UserArticlesArgs = {
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, description: string, body: string, author: { __typename?: 'User', id: string, name: string } }> };
+export type GetArticlesQuery = { __typename?: 'Query', articles: { __typename?: 'ArticleConnection', edges?: Array<{ __typename?: 'ArticleEdge', node?: { __typename?: 'Article', slug: string, title: string, description: string, body: string, author: { __typename?: 'User', id: string, name: string } } | null } | null> | null } };
 
 
 export const GetArticlesDoc = gql`
     query GetArticles {
   articles {
-    slug
-    title
-    description
-    body
-    author {
-      id
-      name
+    edges {
+      node {
+        slug
+        title
+        description
+        body
+        author {
+          id
+          name
+        }
+      }
     }
   }
 }

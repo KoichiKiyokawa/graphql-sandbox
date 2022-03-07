@@ -46,7 +46,7 @@ export const Query = extendType({
         });
       },
     });
-    t.connectionField("articles", {
+    t.nonNull.connectionField("articles", {
       type: Article,
       async resolve(_root, args, ctx) {
         return connectionFromPromisedArray(ctx.db.article.findMany(), args);
