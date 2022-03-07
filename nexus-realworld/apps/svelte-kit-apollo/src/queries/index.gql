@@ -1,5 +1,5 @@
 query GetArticles {
-	articles {
+	articles(first: 100) {
 		edges {
 			node {
 				slug

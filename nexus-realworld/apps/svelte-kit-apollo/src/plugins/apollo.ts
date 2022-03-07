@@ -1,4 +1,5 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import * as pkg from '@apollo/client';
+const { ApolloClient, InMemoryCache } = pkg;
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
