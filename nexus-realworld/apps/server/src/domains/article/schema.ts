@@ -19,7 +19,7 @@ export const Article = objectType({
       type: User,
       description: "The author of the article",
       async resolve({ slug }, _args, context) {
-        const author = await context.prisma.article
+        const author = await context.db.article
           .findUnique({ where: { slug } })
           .author();
 
@@ -40,7 +40,7 @@ export const Query = extendType({
         slug: nonNull(stringArg()),
       },
       resolve(_parent, args, context) {
-        return context.prisma.article.findUnique({
+        return context.db.article.findUnique({
           where: { slug: args.slug },
         });
       },
@@ -51,7 +51,7 @@ export const Query = extendType({
         first: intArg(),
       },
       resolve(_parent, args, context) {
-        return context.prisma.article.findMany({
+        return context.db.article.findMany({
           take: args.first ?? undefined,
         });
       },

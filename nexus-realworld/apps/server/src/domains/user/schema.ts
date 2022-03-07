@@ -12,9 +12,7 @@ export const User = objectType({
       type: "Article",
       resolve(parent, args, context: Context) {
         return connectionFromPromisedArray(
-          context.prisma.user
-            .findUnique({ where: { id: parent.id } })
-            .articles(),
+          context.db.user.findUnique({ where: { id: parent.id } }).articles(),
           args
         );
       },
@@ -32,7 +30,7 @@ export const Query = extendType({
         id: nonNull(stringArg()),
       },
       async resolve(_parent, args, context) {
-        const user = await context.prisma.user.findUnique({
+        const user = await context.db.user.findUnique({
           where: { id: args.id },
         });
         if (!user) throw Error("User not found");
@@ -45,7 +43,7 @@ export const Query = extendType({
       type: "User",
       description: "Get all users",
       resolve(_parent, _args, context) {
-        return context.prisma.user.findMany();
+        return context.db.user.findMany();
       },
     });
   },
