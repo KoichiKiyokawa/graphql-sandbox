@@ -1,5 +1,5 @@
 import { useGetArticlesQuery } from "../generated/graphql"
-import { getNodes } from "../utils"
+import { getNodes } from "@nexus-realworld/frontend-utils"
 
 export default function Index() {
   const { data } = useGetArticlesQuery()

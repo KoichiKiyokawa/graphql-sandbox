@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { getNodes } from 'src/utils';
+	import { getNodes } from '@nexus-realworld/frontend-utils';
 	import { GetArticles } from '../graphql/generated';
-
 	const articlesQuery = GetArticles({});
 </script>
 

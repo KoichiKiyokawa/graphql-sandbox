@@ -5,6 +5,12 @@ importers:
   .:
     specifiers: {}
 
+  apps/frontend-utils:
+    specifiers:
+      typescript: 4.6.2
+    devDependencies:
+      typescript: 4.6.2
+
   apps/nextjs-apollo:
     specifiers:
       '@apollo/client': 3.5.10
@@ -13,6 +19,7 @@ importers:
       '@graphql-codegen/typescript': 2.4.5
       '@graphql-codegen/typescript-operations': 2.3.2
       '@graphql-codegen/typescript-react-apollo': 3.2.8
+      '@nexus-realworld/frontend-utils': workspace:*
       '@types/react': ^17.0.39
       eslint: 8.10.0
       eslint-config-next: 12.1.0
@@ -23,6 +30,7 @@ importers:
       typescript: 4.6.2
     dependencies:
       '@apollo/client': 3.5.10_graphql@16.3.0+react@17.0.2
+      '@nexus-realworld/frontend-utils': link:../frontend-utils
       next: 12.1.0_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -97,6 +105,7 @@ importers:
       '@graphql-codegen/cli': 2.6.2
       '@graphql-codegen/typescript': 2.4.5
       '@graphql-codegen/typescript-operations': 2.3.2
+      '@nexus-realworld/frontend-utils': workspace:*
       '@sveltejs/adapter-auto': next
       '@sveltejs/kit': next
       '@typescript-eslint/eslint-plugin': ^5.10.1
@@ -120,6 +129,7 @@ importers:
       '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.2
       '@graphql-codegen/typescript': 2.4.5_graphql@16.3.0
       '@graphql-codegen/typescript-operations': 2.3.2_graphql@16.3.0
+      '@nexus-realworld/frontend-utils': link:../frontend-utils
       '@sveltejs/adapter-auto': 1.0.0-next.31
       '@sveltejs/kit': 1.0.0-next.294_svelte@3.46.4
       '@typescript-eslint/eslint-plugin': 5.13.0_3a0304e4216f58c7e1135459c8d18e32
