@@ -45,7 +45,7 @@ jobs:
       - name: codegen and typecheck for svelte-kit-apollo
         run: |
           pnpm --dir apps/svelte-kit-apollo run codegen
-          pnpm --dir apps/svelte-kit-apollo run build
+          # pnpm --dir apps/svelte-kit-apollo run build
           pnpm --dir apps/svelte-kit-apollo exec tsc --noEmit
           pnpm --dir apps/svelte-kit-apollo run lint
           pnpm --dir apps/svelte-kit-apollo run check
