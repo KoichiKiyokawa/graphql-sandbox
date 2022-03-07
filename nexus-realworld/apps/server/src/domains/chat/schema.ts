@@ -1,9 +1,8 @@
 import {
-  idArg,
+  inputObjectType,
   mutationType,
   nonNull,
   objectType,
-  stringArg,
   subscriptionType,
 } from "nexus";
 import { PUBSUB_KEYS } from "../core/contants";
@@ -19,18 +18,25 @@ export const Message = objectType({
   },
 });
 
+export const CreateMessageInput = inputObjectType({
+  name: "CreateMessageInput",
+  definition(t) {
+    t.nonNull.id("toUserId");
+    t.nonNull.string("text");
+  },
+});
+
 export const Mutation = mutationType({
   definition(t) {
     t.nonNull.field("addMessage", {
       type: Message,
       args: {
-        toUserId: nonNull(idArg()),
-        text: nonNull(stringArg()),
+        message: nonNull(CreateMessageInput),
       },
       async resolve(_root, args, ctx) {
         const currentUser = await ctx.getCurrentUser();
         const created = await ctx.db.message.create({
-          data: { ...args, fromUserId: currentUser.id },
+          data: { ...args.message, fromUserId: currentUser.id },
           include: { from: true, to: true },
         });
         ctx.pubsub.publish(PUBSUB_KEYS.MESSAGE_ADDED, created);

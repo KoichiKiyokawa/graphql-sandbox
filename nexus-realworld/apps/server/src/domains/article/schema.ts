@@ -1,4 +1,5 @@
-import { extendType, intArg, nonNull, objectType, stringArg } from "nexus";
+import { connectionFromPromisedArray } from "graphql-relay";
+import { extendType, nonNull, objectType, stringArg } from "nexus";
 import { User } from "~/domains/user/schema";
 
 export const Article = objectType({
@@ -45,15 +46,10 @@ export const Query = extendType({
         });
       },
     });
-    t.nonNull.list.nonNull.field("articles", {
-      type: Article.name,
-      args: {
-        first: intArg(),
-      },
-      resolve(_root, args, ctx) {
-        return ctx.db.article.findMany({
-          take: args.first ?? undefined,
-        });
+    t.nonNull.connectionField("articles", {
+      type: Article,
+      async resolve(_root, args, ctx) {
+        return connectionFromPromisedArray(ctx.db.article.findMany(), args);
       },
     });
   },
