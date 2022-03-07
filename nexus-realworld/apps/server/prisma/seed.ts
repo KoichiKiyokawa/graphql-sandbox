@@ -26,6 +26,17 @@ async function seed() {
       });
     }
   }
+
+  const [user1, user2] = await prisma.user.findMany();
+  for (let i = 0; i < 10; i++) {
+    await prisma.message.create({
+      data: {
+        text: `${user1.name} -> ${user2.name}`,
+        fromUserId: user1.id,
+        toUserId: user2.id,
+      },
+    });
+  }
 }
 
 seed();

@@ -22,7 +22,6 @@
     "@types/bcryptjs": "2.4.2",
     "@typescript-eslint/eslint-plugin": "5.13.0",
     "@typescript-eslint/parser": "5.13.0",
-    "apollo-server": "3.6.3",
     "bcryptjs": "2.4.3",
     "esbuild": "0.14.25",
     "eslint": "8.10.0",
@@ -41,5 +40,14 @@
   "engines": {
     "node": "16.14.0"
   },
-  "prettier": {}
+  "prettier": {},
+  "dependencies": {
+    "@graphql-tools/schema": "^8.3.2",
+    "apollo-server-core": "^3.6.3",
+    "apollo-server-express": "^3.6.3",
+    "express": "^4.17.3",
+    "graphql-subscriptions": "^2.0.0",
+    "graphql-ws": "^5.6.2",
+    "ws": "^8.5.0"
+  }
 }

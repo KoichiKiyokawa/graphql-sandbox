@@ -16,7 +16,9 @@ model User {
   email        String @unique
   passwordHash String
 
-  articles Article[]
+  articles         Article[]
+  sendMessages     Message[] @relation("sendMessages")
+  receivedMessages Message[] @relation("receivedMessages")
 }
 
 model Article {
@@ -29,4 +31,14 @@ model Article {
 
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
+}
+
+model Message {
+  id   String @id @default(cuid())
+  text String
+
+  from       User   @relation("sendMessages", fields: [fromUserId], references: [id])
+  to         User   @relation("receivedMessages", fields: [toUserId], references: [id])
+  fromUserId String
+  toUserId   String
 }
