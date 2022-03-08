@@ -12,5 +12,11 @@
   "author": "",
   "license": "UNLICENSED",
   "private": true,
-  "packageManager": "pnpm@6.32.3"
+  "packageManager": "yarn@3.2.0",
+  "workspaces": [
+    "apps/**"
+  ],
+  "resolutions": {
+    "@apollo/client@3.5.10": "patch:@apollo/client@npm:3.5.10#.yarn/patches/@apollo-client-npm-3.5.10-3195b15ff1.patch"
+  }
 }
