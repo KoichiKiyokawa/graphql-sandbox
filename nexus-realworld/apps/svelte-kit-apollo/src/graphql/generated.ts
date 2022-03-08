@@ -1,4 +1,4 @@
-import client from "src/plugins/apollo";
+import client from "../plugins/apollo";
 import type {
         ApolloQueryResult, ObservableQuery, WatchQueryOptions
       } from "@apollo/client";
@@ -159,7 +159,7 @@ export type GetArticlesQuery = { __typename?: 'Query', articles: { __typename?: 
 
 export const GetArticlesDoc = gql`
     query GetArticles {
-  articles {
+  articles(first: 100) {
     edges {
       node {
         slug

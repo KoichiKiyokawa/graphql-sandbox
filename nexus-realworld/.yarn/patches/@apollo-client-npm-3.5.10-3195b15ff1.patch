@@ -1,0 +1,22 @@
+diff --git a/package.json b/package.json
+index a9e8244303f5a05cb884cf10b44d35a1b7ecca94..9c7d39dde52938ad76e1c53b4efb9d9341a6f7f1 100644
+--- a/package.json
++++ b/package.json
+@@ -16,6 +16,17 @@
+   "main": "./main.cjs",
+   "module": "./index.js",
+   "types": "./index.d.ts",
++  "//exports": "https://github.com/apollographql/apollo-client/issues/8218#issuecomment-941256676",
++  "exports": {
++    ".": {
++      "require": "./main.cjs",
++      "import": "./index.js"
++    },
++    "./core": {
++      "require": "./core/core.cjs",
++      "import": "./core/index.js"
++    }
++  },
+   "sideEffects": false,
+   "react-native": {
+     "./dist/cache/inmemory/fixPolyfills.js": "./cache/inmemory/fixPolyfills.native.js"

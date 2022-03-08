@@ -38,6 +38,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@apollo/client": "3.5.10"
+		"@apollo/client": "patch:@apollo/client@3.5.10#../../.yarn/patches/@apollo-client-npm-3.5.10-3195b15ff1.patch"
 	}
 }

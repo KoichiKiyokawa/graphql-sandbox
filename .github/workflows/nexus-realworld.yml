@@ -25,27 +25,26 @@ jobs:
           - 16.x
     steps:
       - uses: actions/checkout@v3
-      - run: corepack enable pnpm
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: pnpm
-          cache-dependency-path: nexus-realworld/pnpm-lock.yaml
-      - run: pnpm i
-      - run: pnpm --dir apps/server run typegen
-      - run: pnpm --dir apps/server run lint
-      - run: pnpm --dir apps/server exec tsc --noEmit
-      - run: pnpm --dir apps/server run build
+          cache: yarn
+          cache-dependency-path: nexus-realworld/yarn.lock
+      - run: yarn install
+      - run: yarn workspace server run typegen
+      - run: yarn workspace server run lint
+      - run: yarn workspace server exec tsc --noEmit
+      - run: yarn workspace server run build
       - name: codegen and typecheck for nextjs-apollo
         run: |
-          pnpm --dir apps/nextjs-apollo run codegen
-          pnpm --dir apps/nextjs-apollo exec tsc --noEmit
-          pnpm --dir apps/nextjs-apollo run lint
+          yarn workspace nextjs-apollo run codegen
+          yarn workspace nextjs-apollo exec tsc --noEmit
+          yarn workspace nextjs-apollo run lint
       - name: codegen and typecheck for svelte-kit-apollo
         run: |
-          pnpm --dir apps/svelte-kit-apollo run codegen
-          # pnpm --dir apps/svelte-kit-apollo run build
-          pnpm --dir apps/svelte-kit-apollo exec tsc --noEmit
-          pnpm --dir apps/svelte-kit-apollo run lint
-          pnpm --dir apps/svelte-kit-apollo run check
+          yarn workspace svelte-kit-apollo run codegen
+          yarn workspace svelte-kit-apollo run build
+          yarn workspace svelte-kit-apollo exec tsc --noEmit
+          yarn workspace svelte-kit-apollo run lint
+          yarn workspace svelte-kit-apollo run check
