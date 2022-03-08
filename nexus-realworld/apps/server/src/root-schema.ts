@@ -11,8 +11,8 @@ export const schema = makeSchema({
   types: [UserTypes, ArticleTypes, AuthTypes, CoreTypes, MessageTypes, Scalars],
   contextType: { module: resolve("src/context.ts"), export: "Context" },
   outputs: {
-    schema: resolve("src/generated/schema.graphql"),
-    typegen: resolve("src/generated/nexus.ts"),
+    schema: resolve("generated/schema.graphql"),
+    typegen: resolve("generated/nexus.ts"),
   },
   plugins: [connectionPlugin()],
 });
