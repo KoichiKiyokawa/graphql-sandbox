@@ -52,7 +52,7 @@ importers:
       '@prisma/client': 3.10.0
       '@types/bcryptjs': 2.4.2
       '@typescript-eslint/eslint-plugin': 5.14.0
-      '@typescript-eslint/parser': 5.13.0
+      '@typescript-eslint/parser': 5.14.0
       apollo-server-core: 3.6.3
       apollo-server-express: 3.6.3
       bcryptjs: 2.4.3
@@ -83,8 +83,8 @@ importers:
     devDependencies:
       '@prisma/client': 3.10.0_prisma@3.10.0
       '@types/bcryptjs': 2.4.2
-      '@typescript-eslint/eslint-plugin': 5.14.0_33fffc354ccfa91fbe7d1677b9395a0a
-      '@typescript-eslint/parser': 5.13.0_eslint@8.10.0+typescript@4.6.2
+      '@typescript-eslint/eslint-plugin': 5.14.0_f4054b8c3cd621db16ae1b9d571bccc0
+      '@typescript-eslint/parser': 5.14.0_eslint@8.10.0+typescript@4.6.2
       bcryptjs: 2.4.3
       esbuild: 0.14.25
       eslint: 8.10.0
@@ -1874,7 +1874,7 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/eslint-plugin/5.14.0_33fffc354ccfa91fbe7d1677b9395a0a:
+  /@typescript-eslint/eslint-plugin/5.14.0_f4054b8c3cd621db16ae1b9d571bccc0:
     resolution: {integrity: sha512-ir0wYI4FfFUDfLcuwKzIH7sMVA+db7WYen47iRSaCGl+HMAZI9fpBwfDo45ZALD3A45ZGyHWDNLhbg8tZrMX4w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -1885,7 +1885,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.13.0_eslint@8.10.0+typescript@4.6.2
+      '@typescript-eslint/parser': 5.14.0_eslint@8.10.0+typescript@4.6.2
       '@typescript-eslint/scope-manager': 5.14.0
       '@typescript-eslint/type-utils': 5.14.0_eslint@8.10.0+typescript@4.6.2
       '@typescript-eslint/utils': 5.14.0_eslint@8.10.0+typescript@4.6.2
@@ -1934,6 +1934,26 @@ packages:
       '@typescript-eslint/scope-manager': 5.13.0
       '@typescript-eslint/types': 5.13.0
       '@typescript-eslint/typescript-estree': 5.13.0_typescript@4.6.2
+      debug: 4.3.3
+      eslint: 8.10.0
+      typescript: 4.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@typescript-eslint/parser/5.14.0_eslint@8.10.0+typescript@4.6.2:
+    resolution: {integrity: sha512-aHJN8/FuIy1Zvqk4U/gcO/fxeMKyoSv/rS46UXMXOJKVsLQ+iYPuXNbpbH7cBLcpSbmyyFbwrniLx5+kutu1pw==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@typescript-eslint/scope-manager': 5.14.0
+      '@typescript-eslint/types': 5.14.0
+      '@typescript-eslint/typescript-estree': 5.14.0_typescript@4.6.2
       debug: 4.3.3
       eslint: 8.10.0
       typescript: 4.6.2
