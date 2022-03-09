@@ -18,7 +18,7 @@ importers:
       '@graphql-codegen/introspection': 2.1.1
       '@graphql-codegen/typescript': 2.4.6
       '@graphql-codegen/typescript-operations': 2.3.2
-      '@graphql-codegen/typescript-react-apollo': 3.2.8
+      '@graphql-codegen/typescript-react-apollo': 3.2.9
       '@nexus-realworld/frontend-utils': workspace:*
       '@types/react': ^17.0.39
       eslint: 8.10.0
@@ -39,7 +39,7 @@ importers:
       '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
       '@graphql-codegen/typescript': 2.4.6_graphql@16.3.0
       '@graphql-codegen/typescript-operations': 2.3.2_graphql@16.3.0
-      '@graphql-codegen/typescript-react-apollo': 3.2.8_graphql@16.3.0
+      '@graphql-codegen/typescript-react-apollo': 3.2.9_graphql@16.3.0
       '@types/react': 17.0.39
       eslint: 8.10.0
       eslint-config-next: 12.1.0_91b99ef72d19920d7e6dded71447bf77
@@ -987,14 +987,14 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/typescript-react-apollo/3.2.8_graphql@16.3.0:
-    resolution: {integrity: sha512-XmYeBSS3KZF9WePMN5RqYwOHbDybhOxB89C+fvUscFX8MVI5DugMI99qYsdqS8mWQfElRe8ib68zKPaIGTnC0w==}
+  /@graphql-codegen/typescript-react-apollo/3.2.9_graphql@16.3.0:
+    resolution: {integrity: sha512-67JOAlvM08SVTcaDEvOLkFlWAnzZwGjTt2EP03IRiLsAZKxd/97jwJMQtLx7SBDLQkeMtci6TCpUkSHaqDoZOA==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-tag: ^2.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@16.3.0
-      '@graphql-codegen/visitor-plugin-common': 2.7.1_graphql@16.3.0
+      '@graphql-codegen/visitor-plugin-common': 2.7.2_graphql@16.3.0
       auto-bind: 4.0.0
       change-case-all: 1.0.14
       graphql: 16.3.0
