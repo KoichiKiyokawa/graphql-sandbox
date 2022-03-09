@@ -1,7 +1,7 @@
 import { build } from "esbuild";
 
 build({
-  entryPoints: ["src/index.ts"],
+  entryPoints: ["src/server/apollo.ts"],
   bundle: true,
   platform: "node",
   minify: true,
