@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 const { db: prisma } = context;
 
 async function seed() {
+  await prisma.message.deleteMany();
   await prisma.article.deleteMany();
   await prisma.user.deleteMany();
 
