@@ -15,7 +15,7 @@
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "2.6.2",
-		"@graphql-codegen/typescript": "2.4.5",
+		"@graphql-codegen/typescript": "2.4.6",
 		"@graphql-codegen/typescript-operations": "2.3.2",
 		"@nexus-realworld/frontend-utils": "workspace:*",
 		"@sveltejs/adapter-auto": "next",
