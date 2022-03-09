@@ -1,5 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
-import { PubSub } from "graphql-subscriptions";
+
+import { PubSub } from "mercurius";
 
 export interface Context {
   db: PrismaClient;
@@ -8,11 +9,9 @@ export interface Context {
 }
 
 const prisma = new PrismaClient({ log: ["error", "info", "query", "warn"] });
-const pubsub = new PubSub();
 
-export const context: Context = {
+export const context: Omit<Context, "pubsub"> = {
   db: prisma,
-  pubsub,
   async getCurrentUser() {
     const users = await prisma.user.findMany();
     return users[0];
