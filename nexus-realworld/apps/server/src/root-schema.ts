@@ -14,5 +14,5 @@ export const schema = makeSchema({
     schema: resolve("generated/schema.graphql"),
     typegen: resolve("generated/nexus.ts"),
   },
-  plugins: [connectionPlugin()],
+  plugins: [connectionPlugin({ nonNullDefaults: { output: true } })],
 });
