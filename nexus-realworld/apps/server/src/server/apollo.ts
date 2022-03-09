@@ -4,8 +4,8 @@ import express from "express";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import { WebSocketServer } from "ws";
-import { context } from "./context";
-import { schema } from "./root-schema";
+import { context } from "../context";
+import { schema } from "../root-schema";
 
 startApolloServer();
 

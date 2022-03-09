@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "start": "node dist",
-    "dev": "nodemon -w src --exec esno src/index.ts",
+    "dev:apollo": "nodemon -w src --exec esno src/server/apollo.ts",
     "typegen": "prisma generate && esno scripts/typegen.ts",
     "build": "esno scripts/build.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
