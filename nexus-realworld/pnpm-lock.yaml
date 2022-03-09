@@ -16,7 +16,7 @@ importers:
       '@apollo/client': 3.5.10
       '@graphql-codegen/cli': 2.6.2
       '@graphql-codegen/introspection': 2.1.1
-      '@graphql-codegen/typescript': 2.4.5
+      '@graphql-codegen/typescript': 2.4.6
       '@graphql-codegen/typescript-operations': 2.3.2
       '@graphql-codegen/typescript-react-apollo': 3.2.8
       '@nexus-realworld/frontend-utils': workspace:*
@@ -37,7 +37,7 @@ importers:
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.2
       '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
-      '@graphql-codegen/typescript': 2.4.5_graphql@16.3.0
+      '@graphql-codegen/typescript': 2.4.6_graphql@16.3.0
       '@graphql-codegen/typescript-operations': 2.3.2_graphql@16.3.0
       '@graphql-codegen/typescript-react-apollo': 3.2.8_graphql@16.3.0
       '@types/react': 17.0.39
@@ -103,7 +103,7 @@ importers:
     specifiers:
       '@apollo/client': 3.5.10
       '@graphql-codegen/cli': 2.6.2
-      '@graphql-codegen/typescript': 2.4.5
+      '@graphql-codegen/typescript': 2.4.6
       '@graphql-codegen/typescript-operations': 2.3.2
       '@nexus-realworld/frontend-utils': workspace:*
       '@sveltejs/adapter-auto': next
@@ -127,7 +127,7 @@ importers:
       '@apollo/client': 3.5.10_graphql@16.3.0
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.2
-      '@graphql-codegen/typescript': 2.4.5_graphql@16.3.0
+      '@graphql-codegen/typescript': 2.4.6_graphql@16.3.0
       '@graphql-codegen/typescript-operations': 2.3.2_graphql@16.3.0
       '@nexus-realworld/frontend-utils': link:../frontend-utils
       '@sveltejs/adapter-auto': 1.0.0-next.31
@@ -977,7 +977,7 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@16.3.0
-      '@graphql-codegen/typescript': 2.4.5_graphql@16.3.0
+      '@graphql-codegen/typescript': 2.4.6_graphql@16.3.0
       '@graphql-codegen/visitor-plugin-common': 2.7.1_graphql@16.3.0
       auto-bind: 4.0.0
       graphql: 16.3.0
@@ -1004,14 +1004,14 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/typescript/2.4.5_graphql@16.3.0:
-    resolution: {integrity: sha512-Ytb8phNHKl/v/wxudsMOAV1dmzIbckWHm2J83PLNOvnu9CGEhgsd67vfe3ZoF95VU2BKSG8BXGa6uL9z2xDmuA==}
+  /@graphql-codegen/typescript/2.4.6_graphql@16.3.0:
+    resolution: {integrity: sha512-hh8DYaIkjH5KQtRggR5WYpeyE8R4CzS1rT+i1rSxzTbPOvXbbGFRV3s1wb2xQLybsgLfeLXUe/jwhGYpEGTvlg==}
     peerDependencies:
       graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@16.3.0
       '@graphql-codegen/schema-ast': 2.4.1_graphql@16.3.0
-      '@graphql-codegen/visitor-plugin-common': 2.7.1_graphql@16.3.0
+      '@graphql-codegen/visitor-plugin-common': 2.7.2_graphql@16.3.0
       auto-bind: 4.0.0
       graphql: 16.3.0
       tslib: 2.3.1
@@ -1022,6 +1022,27 @@ packages:
 
   /@graphql-codegen/visitor-plugin-common/2.7.1_graphql@16.3.0:
     resolution: {integrity: sha512-Ew/+0GwGwL3ZSXS0cYz6lVvE7S5SkbTr7caRpLa4FpAdLGNskCgdA1n6W5tX5c7qsaYstqlxp30hJTfgTsYS6A==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.4.2_graphql@16.3.0
+      '@graphql-tools/optimize': 1.2.0_graphql@16.3.0
+      '@graphql-tools/relay-operation-optimizer': 6.4.2_graphql@16.3.0
+      '@graphql-tools/utils': 8.6.2_graphql@16.3.0
+      auto-bind: 4.0.0
+      change-case-all: 1.0.14
+      dependency-graph: 0.11.0
+      graphql: 16.3.0
+      graphql-tag: 2.12.6_graphql@16.3.0
+      parse-filepath: 1.0.2
+      tslib: 2.3.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/visitor-plugin-common/2.7.2_graphql@16.3.0:
+    resolution: {integrity: sha512-k6ROgxRAOvBtlwZdSFb6G6AFkBqvZsIWXfBe29xkPdzYKj6cSE/wqwf8AzcbV+ITTNsYW/W34NzQCwdVtFVs0w==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
