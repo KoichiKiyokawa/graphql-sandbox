@@ -41,10 +41,7 @@ export const Mutation = mutationType({
         });
         console.log(ctx.pubsub);
 
-        ctx.pubsub.publish({
-          topic: PUBSUB_KEYS.MESSAGE_ADDED,
-          payload: created,
-        });
+        ctx.pubsub.publish(PUBSUB_KEYS.MESSAGE_ADDED, created);
 
         return created;
       },
@@ -57,7 +54,7 @@ export const Subscription = subscriptionType({
     t.nonNull.field("messageAdded", {
       type: Message,
       subscribe: (_root, _args, ctx) => {
-        return ctx.pubsub.subscribe(PUBSUB_KEYS.MESSAGE_ADDED);
+        return ctx.pubsub.asyncIterator(PUBSUB_KEYS.MESSAGE_ADDED);
       },
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
