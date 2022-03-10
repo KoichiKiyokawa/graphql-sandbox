@@ -33,10 +33,14 @@ jobs:
           cache: pnpm
           cache-dependency-path: nexus-realworld/pnpm-lock.yaml
       - run: pnpm i
-      - run: pnpm --dir apps/server run typegen
-      - run: pnpm --dir apps/server run lint
-      - run: pnpm --dir apps/server exec tsc --noEmit
-      - run: pnpm --dir apps/server run build
+      - run: pnpm --dir apps/mercurius-server run typegen
+      - run: pnpm --dir apps/mercurius-server run lint
+      - run: pnpm --dir apps/mercurius-server exec tsc --noEmit
+      - run: pnpm --dir apps/mercurius-server run build
+      - run: pnpm --dir apps/apollo-server run typegen
+      - run: pnpm --dir apps/apollo-server run lint
+      - run: pnpm --dir apps/apollo-server exec tsc --noEmit
+      - run: pnpm --dir apps/apollo-server run build
       - name: codegen and typecheck for nextjs-apollo
         run: |
           pnpm --dir apps/nextjs-apollo run codegen

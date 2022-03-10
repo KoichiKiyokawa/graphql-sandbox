@@ -5,48 +5,66 @@ importers:
   .:
     specifiers: {}
 
+  apps/apollo-server:
+    specifiers:
+      '@prisma/client': 3.10.0
+      '@types/bcryptjs': 2.4.2
+      '@typescript-eslint/eslint-plugin': 5.14.0
+      '@typescript-eslint/parser': 5.14.0
+      apollo-server-core: 3.6.3
+      apollo-server-express: 3.6.3
+      bcryptjs: 2.4.3
+      dotenv-cli: 5.0.0
+      esbuild: 0.14.25
+      eslint: 8.10.0
+      eslint-config-prettier: 8.5.0
+      esno: 0.14.1
+      express: 4.17.3
+      graphql: 16.3.0
+      graphql-relay: 0.10.0
+      graphql-scalars: 1.15.0
+      graphql-subscriptions: 2.0.0
+      graphql-ws: 5.6.2
+      nexus: 1.3.0
+      nodemon: 2.0.15
+      prettier: 2.5.1
+      prisma: 3.10.0
+      typescript: 4.6.2
+      ws: 8.5.0
+    dependencies:
+      apollo-server-core: 3.6.3_graphql@16.3.0
+      apollo-server-express: 3.6.3_express@4.17.3+graphql@16.3.0
+      express: 4.17.3
+      graphql-subscriptions: 2.0.0_graphql@16.3.0
+      graphql-ws: 5.6.2_graphql@16.3.0
+      ws: 8.5.0
+    devDependencies:
+      '@prisma/client': 3.10.0_prisma@3.10.0
+      '@types/bcryptjs': 2.4.2
+      '@typescript-eslint/eslint-plugin': 5.14.0_f4054b8c3cd621db16ae1b9d571bccc0
+      '@typescript-eslint/parser': 5.14.0_eslint@8.10.0+typescript@4.6.2
+      bcryptjs: 2.4.3
+      dotenv-cli: 5.0.0
+      esbuild: 0.14.25
+      eslint: 8.10.0
+      eslint-config-prettier: 8.5.0_eslint@8.10.0
+      esno: 0.14.1
+      graphql: 16.3.0
+      graphql-relay: 0.10.0_graphql@16.3.0
+      graphql-scalars: 1.15.0_graphql@16.3.0
+      nexus: 1.3.0_graphql@16.3.0
+      nodemon: 2.0.15
+      prettier: 2.5.1
+      prisma: 3.10.0
+      typescript: 4.6.2
+
   apps/frontend-utils:
     specifiers:
       typescript: 4.6.2
     devDependencies:
       typescript: 4.6.2
 
-  apps/nextjs-apollo:
-    specifiers:
-      '@apollo/client': 3.5.10
-      '@graphql-codegen/cli': 2.6.2
-      '@graphql-codegen/introspection': 2.1.1
-      '@graphql-codegen/typescript': 2.4.7
-      '@graphql-codegen/typescript-operations': 2.3.3
-      '@graphql-codegen/typescript-react-apollo': 3.2.10
-      '@nexus-realworld/frontend-utils': workspace:*
-      '@types/react': ^17.0.39
-      eslint: 8.10.0
-      eslint-config-next: 12.1.0
-      graphql: 16.3.0
-      next: 12.1.0
-      react: 17.0.2
-      react-dom: 17.0.2
-      typescript: 4.6.2
-    dependencies:
-      '@apollo/client': 3.5.10_graphql@16.3.0+react@17.0.2
-      '@nexus-realworld/frontend-utils': link:../frontend-utils
-      next: 12.1.0_react-dom@17.0.2+react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    devDependencies:
-      '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.2
-      '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
-      '@graphql-codegen/typescript': 2.4.7_graphql@16.3.0
-      '@graphql-codegen/typescript-operations': 2.3.3_graphql@16.3.0
-      '@graphql-codegen/typescript-react-apollo': 3.2.10_graphql@16.3.0
-      '@types/react': 17.0.39
-      eslint: 8.10.0
-      eslint-config-next: 12.1.0_91b99ef72d19920d7e6dded71447bf77
-      graphql: 16.3.0
-      typescript: 4.6.2
-
-  apps/server:
+  apps/mercurius-server:
     specifiers:
       '@graphql-tools/schema': 8.3.2
       '@prisma/client': 3.10.0
@@ -103,6 +121,41 @@ importers:
       prisma: 3.10.0
       typescript: 4.6.2
 
+  apps/nextjs-apollo:
+    specifiers:
+      '@apollo/client': 3.5.10
+      '@graphql-codegen/cli': 2.6.2
+      '@graphql-codegen/introspection': 2.1.1
+      '@graphql-codegen/typescript': 2.4.7
+      '@graphql-codegen/typescript-operations': 2.3.3
+      '@graphql-codegen/typescript-react-apollo': 3.2.10
+      '@nexus-realworld/frontend-utils': workspace:*
+      '@types/react': ^17.0.39
+      eslint: 8.10.0
+      eslint-config-next: 12.1.0
+      graphql: 16.3.0
+      next: 12.1.0
+      react: 17.0.2
+      react-dom: 17.0.2
+      typescript: 4.6.2
+    dependencies:
+      '@apollo/client': 3.5.10_graphql@16.3.0+react@17.0.2
+      '@nexus-realworld/frontend-utils': link:../frontend-utils
+      next: 12.1.0_react-dom@17.0.2+react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    devDependencies:
+      '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.2
+      '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
+      '@graphql-codegen/typescript': 2.4.7_graphql@16.3.0
+      '@graphql-codegen/typescript-operations': 2.3.3_graphql@16.3.0
+      '@graphql-codegen/typescript-react-apollo': 3.2.10_graphql@16.3.0
+      '@types/react': 17.0.39
+      eslint: 8.10.0
+      eslint-config-next: 12.1.0_91b99ef72d19920d7e6dded71447bf77
+      graphql: 16.3.0
+      typescript: 4.6.2
+
   apps/svelte-kit-apollo:
     specifiers:
       '@apollo/client': 3.5.10
@@ -135,7 +188,7 @@ importers:
       '@graphql-codegen/typescript-operations': 2.3.3_graphql@16.3.0
       '@nexus-realworld/frontend-utils': link:../frontend-utils
       '@sveltejs/adapter-auto': 1.0.0-next.31
-      '@sveltejs/kit': 1.0.0-next.294_svelte@3.46.4
+      '@sveltejs/kit': 1.0.0-next.295_svelte@3.46.4
       '@typescript-eslint/eslint-plugin': 5.13.0_3a0304e4216f58c7e1135459c8d18e32
       '@typescript-eslint/parser': 5.13.0_eslint@7.32.0+typescript@4.6.2
       eslint: 7.32.0
@@ -1708,8 +1761,8 @@ packages:
       esbuild: 0.14.25
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.294_svelte@3.46.4:
-    resolution: {integrity: sha512-whTYeri/oaV672KErlhCAvAawlsnd8iu/MQmjdu85TApDYolLe8FDTg6GQ55+0IJbx1N7dOer/HopWzKudPgFA==}
+  /@sveltejs/kit/1.0.0-next.295_svelte@3.46.4:
+    resolution: {integrity: sha512-4pO/swXByhU+7bhNikTjh1d4QxAMP9TZ74p7sdPuyJf5cg7Zrfk1nBtaMt0R+8+5j1xfC/XWRcxa3WnhT9bQMA==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -3277,6 +3330,21 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       is-obj: 2.0.0
+    dev: true
+
+  /dotenv-cli/5.0.0:
+    resolution: {integrity: sha512-0Cb2WMDJ805hTD7m43gXXFLraoE5KwrKmGW2dAzYvSEB96tlKI2hmcJ/9In4s2FfvkAFk3SjNQcLeKLoRSXhKA==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      dotenv: 16.0.0
+      dotenv-expand: 8.0.1
+      minimist: 1.2.5
+    dev: true
+
+  /dotenv-expand/8.0.1:
+    resolution: {integrity: sha512-j/Ih7bIERDR5PzI89Zu8ayd3tXZ6E3dbY0ljQ9Db0K87qBO8zdLsi2dIvDHMWtjC3Yxb8XixOTHAtia0fDHRpg==}
+    engines: {node: '>=12'}
     dev: true
 
   /dotenv/16.0.0:
