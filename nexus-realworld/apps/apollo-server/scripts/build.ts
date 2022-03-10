@@ -7,6 +7,8 @@ build({
   minify: true,
   sourcemap: true,
   outdir: "dist",
+  // FIXME: cannot bundle graphql because of hoisting
+  external: ["graphql"],
 }).then(() => {
   console.log("\n📦️ Build finished!!!");
 });
