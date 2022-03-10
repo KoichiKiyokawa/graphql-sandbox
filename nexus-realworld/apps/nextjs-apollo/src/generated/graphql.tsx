@@ -35,7 +35,7 @@ export type Article = {
 export type ArticleConnection = {
   __typename?: 'ArticleConnection';
   /** https://facebook.github.io/relay/graphql/connections.htm#sec-Edge-Types */
-  edges?: Maybe<Array<Maybe<ArticleEdge>>>;
+  edges: Array<ArticleEdge>;
   /** https://facebook.github.io/relay/graphql/connections.htm#sec-undefined.PageInfo */
   pageInfo: PageInfo;
 };
@@ -45,7 +45,7 @@ export type ArticleEdge = {
   /** https://facebook.github.io/relay/graphql/connections.htm#sec-Cursor */
   cursor: Scalars['String'];
   /** https://facebook.github.io/relay/graphql/connections.htm#sec-Node */
-  node?: Maybe<Article>;
+  node: Article;
 };
 
 export type CreateMessageInput = {
@@ -150,7 +150,7 @@ export type UserArticlesArgs = {
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: { __typename?: 'ArticleConnection', edges?: Array<{ __typename?: 'ArticleEdge', node?: { __typename?: 'Article', slug: string, title: string, description: string, body: string, author: { __typename?: 'User', id: string, name: string } } | null } | null> | null } };
+export type GetArticlesQuery = { __typename?: 'Query', articles: { __typename?: 'ArticleConnection', edges: Array<{ __typename?: 'ArticleEdge', node: { __typename?: 'Article', slug: string, title: string, description: string, body: string, author: { __typename?: 'User', id: string, name: string } } }> } };
 
 
 export const GetArticlesDocument = gql`

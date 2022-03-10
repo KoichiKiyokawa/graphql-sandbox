@@ -143,12 +143,20 @@
             "description": "https://facebook.github.io/relay/graphql/connections.htm#sec-Edge-Types",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ArticleEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ArticleEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -202,9 +210,13 @@
             "description": "https://facebook.github.io/relay/graphql/connections.htm#sec-Node",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "Article",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Article",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
