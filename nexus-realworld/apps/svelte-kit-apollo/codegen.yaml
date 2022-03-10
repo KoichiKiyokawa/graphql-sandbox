@@ -1,4 +1,4 @@
-schema: ../server/generated/schema.graphql
+schema: ../apollo-server/generated/schema.graphql
 documents: './src/**/*.gql'
 generates:
   ./src/graphql/generated.ts:
