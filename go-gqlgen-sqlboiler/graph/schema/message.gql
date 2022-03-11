@@ -1,0 +1,22 @@
+"""
+A message between two users.
+"""
+type Message {
+  from: User!
+  id: ID!
+  text: String!
+  to: User!
+}
+
+input CreateMessageInput {
+  text: String!
+  toUserId: ID!
+}
+
+extend type Mutation {
+  addMessage(message: CreateMessageInput!): Message!
+}
+
+extend type Subscription {
+  messageAdded: Message!
+}

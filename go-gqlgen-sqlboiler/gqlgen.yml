@@ -1,6 +1,6 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - graph/*.graphqls
+  - graph/schema/*.gql
 
 # Where should the generated server code go?
 exec:
@@ -20,8 +20,9 @@ model:
 # Where should the resolver implementations go?
 resolver:
   layout: follow-schema
-  dir: graph
+  dir: graph/resolvers/
   package: graph
+
 
 # Optional: turn on use ` + "`" + `gqlgen:"fieldName"` + "`" + ` tags in your models
 # struct_tag: json
@@ -35,7 +36,7 @@ resolver:
 # gqlgen will search for any type names in the schema in these go packages
 # if they match it will use them, otherwise it will generate them.
 autobind:
-#  - "github.com/KoichiKiyokawa/go-gqlgen-sqlboiler/graph/model"
+#  - "go-gqlgen-sqlboiler/graph/model"
 
 # This section declares type mapping between the GraphQL and go type systems
 #

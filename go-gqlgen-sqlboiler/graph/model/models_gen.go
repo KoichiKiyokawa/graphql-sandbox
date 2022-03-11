@@ -2,19 +2,67 @@
 
 package model
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+type Article struct {
+	// The author of the article
+	Author    *User  `json:"author"`
+	Body      string `json:"body"`
+	CreatedAt string `json:"createdAt"`
+	// The description of the article
+	Description string `json:"description"`
+	// The unique slug for the article
+	Slug string `json:"slug"`
+	// The title of the article
+	Title     string `json:"title"`
+	UpdatedAt string `json:"updatedAt"`
 }
 
-type Todo struct {
+type ArticleConnection struct {
+	// https://facebook.github.io/relay/graphql/connections.htm#sec-Edge-Types
+	Edges []*ArticleEdge `json:"edges"`
+	// https://facebook.github.io/relay/graphql/connections.htm#sec-undefined.PageInfo
+	PageInfo *PageInfo `json:"pageInfo"`
+}
+
+type ArticleEdge struct {
+	// https://facebook.github.io/relay/graphql/connections.htm#sec-Cursor
+	Cursor string `json:"cursor"`
+	// https://facebook.github.io/relay/graphql/connections.htm#sec-Node
+	Node *Article `json:"node"`
+}
+
+type CreateMessageInput struct {
+	Text     string `json:"text"`
+	ToUserID string `json:"toUserId"`
+}
+
+type MaybeError struct {
+	// Error message
+	Error *string `json:"error"`
+}
+
+// A message between two users.
+type Message struct {
+	From *User  `json:"from"`
 	ID   string `json:"id"`
 	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
+	To   *User  `json:"to"`
+}
+
+// PageInfo cursor, as defined in https://facebook.github.io/relay/graphql/connections.htm#sec-undefined.PageInfo
+type PageInfo struct {
+	// The cursor corresponding to the last nodes in edges. Null if the connection is empty.
+	EndCursor *string `json:"endCursor"`
+	// Used to indicate whether more edges exist following the set defined by the clients arguments.
+	HasNextPage bool `json:"hasNextPage"`
+	// Used to indicate whether more edges exist prior to the set defined by the clients arguments.
+	HasPreviousPage bool `json:"hasPreviousPage"`
+	// The cursor corresponding to the first nodes in edges. Null if the connection is empty.
+	StartCursor *string `json:"startCursor"`
 }
 
 type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	Articles *ArticleConnection `json:"articles"`
+	Email    string             `json:"email"`
+	ID       string             `json:"id"`
+	Name     string             `json:"name"`
 }

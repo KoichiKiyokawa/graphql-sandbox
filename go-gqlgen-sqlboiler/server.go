@@ -5,10 +5,11 @@ import (
 	"net/http"
 	"os"
 
+	"go-gqlgen-sqlboiler/graph"
+	"go-gqlgen-sqlboiler/graph/generated"
+
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/KoichiKiyokawa/go-gqlgen-sqlboiler/graph"
-	"github.com/KoichiKiyokawa/go-gqlgen-sqlboiler/graph/generated"
 )
 
 const defaultPort = "8080"
