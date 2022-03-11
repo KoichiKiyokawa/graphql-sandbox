@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"go-gqlgen-sqlboiler/graph/model"
+	"go-gqlgen-sqlboiler/models"
 	"io"
 	"strconv"
 	"sync"
@@ -36,9 +36,12 @@ type Config struct {
 }
 
 type ResolverRoot interface {
+	Article() ArticleResolver
+	Message() MessageResolver
 	Mutation() MutationResolver
 	Query() QueryResolver
 	Subscription() SubscriptionResolver
+	User() UserResolver
 }
 
 type DirectiveRoot struct {
@@ -77,7 +80,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		AddMessage func(childComplexity int, message model.CreateMessageInput) int
+		AddMessage func(childComplexity int, message models.CreateMessageInput) int
 		Login      func(childComplexity int, email string, password string) int
 	}
 
@@ -107,18 +110,33 @@ type ComplexityRoot struct {
 	}
 }
 
+type ArticleResolver interface {
+	Author(ctx context.Context, obj *models.Article) (*models.User, error)
+
+	CreatedAt(ctx context.Context, obj *models.Article) (string, error)
+
+	UpdatedAt(ctx context.Context, obj *models.Article) (string, error)
+}
+type MessageResolver interface {
+	From(ctx context.Context, obj *models.Message) (*models.User, error)
+
+	To(ctx context.Context, obj *models.Message) (*models.User, error)
+}
 type MutationResolver interface {
-	Login(ctx context.Context, email string, password string) (*model.MaybeError, error)
-	AddMessage(ctx context.Context, message model.CreateMessageInput) (*model.Message, error)
+	Login(ctx context.Context, email string, password string) (*models.MaybeError, error)
+	AddMessage(ctx context.Context, message models.CreateMessageInput) (*models.Message, error)
 }
 type QueryResolver interface {
-	Article(ctx context.Context, slug string) (*model.Article, error)
-	Articles(ctx context.Context, after *string, before *string, first *int, last *int) (*model.ArticleConnection, error)
-	User(ctx context.Context, id string) (*model.User, error)
-	Users(ctx context.Context) ([]*model.User, error)
+	Article(ctx context.Context, slug string) (*models.Article, error)
+	Articles(ctx context.Context, after *string, before *string, first *int, last *int) (*models.ArticleConnection, error)
+	User(ctx context.Context, id string) (*models.User, error)
+	Users(ctx context.Context) ([]*models.User, error)
 }
 type SubscriptionResolver interface {
-	MessageAdded(ctx context.Context) (<-chan *model.Message, error)
+	MessageAdded(ctx context.Context) (<-chan *models.Message, error)
+}
+type UserResolver interface {
+	Articles(ctx context.Context, obj *models.User, after *string, before *string, first *int, last *int) (*models.ArticleConnection, error)
 }
 
 type executableSchema struct {
@@ -258,7 +276,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddMessage(childComplexity, args["message"].(model.CreateMessageInput)), true
+		return e.complexity.Mutation.AddMessage(childComplexity, args["message"].(models.CreateMessageInput)), true
 
 	case "Mutation.login":
 		if e.complexity.Mutation.Login == nil {
@@ -651,10 +669,10 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_addMessage_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.CreateMessageInput
+	var arg0 models.CreateMessageInput
 	if tmp, ok := rawArgs["message"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("message"))
-		arg0, err = ec.unmarshalNCreateMessageInput2goᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐCreateMessageInput(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateMessageInput2goᚑgqlgenᚑsqlboilerᚋmodelsᚐCreateMessageInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -854,7 +872,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _Article_author(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_author(ctx context.Context, field graphql.CollectedField, obj *models.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -865,14 +883,14 @@ func (ec *executionContext) _Article_author(ctx context.Context, field graphql.C
 		Object:     "Article",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Author, nil
+		return ec.resolvers.Article().Author(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -884,12 +902,12 @@ func (ec *executionContext) _Article_author(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.User)
+	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Article_body(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_body(ctx context.Context, field graphql.CollectedField, obj *models.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -924,7 +942,7 @@ func (ec *executionContext) _Article_body(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Article_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_createdAt(ctx context.Context, field graphql.CollectedField, obj *models.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -935,14 +953,14 @@ func (ec *executionContext) _Article_createdAt(ctx context.Context, field graphq
 		Object:     "Article",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.CreatedAt, nil
+		return ec.resolvers.Article().CreatedAt(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -959,7 +977,7 @@ func (ec *executionContext) _Article_createdAt(ctx context.Context, field graphq
 	return ec.marshalNDateTime2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Article_description(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_description(ctx context.Context, field graphql.CollectedField, obj *models.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -994,7 +1012,7 @@ func (ec *executionContext) _Article_description(ctx context.Context, field grap
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Article_slug(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_slug(ctx context.Context, field graphql.CollectedField, obj *models.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1029,7 +1047,7 @@ func (ec *executionContext) _Article_slug(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Article_title(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_title(ctx context.Context, field graphql.CollectedField, obj *models.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1064,7 +1082,7 @@ func (ec *executionContext) _Article_title(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Article_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_updatedAt(ctx context.Context, field graphql.CollectedField, obj *models.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1075,14 +1093,14 @@ func (ec *executionContext) _Article_updatedAt(ctx context.Context, field graphq
 		Object:     "Article",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.UpdatedAt, nil
+		return ec.resolvers.Article().UpdatedAt(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1099,7 +1117,7 @@ func (ec *executionContext) _Article_updatedAt(ctx context.Context, field graphq
 	return ec.marshalNDateTime2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ArticleConnection_edges(ctx context.Context, field graphql.CollectedField, obj *model.ArticleConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ArticleConnection_edges(ctx context.Context, field graphql.CollectedField, obj *models.ArticleConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1129,12 +1147,12 @@ func (ec *executionContext) _ArticleConnection_edges(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.ArticleEdge)
+	res := resTmp.([]*models.ArticleEdge)
 	fc.Result = res
-	return ec.marshalNArticleEdge2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleEdgeᚄ(ctx, field.Selections, res)
+	return ec.marshalNArticleEdge2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleEdgeᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ArticleConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *model.ArticleConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ArticleConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *models.ArticleConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1164,12 +1182,12 @@ func (ec *executionContext) _ArticleConnection_pageInfo(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.PageInfo)
+	res := resTmp.(*models.PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐPageInfo(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ArticleEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *model.ArticleEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _ArticleEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *models.ArticleEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1204,7 +1222,7 @@ func (ec *executionContext) _ArticleEdge_cursor(ctx context.Context, field graph
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ArticleEdge_node(ctx context.Context, field graphql.CollectedField, obj *model.ArticleEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _ArticleEdge_node(ctx context.Context, field graphql.CollectedField, obj *models.ArticleEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1234,12 +1252,12 @@ func (ec *executionContext) _ArticleEdge_node(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Article)
+	res := resTmp.(*models.Article)
 	fc.Result = res
-	return ec.marshalNArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticle(ctx, field.Selections, res)
+	return ec.marshalNArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticle(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MaybeError_error(ctx context.Context, field graphql.CollectedField, obj *model.MaybeError) (ret graphql.Marshaler) {
+func (ec *executionContext) _MaybeError_error(ctx context.Context, field graphql.CollectedField, obj *models.MaybeError) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1271,7 +1289,7 @@ func (ec *executionContext) _MaybeError_error(ctx context.Context, field graphql
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Message_from(ctx context.Context, field graphql.CollectedField, obj *model.Message) (ret graphql.Marshaler) {
+func (ec *executionContext) _Message_from(ctx context.Context, field graphql.CollectedField, obj *models.Message) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1282,14 +1300,14 @@ func (ec *executionContext) _Message_from(ctx context.Context, field graphql.Col
 		Object:     "Message",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.From, nil
+		return ec.resolvers.Message().From(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1301,12 +1319,12 @@ func (ec *executionContext) _Message_from(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.User)
+	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Message_id(ctx context.Context, field graphql.CollectedField, obj *model.Message) (ret graphql.Marshaler) {
+func (ec *executionContext) _Message_id(ctx context.Context, field graphql.CollectedField, obj *models.Message) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1341,7 +1359,7 @@ func (ec *executionContext) _Message_id(ctx context.Context, field graphql.Colle
 	return ec.marshalNID2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Message_text(ctx context.Context, field graphql.CollectedField, obj *model.Message) (ret graphql.Marshaler) {
+func (ec *executionContext) _Message_text(ctx context.Context, field graphql.CollectedField, obj *models.Message) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1376,7 +1394,7 @@ func (ec *executionContext) _Message_text(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Message_to(ctx context.Context, field graphql.CollectedField, obj *model.Message) (ret graphql.Marshaler) {
+func (ec *executionContext) _Message_to(ctx context.Context, field graphql.CollectedField, obj *models.Message) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1387,14 +1405,14 @@ func (ec *executionContext) _Message_to(ctx context.Context, field graphql.Colle
 		Object:     "Message",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.To, nil
+		return ec.resolvers.Message().To(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1406,9 +1424,9 @@ func (ec *executionContext) _Message_to(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.User)
+	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1445,9 +1463,9 @@ func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.MaybeError)
+	res := resTmp.(*models.MaybeError)
 	fc.Result = res
-	return ec.marshalOMaybeError2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐMaybeError(ctx, field.Selections, res)
+	return ec.marshalOMaybeError2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐMaybeError(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addMessage(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1475,7 +1493,7 @@ func (ec *executionContext) _Mutation_addMessage(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddMessage(rctx, args["message"].(model.CreateMessageInput))
+		return ec.resolvers.Mutation().AddMessage(rctx, args["message"].(models.CreateMessageInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1487,12 +1505,12 @@ func (ec *executionContext) _Mutation_addMessage(ctx context.Context, field grap
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Message)
+	res := resTmp.(*models.Message)
 	fc.Result = res
-	return ec.marshalNMessage2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐMessage(ctx, field.Selections, res)
+	return ec.marshalNMessage2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐMessage(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *model.PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *models.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1524,7 +1542,7 @@ func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graph
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *model.PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *models.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1559,7 +1577,7 @@ func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field gra
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field graphql.CollectedField, obj *model.PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field graphql.CollectedField, obj *models.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1594,7 +1612,7 @@ func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *model.PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *models.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1660,9 +1678,9 @@ func (ec *executionContext) _Query_article(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Article)
+	res := resTmp.(*models.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_articles(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1702,9 +1720,9 @@ func (ec *executionContext) _Query_articles(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.ArticleConnection)
+	res := resTmp.(*models.ArticleConnection)
 	fc.Result = res
-	return ec.marshalNArticleConnection2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleConnection(ctx, field.Selections, res)
+	return ec.marshalNArticleConnection2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_user(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1744,9 +1762,9 @@ func (ec *executionContext) _Query_user(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.User)
+	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_users(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1779,9 +1797,9 @@ func (ec *executionContext) _Query_users(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.User)
+	res := resTmp.([]*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1886,7 +1904,7 @@ func (ec *executionContext) _Subscription_messageAdded(ctx context.Context, fiel
 		return nil
 	}
 	return func() graphql.Marshaler {
-		res, ok := <-resTmp.(<-chan *model.Message)
+		res, ok := <-resTmp.(<-chan *models.Message)
 		if !ok {
 			return nil
 		}
@@ -1894,13 +1912,13 @@ func (ec *executionContext) _Subscription_messageAdded(ctx context.Context, fiel
 			w.Write([]byte{'{'})
 			graphql.MarshalString(field.Alias).MarshalGQL(w)
 			w.Write([]byte{':'})
-			ec.marshalNMessage2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐMessage(ctx, field.Selections, res).MarshalGQL(w)
+			ec.marshalNMessage2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐMessage(ctx, field.Selections, res).MarshalGQL(w)
 			w.Write([]byte{'}'})
 		})
 	}
 }
 
-func (ec *executionContext) _User_articles(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_articles(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1911,8 +1929,8 @@ func (ec *executionContext) _User_articles(ctx context.Context, field graphql.Co
 		Object:     "User",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
@@ -1925,7 +1943,7 @@ func (ec *executionContext) _User_articles(ctx context.Context, field graphql.Co
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Articles, nil
+		return ec.resolvers.User().Articles(rctx, obj, args["after"].(*string), args["before"].(*string), args["first"].(*int), args["last"].(*int))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1934,12 +1952,12 @@ func (ec *executionContext) _User_articles(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.ArticleConnection)
+	res := resTmp.(*models.ArticleConnection)
 	fc.Result = res
-	return ec.marshalOArticleConnection2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleConnection(ctx, field.Selections, res)
+	return ec.marshalOArticleConnection2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleConnection(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1974,7 +1992,7 @@ func (ec *executionContext) _User_email(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2009,7 +2027,7 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3230,8 +3248,8 @@ func (ec *executionContext) ___Type_specifiedByURL(ctx context.Context, field gr
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputCreateMessageInput(ctx context.Context, obj interface{}) (model.CreateMessageInput, error) {
-	var it model.CreateMessageInput
+func (ec *executionContext) unmarshalInputCreateMessageInput(ctx context.Context, obj interface{}) (models.CreateMessageInput, error) {
+	var it models.CreateMessageInput
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -3271,7 +3289,7 @@ func (ec *executionContext) unmarshalInputCreateMessageInput(ctx context.Context
 
 var articleImplementors = []string{"Article"}
 
-func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, obj *model.Article) graphql.Marshaler {
+func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, obj *models.Article) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, articleImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -3280,15 +3298,25 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Article")
 		case "author":
+			field := field
+
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Article_author(ctx, field, obj)
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Article_author(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
 
-			out.Values[i] = innerFunc(ctx)
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
 
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
+			})
 		case "body":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Article_body(ctx, field, obj)
@@ -3297,18 +3325,28 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "createdAt":
+			field := field
+
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Article_createdAt(ctx, field, obj)
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Article_createdAt(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
 
-			out.Values[i] = innerFunc(ctx)
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
 
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
+			})
 		case "description":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Article_description(ctx, field, obj)
@@ -3317,7 +3355,7 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "slug":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -3327,7 +3365,7 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "title":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -3337,18 +3375,28 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "updatedAt":
+			field := field
+
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Article_updatedAt(ctx, field, obj)
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Article_updatedAt(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
 
-			out.Values[i] = innerFunc(ctx)
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
 
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -3362,7 +3410,7 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 
 var articleConnectionImplementors = []string{"ArticleConnection"}
 
-func (ec *executionContext) _ArticleConnection(ctx context.Context, sel ast.SelectionSet, obj *model.ArticleConnection) graphql.Marshaler {
+func (ec *executionContext) _ArticleConnection(ctx context.Context, sel ast.SelectionSet, obj *models.ArticleConnection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, articleConnectionImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -3403,7 +3451,7 @@ func (ec *executionContext) _ArticleConnection(ctx context.Context, sel ast.Sele
 
 var articleEdgeImplementors = []string{"ArticleEdge"}
 
-func (ec *executionContext) _ArticleEdge(ctx context.Context, sel ast.SelectionSet, obj *model.ArticleEdge) graphql.Marshaler {
+func (ec *executionContext) _ArticleEdge(ctx context.Context, sel ast.SelectionSet, obj *models.ArticleEdge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, articleEdgeImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -3444,7 +3492,7 @@ func (ec *executionContext) _ArticleEdge(ctx context.Context, sel ast.SelectionS
 
 var maybeErrorImplementors = []string{"MaybeError"}
 
-func (ec *executionContext) _MaybeError(ctx context.Context, sel ast.SelectionSet, obj *model.MaybeError) graphql.Marshaler {
+func (ec *executionContext) _MaybeError(ctx context.Context, sel ast.SelectionSet, obj *models.MaybeError) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, maybeErrorImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -3472,7 +3520,7 @@ func (ec *executionContext) _MaybeError(ctx context.Context, sel ast.SelectionSe
 
 var messageImplementors = []string{"Message"}
 
-func (ec *executionContext) _Message(ctx context.Context, sel ast.SelectionSet, obj *model.Message) graphql.Marshaler {
+func (ec *executionContext) _Message(ctx context.Context, sel ast.SelectionSet, obj *models.Message) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, messageImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -3481,15 +3529,25 @@ func (ec *executionContext) _Message(ctx context.Context, sel ast.SelectionSet, 
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Message")
 		case "from":
+			field := field
+
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Message_from(ctx, field, obj)
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Message_from(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
 
-			out.Values[i] = innerFunc(ctx)
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
 
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
+			})
 		case "id":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Message_id(ctx, field, obj)
@@ -3498,7 +3556,7 @@ func (ec *executionContext) _Message(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "text":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -3508,18 +3566,28 @@ func (ec *executionContext) _Message(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "to":
+			field := field
+
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Message_to(ctx, field, obj)
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Message_to(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
 
-			out.Values[i] = innerFunc(ctx)
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
 
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -3580,7 +3648,7 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 var pageInfoImplementors = []string{"PageInfo"}
 
-func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet, obj *model.PageInfo) graphql.Marshaler {
+func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet, obj *models.PageInfo) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pageInfoImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -3788,7 +3856,7 @@ func (ec *executionContext) _Subscription(ctx context.Context, sel ast.Selection
 
 var userImplementors = []string{"User"}
 
-func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *model.User) graphql.Marshaler {
+func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *models.User) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, userImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -3797,12 +3865,22 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("User")
 		case "articles":
+			field := field
+
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._User_articles(ctx, field, obj)
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._User_articles(ctx, field, obj)
+				return res
 			}
 
-			out.Values[i] = innerFunc(ctx)
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
 
+			})
 		case "email":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._User_email(ctx, field, obj)
@@ -3811,7 +3889,7 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "id":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -3821,7 +3899,7 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "name":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -3831,7 +3909,7 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
@@ -4267,7 +4345,7 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticle(ctx context.Context, sel ast.SelectionSet, v *model.Article) graphql.Marshaler {
+func (ec *executionContext) marshalNArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticle(ctx context.Context, sel ast.SelectionSet, v *models.Article) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -4277,11 +4355,11 @@ func (ec *executionContext) marshalNArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋgraph�
 	return ec._Article(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNArticleConnection2goᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleConnection(ctx context.Context, sel ast.SelectionSet, v model.ArticleConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNArticleConnection2goᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleConnection(ctx context.Context, sel ast.SelectionSet, v models.ArticleConnection) graphql.Marshaler {
 	return ec._ArticleConnection(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNArticleConnection2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleConnection(ctx context.Context, sel ast.SelectionSet, v *model.ArticleConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNArticleConnection2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleConnection(ctx context.Context, sel ast.SelectionSet, v *models.ArticleConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -4291,7 +4369,7 @@ func (ec *executionContext) marshalNArticleConnection2ᚖgoᚑgqlgenᚑsqlboiler
 	return ec._ArticleConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNArticleEdge2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.ArticleEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNArticleEdge2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.ArticleEdge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -4315,7 +4393,7 @@ func (ec *executionContext) marshalNArticleEdge2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNArticleEdge2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalNArticleEdge2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4335,7 +4413,7 @@ func (ec *executionContext) marshalNArticleEdge2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋ
 	return ret
 }
 
-func (ec *executionContext) marshalNArticleEdge2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleEdge(ctx context.Context, sel ast.SelectionSet, v *model.ArticleEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNArticleEdge2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleEdge(ctx context.Context, sel ast.SelectionSet, v *models.ArticleEdge) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -4360,7 +4438,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalNCreateMessageInput2goᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐCreateMessageInput(ctx context.Context, v interface{}) (model.CreateMessageInput, error) {
+func (ec *executionContext) unmarshalNCreateMessageInput2goᚑgqlgenᚑsqlboilerᚋmodelsᚐCreateMessageInput(ctx context.Context, v interface{}) (models.CreateMessageInput, error) {
 	res, err := ec.unmarshalInputCreateMessageInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -4395,11 +4473,11 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) marshalNMessage2goᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐMessage(ctx context.Context, sel ast.SelectionSet, v model.Message) graphql.Marshaler {
+func (ec *executionContext) marshalNMessage2goᚑgqlgenᚑsqlboilerᚋmodelsᚐMessage(ctx context.Context, sel ast.SelectionSet, v models.Message) graphql.Marshaler {
 	return ec._Message(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNMessage2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐMessage(ctx context.Context, sel ast.SelectionSet, v *model.Message) graphql.Marshaler {
+func (ec *executionContext) marshalNMessage2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐMessage(ctx context.Context, sel ast.SelectionSet, v *models.Message) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -4409,7 +4487,7 @@ func (ec *executionContext) marshalNMessage2ᚖgoᚑgqlgenᚑsqlboilerᚋgraph�
 	return ec._Message(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPageInfo2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *model.PageInfo) graphql.Marshaler {
+func (ec *executionContext) marshalNPageInfo2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *models.PageInfo) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -4434,11 +4512,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNUser2goᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2goᚑgqlgenᚑsqlboilerᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v models.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -4462,7 +4540,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋgraph�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4482,7 +4560,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgoᚑgqlgenᚑsqlboilerᚋgraph�
 	return ret
 }
 
-func (ec *executionContext) marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -4745,14 +4823,14 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalOArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticle(ctx context.Context, sel ast.SelectionSet, v *model.Article) graphql.Marshaler {
+func (ec *executionContext) marshalOArticle2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticle(ctx context.Context, sel ast.SelectionSet, v *models.Article) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Article(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOArticleConnection2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐArticleConnection(ctx context.Context, sel ast.SelectionSet, v *model.ArticleConnection) graphql.Marshaler {
+func (ec *executionContext) marshalOArticleConnection2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐArticleConnection(ctx context.Context, sel ast.SelectionSet, v *models.ArticleConnection) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4801,7 +4879,7 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	return res
 }
 
-func (ec *executionContext) marshalOMaybeError2ᚖgoᚑgqlgenᚑsqlboilerᚋgraphᚋmodelᚐMaybeError(ctx context.Context, sel ast.SelectionSet, v *model.MaybeError) graphql.Marshaler {
+func (ec *executionContext) marshalOMaybeError2ᚖgoᚑgqlgenᚑsqlboilerᚋmodelsᚐMaybeError(ctx context.Context, sel ast.SelectionSet, v *models.MaybeError) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

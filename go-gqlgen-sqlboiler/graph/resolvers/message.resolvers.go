@@ -7,18 +7,30 @@ import (
 	"context"
 	"fmt"
 	"go-gqlgen-sqlboiler/graph/generated"
-	"go-gqlgen-sqlboiler/graph/model"
+	"go-gqlgen-sqlboiler/models"
 )
 
-func (r *mutationResolver) AddMessage(ctx context.Context, message model.CreateMessageInput) (*model.Message, error) {
+func (r *messageResolver) From(ctx context.Context, obj *models.Message) (*models.User, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *subscriptionResolver) MessageAdded(ctx context.Context) (<-chan *model.Message, error) {
+func (r *messageResolver) To(ctx context.Context, obj *models.Message) (*models.User, error) {
 	panic(fmt.Errorf("not implemented"))
 }
+
+func (r *mutationResolver) AddMessage(ctx context.Context, message models.CreateMessageInput) (*models.Message, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *subscriptionResolver) MessageAdded(ctx context.Context) (<-chan *models.Message, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// Message returns generated.MessageResolver implementation.
+func (r *Resolver) Message() generated.MessageResolver { return &messageResolver{r} }
 
 // Subscription returns generated.SubscriptionResolver implementation.
 func (r *Resolver) Subscription() generated.SubscriptionResolver { return &subscriptionResolver{r} }
 
+type messageResolver struct{ *Resolver }
 type subscriptionResolver struct{ *Resolver }

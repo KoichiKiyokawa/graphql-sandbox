@@ -14,8 +14,8 @@ exec:
 
 # Where should any generated models go?
 model:
-  filename: graph/model/models_gen.go
-  package: model
+  filename: models/models_gen.go
+  package: models
 
 # Where should the resolver implementations go?
 resolver:
@@ -55,3 +55,9 @@ models:
       - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
       - github.com/99designs/gqlgen/graphql.Int32
+  Article:
+    model: go-gqlgen-sqlboiler/models.Article
+  User:
+    model: go-gqlgen-sqlboiler/models.User
+  Message:
+    model: go-gqlgen-sqlboiler/models.Message

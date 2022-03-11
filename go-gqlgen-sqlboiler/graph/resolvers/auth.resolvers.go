@@ -7,10 +7,10 @@ import (
 	"context"
 	"fmt"
 	"go-gqlgen-sqlboiler/graph/generated"
-	"go-gqlgen-sqlboiler/graph/model"
+	"go-gqlgen-sqlboiler/models"
 )
 
-func (r *mutationResolver) Login(ctx context.Context, email string, password string) (*model.MaybeError, error) {
+func (r *mutationResolver) Login(ctx context.Context, email string, password string) (*models.MaybeError, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

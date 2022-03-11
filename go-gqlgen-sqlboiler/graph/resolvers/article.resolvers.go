@@ -5,42 +5,52 @@ package graph
 
 import (
 	"context"
+	"fmt"
 	"go-gqlgen-sqlboiler/graph/generated"
-	"go-gqlgen-sqlboiler/graph/model"
 	"go-gqlgen-sqlboiler/models"
 )
 
-func (r *queryResolver) Article(ctx context.Context, slug string) (*model.Article, error) {
+func (r *articleResolver) Author(ctx context.Context, obj *models.Article) (*models.User, error) {
+	author, err := models.FindUser(ctx, r.DB, obj.AuthorId)
+	if err != nil {
+		return nil, err
+	}
+	return author, nil
+}
+
+func (r *articleResolver) CreatedAt(ctx context.Context, obj *models.Article) (string, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *articleResolver) UpdatedAt(ctx context.Context, obj *models.Article) (string, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) Article(ctx context.Context, slug string) (*models.Article, error) {
 	article, err := models.FindArticle(ctx, r.DB, slug)
 	if err != nil {
 		return nil, err
 	}
-	return convertFromBoilerModelToGqlModel(article), nil
+	return article, nil
 }
 
-func (r *queryResolver) Articles(ctx context.Context, after *string, before *string, first *int, last *int) (*model.ArticleConnection, error) {
+func (r *queryResolver) Articles(ctx context.Context, after *string, before *string, first *int, last *int) (*models.ArticleConnection, error) {
 	articles, err := models.Articles().All(ctx, r.DB)
 	if err != nil {
 		return nil, err
 	}
-	var edges []*model.ArticleEdge
+	var edges []*models.ArticleEdge
 	for _, article := range articles {
-		edges = append(edges, &model.ArticleEdge{Node: convertFromBoilerModelToGqlModel(article)})
+		edges = append(edges, &models.ArticleEdge{Node: article})
 	}
-	return &model.ArticleConnection{Edges: edges}, nil
+	return &models.ArticleConnection{Edges: edges}, nil
 }
+
+// Article returns generated.ArticleResolver implementation.
+func (r *Resolver) Article() generated.ArticleResolver { return &articleResolver{r} }
 
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
+type articleResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
-
-func convertFromBoilerModelToGqlModel(article *models.Article) *model.Article {
-	return &model.Article{
-		Body:        article.Body,
-		CreatedAt:   article.CreatedAt.String(),
-		UpdatedAt:   article.UpdatedAt.String(),
-		Description: article.Description,
-		Slug:        article.Slug,
-	}
-}

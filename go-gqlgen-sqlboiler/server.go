@@ -12,6 +12,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/volatiletech/sqlboiler/v4/boil"
 )
 
 const defaultPort = "8080"
@@ -26,6 +27,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer db.Close()
+
+	boil.DebugMode = true
 
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{DB: db}}))
 
