@@ -41,6 +41,7 @@ func seed(ctx context.Context, db *sql.DB) {
 				Body:        fmt.Sprintf("user%d-article%d-body", userIndex, articleIndex),
 				Title:       fmt.Sprintf("user%d-article%d-title", userIndex, articleIndex),
 				Description: "desc",
+				AuthorId:    user.ID,
 			}
 			article.Insert(ctx, db, boil.Infer())
 		}

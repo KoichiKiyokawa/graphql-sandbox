@@ -5,25 +5,21 @@ package graph
 
 import (
 	"context"
-	"fmt"
+	"go-gqlgen-sqlboiler/dataloader"
 	"go-gqlgen-sqlboiler/graph/generated"
 	"go-gqlgen-sqlboiler/models"
 )
 
 func (r *articleResolver) Author(ctx context.Context, obj *models.Article) (*models.User, error) {
-	author, err := models.FindUser(ctx, r.DB, obj.AuthorId)
-	if err != nil {
-		return nil, err
-	}
-	return author, nil
+	return dataloader.For(ctx).UserById.Load(obj.AuthorId)
 }
 
 func (r *articleResolver) CreatedAt(ctx context.Context, obj *models.Article) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return obj.CreatedAt.String(), nil
 }
 
 func (r *articleResolver) UpdatedAt(ctx context.Context, obj *models.Article) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return obj.UpdatedAt.String(), nil
 }
 
 func (r *queryResolver) Article(ctx context.Context, slug string) (*models.Article, error) {

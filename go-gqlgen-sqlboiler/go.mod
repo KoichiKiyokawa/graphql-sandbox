@@ -33,6 +33,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
 	github.com/urfave/cli/v2 v2.3.0 // indirect
+	github.com/vektah/dataloaden v0.3.0 // indirect
 	github.com/volatiletech/inflect v0.0.1 // indirect
 	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/sys v0.0.0-20220310020820-b874c991c1a5 // indirect
