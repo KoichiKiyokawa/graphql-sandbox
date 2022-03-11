@@ -11,7 +11,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@prisma/client": "3.10.0",
-    "apollo-server": "3.6.3",
+    "apollo-server": "3.6.4",
     "apollo-server-core": "3.6.3",
     "apollo-server-express": "3.6.3",
     "bcryptjs": "2.4.3",
