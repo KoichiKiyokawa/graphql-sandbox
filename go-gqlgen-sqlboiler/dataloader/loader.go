@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"go-gqlgen-sqlboiler/models"
 	"net/http"
+	"time"
 
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 )
@@ -21,6 +22,7 @@ func Middleware(db *sql.DB, next http.Handler) http.Handler {
 		ctx := r.Context()
 		ctx = context.WithValue(ctx, key, &loaders{
 			UserById: UserLoader{
+				wait: 10 * time.Millisecond,
 				fetch: func(keys []string) ([]*models.User, []error) {
 					if len(keys) == 0 {
 						return nil, nil
@@ -31,7 +33,15 @@ func Middleware(db *sql.DB, next http.Handler) http.Handler {
 						ids = append(ids, key)
 					}
 
-					users, err := models.Users(qm.WhereIn(models.UserColumns.ID+" in ?", ids...)).All(ctx, db)
+					rows, err := models.Users(qm.WhereIn(models.UserColumns.ID+" in ?", ids...)).All(ctx, db)
+					var users []*models.User
+					for _, key := range keys {
+						for _, row := range rows {
+							if row.ID == key {
+								users = append(users, row)
+							}
+						}
+					}
 					return users, []error{err}
 				},
 			},
