@@ -8,6 +8,8 @@ import (
 	"go-gqlgen-sqlboiler/dataloader"
 	"go-gqlgen-sqlboiler/graph/generated"
 	"go-gqlgen-sqlboiler/models"
+
+	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 )
 
 func (r *articleResolver) Author(ctx context.Context, obj *models.Article) (*models.User, error) {
@@ -31,7 +33,11 @@ func (r *queryResolver) Article(ctx context.Context, slug string) (*models.Artic
 }
 
 func (r *queryResolver) Articles(ctx context.Context, after *string, before *string, first *int, last *int) (*models.ArticleConnection, error) {
-	articles, err := models.Articles().All(ctx, r.DB)
+	var mods []qm.QueryMod
+	if first != nil {
+		mods = append(mods, qm.Limit(*first))
+	}
+	articles, err := models.Articles(mods...).All(ctx, r.DB)
 	if err != nil {
 		return nil, err
 	}
