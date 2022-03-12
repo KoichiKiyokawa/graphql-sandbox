@@ -38,11 +38,11 @@ export const Query = extendType({
       },
     });
 
-    t.nonNull.list.nonNull.field("users", {
+    t.nonNull.connectionField("users", {
       type: "User",
       description: "Get all users",
-      resolve(_root, _args, ctx) {
-        return ctx.db.user.findMany();
+      resolve(_root, args, ctx) {
+        return connectionFromPromisedArray(ctx.db.user.findMany(), args);
       },
     });
   },
