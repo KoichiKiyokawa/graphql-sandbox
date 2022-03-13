@@ -18,7 +18,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
-  DateTime: any;
+  DateTime: string;
 };
 
 export type Article = {
@@ -39,7 +39,7 @@ export type Article = {
 export type ArticleConnection = {
   __typename?: 'ArticleConnection';
   /** https://facebook.github.io/relay/graphql/connections.htm#sec-Edge-Types */
-  edges?: Maybe<Array<Maybe<ArticleEdge>>>;
+  edges: Array<ArticleEdge>;
   /** https://facebook.github.io/relay/graphql/connections.htm#sec-undefined.PageInfo */
   pageInfo: PageInfo;
 };
@@ -49,7 +49,7 @@ export type ArticleEdge = {
   /** https://facebook.github.io/relay/graphql/connections.htm#sec-Cursor */
   cursor: Scalars['String'];
   /** https://facebook.github.io/relay/graphql/connections.htm#sec-Node */
-  node?: Maybe<Article>;
+  node: Article;
 };
 
 export type CreateMessageInput = {
@@ -154,7 +154,7 @@ export type UserArticlesArgs = {
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: { __typename?: 'ArticleConnection', edges?: Array<{ __typename?: 'ArticleEdge', node?: { __typename?: 'Article', slug: string, title: string, description: string, body: string, author: { __typename?: 'User', id: string, name: string } } | null } | null> | null } };
+export type GetArticlesQuery = { __typename?: 'Query', articles: { __typename?: 'ArticleConnection', edges: Array<{ __typename?: 'ArticleEdge', node: { __typename?: 'Article', slug: string, title: string, description: string, body: string, author: { __typename?: 'User', id: string, name: string } } }> } };
 
 
 export const GetArticlesDoc = gql`

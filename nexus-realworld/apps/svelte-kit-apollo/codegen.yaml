@@ -6,5 +6,7 @@ generates:
       - typescript
       - typescript-operations
       - graphql-codegen-svelte-apollo
-config:
-  clientPath: 'src/plugins/apollo'
+    config:
+      clientPath: 'src/plugins/apollo'
+      scalars:
+        DateTime: string
