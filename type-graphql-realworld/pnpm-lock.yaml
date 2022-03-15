@@ -20,7 +20,7 @@ importers:
       class-validator: 0.13.2
       cookie-session: 2.0.0
       cors: 2.8.5
-      dayjs: 1.10.8
+      dayjs: 1.11.0
       express: 4.17.3
       graphql: 15.8.0
       graphql-fields: 2.0.3
@@ -42,7 +42,7 @@ importers:
       class-validator: 0.13.2
       cookie-session: 2.0.0
       cors: 2.8.5
-      dayjs: 1.10.8
+      dayjs: 1.11.0
       express: 4.17.3
       graphql: 15.8.0
       graphql-fields: 2.0.3
@@ -3138,8 +3138,8 @@ packages:
     resolution: {integrity: sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==}
     dev: true
 
-  /dayjs/1.10.8:
-    resolution: {integrity: sha512-wbNwDfBHHur9UOzNUjeKUOJ0fCb0a52Wx0xInmQ7Y8FstyajiV1NmK1e00cxsr9YrE9r7yAChE0VvpuY5Rnlow==}
+  /dayjs/1.11.0:
+    resolution: {integrity: sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug==}
     dev: false
 
   /debounce/1.2.1:
