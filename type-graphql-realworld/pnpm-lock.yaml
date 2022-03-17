@@ -66,7 +66,7 @@ importers:
     specifiers:
       '@apollo/client': ^3.5.6
       '@graphql-codegen/cli': 2.6.2
-      '@graphql-codegen/typescript': 2.4.7
+      '@graphql-codegen/typescript': 2.4.8
       '@graphql-codegen/typescript-operations': 2.3.4
       '@types/react': 17.0.40
       '@types/react-dom': 17.0.13
@@ -87,7 +87,7 @@ importers:
       react-location: 3.3.4_react-dom@17.0.2+react@17.0.2
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@15.8.0+typescript@4.6.2
-      '@graphql-codegen/typescript': 2.4.7_graphql@15.8.0
+      '@graphql-codegen/typescript': 2.4.8_graphql@15.8.0
       '@graphql-codegen/typescript-operations': 2.3.4_graphql@15.8.0
       '@types/react': 17.0.40
       '@types/react-dom': 17.0.13
@@ -947,7 +947,7 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@15.8.0
-      '@graphql-codegen/typescript': 2.4.7_graphql@15.8.0
+      '@graphql-codegen/typescript': 2.4.8_graphql@15.8.0
       '@graphql-codegen/visitor-plugin-common': 2.7.3_graphql@15.8.0
       auto-bind: 4.0.0
       graphql: 15.8.0
@@ -957,14 +957,14 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/typescript/2.4.7_graphql@15.8.0:
-    resolution: {integrity: sha512-1YAK+m9SZRS1Uy8hdXVQAaAG/WF2jdFD76wbMRQ8Lf5e9YbmtJuy1RpI13nZJTZbhFopd9zqoWFJHsU/oy4i7g==}
+  /@graphql-codegen/typescript/2.4.8_graphql@15.8.0:
+    resolution: {integrity: sha512-tVsHIkuyenBany7c5IMU1yi4S1er2hgyXJGNY7PcyhpJMx0eChmbqz1VTiZxDEwi8mDBS2mn3TaSJMh6xuJM5g==}
     peerDependencies:
       graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@15.8.0
       '@graphql-codegen/schema-ast': 2.4.1_graphql@15.8.0
-      '@graphql-codegen/visitor-plugin-common': 2.7.3_graphql@15.8.0
+      '@graphql-codegen/visitor-plugin-common': 2.7.4_graphql@15.8.0
       auto-bind: 4.0.0
       graphql: 15.8.0
       tslib: 2.3.1
