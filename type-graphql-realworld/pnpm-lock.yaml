@@ -101,7 +101,7 @@ importers:
     specifiers:
       '@graphql-codegen/cli': 2.6.2
       '@graphql-codegen/typescript-operations': 2.3.4
-      '@graphql-codegen/urql-svelte-operations-store': 1.1.14
+      '@graphql-codegen/urql-svelte-operations-store': 1.1.15
       '@sveltejs/adapter-static': 1.0.0-next.29
       '@sveltejs/kit': 1.0.0-next.298
       '@typescript-eslint/eslint-plugin': 5.15.0
@@ -127,7 +127,7 @@ importers:
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@15.8.0+typescript@4.6.2
       '@graphql-codegen/typescript-operations': 2.3.4_graphql@15.8.0
-      '@graphql-codegen/urql-svelte-operations-store': 1.1.14_graphql@15.8.0
+      '@graphql-codegen/urql-svelte-operations-store': 1.1.15_graphql@15.8.0
       '@sveltejs/adapter-static': 1.0.0-next.29
       '@sveltejs/kit': 1.0.0-next.298_svelte@3.46.4
       '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
@@ -280,7 +280,7 @@ packages:
       '@babel/compat-data': 7.17.0
       '@babel/core': 7.17.5
       '@babel/helper-validator-option': 7.16.7
-      browserslist: 4.19.3
+      browserslist: 4.20.2
       semver: 6.3.0
     dev: true
 
@@ -973,15 +973,15 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/urql-svelte-operations-store/1.1.14_graphql@15.8.0:
-    resolution: {integrity: sha512-dXWn0z4f0jBXm72rVQrG8bTh7/tsmZLv2TDndnluWEBs8CH0UCL6cKZrd27rByRqQQWrjwAJHl2vlx8TZRAKHg==}
+  /@graphql-codegen/urql-svelte-operations-store/1.1.15_graphql@15.8.0:
+    resolution: {integrity: sha512-1v+ywCiIAxJy7zPaFsLYoFOFgOUmmIkWDn+86dJYDzBolEjayNSGNHHbvpafSPgw0isff7yLGyyghqgyQe3qnA==}
     peerDependencies:
       '@urql/exchange-graphcache': ^4.1.1
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-tag: ^2.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@15.8.0
-      '@graphql-codegen/visitor-plugin-common': 2.7.3_graphql@15.8.0
+      '@graphql-codegen/visitor-plugin-common': 2.7.4_graphql@15.8.0
       auto-bind: 4.0.0
       change-case-all: 1.0.14
       graphql: 15.8.0
@@ -993,6 +993,27 @@ packages:
 
   /@graphql-codegen/visitor-plugin-common/2.7.3_graphql@15.8.0:
     resolution: {integrity: sha512-rODPGkrHEf9aHD8SgVWS0xie8VmJoYXLWgQR8PFKrwCUFjf7nvDuATAL2lTFiHATlVBWg1meXVPdUlkKeJj/0Q==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.4.2_graphql@15.8.0
+      '@graphql-tools/optimize': 1.2.0_graphql@15.8.0
+      '@graphql-tools/relay-operation-optimizer': 6.4.2_graphql@15.8.0
+      '@graphql-tools/utils': 8.6.2_graphql@15.8.0
+      auto-bind: 4.0.0
+      change-case-all: 1.0.14
+      dependency-graph: 0.11.0
+      graphql: 15.8.0
+      graphql-tag: 2.12.6_graphql@15.8.0
+      parse-filepath: 1.0.2
+      tslib: 2.3.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/visitor-plugin-common/2.7.4_graphql@15.8.0:
+    resolution: {integrity: sha512-aaDoEudDD+B7DK/UwDSL2Fzej75N9hNJ3N8FQuTIeDyw6FNGWUxmkjVBLQGlzfnYfK8IYkdfYkrPn3Skq0pVxA==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
@@ -2578,18 +2599,6 @@ packages:
     dependencies:
       fill-range: 7.0.1
 
-  /browserslist/4.19.3:
-    resolution: {integrity: sha512-XK3X4xtKJ+Txj8G5c30B4gsm71s69lqXlkYui4s6EkKxuv49qjYlY6oVd+IFJ73d4YymtM3+djvvt/R/iJwwDg==}
-    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
-    hasBin: true
-    dependencies:
-      caniuse-lite: 1.0.30001313
-      electron-to-chromium: 1.4.76
-      escalade: 3.1.1
-      node-releases: 2.0.2
-      picocolors: 1.0.0
-    dev: true
-
   /browserslist/4.20.2:
     resolution: {integrity: sha512-CQOBCqp/9pDvDbx3xfMi+86pr4KXIf2FDkTTdeuYw8OxS9t898LA1Khq57gtufFILXpfgsSx5woNgsBgvGjpsA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
@@ -2675,10 +2684,6 @@ packages:
   /camelcase/6.3.0:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
-    dev: true
-
-  /caniuse-lite/1.0.30001313:
-    resolution: {integrity: sha512-rI1UN0koZUiKINjysQDuRi2VeSCce3bYJNmDcj3PIKREiAmjakugBul1QSkg/fPrlULYl6oWfGg3PbgOSY9X4Q==}
     dev: true
 
   /caniuse-lite/1.0.30001317:
@@ -3299,10 +3304,6 @@ packages:
   /ee-first/1.1.1:
     resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
     dev: false
-
-  /electron-to-chromium/1.4.76:
-    resolution: {integrity: sha512-3Vftv7cenJtQb+k00McEBZ2vVmZ/x+HEF7pcZONZIkOsESqAqVuACmBxMv0JhzX7u0YltU0vSqRqgBSTAhFUjA==}
-    dev: true
 
   /electron-to-chromium/1.4.85:
     resolution: {integrity: sha512-K9AsQ41WS2bjZUFpRWfvaS4RjEcRCamEkBJN1Z1TQILBfP1H8QnJ9ti0wiLiMv0sRjX3EHKzgs9jDnmGFx2jXg==}
