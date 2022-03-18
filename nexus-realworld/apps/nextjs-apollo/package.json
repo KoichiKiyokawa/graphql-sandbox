@@ -21,7 +21,7 @@
     "@graphql-codegen/introspection": "2.1.1",
     "@graphql-codegen/typescript": "2.4.8",
     "@graphql-codegen/typescript-operations": "2.3.4",
-    "@graphql-codegen/typescript-react-apollo": "3.2.10",
+    "@graphql-codegen/typescript-react-apollo": "3.2.11",
     "@types/react": "^17.0.39",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
