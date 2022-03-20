@@ -1,6 +1,6 @@
 module go-gqlgen-sqlboiler
 
-go 1.17
+go 1.18
 
 require (
 	github.com/99designs/gqlgen v0.17.1
@@ -27,6 +27,7 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/samber/lo v1.11.0 // indirect
 	github.com/spf13/afero v1.8.1 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
@@ -35,7 +36,8 @@ require (
 	github.com/urfave/cli/v2 v2.3.0 // indirect
 	github.com/vektah/dataloaden v0.3.0 // indirect
 	github.com/volatiletech/inflect v0.0.1 // indirect
-	golang.org/x/mod v0.5.1 // indirect
+	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
+	golang.org/x/mod v0.6.0-dev.0.20211013180041-c96bc1413d57 // indirect
 	golang.org/x/sys v0.0.0-20220310020820-b874c991c1a5 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.9 // indirect
