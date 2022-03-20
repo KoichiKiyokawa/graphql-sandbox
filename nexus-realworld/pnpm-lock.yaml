@@ -109,7 +109,7 @@ importers:
       '@graphql-codegen/cli': 2.6.2
       '@graphql-codegen/introspection': 2.1.1
       '@graphql-codegen/typescript': 2.4.8
-      '@graphql-codegen/typescript-operations': 2.3.4
+      '@graphql-codegen/typescript-operations': 2.3.5
       '@graphql-codegen/typescript-react-apollo': 3.2.11
       '@nexus-realworld/frontend-utils': workspace:*
       '@types/react': ^17.0.39
@@ -130,7 +130,7 @@ importers:
       '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.2
       '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
       '@graphql-codegen/typescript': 2.4.8_graphql@16.3.0
-      '@graphql-codegen/typescript-operations': 2.3.4_graphql@16.3.0
+      '@graphql-codegen/typescript-operations': 2.3.5_graphql@16.3.0
       '@graphql-codegen/typescript-react-apollo': 3.2.11_graphql@16.3.0
       '@types/react': 17.0.40
       eslint: 8.11.0
@@ -143,7 +143,7 @@ importers:
       '@apollo/client': 3.5.10
       '@graphql-codegen/cli': 2.6.2
       '@graphql-codegen/typescript': 2.4.8
-      '@graphql-codegen/typescript-operations': 2.3.4
+      '@graphql-codegen/typescript-operations': 2.3.5
       '@nexus-realworld/frontend-utils': workspace:*
       '@sveltejs/adapter-auto': next
       '@sveltejs/kit': next
@@ -167,7 +167,7 @@ importers:
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.2
       '@graphql-codegen/typescript': 2.4.8_graphql@16.3.0
-      '@graphql-codegen/typescript-operations': 2.3.4_graphql@16.3.0
+      '@graphql-codegen/typescript-operations': 2.3.5_graphql@16.3.0
       '@nexus-realworld/frontend-utils': link:../frontend-utils
       '@sveltejs/adapter-auto': 1.0.0-next.33
       '@sveltejs/kit': 1.0.0-next.301_svelte@3.46.4
@@ -993,14 +993,14 @@ packages:
       tslib: 2.3.1
     dev: true
 
-  /@graphql-codegen/typescript-operations/2.3.4_graphql@16.3.0:
-    resolution: {integrity: sha512-Jnsx+YTCqwq8F0ebyZAJGVtt+PQNuB/0uv9mEMbgcUbo/7w6EX6NZ8JArRuuz8MUb/gbpeO+GkfuNX+F6A8ikw==}
+  /@graphql-codegen/typescript-operations/2.3.5_graphql@16.3.0:
+    resolution: {integrity: sha512-GCZQW+O+cIF62ioPkQMoSJGzjJhtr7ttZGJOAoN/Q/oolG8ph9jNFePKO67tSQ/POAs5HLqfat4kAlCK8OPV3Q==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@16.3.0
       '@graphql-codegen/typescript': 2.4.8_graphql@16.3.0
-      '@graphql-codegen/visitor-plugin-common': 2.7.3_graphql@16.3.0
+      '@graphql-codegen/visitor-plugin-common': 2.7.4_graphql@16.3.0
       auto-bind: 4.0.0
       graphql: 16.3.0
       tslib: 2.3.1
