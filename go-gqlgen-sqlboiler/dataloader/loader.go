@@ -29,18 +29,11 @@ func Middleware(db *sql.DB, next http.Handler) http.Handler {
 						return nil, nil
 					}
 
-					var ids []interface{}
-					for _, key := range keys {
-						ids = append(ids, key)
-					}
-
-					rows, err := models.Users(qm.WhereIn(models.UserColumns.ID+" in ?", ids...)).All(ctx, db)
-					users := lo.Map(keys, func(key string, _ int) *models.User {
-						user, _ := lo.Find(rows, func(row *models.User) bool {
-							return row.ID == key
-						})
-						return user
+					ids := lo.Map(keys, func(key string, _ int) interface{} {
+						return key
 					})
+
+					users, err := models.Users(qm.WhereIn(models.UserColumns.ID+" in ?", ids...), sortByKeysAsOrder(keys, models.UserColumns.ID)).All(ctx, db)
 					return users, []error{err}
 				},
 			},
