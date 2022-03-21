@@ -27,7 +27,7 @@ func reset(ctx context.Context, db *sql.DB) {
 }
 
 func seed(ctx context.Context, db *sql.DB) {
-	for userIndex := 1; userIndex <= 1000; userIndex++ {
+	for userIndex := 1; userIndex <= 100; userIndex++ {
 		user := &models.User{
 			ID:           fmt.Sprintf("user-%d", userIndex),
 			Name:         fmt.Sprintf("user%d", userIndex),
@@ -36,7 +36,7 @@ func seed(ctx context.Context, db *sql.DB) {
 		}
 		user.Insert(ctx, db, boil.Infer())
 
-		for articleIndex := 1; articleIndex <= 10000; articleIndex++ {
+		for articleIndex := 1; articleIndex <= 1000; articleIndex++ {
 			article := &models.Article{
 				Slug:        fmt.Sprintf("user%d-article%d-slug", userIndex, articleIndex),
 				Body:        fmt.Sprintf("user%d-article%d-body", userIndex, articleIndex),
