@@ -1,19 +1,34 @@
 package dataloader
 
 import (
-	"github.com/samber/lo"
+	"fmt"
+
+	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 )
 
-type anyModel struct {
+type model struct {
 	ID string
 }
 
 // Sort by the order of the id corresponding to the key
-func sortRowsByKeys[T anyModel](rows []T, keys []string) []T {
-	return lo.Map(keys, func(key string, _ int) T {
-		correspond, _ := lo.Find(rows, func(row T) bool {
-			return row.ID == key
-		})
-		return correspond
-	})
+// func sortRowsByKeys[T model](rows []T, keys []string) []T {
+// 	var ret []T
+// 	for _, key := range keys {
+// 		for _, row := range rows {
+// 			if row.ID == key {
+// 				ret = append(ret, row)
+// 			}
+// 		}
+// 	}
+// 	return ret
+// }
+
+// cf) https://stackoverflow.com/questions/3303851/sqlite-and-custom-order-by
+func sortByKeysAsOrder(keys []string, col string) qm.QueryMod {
+	orderByClause := fmt.Sprintf("CASE %s", col)
+	for i, key := range keys {
+		orderByClause += fmt.Sprintf(" WHEN '%s' THEN %d ", key, i)
+	}
+	orderByClause += "END"
+	return qm.OrderBy(orderByClause)
 }
