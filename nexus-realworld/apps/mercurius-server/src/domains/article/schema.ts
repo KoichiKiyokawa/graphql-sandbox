@@ -1,5 +1,11 @@
 import { connectionFromPromisedArray } from "graphql-relay";
-import { extendType, nonNull, objectType, stringArg } from "nexus";
+import {
+  extendType,
+  inputObjectType,
+  nonNull,
+  objectType,
+  stringArg,
+} from "nexus";
 import { User } from "~/domains/user/schema";
 
 export const Article = objectType({
@@ -50,6 +56,42 @@ export const Query = extendType({
       type: Article,
       async resolve(_root, args, ctx) {
         return connectionFromPromisedArray(ctx.db.article.findMany(), args);
+      },
+    });
+  },
+});
+
+const CreateArticleInput = inputObjectType({
+  name: "CreateArticleInput",
+  definition(t) {
+    t.string("slug", {
+      description: "The unique slug for the article",
+    });
+    t.nonNull.string("title", { description: "The title of the article" });
+    t.nonNull.string("description", {
+      description: "The description of the article",
+    });
+    t.nonNull.string("body");
+  },
+});
+
+export const Mutation = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.field("createArticle", {
+      type: Article,
+      args: {
+        article: nonNull(CreateArticleInput),
+      },
+      async resolve(_root, args, ctx) {
+        const currentUser = await ctx.getCurrentUser();
+        return ctx.db.article.create({
+          data: {
+            ...args.article,
+            authorId: currentUser.id,
+            slug: args.article.slug ?? undefined,
+          },
+        });
       },
     });
   },
