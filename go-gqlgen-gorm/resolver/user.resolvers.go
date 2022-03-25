@@ -5,6 +5,7 @@ package resolver
 
 import (
 	"context"
+	"go-gqlgen-gorm/dataloader"
 	"go-gqlgen-gorm/generated"
 	"go-gqlgen-gorm/model"
 )
@@ -27,9 +28,11 @@ func (r *userResolver) ID(ctx context.Context, obj *model.User) (string, error) 
 }
 
 func (r *userResolver) Articles(ctx context.Context, obj *model.User) ([]*model.Article, error) {
-	var articles []*model.Article
-	result := r.DB.Where("user_id = ?", obj.ID).Find(&articles)
-	return articles, result.Error
+	// var articles []*model.Article
+	// result := r.DB.Where("user_id = ?", obj.ID).Find(&articles)
+	// return articles, result.Error
+
+	return dataloader.For(ctx).ArticlesByUserIDs.Load(obj.ID)
 }
 
 // User returns generated.UserResolver implementation.
