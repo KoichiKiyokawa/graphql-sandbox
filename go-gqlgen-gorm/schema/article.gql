@@ -8,5 +8,6 @@ type Article {
 }
 
 extend type Query {
+  article(id: ID!): Article
   articles: [Article!]!
 }

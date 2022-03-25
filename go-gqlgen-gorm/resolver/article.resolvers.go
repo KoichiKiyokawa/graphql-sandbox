@@ -5,25 +5,32 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 	"go-gqlgen-gorm/generated"
 	"go-gqlgen-gorm/model"
 )
 
 func (r *articleResolver) ID(ctx context.Context, obj *model.Article) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return obj.ID.String(), nil
 }
 
 func (r *articleResolver) CreatedAt(ctx context.Context, obj *model.Article) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return obj.CreatedAt.String(), nil
 }
 
 func (r *articleResolver) UpdatedAt(ctx context.Context, obj *model.Article) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return obj.UpdatedAt.String(), nil
+}
+
+func (r *queryResolver) Article(ctx context.Context, id string) (*model.Article, error) {
+	var article *model.Article
+	result := r.DB.First(&article, id)
+	return article, result.Error
 }
 
 func (r *queryResolver) Articles(ctx context.Context) ([]*model.Article, error) {
-	panic(fmt.Errorf("not implemented"))
+	var articles []*model.Article
+	result := r.DB.Find(&articles)
+	return articles, result.Error
 }
 
 // Article returns generated.ArticleResolver implementation.
