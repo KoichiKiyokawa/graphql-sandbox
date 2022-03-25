@@ -1,8 +1,12 @@
 package model
 
+import "github.com/google/uuid"
+
 type Article struct {
 	BaseModel
-	Title string `json:"title"`
-	Body  string `json:"body"`
-	User  User   `json:"user"`
+	Title string
+	Body  string
+
+	User   User
+	UserID uuid.UUID
 }

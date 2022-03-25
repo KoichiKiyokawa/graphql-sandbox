@@ -2,8 +2,11 @@ type Article {
   id: ID!
   title: String!
   body: String!
-  createdAt: String!
-  updatedAt: String!
-
+  createdAt: DateTime!
+  updatedAt: DateTime!
   user: User!
+}
+
+extend type Query {
+  articles: [Article!]!
 }

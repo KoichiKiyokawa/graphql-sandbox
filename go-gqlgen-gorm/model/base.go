@@ -3,11 +3,12 @@ package model
 import (
 	"time"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type BaseModel struct {
-	ID        string `gorm:"primaryKey"`
+	ID        uuid.UUID
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
