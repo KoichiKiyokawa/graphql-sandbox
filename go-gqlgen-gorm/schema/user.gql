@@ -3,6 +3,10 @@ type User {
   name: String!
   email: String!
   articles: [Article!]!
+  """
+  ユーザーがいいねした記事一覧
+  """
+  likedArticles: [Article!]!
 }
 
 extend type Query {

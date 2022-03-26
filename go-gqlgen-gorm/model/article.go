@@ -7,6 +7,7 @@ type Article struct {
 	Title string
 	Body  string
 
-	User   User
-	UserID uuid.UUID
+	User        User
+	UserID      uuid.UUID
+	LikedUsersF []User `gorm:"many2many:user_liked_articles"`
 }

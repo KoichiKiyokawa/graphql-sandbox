@@ -35,6 +35,10 @@ func (r *userResolver) Articles(ctx context.Context, obj *model.User) ([]*model.
 	return dataloader.For(ctx).ArticlesByUserIDs.Load(obj.ID)
 }
 
+func (r *userResolver) LikedArticles(ctx context.Context, obj *model.User) ([]*model.Article, error) {
+	return dataloader.For(ctx).LikedArticlesByUserIDs.Load(obj.ID)
+}
+
 // User returns generated.UserResolver implementation.
 func (r *Resolver) User() generated.UserResolver { return &userResolver{r} }
 
