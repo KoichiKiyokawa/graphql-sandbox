@@ -17,17 +17,6 @@ var Models = []interface{}{"1"}
 var db, err = gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
 
 func main() {
-	reset()
-	db.AutoMigrate(&model.User{}, &model.Article{})
-	seed()
-}
-
-func reset() {
-	db.Exec("DROP TABLE IF EXISTS users")
-	db.Exec("DROP TABLE IF EXISTS articles")
-}
-
-func seed() {
 	for userIndex := 0; userIndex < 10; userIndex++ {
 		user := model.User{
 			ID:    getUUID(),
@@ -48,6 +37,17 @@ func seed() {
 			})
 		}
 		db.Create(&articles)
+	}
+
+	var firstUser model.User
+	var someArticles []model.Article
+	db.Where("name = ?", "user0").First(&firstUser)
+	db.Where("user_id <> ?", firstUser.ID).Limit(10).Find(&someArticles)
+	for _, article := range someArticles {
+		db.Table("user_liked_articles").Create(map[string]interface{}{
+			"user_id":    firstUser.ID,
+			"article_id": article.ID,
+		})
 	}
 }
 
