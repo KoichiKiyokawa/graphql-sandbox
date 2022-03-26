@@ -23,7 +23,7 @@ importers:
       graphql-relay: 0.10.0
       graphql-scalars: 1.15.0
       graphql-subscriptions: 2.0.0
-      graphql-ws: 5.6.3
+      graphql-ws: 5.6.4
       nexus: 1.3.0
       nodemon: 2.0.15
       prettier: 2.6.1
@@ -47,7 +47,7 @@ importers:
       graphql-relay: 0.10.0_graphql@16.3.0
       graphql-scalars: 1.15.0_graphql@16.3.0
       graphql-subscriptions: 2.0.0_graphql@16.3.0
-      graphql-ws: 5.6.3_graphql@16.3.0
+      graphql-ws: 5.6.4_graphql@16.3.0
       nexus: 1.3.0_graphql@16.3.0
       nodemon: 2.0.15
       prettier: 2.6.1
@@ -4779,8 +4779,8 @@ packages:
       graphql: 16.3.0
     dev: true
 
-  /graphql-ws/5.6.3_graphql@16.3.0:
-    resolution: {integrity: sha512-ZolWOi6bzI35ovGROCZROB9nDbwZiJdIsaPdzW/jkICCGNb3qL/33IONY/yQiBa+Je2uA11HfY4Uxse4+/ePYA==}
+  /graphql-ws/5.6.4_graphql@16.3.0:
+    resolution: {integrity: sha512-5r8tAzznI1zeh7k12+3z07KkgXPckQbnC9h4kJ2TBDWG2wb26TJTbVHQOiAncDBgPbtXtc1A2BlttiRuPH2t/w==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: '>=0.11 <=16'
