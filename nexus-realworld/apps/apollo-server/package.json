@@ -20,7 +20,7 @@
   "devDependencies": {
     "@prisma/client": "3.11.0",
     "@types/bcryptjs": "2.4.2",
-    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/eslint-plugin": "5.16.0",
     "@typescript-eslint/parser": "5.16.0",
     "apollo-server-core": "3.6.4",
     "apollo-server-express": "3.6.6",
