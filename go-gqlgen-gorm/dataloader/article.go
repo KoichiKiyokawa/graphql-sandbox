@@ -1,6 +1,7 @@
 package dataloader
 
 import (
+	"fmt"
 	"go-gqlgen-gorm/model"
 	"time"
 
@@ -23,7 +24,7 @@ func articlesByUserIDs(db *gorm.DB) ArticlesLoader {
 }
 
 type likedUserResult struct {
-	likeUserID uuid.UUID
+	LikedUserID uuid.UUID
 	model.Article
 }
 
@@ -33,30 +34,25 @@ func likedArticlesByUserIDs(db *gorm.DB) ArticlesLoader {
 		wait:     10 * time.Millisecond,
 		fetch: func(keys []uuid.UUID) ([][]*model.Article, []error) {
 			var results []likedUserResult
-			rows, err := db.
+			res := db.
 				Table("articles").
 				Select("user_liked_articles.user_id as liked_user_id, articles.*").
 				Joins("JOIN user_liked_articles ON user_liked_articles.article_id = articles.id").
 				Where("user_liked_articles.user_id IN ?", keys).
-				Rows()
+				Find(&results)
 
-			defer rows.Close()
-			for rows.Next() {
-				var res likedUserResult
-				rows.Scan(&res)
-				results = append(results, res)
-			}
+			fmt.Println(results[0].LikedUserID)
 
 			sorted := lo.Map(keys, func(key uuid.UUID, _ int) []*model.Article {
 				var currentKeyResults []*model.Article
 				for _, result := range results {
-					if result.likeUserID == key {
+					if result.LikedUserID == key {
 						currentKeyResults = append(currentKeyResults, &result.Article)
 					}
 				}
 				return currentKeyResults
 			})
-			return sorted, []error{err}
+			return sorted, []error{res.Error}
 		},
 	}
 }
