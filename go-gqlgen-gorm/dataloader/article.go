@@ -1,7 +1,6 @@
 package dataloader
 
 import (
-	"fmt"
 	"go-gqlgen-gorm/model"
 	"time"
 
@@ -40,8 +39,6 @@ func likedArticlesByUserIDs(db *gorm.DB) ArticlesLoader {
 				Joins("JOIN user_liked_articles ON user_liked_articles.article_id = articles.id").
 				Where("user_liked_articles.user_id IN ?", keys).
 				Find(&results)
-
-			fmt.Println(results[0].LikedUserID)
 
 			sorted := lo.Map(keys, func(key uuid.UUID, _ int) []*model.Article {
 				var currentKeyResults []*model.Article
