@@ -73,7 +73,7 @@ importers:
       '@vitejs/plugin-react': 1.2.0
       graphql: 15.8.0
       react: ^17.0.2
-      react-dom: ^17.0.2
+      react-dom: ^18.0.0
       react-location: ^3.3.0
       typescript: 4.6.3
       vite: 2.8.6
@@ -83,8 +83,8 @@ importers:
       '@apollo/client': 3.5.10_graphql@15.8.0+react@17.0.2
       graphql: 15.8.0
       react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-location: 3.3.4_react-dom@17.0.2+react@17.0.2
+      react-dom: 18.0.0_react@17.0.2
+      react-location: 3.3.4_react-dom@18.0.0+react@17.0.2
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@15.8.0+typescript@4.6.3
       '@graphql-codegen/typescript': 2.4.8_graphql@15.8.0
@@ -5729,22 +5729,21 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
-  /react-dom/17.0.2_react@17.0.2:
-    resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
+  /react-dom/18.0.0_react@17.0.2:
+    resolution: {integrity: sha512-XqX7uzmFo0pUceWFCt7Gff6IyIMzFUn7QMZrbrQfGxtaxXZIcGQzoNpRLE3fQLnS4XzLLPMZX2T9TRcSrasicw==}
     peerDependencies:
-      react: 17.0.2
+      react: ^18.0.0
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
       react: 17.0.2
-      scheduler: 0.20.2
+      scheduler: 0.21.0
     dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
 
-  /react-location/3.3.4_react-dom@17.0.2+react@17.0.2:
+  /react-location/3.3.4_react-dom@18.0.0+react@17.0.2:
     resolution: {integrity: sha512-XA1FLPh8qAO1aMmw80nY+QvLiPnQ1E2nXEWCpTTlqk1kQ+s9LsixMInGgzt/6AC6NnHW6PavpwnCZjs3e/ezow==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -5753,7 +5752,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.17.2
       react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
+      react-dom: 18.0.0_react@17.0.2
     dev: false
 
   /react-refresh/0.11.0:
@@ -6034,11 +6033,10 @@ packages:
       rimraf: 2.7.1
     dev: true
 
-  /scheduler/0.20.2:
-    resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
+  /scheduler/0.21.0:
+    resolution: {integrity: sha512-1r87x5fz9MXqswA2ERLo0EbOAU74DpIUO090gIasYTqlVoJeMcl+Z1Rg7WHz+qtPujhS/hGIt9kxZOYBV3faRQ==}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: false
 
   /scuid/1.1.0:

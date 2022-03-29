@@ -118,14 +118,14 @@ importers:
       graphql: 16.3.0
       next: 12.1.2
       react: 17.0.2
-      react-dom: 17.0.2
+      react-dom: 18.0.0
       typescript: 4.6.3
     dependencies:
       '@apollo/client': 3.5.10_graphql@16.3.0+react@17.0.2
       '@nexus-realworld/frontend-utils': link:../frontend-utils
-      next: 12.1.2_react-dom@17.0.2+react@17.0.2
+      next: 12.1.2_react-dom@18.0.0+react@17.0.2
       react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
+      react-dom: 18.0.0_react@17.0.2
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.3
       '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
@@ -3753,7 +3753,7 @@ packages:
       eslint-plugin-jsx-a11y: 6.5.1_eslint@8.12.0
       eslint-plugin-react: 7.29.1_eslint@8.12.0
       eslint-plugin-react-hooks: 4.3.0_eslint@8.12.0
-      next: 12.1.2_react-dom@17.0.2+react@17.0.2
+      next: 12.1.2_react-dom@18.0.0+react@17.0.2
       typescript: 4.6.3
     transitivePeerDependencies:
       - supports-color
@@ -5827,7 +5827,7 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /next/12.1.2_react-dom@17.0.2+react@17.0.2:
+  /next/12.1.2_react-dom@18.0.0+react@17.0.2:
     resolution: {integrity: sha512-JHPCsnFTBO0Z4SQxSYc611UA1WA+r/3y3Neg66AH5/gSO/oksfRnFw/zGX/FZ9+oOUHS9y3wJFawNpVYR2gJSQ==}
     engines: {node: '>=12.22.0'}
     hasBin: true
@@ -5849,7 +5849,7 @@ packages:
       caniuse-lite: 1.0.30001314
       postcss: 8.4.5
       react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
+      react-dom: 18.0.0_react@17.0.2
       styled-jsx: 5.0.1_react@17.0.2
       use-subscription: 1.5.1_react@17.0.2
     optionalDependencies:
@@ -6441,15 +6441,14 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
-  /react-dom/17.0.2_react@17.0.2:
-    resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
+  /react-dom/18.0.0_react@17.0.2:
+    resolution: {integrity: sha512-XqX7uzmFo0pUceWFCt7Gff6IyIMzFUn7QMZrbrQfGxtaxXZIcGQzoNpRLE3fQLnS4XzLLPMZX2T9TRcSrasicw==}
     peerDependencies:
-      react: 17.0.2
+      react: ^18.0.0
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
       react: 17.0.2
-      scheduler: 0.20.2
+      scheduler: 0.21.0
     dev: false
 
   /react-is/16.13.1:
@@ -6732,11 +6731,10 @@ packages:
       rimraf: 2.7.1
     dev: true
 
-  /scheduler/0.20.2:
-    resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
+  /scheduler/0.21.0:
+    resolution: {integrity: sha512-1r87x5fz9MXqswA2ERLo0EbOAU74DpIUO090gIasYTqlVoJeMcl+Z1Rg7WHz+qtPujhS/hGIt9kxZOYBV3faRQ==}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: false
 
   /scuid/1.1.0:
