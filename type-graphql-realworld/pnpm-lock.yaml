@@ -13,7 +13,7 @@ importers:
       '@types/graphql-fields': 1.3.4
       '@types/http-errors': 1.8.2
       '@types/node': 16.11.26
-      apollo-server: 3.6.6
+      apollo-server: 3.6.7
       apollo-server-core: 3.6.7
       apollo-server-express: 3.6.7
       bcryptjs: 2.4.3
@@ -35,7 +35,7 @@ importers:
       typescript: 4.6.3
     dependencies:
       '@prisma/client': 3.11.1_prisma@3.11.1
-      apollo-server: 3.6.6_graphql@15.8.0
+      apollo-server: 3.6.7_graphql@15.8.0
       apollo-server-core: 3.6.7_graphql@15.8.0
       apollo-server-express: 3.6.7_express@4.17.3+graphql@15.8.0
       bcryptjs: 2.4.3
@@ -2368,8 +2368,8 @@ packages:
       - encoding
     dev: false
 
-  /apollo-server/3.6.6_graphql@15.8.0:
-    resolution: {integrity: sha512-IBvwixhTwxNtjsbaYF9xttOnnVzcPcrf/3CP8k31leY7G0BsIwJYZDt79HlWENerhPLDvmB5avAmqQmPeFQUmQ==}
+  /apollo-server/3.6.7_graphql@15.8.0:
+    resolution: {integrity: sha512-WERZqaVCkZJMoOc9y692NribgNtKbHDjOwiAmgXI2WBlON2oUvCwgxPvsMg+bXVpQx4itrMyj31a2N6BeKmbmQ==}
     peerDependencies:
       graphql: ^15.3.0 || ^16.0.0
     dependencies:
