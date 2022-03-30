@@ -72,7 +72,7 @@ importers:
       '@types/react-dom': 17.0.14
       '@vitejs/plugin-react': 1.2.0
       graphql: 15.8.0
-      react: ^17.0.2
+      react: ^18.0.0
       react-dom: ^18.0.0
       react-location: ^3.3.0
       typescript: 4.6.3
@@ -80,11 +80,11 @@ importers:
       vite-plugin-windicss: 1.8.3
       windicss: 3.5.1
     dependencies:
-      '@apollo/client': 3.5.10_graphql@15.8.0+react@17.0.2
+      '@apollo/client': 3.5.10_graphql@15.8.0+react@18.0.0
       graphql: 15.8.0
-      react: 17.0.2
-      react-dom: 18.0.0_react@17.0.2
-      react-location: 3.3.4_react-dom@18.0.0+react@17.0.2
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+      react-location: 3.3.4_react-dom@18.0.0+react@18.0.0
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@15.8.0+typescript@4.6.3
       '@graphql-codegen/typescript': 2.4.8_graphql@15.8.0
@@ -159,7 +159,7 @@ packages:
     resolution: {integrity: sha512-MrAQ/MrPSxbh1bBrmwJjORfJymw4IqSHFBXqvxaga3ZdDM+/zokYF8DjyJpSjY2QmpmgQrajDUBJOWrYeARfzA==}
     dev: true
 
-  /@apollo/client/3.5.10_graphql@15.8.0+react@17.0.2:
+  /@apollo/client/3.5.10_graphql@15.8.0+react@18.0.0:
     resolution: {integrity: sha512-tL3iSpFe9Oldq7gYikZK1dcYxp1c01nlSwtsMz75382HcI6fvQXyFXUCJTTK3wgO2/ckaBvRGw7VqjFREdVoRw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -183,7 +183,7 @@ packages:
       hoist-non-react-statics: 3.3.2
       optimism: 0.16.1
       prop-types: 15.8.1
-      react: 17.0.2
+      react: 18.0.0
       symbol-observable: 4.0.0
       ts-invariant: 0.9.4
       tslib: 2.3.1
@@ -5733,13 +5733,13 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
-  /react-dom/18.0.0_react@17.0.2:
+  /react-dom/18.0.0_react@18.0.0:
     resolution: {integrity: sha512-XqX7uzmFo0pUceWFCt7Gff6IyIMzFUn7QMZrbrQfGxtaxXZIcGQzoNpRLE3fQLnS4XzLLPMZX2T9TRcSrasicw==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
       loose-envify: 1.4.0
-      react: 17.0.2
+      react: 18.0.0
       scheduler: 0.21.0
     dev: false
 
@@ -5747,7 +5747,7 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
 
-  /react-location/3.3.4_react-dom@18.0.0+react@17.0.2:
+  /react-location/3.3.4_react-dom@18.0.0+react@18.0.0:
     resolution: {integrity: sha512-XA1FLPh8qAO1aMmw80nY+QvLiPnQ1E2nXEWCpTTlqk1kQ+s9LsixMInGgzt/6AC6NnHW6PavpwnCZjs3e/ezow==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -5755,8 +5755,8 @@ packages:
       react-dom: '>=16'
     dependencies:
       '@babel/runtime': 7.17.2
-      react: 17.0.2
-      react-dom: 18.0.0_react@17.0.2
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
     dev: false
 
   /react-refresh/0.11.0:
@@ -5764,12 +5764,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react/17.0.2:
-    resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
+  /react/18.0.0:
+    resolution: {integrity: sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: false
 
   /read-pkg-up/7.0.1:

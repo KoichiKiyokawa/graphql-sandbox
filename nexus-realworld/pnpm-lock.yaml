@@ -117,15 +117,15 @@ importers:
       eslint-config-next: 12.1.2
       graphql: 16.3.0
       next: 12.1.2
-      react: 17.0.2
+      react: 18.0.0
       react-dom: 18.0.0
       typescript: 4.6.3
     dependencies:
-      '@apollo/client': 3.5.10_graphql@16.3.0+react@17.0.2
+      '@apollo/client': 3.5.10_graphql@16.3.0+react@18.0.0
       '@nexus-realworld/frontend-utils': link:../frontend-utils
-      next: 12.1.2_react-dom@18.0.0+react@17.0.2
-      react: 17.0.2
-      react-dom: 18.0.0_react@17.0.2
+      next: 12.1.2_react-dom@18.0.0+react@18.0.0
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.3
       '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
@@ -225,7 +225,7 @@ packages:
       tslib: 2.3.1
       zen-observable-ts: 1.2.3
 
-  /@apollo/client/3.5.10_graphql@16.3.0+react@17.0.2:
+  /@apollo/client/3.5.10_graphql@16.3.0+react@18.0.0:
     resolution: {integrity: sha512-tL3iSpFe9Oldq7gYikZK1dcYxp1c01nlSwtsMz75382HcI6fvQXyFXUCJTTK3wgO2/ckaBvRGw7VqjFREdVoRw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -249,7 +249,7 @@ packages:
       hoist-non-react-statics: 3.3.2
       optimism: 0.16.1
       prop-types: 15.8.1
-      react: 17.0.2
+      react: 18.0.0
       symbol-observable: 4.0.0
       ts-invariant: 0.9.4
       tslib: 2.3.1
@@ -3757,7 +3757,7 @@ packages:
       eslint-plugin-jsx-a11y: 6.5.1_eslint@8.12.0
       eslint-plugin-react: 7.29.1_eslint@8.12.0
       eslint-plugin-react-hooks: 4.3.0_eslint@8.12.0
-      next: 12.1.2_react-dom@18.0.0+react@17.0.2
+      next: 12.1.2_react-dom@18.0.0+react@18.0.0
       typescript: 4.6.3
     transitivePeerDependencies:
       - supports-color
@@ -5831,7 +5831,7 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /next/12.1.2_react-dom@18.0.0+react@17.0.2:
+  /next/12.1.2_react-dom@18.0.0+react@18.0.0:
     resolution: {integrity: sha512-JHPCsnFTBO0Z4SQxSYc611UA1WA+r/3y3Neg66AH5/gSO/oksfRnFw/zGX/FZ9+oOUHS9y3wJFawNpVYR2gJSQ==}
     engines: {node: '>=12.22.0'}
     hasBin: true
@@ -5852,10 +5852,10 @@ packages:
       '@next/env': 12.1.2
       caniuse-lite: 1.0.30001314
       postcss: 8.4.5
-      react: 17.0.2
-      react-dom: 18.0.0_react@17.0.2
-      styled-jsx: 5.0.1_react@17.0.2
-      use-subscription: 1.5.1_react@17.0.2
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+      styled-jsx: 5.0.1_react@18.0.0
+      use-subscription: 1.5.1_react@18.0.0
     optionalDependencies:
       '@next/swc-android-arm-eabi': 12.1.2
       '@next/swc-android-arm64': 12.1.2
@@ -6445,25 +6445,24 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
-  /react-dom/18.0.0_react@17.0.2:
+  /react-dom/18.0.0_react@18.0.0:
     resolution: {integrity: sha512-XqX7uzmFo0pUceWFCt7Gff6IyIMzFUn7QMZrbrQfGxtaxXZIcGQzoNpRLE3fQLnS4XzLLPMZX2T9TRcSrasicw==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
       loose-envify: 1.4.0
-      react: 17.0.2
+      react: 18.0.0
       scheduler: 0.21.0
     dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  /react/17.0.2:
-    resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
+  /react/18.0.0:
+    resolution: {integrity: sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: false
 
   /readable-stream/3.6.0:
@@ -7058,7 +7057,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /styled-jsx/5.0.1_react@17.0.2:
+  /styled-jsx/5.0.1_react@18.0.0:
     resolution: {integrity: sha512-+PIZ/6Uk40mphiQJJI1202b+/dYeTVd9ZnMPR80pgiWbjIwvN2zIp4r9et0BgqBuShh48I0gttPlAXA7WVvBxw==}
     engines: {node: '>= 12.0.0'}
     peerDependencies:
@@ -7071,7 +7070,7 @@ packages:
       babel-plugin-macros:
         optional: true
     dependencies:
-      react: 17.0.2
+      react: 18.0.0
     dev: false
 
   /subscriptions-transport-ws/0.11.0_graphql@16.3.0:
@@ -7512,13 +7511,13 @@ packages:
       prepend-http: 2.0.0
     dev: true
 
-  /use-subscription/1.5.1_react@17.0.2:
+  /use-subscription/1.5.1_react@18.0.0:
     resolution: {integrity: sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0
     dependencies:
       object-assign: 4.1.1
-      react: 17.0.2
+      react: 18.0.0
     dev: false
 
   /util-deprecate/1.0.2:
