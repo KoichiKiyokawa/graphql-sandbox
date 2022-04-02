@@ -1,0 +1,15 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  articles: [Article!]!
+  """
+  ユーザーがいいねした記事一覧
+  """
+  likedArticles: [Article!]!
+}
+
+extend type Query {
+  user(id: ID!): User
+  users: [User!]!
+}
