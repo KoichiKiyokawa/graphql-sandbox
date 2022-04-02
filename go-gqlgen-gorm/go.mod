@@ -8,7 +8,7 @@ require (
 	github.com/samber/lo v1.11.0
 	github.com/vektah/gqlparser/v2 v2.4.0
 	gorm.io/driver/sqlite v1.3.1
-	gorm.io/gorm v1.23.3
+	gorm.io/gorm v1.23.4
 )
 
 require (
