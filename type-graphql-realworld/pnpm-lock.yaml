@@ -114,7 +114,7 @@ importers:
       graphql: 15.8.0
       postcss: 8.4.12
       prettier: 2.6.2
-      prettier-plugin-svelte: 2.6.0
+      prettier-plugin-svelte: 2.7.0
       svelte: 3.46.6
       svelte-check: 2.6.0
       svelte-preprocess: 4.10.5
@@ -138,7 +138,7 @@ importers:
       eslint-plugin-svelte3: 3.4.1_eslint@8.12.0+svelte@3.46.6
       postcss: 8.4.12
       prettier: 2.6.2
-      prettier-plugin-svelte: 2.6.0_prettier@2.6.2+svelte@3.46.6
+      prettier-plugin-svelte: 2.7.0_prettier@2.6.2+svelte@3.46.6
       svelte: 3.46.6
       svelte-check: 2.6.0_postcss@8.4.12+svelte@3.46.6
       svelte-preprocess: 4.10.5_c809e873852dddf03bf3fd6b8515098a
@@ -5597,8 +5597,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /prettier-plugin-svelte/2.6.0_prettier@2.6.2+svelte@3.46.6:
-    resolution: {integrity: sha512-NPSRf6Y5rufRlBleok/pqg4+1FyGsL0zYhkYP6hnueeL1J/uCm3OfOZPsLX4zqD9VAdcXfyEL2PYqGv8ZoOSfA==}
+  /prettier-plugin-svelte/2.7.0_prettier@2.6.2+svelte@3.46.6:
+    resolution: {integrity: sha512-fQhhZICprZot2IqEyoiUYLTRdumULGRvw0o4dzl5jt0jfzVWdGqeYW27QTWAeXhoupEZJULmNoH3ueJwUWFLIA==}
     peerDependencies:
       prettier: ^1.16.4 || ^2.0.0
       svelte: ^3.2.0
