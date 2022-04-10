@@ -10,7 +10,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/mattn/go-sqlite3 v1.14.10
 	github.com/vektah/gqlparser/v2 v2.4.0
-	github.com/vmihailenco/msgpack/v5 v5.0.0-beta.9
+	github.com/vmihailenco/msgpack/v5 v5.3.5
 )
 
 require (
@@ -32,6 +32,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/urfave/cli/v2 v2.3.0 // indirect
 	github.com/vmihailenco/tagparser v0.1.2 // indirect
+	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/zclconf/go-cty v1.8.0 // indirect
 	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
