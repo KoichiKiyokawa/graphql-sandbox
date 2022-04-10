@@ -3,11 +3,14 @@ module go-gqlgen-ent
 go 1.18
 
 require (
+	entgo.io/contrib v0.2.0
 	entgo.io/ent v0.10.1
 	github.com/99designs/gqlgen v0.17.2
 	github.com/google/uuid v1.3.0
+	github.com/hashicorp/go-multierror v1.1.1
 	github.com/mattn/go-sqlite3 v1.14.10
 	github.com/vektah/gqlparser/v2 v2.4.0
+	github.com/vmihailenco/msgpack/v5 v5.0.0-beta.9
 )
 
 require (
@@ -19,6 +22,8 @@ require (
 	github.com/go-openapi/inflect v0.19.0 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/graphql-go/graphql v0.7.10-0.20210411022516-8a92e977c10b // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl/v2 v2.10.0 // indirect
 	github.com/matryer/moq v0.2.3 // indirect
@@ -26,6 +31,7 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/urfave/cli/v2 v2.3.0 // indirect
+	github.com/vmihailenco/tagparser v0.1.2 // indirect
 	github.com/zclconf/go-cty v1.8.0 // indirect
 	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect

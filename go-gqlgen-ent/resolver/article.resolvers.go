@@ -5,33 +5,30 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 	"go-gqlgen-ent/ent"
 	"go-gqlgen-ent/generated"
+
+	"github.com/google/uuid"
 )
 
 func (r *articleResolver) ID(ctx context.Context, obj *ent.Article) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return obj.ID.String(), nil
 }
 
 func (r *articleResolver) CreatedAt(ctx context.Context, obj *ent.Article) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return obj.CreatedAt.String(), nil
 }
 
 func (r *articleResolver) UpdatedAt(ctx context.Context, obj *ent.Article) (string, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *articleResolver) User(ctx context.Context, obj *ent.Article) (*ent.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	return obj.UpdatedAt.String(), nil
 }
 
 func (r *queryResolver) Article(ctx context.Context, id string) (*ent.Article, error) {
-	panic(fmt.Errorf("not implemented"))
+	return r.Client.Article.Get(ctx, uuid.MustParse(id))
 }
 
 func (r *queryResolver) Articles(ctx context.Context) ([]*ent.Article, error) {
-	panic(fmt.Errorf("not implemented"))
+	return r.Client.Article.Query().All(ctx)
 }
 
 // Article returns generated.ArticleResolver implementation.

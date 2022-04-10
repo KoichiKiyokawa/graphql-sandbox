@@ -224,7 +224,7 @@ func (c *ArticleClient) QueryAuthor(a *Article) *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(article.Table, article.FieldID, id),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, article.AuthorTable, article.AuthorColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, article.AuthorTable, article.AuthorColumn),
 		)
 		fromV = sqlgraph.Neighbors(a.driver.Dialect(), step)
 		return fromV, nil

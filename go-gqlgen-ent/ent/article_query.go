@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"database/sql/driver"
 	"errors"
 	"fmt"
 	"go-gqlgen-ent/ent/article"
@@ -80,7 +79,7 @@ func (aq *ArticleQuery) QueryAuthor() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(article.Table, article.FieldID, selector),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, article.AuthorTable, article.AuthorColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, article.AuthorTable, article.AuthorColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(aq.driver.Dialect(), step)
 		return fromU, nil
@@ -358,6 +357,9 @@ func (aq *ArticleQuery) sqlAll(ctx context.Context) ([]*Article, error) {
 			aq.withAuthor != nil,
 		}
 	)
+	if aq.withAuthor != nil {
+		withFKs = true
+	}
 	if withFKs {
 		_spec.Node.Columns = append(_spec.Node.Columns, article.ForeignKeys...)
 	}
@@ -382,31 +384,31 @@ func (aq *ArticleQuery) sqlAll(ctx context.Context) ([]*Article, error) {
 	}
 
 	if query := aq.withAuthor; query != nil {
-		fks := make([]driver.Value, 0, len(nodes))
-		nodeids := make(map[uuid.UUID]*Article)
+		ids := make([]uuid.UUID, 0, len(nodes))
+		nodeids := make(map[uuid.UUID][]*Article)
 		for i := range nodes {
-			fks = append(fks, nodes[i].ID)
-			nodeids[nodes[i].ID] = nodes[i]
-			nodes[i].Edges.Author = []*User{}
+			if nodes[i].article_author == nil {
+				continue
+			}
+			fk := *nodes[i].article_author
+			if _, ok := nodeids[fk]; !ok {
+				ids = append(ids, fk)
+			}
+			nodeids[fk] = append(nodeids[fk], nodes[i])
 		}
-		query.withFKs = true
-		query.Where(predicate.User(func(s *sql.Selector) {
-			s.Where(sql.InValues(article.AuthorColumn, fks...))
-		}))
+		query.Where(user.IDIn(ids...))
 		neighbors, err := query.All(ctx)
 		if err != nil {
 			return nil, err
 		}
 		for _, n := range neighbors {
-			fk := n.article_author
-			if fk == nil {
-				return nil, fmt.Errorf(`foreign-key "article_author" is nil for node %v`, n.ID)
-			}
-			node, ok := nodeids[*fk]
+			nodes, ok := nodeids[n.ID]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "article_author" returned %v for node %v`, *fk, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "article_author" returned %v`, n.ID)
 			}
-			node.Edges.Author = append(node.Edges.Author, n)
+			for i := range nodes {
+				nodes[i].Edges.Author = n
+			}
 		}
 	}
 

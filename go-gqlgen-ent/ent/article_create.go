@@ -76,19 +76,23 @@ func (ac *ArticleCreate) SetNillableID(u *uuid.UUID) *ArticleCreate {
 	return ac
 }
 
-// AddAuthorIDs adds the "author" edge to the User entity by IDs.
-func (ac *ArticleCreate) AddAuthorIDs(ids ...uuid.UUID) *ArticleCreate {
-	ac.mutation.AddAuthorIDs(ids...)
+// SetAuthorID sets the "author" edge to the User entity by ID.
+func (ac *ArticleCreate) SetAuthorID(id uuid.UUID) *ArticleCreate {
+	ac.mutation.SetAuthorID(id)
 	return ac
 }
 
-// AddAuthor adds the "author" edges to the User entity.
-func (ac *ArticleCreate) AddAuthor(u ...*User) *ArticleCreate {
-	ids := make([]uuid.UUID, len(u))
-	for i := range u {
-		ids[i] = u[i].ID
+// SetNillableAuthorID sets the "author" edge to the User entity by ID if the given value is not nil.
+func (ac *ArticleCreate) SetNillableAuthorID(id *uuid.UUID) *ArticleCreate {
+	if id != nil {
+		ac = ac.SetAuthorID(*id)
 	}
-	return ac.AddAuthorIDs(ids...)
+	return ac
+}
+
+// SetAuthor sets the "author" edge to the User entity.
+func (ac *ArticleCreate) SetAuthor(u *User) *ArticleCreate {
+	return ac.SetAuthorID(u.ID)
 }
 
 // Mutation returns the ArticleMutation object of the builder.
@@ -270,7 +274,7 @@ func (ac *ArticleCreate) createSpec() (*Article, *sqlgraph.CreateSpec) {
 	}
 	if nodes := ac.mutation.AuthorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   article.AuthorTable,
 			Columns: []string{article.AuthorColumn},
@@ -285,6 +289,7 @@ func (ac *ArticleCreate) createSpec() (*Article, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
+		_node.article_author = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

@@ -24,8 +24,7 @@ type User struct {
 	PasswordHash string `json:"passwordHash,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
-	Edges          UserEdges `json:"edges"`
-	article_author *uuid.UUID
+	Edges UserEdges `json:"edges"`
 }
 
 // UserEdges holds the relations/edges for other nodes in the graph.
@@ -55,8 +54,6 @@ func (*User) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullString)
 		case user.FieldID:
 			values[i] = new(uuid.UUID)
-		case user.ForeignKeys[0]: // article_author
-			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type User", columns[i])
 		}
@@ -95,13 +92,6 @@ func (u *User) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field passwordHash", values[i])
 			} else if value.Valid {
 				u.PasswordHash = value.String
-			}
-		case user.ForeignKeys[0]:
-			if value, ok := values[i].(*sql.NullScanner); !ok {
-				return fmt.Errorf("unexpected type %T for field article_author", values[i])
-			} else if value.Valid {
-				u.article_author = new(uuid.UUID)
-				*u.article_author = *value.S.(*uuid.UUID)
 			}
 		}
 	}

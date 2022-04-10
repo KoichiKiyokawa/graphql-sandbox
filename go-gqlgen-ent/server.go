@@ -28,7 +28,7 @@ func main() {
 	defer client.Close()
 
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &resolver.Resolver{
-		Client: client,
+		Client: client.Debug(),
 	}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))

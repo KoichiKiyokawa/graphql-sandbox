@@ -5,6 +5,7 @@ package ent
 import (
 	"fmt"
 	"go-gqlgen-ent/ent/article"
+	"go-gqlgen-ent/ent/user"
 	"strings"
 	"time"
 
@@ -27,23 +28,29 @@ type Article struct {
 	UpdatedAt time.Time `json:"updatedAt,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the ArticleQuery when eager-loading is set.
-	Edges         ArticleEdges `json:"edges"`
-	user_articles *uuid.UUID
+	Edges          ArticleEdges `json:"edges"`
+	article_author *uuid.UUID
+	user_articles  *uuid.UUID
 }
 
 // ArticleEdges holds the relations/edges for other nodes in the graph.
 type ArticleEdges struct {
 	// Author holds the value of the author edge.
-	Author []*User `json:"author,omitempty"`
+	Author *User `json:"author,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
 // AuthorOrErr returns the Author value or an error if the edge
-// was not loaded in eager-loading.
-func (e ArticleEdges) AuthorOrErr() ([]*User, error) {
+// was not loaded in eager-loading, or loaded but was not found.
+func (e ArticleEdges) AuthorOrErr() (*User, error) {
 	if e.loadedTypes[0] {
+		if e.Author == nil {
+			// The edge author was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: user.Label}
+		}
 		return e.Author, nil
 	}
 	return nil, &NotLoadedError{edge: "author"}
@@ -60,7 +67,9 @@ func (*Article) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullTime)
 		case article.FieldID:
 			values[i] = new(uuid.UUID)
-		case article.ForeignKeys[0]: // user_articles
+		case article.ForeignKeys[0]: // article_author
+			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
+		case article.ForeignKeys[1]: // user_articles
 			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Article", columns[i])
@@ -108,6 +117,13 @@ func (a *Article) assignValues(columns []string, values []interface{}) error {
 				a.UpdatedAt = value.Time
 			}
 		case article.ForeignKeys[0]:
+			if value, ok := values[i].(*sql.NullScanner); !ok {
+				return fmt.Errorf("unexpected type %T for field article_author", values[i])
+			} else if value.Valid {
+				a.article_author = new(uuid.UUID)
+				*a.article_author = *value.S.(*uuid.UUID)
+			}
+		case article.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullScanner); !ok {
 				return fmt.Errorf("unexpected type %T for field user_articles", values[i])
 			} else if value.Valid {

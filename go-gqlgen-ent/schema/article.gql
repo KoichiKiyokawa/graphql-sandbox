@@ -4,7 +4,7 @@ type Article {
   body: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  user: User!
+  author: User!
 }
 
 extend type Query {

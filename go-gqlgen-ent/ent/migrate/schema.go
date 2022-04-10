@@ -15,6 +15,7 @@ var (
 		{Name: "body", Type: field.TypeString, Size: 65536},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "article_author", Type: field.TypeUUID, Nullable: true},
 		{Name: "user_articles", Type: field.TypeUUID, Nullable: true},
 	}
 	// ArticlesTable holds the schema information for the "articles" table.
@@ -24,8 +25,14 @@ var (
 		PrimaryKey: []*schema.Column{ArticlesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "articles_users_articles",
+				Symbol:     "articles_users_author",
 				Columns:    []*schema.Column{ArticlesColumns[5]},
+				RefColumns: []*schema.Column{UsersColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "articles_users_articles",
+				Columns:    []*schema.Column{ArticlesColumns[6]},
 				RefColumns: []*schema.Column{UsersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -37,21 +44,12 @@ var (
 		{Name: "name", Type: field.TypeString, Size: 32},
 		{Name: "email", Type: field.TypeString},
 		{Name: "password_hash", Type: field.TypeString},
-		{Name: "article_author", Type: field.TypeUUID, Nullable: true},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{
 		Name:       "users",
 		Columns:    UsersColumns,
 		PrimaryKey: []*schema.Column{UsersColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{
-			{
-				Symbol:     "users_articles_author",
-				Columns:    []*schema.Column{UsersColumns[4]},
-				RefColumns: []*schema.Column{ArticlesColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
@@ -62,5 +60,5 @@ var (
 
 func init() {
 	ArticlesTable.ForeignKeys[0].RefTable = UsersTable
-	UsersTable.ForeignKeys[0].RefTable = ArticlesTable
+	ArticlesTable.ForeignKeys[1].RefTable = UsersTable
 }

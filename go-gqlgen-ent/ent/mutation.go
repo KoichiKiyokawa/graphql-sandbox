@@ -41,8 +41,7 @@ type ArticleMutation struct {
 	createdAt     *time.Time
 	updatedAt     *time.Time
 	clearedFields map[string]struct{}
-	author        map[uuid.UUID]struct{}
-	removedauthor map[uuid.UUID]struct{}
+	author        *uuid.UUID
 	clearedauthor bool
 	done          bool
 	oldValue      func(context.Context) (*Article, error)
@@ -297,14 +296,9 @@ func (m *ArticleMutation) ResetUpdatedAt() {
 	m.updatedAt = nil
 }
 
-// AddAuthorIDs adds the "author" edge to the User entity by ids.
-func (m *ArticleMutation) AddAuthorIDs(ids ...uuid.UUID) {
-	if m.author == nil {
-		m.author = make(map[uuid.UUID]struct{})
-	}
-	for i := range ids {
-		m.author[ids[i]] = struct{}{}
-	}
+// SetAuthorID sets the "author" edge to the User entity by id.
+func (m *ArticleMutation) SetAuthorID(id uuid.UUID) {
+	m.author = &id
 }
 
 // ClearAuthor clears the "author" edge to the User entity.
@@ -317,29 +311,20 @@ func (m *ArticleMutation) AuthorCleared() bool {
 	return m.clearedauthor
 }
 
-// RemoveAuthorIDs removes the "author" edge to the User entity by IDs.
-func (m *ArticleMutation) RemoveAuthorIDs(ids ...uuid.UUID) {
-	if m.removedauthor == nil {
-		m.removedauthor = make(map[uuid.UUID]struct{})
-	}
-	for i := range ids {
-		delete(m.author, ids[i])
-		m.removedauthor[ids[i]] = struct{}{}
-	}
-}
-
-// RemovedAuthor returns the removed IDs of the "author" edge to the User entity.
-func (m *ArticleMutation) RemovedAuthorIDs() (ids []uuid.UUID) {
-	for id := range m.removedauthor {
-		ids = append(ids, id)
+// AuthorID returns the "author" edge ID in the mutation.
+func (m *ArticleMutation) AuthorID() (id uuid.UUID, exists bool) {
+	if m.author != nil {
+		return *m.author, true
 	}
 	return
 }
 
 // AuthorIDs returns the "author" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// AuthorID instead. It exists only for internal usage by the builders.
 func (m *ArticleMutation) AuthorIDs() (ids []uuid.UUID) {
-	for id := range m.author {
-		ids = append(ids, id)
+	if id := m.author; id != nil {
+		ids = append(ids, *id)
 	}
 	return
 }
@@ -348,7 +333,6 @@ func (m *ArticleMutation) AuthorIDs() (ids []uuid.UUID) {
 func (m *ArticleMutation) ResetAuthor() {
 	m.author = nil
 	m.clearedauthor = false
-	m.removedauthor = nil
 }
 
 // Where appends a list predicates to the ArticleMutation builder.
@@ -532,11 +516,9 @@ func (m *ArticleMutation) AddedEdges() []string {
 func (m *ArticleMutation) AddedIDs(name string) []ent.Value {
 	switch name {
 	case article.EdgeAuthor:
-		ids := make([]ent.Value, 0, len(m.author))
-		for id := range m.author {
-			ids = append(ids, id)
+		if id := m.author; id != nil {
+			return []ent.Value{*id}
 		}
-		return ids
 	}
 	return nil
 }
@@ -544,9 +526,6 @@ func (m *ArticleMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *ArticleMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 1)
-	if m.removedauthor != nil {
-		edges = append(edges, article.EdgeAuthor)
-	}
 	return edges
 }
 
@@ -554,12 +533,6 @@ func (m *ArticleMutation) RemovedEdges() []string {
 // the given name in this mutation.
 func (m *ArticleMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
-	case article.EdgeAuthor:
-		ids := make([]ent.Value, 0, len(m.removedauthor))
-		for id := range m.removedauthor {
-			ids = append(ids, id)
-		}
-		return ids
 	}
 	return nil
 }
@@ -587,6 +560,9 @@ func (m *ArticleMutation) EdgeCleared(name string) bool {
 // if that edge is not defined in the schema.
 func (m *ArticleMutation) ClearEdge(name string) error {
 	switch name {
+	case article.EdgeAuthor:
+		m.ClearAuthor()
+		return nil
 	}
 	return fmt.Errorf("unknown Article unique edge %s", name)
 }

@@ -26,7 +26,7 @@ const (
 	// Table holds the table name of the article in the database.
 	Table = "articles"
 	// AuthorTable is the table that holds the author relation/edge.
-	AuthorTable = "users"
+	AuthorTable = "articles"
 	// AuthorInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
 	AuthorInverseTable = "users"
@@ -46,6 +46,7 @@ var Columns = []string{
 // ForeignKeys holds the SQL foreign-keys that are owned by the "articles"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
+	"article_author",
 	"user_articles",
 }
 

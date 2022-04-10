@@ -45,12 +45,12 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Article struct {
+		Author    func(childComplexity int) int
 		Body      func(childComplexity int) int
 		CreatedAt func(childComplexity int) int
 		ID        func(childComplexity int) int
 		Title     func(childComplexity int) int
 		UpdatedAt func(childComplexity int) int
-		User      func(childComplexity int) int
 	}
 
 	Query struct {
@@ -74,7 +74,6 @@ type ArticleResolver interface {
 
 	CreatedAt(ctx context.Context, obj *ent.Article) (string, error)
 	UpdatedAt(ctx context.Context, obj *ent.Article) (string, error)
-	User(ctx context.Context, obj *ent.Article) (*ent.User, error)
 }
 type QueryResolver interface {
 	Article(ctx context.Context, id string) (*ent.Article, error)
@@ -85,7 +84,6 @@ type QueryResolver interface {
 type UserResolver interface {
 	ID(ctx context.Context, obj *ent.User) (string, error)
 
-	Articles(ctx context.Context, obj *ent.User) ([]*ent.Article, error)
 	LikedArticles(ctx context.Context, obj *ent.User) ([]*ent.Article, error)
 }
 
@@ -103,6 +101,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e}
 	_ = ec
 	switch typeName + "." + field {
+
+	case "Article.author":
+		if e.complexity.Article.Author == nil {
+			break
+		}
+
+		return e.complexity.Article.Author(childComplexity), true
 
 	case "Article.body":
 		if e.complexity.Article.Body == nil {
@@ -138,13 +143,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Article.UpdatedAt(childComplexity), true
-
-	case "Article.user":
-		if e.complexity.Article.User == nil {
-			break
-		}
-
-		return e.complexity.Article.User(childComplexity), true
 
 	case "Query.article":
 		if e.complexity.Query.Article == nil {
@@ -275,7 +273,7 @@ var sources = []*ast.Source{
   body: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  user: User!
+  author: User!
 }
 
 extend type Query {
@@ -566,7 +564,7 @@ func (ec *executionContext) _Article_updatedAt(ctx context.Context, field graphq
 	return ec.marshalNDateTime2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Article_user(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_author(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -578,13 +576,13 @@ func (ec *executionContext) _Article_user(ctx context.Context, field graphql.Col
 		Field:      field,
 		Args:       nil,
 		IsMethod:   true,
-		IsResolver: true,
+		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Article().User(rctx, obj)
+		return obj.Author(ctx)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -937,13 +935,13 @@ func (ec *executionContext) _User_articles(ctx context.Context, field graphql.Co
 		Field:      field,
 		Args:       nil,
 		IsMethod:   true,
-		IsResolver: true,
+		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.User().Articles(rctx, obj)
+		return obj.Articles(ctx)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2279,7 +2277,7 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 				return innerFunc(ctx)
 
 			})
-		case "user":
+		case "author":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -2288,7 +2286,7 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Article_user(ctx, field, obj)
+				res = ec._Article_author(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -3076,10 +3074,6 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 		}
 	}
 	return res
-}
-
-func (ec *executionContext) marshalNUser2goᚑgqlgenᚑentᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v ent.User) graphql.Marshaler {
-	return ec._User(ctx, sel, &v)
 }
 
 func (ec *executionContext) marshalNUser2ᚕᚖgoᚑgqlgenᚑentᚋentᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.User) graphql.Marshaler {

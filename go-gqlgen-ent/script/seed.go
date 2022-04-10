@@ -20,9 +20,9 @@ func main() {
 	defer client.Close()
 	ctx := context.Background()
 
+	// reset
+	client.Article.Delete().Exec(ctx)
 	client.User.Delete().Exec(ctx)
-
-	fmt.Println("Create Users")
 
 	for userIndex := 0; userIndex < 10; userIndex++ {
 		user, err := client.User.Create().
@@ -36,5 +36,18 @@ func main() {
 		}
 
 		fmt.Println(user)
+
+		for articleIndex := 0; articleIndex < 100; articleIndex++ {
+			article, err := client.Article.Create().
+				SetAuthor(user).
+				SetTitle(fmt.Sprintf("user%d-title-%d", userIndex, articleIndex)).
+				SetBody("user%d-body-%d").Save(ctx)
+
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			fmt.Println(article)
+		}
 	}
 }
