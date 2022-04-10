@@ -15,7 +15,6 @@ var (
 		{Name: "body", Type: field.TypeString, Size: 65536},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "article_author", Type: field.TypeUUID, Nullable: true},
 		{Name: "user_articles", Type: field.TypeUUID, Nullable: true},
 	}
 	// ArticlesTable holds the schema information for the "articles" table.
@@ -25,14 +24,8 @@ var (
 		PrimaryKey: []*schema.Column{ArticlesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "articles_users_author",
-				Columns:    []*schema.Column{ArticlesColumns[5]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
 				Symbol:     "articles_users_articles",
-				Columns:    []*schema.Column{ArticlesColumns[6]},
+				Columns:    []*schema.Column{ArticlesColumns[5]},
 				RefColumns: []*schema.Column{UsersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -60,5 +53,4 @@ var (
 
 func init() {
 	ArticlesTable.ForeignKeys[0].RefTable = UsersTable
-	ArticlesTable.ForeignKeys[1].RefTable = UsersTable
 }

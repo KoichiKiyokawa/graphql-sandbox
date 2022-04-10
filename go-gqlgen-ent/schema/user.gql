@@ -2,11 +2,21 @@ type User {
   id: ID!
   name: String!
   email: String!
-  articles: [Article!]!
+  articles(
+    after: Cursor
+    first: Int
+    before: Cursor
+    last: Int
+  ): ArticleConnection!
   """
   ユーザーがいいねした記事一覧
   """
-  likedArticles: ArticleConnection!
+  likedArticles(
+    after: Cursor
+    first: Int
+    before: Cursor
+    last: Int
+  ): ArticleConnection!
 }
 
 type UserConnection {

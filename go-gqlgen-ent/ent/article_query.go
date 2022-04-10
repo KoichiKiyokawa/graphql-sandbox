@@ -79,7 +79,7 @@ func (aq *ArticleQuery) QueryAuthor() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(article.Table, article.FieldID, selector),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, article.AuthorTable, article.AuthorColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, article.AuthorTable, article.AuthorColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(aq.driver.Dialect(), step)
 		return fromU, nil
@@ -387,10 +387,10 @@ func (aq *ArticleQuery) sqlAll(ctx context.Context) ([]*Article, error) {
 		ids := make([]uuid.UUID, 0, len(nodes))
 		nodeids := make(map[uuid.UUID][]*Article)
 		for i := range nodes {
-			if nodes[i].article_author == nil {
+			if nodes[i].user_articles == nil {
 				continue
 			}
-			fk := *nodes[i].article_author
+			fk := *nodes[i].user_articles
 			if _, ok := nodeids[fk]; !ok {
 				ids = append(ids, fk)
 			}
@@ -404,7 +404,7 @@ func (aq *ArticleQuery) sqlAll(ctx context.Context) ([]*Article, error) {
 		for _, n := range neighbors {
 			nodes, ok := nodeids[n.ID]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "article_author" returned %v`, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "user_articles" returned %v`, n.ID)
 			}
 			for i := range nodes {
 				nodes[i].Edges.Author = n

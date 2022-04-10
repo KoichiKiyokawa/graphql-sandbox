@@ -31,7 +31,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "user" package.
 	AuthorInverseTable = "users"
 	// AuthorColumn is the table column denoting the author relation/edge.
-	AuthorColumn = "article_author"
+	AuthorColumn = "user_articles"
 )
 
 // Columns holds all SQL columns for article fields.
@@ -46,7 +46,6 @@ var Columns = []string{
 // ForeignKeys holds the SQL foreign-keys that are owned by the "articles"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
-	"article_author",
 	"user_articles",
 }
 

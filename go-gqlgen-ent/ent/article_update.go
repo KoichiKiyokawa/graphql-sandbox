@@ -224,7 +224,7 @@ func (au *ArticleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if au.mutation.AuthorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
-			Inverse: false,
+			Inverse: true,
 			Table:   article.AuthorTable,
 			Columns: []string{article.AuthorColumn},
 			Bidi:    false,
@@ -240,7 +240,7 @@ func (au *ArticleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if nodes := au.mutation.AuthorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
-			Inverse: false,
+			Inverse: true,
 			Table:   article.AuthorTable,
 			Columns: []string{article.AuthorColumn},
 			Bidi:    false,
@@ -493,7 +493,7 @@ func (auo *ArticleUpdateOne) sqlSave(ctx context.Context) (_node *Article, err e
 	if auo.mutation.AuthorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
-			Inverse: false,
+			Inverse: true,
 			Table:   article.AuthorTable,
 			Columns: []string{article.AuthorColumn},
 			Bidi:    false,
@@ -509,7 +509,7 @@ func (auo *ArticleUpdateOne) sqlSave(ctx context.Context) (_node *Article, err e
 	if nodes := auo.mutation.AuthorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
-			Inverse: false,
+			Inverse: true,
 			Table:   article.AuthorTable,
 			Columns: []string{article.AuthorColumn},
 			Bidi:    false,

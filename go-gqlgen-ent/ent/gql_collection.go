@@ -37,5 +37,13 @@ func (u *UserQuery) CollectFields(ctx context.Context, satisfies ...string) *Use
 }
 
 func (u *UserQuery) collectField(ctx *graphql.OperationContext, field graphql.CollectedField, satisfies ...string) *UserQuery {
+	for _, field := range graphql.CollectFields(ctx, field.Selections, satisfies) {
+		switch field.Name {
+		case "articles":
+			u = u.WithArticles(func(query *ArticleQuery) {
+				query.collectField(ctx, field)
+			})
+		}
+	}
 	return u
 }

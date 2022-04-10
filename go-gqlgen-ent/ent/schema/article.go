@@ -29,6 +29,6 @@ func (Article) Fields() []ent.Field {
 // Edges of the Article.
 func (Article) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("author", User.Type).Annotations(entgql.Bind()).Unique(),
+		edge.From("author", User.Type).Ref("articles").Unique().Annotations(entgql.Bind()),
 	}
 }

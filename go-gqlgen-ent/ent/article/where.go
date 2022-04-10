@@ -502,7 +502,7 @@ func HasAuthor() predicate.Article {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(AuthorTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, AuthorTable, AuthorColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, AuthorTable, AuthorColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
@@ -514,7 +514,7 @@ func HasAuthorWith(preds ...predicate.User) predicate.Article {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(AuthorInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, AuthorTable, AuthorColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, AuthorTable, AuthorColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
