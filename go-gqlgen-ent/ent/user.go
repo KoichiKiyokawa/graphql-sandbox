@@ -22,6 +22,28 @@ type User struct {
 	Email string `json:"email,omitempty"`
 	// PasswordHash holds the value of the "passwordHash" field.
 	PasswordHash string `json:"passwordHash,omitempty"`
+	// Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the UserQuery when eager-loading is set.
+	Edges          UserEdges `json:"edges"`
+	article_author *uuid.UUID
+}
+
+// UserEdges holds the relations/edges for other nodes in the graph.
+type UserEdges struct {
+	// Articles holds the value of the articles edge.
+	Articles []*Article `json:"articles,omitempty"`
+	// loadedTypes holds the information for reporting if a
+	// type was loaded (or requested) in eager-loading or not.
+	loadedTypes [1]bool
+}
+
+// ArticlesOrErr returns the Articles value or an error if the edge
+// was not loaded in eager-loading.
+func (e UserEdges) ArticlesOrErr() ([]*Article, error) {
+	if e.loadedTypes[0] {
+		return e.Articles, nil
+	}
+	return nil, &NotLoadedError{edge: "articles"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -33,6 +55,8 @@ func (*User) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullString)
 		case user.FieldID:
 			values[i] = new(uuid.UUID)
+		case user.ForeignKeys[0]: // article_author
+			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type User", columns[i])
 		}
@@ -72,9 +96,21 @@ func (u *User) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				u.PasswordHash = value.String
 			}
+		case user.ForeignKeys[0]:
+			if value, ok := values[i].(*sql.NullScanner); !ok {
+				return fmt.Errorf("unexpected type %T for field article_author", values[i])
+			} else if value.Valid {
+				u.article_author = new(uuid.UUID)
+				*u.article_author = *value.S.(*uuid.UUID)
+			}
 		}
 	}
 	return nil
+}
+
+// QueryArticles queries the "articles" edge of the User entity.
+func (u *User) QueryArticles() *ArticleQuery {
+	return (&UserClient{config: u.config}).QueryArticles(u)
 }
 
 // Update returns a builder for updating this User.

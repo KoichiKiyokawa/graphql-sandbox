@@ -8,24 +8,59 @@ import (
 )
 
 var (
+	// ArticlesColumns holds the columns for the "articles" table.
+	ArticlesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "title", Type: field.TypeString, Size: 32},
+		{Name: "body", Type: field.TypeString, Size: 65536},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "user_articles", Type: field.TypeUUID, Nullable: true},
+	}
+	// ArticlesTable holds the schema information for the "articles" table.
+	ArticlesTable = &schema.Table{
+		Name:       "articles",
+		Columns:    ArticlesColumns,
+		PrimaryKey: []*schema.Column{ArticlesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "articles_users_articles",
+				Columns:    []*schema.Column{ArticlesColumns[5]},
+				RefColumns: []*schema.Column{UsersColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "name", Type: field.TypeString, Size: 32},
 		{Name: "email", Type: field.TypeString},
 		{Name: "password_hash", Type: field.TypeString},
+		{Name: "article_author", Type: field.TypeUUID, Nullable: true},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{
 		Name:       "users",
 		Columns:    UsersColumns,
 		PrimaryKey: []*schema.Column{UsersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "users_articles_author",
+				Columns:    []*schema.Column{UsersColumns[4]},
+				RefColumns: []*schema.Column{ArticlesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
+		ArticlesTable,
 		UsersTable,
 	}
 )
 
 func init() {
+	ArticlesTable.ForeignKeys[0].RefTable = UsersTable
+	UsersTable.ForeignKeys[0].RefTable = ArticlesTable
 }

@@ -17,8 +17,17 @@ const (
 	FieldEmail = "email"
 	// FieldPasswordHash holds the string denoting the passwordhash field in the database.
 	FieldPasswordHash = "password_hash"
+	// EdgeArticles holds the string denoting the articles edge name in mutations.
+	EdgeArticles = "articles"
 	// Table holds the table name of the user in the database.
 	Table = "users"
+	// ArticlesTable is the table that holds the articles relation/edge.
+	ArticlesTable = "articles"
+	// ArticlesInverseTable is the table name for the Article entity.
+	// It exists in this package in order to avoid circular dependency with the "article" package.
+	ArticlesInverseTable = "articles"
+	// ArticlesColumn is the table column denoting the articles relation/edge.
+	ArticlesColumn = "user_articles"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -29,10 +38,21 @@ var Columns = []string{
 	FieldPasswordHash,
 }
 
+// ForeignKeys holds the SQL foreign-keys that are owned by the "users"
+// table and are not defined as standalone fields in the schema.
+var ForeignKeys = []string{
+	"article_author",
+}
+
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {
 	for i := range Columns {
 		if column == Columns[i] {
+			return true
+		}
+	}
+	for i := range ForeignKeys {
+		if column == ForeignKeys[i] {
 			return true
 		}
 	}

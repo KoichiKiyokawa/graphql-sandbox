@@ -3,8 +3,10 @@
 package ent
 
 import (
+	"go-gqlgen-ent/ent/article"
 	"go-gqlgen-ent/ent/schema"
 	"go-gqlgen-ent/ent/user"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -13,6 +15,56 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	articleFields := schema.Article{}.Fields()
+	_ = articleFields
+	// articleDescTitle is the schema descriptor for title field.
+	articleDescTitle := articleFields[1].Descriptor()
+	// article.TitleValidator is a validator for the "title" field. It is called by the builders before save.
+	article.TitleValidator = func() func(string) error {
+		validators := articleDescTitle.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(title string) error {
+			for _, fn := range fns {
+				if err := fn(title); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// articleDescBody is the schema descriptor for body field.
+	articleDescBody := articleFields[2].Descriptor()
+	// article.BodyValidator is a validator for the "body" field. It is called by the builders before save.
+	article.BodyValidator = func() func(string) error {
+		validators := articleDescBody.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(body string) error {
+			for _, fn := range fns {
+				if err := fn(body); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// articleDescCreatedAt is the schema descriptor for createdAt field.
+	articleDescCreatedAt := articleFields[3].Descriptor()
+	// article.DefaultCreatedAt holds the default value on creation for the createdAt field.
+	article.DefaultCreatedAt = articleDescCreatedAt.Default.(func() time.Time)
+	// articleDescUpdatedAt is the schema descriptor for updatedAt field.
+	articleDescUpdatedAt := articleFields[4].Descriptor()
+	// article.DefaultUpdatedAt holds the default value on creation for the updatedAt field.
+	article.DefaultUpdatedAt = articleDescUpdatedAt.Default.(func() time.Time)
+	// articleDescID is the schema descriptor for id field.
+	articleDescID := articleFields[0].Descriptor()
+	// article.DefaultID holds the default value on creation for the id field.
+	article.DefaultID = articleDescID.Default.(func() uuid.UUID)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescName is the schema descriptor for name field.

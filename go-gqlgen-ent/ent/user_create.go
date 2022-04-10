@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"go-gqlgen-ent/ent/article"
 	"go-gqlgen-ent/ent/user"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -50,6 +51,21 @@ func (uc *UserCreate) SetNillableID(u *uuid.UUID) *UserCreate {
 		uc.SetID(*u)
 	}
 	return uc
+}
+
+// AddArticleIDs adds the "articles" edge to the Article entity by IDs.
+func (uc *UserCreate) AddArticleIDs(ids ...uuid.UUID) *UserCreate {
+	uc.mutation.AddArticleIDs(ids...)
+	return uc
+}
+
+// AddArticles adds the "articles" edges to the Article entity.
+func (uc *UserCreate) AddArticles(a ...*Article) *UserCreate {
+	ids := make([]uuid.UUID, len(a))
+	for i := range a {
+		ids[i] = a[i].ID
+	}
+	return uc.AddArticleIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -214,6 +230,25 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Column: user.FieldPasswordHash,
 		})
 		_node.PasswordHash = value
+	}
+	if nodes := uc.mutation.ArticlesIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   user.ArticlesTable,
+			Columns: []string{user.ArticlesColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: article.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
 }

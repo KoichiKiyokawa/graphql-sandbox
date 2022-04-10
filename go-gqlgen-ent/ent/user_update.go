@@ -6,12 +6,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"go-gqlgen-ent/ent/article"
 	"go-gqlgen-ent/ent/predicate"
 	"go-gqlgen-ent/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/google/uuid"
 )
 
 // UserUpdate is the builder for updating User entities.
@@ -45,9 +47,45 @@ func (uu *UserUpdate) SetPasswordHash(s string) *UserUpdate {
 	return uu
 }
 
+// AddArticleIDs adds the "articles" edge to the Article entity by IDs.
+func (uu *UserUpdate) AddArticleIDs(ids ...uuid.UUID) *UserUpdate {
+	uu.mutation.AddArticleIDs(ids...)
+	return uu
+}
+
+// AddArticles adds the "articles" edges to the Article entity.
+func (uu *UserUpdate) AddArticles(a ...*Article) *UserUpdate {
+	ids := make([]uuid.UUID, len(a))
+	for i := range a {
+		ids[i] = a[i].ID
+	}
+	return uu.AddArticleIDs(ids...)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uu *UserUpdate) Mutation() *UserMutation {
 	return uu.mutation
+}
+
+// ClearArticles clears all "articles" edges to the Article entity.
+func (uu *UserUpdate) ClearArticles() *UserUpdate {
+	uu.mutation.ClearArticles()
+	return uu
+}
+
+// RemoveArticleIDs removes the "articles" edge to Article entities by IDs.
+func (uu *UserUpdate) RemoveArticleIDs(ids ...uuid.UUID) *UserUpdate {
+	uu.mutation.RemoveArticleIDs(ids...)
+	return uu
+}
+
+// RemoveArticles removes "articles" edges to Article entities.
+func (uu *UserUpdate) RemoveArticles(a ...*Article) *UserUpdate {
+	ids := make([]uuid.UUID, len(a))
+	for i := range a {
+		ids[i] = a[i].ID
+	}
+	return uu.RemoveArticleIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -169,6 +207,60 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldPasswordHash,
 		})
 	}
+	if uu.mutation.ArticlesCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   user.ArticlesTable,
+			Columns: []string{user.ArticlesColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: article.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.RemovedArticlesIDs(); len(nodes) > 0 && !uu.mutation.ArticlesCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   user.ArticlesTable,
+			Columns: []string{user.ArticlesColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: article.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.ArticlesIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   user.ArticlesTable,
+			Columns: []string{user.ArticlesColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: article.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
@@ -206,9 +298,45 @@ func (uuo *UserUpdateOne) SetPasswordHash(s string) *UserUpdateOne {
 	return uuo
 }
 
+// AddArticleIDs adds the "articles" edge to the Article entity by IDs.
+func (uuo *UserUpdateOne) AddArticleIDs(ids ...uuid.UUID) *UserUpdateOne {
+	uuo.mutation.AddArticleIDs(ids...)
+	return uuo
+}
+
+// AddArticles adds the "articles" edges to the Article entity.
+func (uuo *UserUpdateOne) AddArticles(a ...*Article) *UserUpdateOne {
+	ids := make([]uuid.UUID, len(a))
+	for i := range a {
+		ids[i] = a[i].ID
+	}
+	return uuo.AddArticleIDs(ids...)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uuo *UserUpdateOne) Mutation() *UserMutation {
 	return uuo.mutation
+}
+
+// ClearArticles clears all "articles" edges to the Article entity.
+func (uuo *UserUpdateOne) ClearArticles() *UserUpdateOne {
+	uuo.mutation.ClearArticles()
+	return uuo
+}
+
+// RemoveArticleIDs removes the "articles" edge to Article entities by IDs.
+func (uuo *UserUpdateOne) RemoveArticleIDs(ids ...uuid.UUID) *UserUpdateOne {
+	uuo.mutation.RemoveArticleIDs(ids...)
+	return uuo
+}
+
+// RemoveArticles removes "articles" edges to Article entities.
+func (uuo *UserUpdateOne) RemoveArticles(a ...*Article) *UserUpdateOne {
+	ids := make([]uuid.UUID, len(a))
+	for i := range a {
+		ids[i] = a[i].ID
+	}
+	return uuo.RemoveArticleIDs(ids...)
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
@@ -353,6 +481,60 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Value:  value,
 			Column: user.FieldPasswordHash,
 		})
+	}
+	if uuo.mutation.ArticlesCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   user.ArticlesTable,
+			Columns: []string{user.ArticlesColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: article.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.RemovedArticlesIDs(); len(nodes) > 0 && !uuo.mutation.ArticlesCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   user.ArticlesTable,
+			Columns: []string{user.ArticlesColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: article.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.ArticlesIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   user.ArticlesTable,
+			Columns: []string{user.ArticlesColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: article.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
 	_node = &User{config: uuo.config}
 	_spec.Assign = _node.assignValues

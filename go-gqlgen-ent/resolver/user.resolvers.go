@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"go-gqlgen-ent/ent"
 	"go-gqlgen-ent/generated"
-	"go-gqlgen-ent/model"
 
 	"github.com/google/uuid"
 )
@@ -25,11 +24,11 @@ func (r *userResolver) ID(ctx context.Context, obj *ent.User) (string, error) {
 	return obj.ID.String(), nil
 }
 
-func (r *userResolver) Articles(ctx context.Context, obj *ent.User) ([]*model.Article, error) {
+func (r *userResolver) Articles(ctx context.Context, obj *ent.User) ([]*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *userResolver) LikedArticles(ctx context.Context, obj *ent.User) ([]*model.Article, error) {
+func (r *userResolver) LikedArticles(ctx context.Context, obj *ent.User) ([]*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
