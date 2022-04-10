@@ -1,0 +1,10 @@
+# Define a Relay Cursor type:
+# https://relay.dev/graphql/connections.htm#sec-Cursor
+scalar Cursor
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: Cursor
+  endCursor: Cursor
+}
