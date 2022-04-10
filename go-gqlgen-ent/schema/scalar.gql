@@ -1,1 +1,5 @@
 scalar DateTime
+
+# Define a Relay Cursor type:
+# https://relay.dev/graphql/connections.htm#sec-Cursor
+scalar Cursor

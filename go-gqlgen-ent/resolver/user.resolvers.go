@@ -16,15 +16,15 @@ func (r *queryResolver) User(ctx context.Context, id string) (*ent.User, error) 
 	return r.Client.User.Get(ctx, uuid.MustParse(id))
 }
 
-func (r *queryResolver) Users(ctx context.Context) ([]*ent.User, error) {
-	return r.Client.User.Query().All(ctx)
+func (r *queryResolver) Users(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int) (*ent.UserConnection, error) {
+	return r.Client.User.Query().Paginate(ctx, after, first, before, last)
 }
 
 func (r *userResolver) ID(ctx context.Context, obj *ent.User) (string, error) {
 	return obj.ID.String(), nil
 }
 
-func (r *userResolver) LikedArticles(ctx context.Context, obj *ent.User) ([]*ent.Article, error) {
+func (r *userResolver) LikedArticles(ctx context.Context, obj *ent.User) (*ent.ArticleConnection, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

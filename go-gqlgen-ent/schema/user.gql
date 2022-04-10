@@ -6,10 +6,21 @@ type User {
   """
   ユーザーがいいねした記事一覧
   """
-  likedArticles: [Article!]!
+  likedArticles: ArticleConnection!
+}
+
+type UserConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [UserEdge!]!
+}
+
+type UserEdge {
+  node: User!
+  cursor: Cursor
 }
 
 extend type Query {
   user(id: ID!): User
-  users: [User!]!
+  users(after: Cursor, first: Int, before: Cursor, last: Int): UserConnection!
 }
