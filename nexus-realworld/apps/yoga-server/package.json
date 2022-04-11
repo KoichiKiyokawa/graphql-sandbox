@@ -21,7 +21,7 @@
     "@prisma/client": "3.12.0",
     "@types/bcryptjs": "2.4.2",
     "@typescript-eslint/eslint-plugin": "5.16.0",
-    "@typescript-eslint/parser": "5.16.0",
+    "@typescript-eslint/parser": "5.18.0",
     "bcryptjs": "2.4.3",
     "esbuild": "0.14.34",
     "eslint": "8.13.0",
