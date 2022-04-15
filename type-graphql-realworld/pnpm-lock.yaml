@@ -27,14 +27,14 @@ importers:
       graphql-scalars: 1.17.0
       http-errors: 2.0.0
       nodemon: 2.0.15
-      prisma: 3.11.1
+      prisma: 3.12.0
       reflect-metadata: 0.1.13
       ts-node: 10.7.0
       type-graphql: 1.1.1
       typegraphql-prisma: 0.20.1
       typescript: 4.6.3
     dependencies:
-      '@prisma/client': 3.12.0_prisma@3.11.1
+      '@prisma/client': 3.12.0_prisma@3.12.0
       apollo-server: 3.6.7_graphql@15.8.0
       apollo-server-core: 3.6.7_graphql@15.8.0
       apollo-server-express: 3.6.7_express@4.17.3+graphql@15.8.0
@@ -50,7 +50,7 @@ importers:
       http-errors: 2.0.0
       reflect-metadata: 0.1.13
       type-graphql: 1.1.1_aea24acf06b899fbc466d3b3b949c72d
-      typegraphql-prisma: 0.20.1_775c60c3dbe6b2448cd178367a682f89
+      typegraphql-prisma: 0.20.1_2313d4f57ba096f6579e50cf7e2be50d
     devDependencies:
       '@types/bcryptjs': 2.4.2
       '@types/cookie-session': 2.0.44
@@ -58,7 +58,7 @@ importers:
       '@types/http-errors': 1.8.2
       '@types/node': 16.11.26
       nodemon: 2.0.15
-      prisma: 3.11.1
+      prisma: 3.12.0
       ts-node: 10.7.0_ddaac8e123aeb260f586984cee874848
       typescript: 4.6.3
 
@@ -1382,7 +1382,7 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@prisma/client/3.12.0_prisma@3.11.1:
+  /@prisma/client/3.12.0_prisma@3.12.0:
     resolution: {integrity: sha512-4NEQjUcWja/NVBvfuDFscWSk1/rXg3+wj+TSkqXCb1tKlx/bsUE00rxsvOvGg7VZ6lw1JFpGkwjwmsOIc4zvQw==}
     engines: {node: '>=12.6'}
     requiresBuild: true
@@ -1393,7 +1393,7 @@ packages:
         optional: true
     dependencies:
       '@prisma/engines-version': 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
-      prisma: 3.11.1
+      prisma: 3.12.0
     dev: false
 
   /@prisma/debug/3.11.1:
@@ -1434,15 +1434,9 @@ packages:
     resolution: {integrity: sha512-o+jo8d7ZEiVpcpNWUDh3fj2uPQpBxl79XE9ih9nkogJbhw6P33274SHnqheedZ7PyvPIK/mvU8MLNYgetgXPYw==}
     dev: false
 
-  /@prisma/engines/3.11.1-1.1a2506facaf1a4727b7c26850735e88ec779dee9:
-    resolution: {integrity: sha512-MILbsGnvmnhCbFGa2/iSnsyGyazU3afzD7ldjCIeLIGKkNBMSZgA2IvpYsAXl+6qFHKGrS3B2otKfV31dwMSQw==}
-    requiresBuild: true
-    dev: true
-
   /@prisma/engines/3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980:
     resolution: {integrity: sha512-zULjkN8yhzS7B3yeEz4aIym4E2w1ChrV12i14pht3ePFufvsAvBSoZ+tuXMvfSoNTgBS5E4bolRzLbMmbwkkMQ==}
     requiresBuild: true
-    dev: false
 
   /@prisma/fetch-engine/3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980:
     resolution: {integrity: sha512-ymfjaNbuw68JCgInzo8JKehs1RX5FRvmh6MRZSPdYZjKCySAYwINJqAQi5oNA25zIuo/bmasnIX8kxNiaPLoBQ==}
@@ -5665,13 +5659,13 @@ packages:
     hasBin: true
     dev: false
 
-  /prisma/3.11.1:
-    resolution: {integrity: sha512-aYn8bQwt1xwR2oSsVNHT4PXU7EhsThIwmpNB/MNUaaMx5OPLTro6VdNJe/sJssXFLxhamfWeMjwmpXjljo6xkg==}
+  /prisma/3.12.0:
+    resolution: {integrity: sha512-ltCMZAx1i0i9xuPM692Srj8McC665h6E5RqJom999sjtVSccHSD8Z+HSdBN2183h9PJKvC5dapkn78dd0NWMBg==}
     engines: {node: '>=12.6'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 3.11.1-1.1a2506facaf1a4727b7c26850735e88ec779dee9
+      '@prisma/engines': 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
     dev: true
 
   /process-nextick-args/2.0.1:
@@ -6844,7 +6838,7 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typegraphql-prisma/0.20.1_775c60c3dbe6b2448cd178367a682f89:
+  /typegraphql-prisma/0.20.1_2313d4f57ba096f6579e50cf7e2be50d:
     resolution: {integrity: sha512-sdwDJLpJQZuUQVhVzOmRggnpCwxBtzMcaIhJU9KWv3Bak0Hdjl0LPTIQGeWC/TwvJw18J4kkBjZEkOj8mZ1Zhg==}
     engines: {node: '>=12.4'}
     hasBin: true
@@ -6857,7 +6851,7 @@ packages:
       prisma: ~3.12.0
       type-graphql: ^1.1.1
     dependencies:
-      '@prisma/client': 3.12.0_prisma@3.11.1
+      '@prisma/client': 3.12.0_prisma@3.12.0
       '@prisma/generator-helper': 3.12.0
       '@prisma/sdk': 3.12.0
       '@types/graphql-fields': 1.3.4
@@ -6865,7 +6859,7 @@ packages:
       graphql-fields: 2.0.3
       graphql-scalars: 1.17.0_graphql@15.8.0
       pluralize: 8.0.0
-      prisma: 3.11.1
+      prisma: 3.12.0
       semver: 7.3.5
       ts-morph: 14.0.0
       tslib: 2.3.1
