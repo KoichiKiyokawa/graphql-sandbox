@@ -25,7 +25,7 @@
     "apollo-server-core": "3.6.7",
     "apollo-server-express": "3.6.7",
     "bcryptjs": "2.4.3",
-    "esbuild": "0.14.36",
+    "esbuild": "0.14.37",
     "eslint": "8.13.0",
     "eslint-config-prettier": "8.5.0",
     "esno": "0.14.1",
