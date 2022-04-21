@@ -17,7 +17,7 @@
 		"@graphql-codegen/typescript-operations": "2.3.5",
 		"@graphql-codegen/urql-svelte-operations-store": "1.1.15",
 		"@sveltejs/adapter-static": "1.0.0-next.29",
-		"@sveltejs/kit": "1.0.0-next.317",
+		"@sveltejs/kit": "1.0.0-next.318",
 		"@typescript-eslint/eslint-plugin": "5.20.0",
 		"@typescript-eslint/parser": "5.20.0",
 		"autoprefixer": "10.4.4",
