@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/99designs/gqlgen v0.17.3
 	github.com/google/uuid v1.3.0
-	github.com/samber/lo v1.14.0
+	github.com/samber/lo v1.15.0
 	github.com/vektah/gqlparser/v2 v2.4.2
 	gorm.io/driver/sqlite v1.3.1
 	gorm.io/gorm v1.23.4
