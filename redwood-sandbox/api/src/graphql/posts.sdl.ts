@@ -5,6 +5,7 @@ export const schema = gql`
     body: String!
     createdAt: DateTime!
     updatedAt: DateTime
+    user: User
   }
 
   type Query {

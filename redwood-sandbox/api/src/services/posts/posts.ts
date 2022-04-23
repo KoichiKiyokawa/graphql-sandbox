@@ -1,6 +1,6 @@
 import type { Prisma } from '@prisma/client'
-
 import { db } from 'src/lib/db'
+import type { PostResolvers } from 'types/graphql'
 
 export const posts = () => {
   return db.post.findMany()
@@ -37,4 +37,10 @@ export const deletePost = ({ id }: Prisma.PostWhereUniqueInput) => {
   return db.post.delete({
     where: { id },
   })
+}
+
+export const Post: PostResolvers = {
+  user: (_obj, { root }) => {
+    return db.post.findUnique({ where: { id: root.id } }).user()
+  },
 }
