@@ -23,7 +23,7 @@ importers:
       graphql-relay: 0.10.0
       graphql-scalars: 1.17.0
       graphql-subscriptions: 2.0.0
-      graphql-ws: 5.7.0
+      graphql-ws: 5.8.1
       nexus: 1.3.0
       nodemon: 2.0.15
       prettier: 2.6.2
@@ -47,7 +47,7 @@ importers:
       graphql-relay: 0.10.0_graphql@16.3.0
       graphql-scalars: 1.17.0_graphql@16.3.0
       graphql-subscriptions: 2.0.0_graphql@16.3.0
-      graphql-ws: 5.7.0_graphql@16.3.0
+      graphql-ws: 5.8.1_graphql@16.3.0
       nexus: 1.3.0_graphql@16.3.0
       nodemon: 2.0.15
       prettier: 2.6.2
@@ -169,8 +169,8 @@ importers:
       '@graphql-codegen/typescript': 2.4.8_graphql@16.3.0
       '@graphql-codegen/typescript-operations': 2.3.5_graphql@16.3.0
       '@nexus-realworld/frontend-utils': link:../frontend-utils
-      '@sveltejs/adapter-auto': 1.0.0-next.38
-      '@sveltejs/kit': 1.0.0-next.320_svelte@3.46.4
+      '@sveltejs/adapter-auto': 1.0.0-next.39
+      '@sveltejs/kit': 1.0.0-next.321_svelte@3.46.4
       '@typescript-eslint/eslint-plugin': 5.14.0_f4054b8c3cd621db16ae1b9d571bccc0
       '@typescript-eslint/parser': 5.14.0_eslint@8.10.0+typescript@4.6.2
       eslint: 8.10.0
@@ -1906,12 +1906,12 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /@sveltejs/adapter-auto/1.0.0-next.38:
-    resolution: {integrity: sha512-1//aiV/Wzebj+j5X8VLRs0vJUT3andc/0+IRQwy5ykOwjpNo5/Mj2RX8SA+t5nxBFYyJJf2kj6sszKA8LjRAQQ==}
+  /@sveltejs/adapter-auto/1.0.0-next.39:
+    resolution: {integrity: sha512-mscydZQzI9HZ+IjD+/yxyuKKd4/KxZv/M43BaeBvpuhToEe3crmatIHDQIZc0GBZZgTVpvk8yp3yIM8q3RugLw==}
     dependencies:
       '@sveltejs/adapter-cloudflare': 1.0.0-next.18
       '@sveltejs/adapter-netlify': 1.0.0-next.55
-      '@sveltejs/adapter-vercel': 1.0.0-next.49
+      '@sveltejs/adapter-vercel': 1.0.0-next.50
     dev: true
 
   /@sveltejs/adapter-cloudflare/1.0.0-next.18:
@@ -1929,14 +1929,14 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
-  /@sveltejs/adapter-vercel/1.0.0-next.49:
-    resolution: {integrity: sha512-Me0Zb10iBv+ySVMc0XgI7rdzwiMmeVHq48iVv3oXORa/et/efJVEknVSVk22q15XRqys7DhoPirf54Mz4jElFQ==}
+  /@sveltejs/adapter-vercel/1.0.0-next.50:
+    resolution: {integrity: sha512-yta0AkuWEr7qrm8LB34F4ZdCtMxj+cHD4huwrRYCgjv+PSJHLPwe7aH53+Mhrv6La0TgeyQ/f2lTyhBMXZXn9Q==}
     dependencies:
       esbuild: 0.14.38
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.320_svelte@3.46.4:
-    resolution: {integrity: sha512-BDgF+gd73Gxls65rb3H2oacdQUrK8fM0X174t2kMfGS+MeNN6oZ+Kw+j0IJMzMaZSGco89+/wkPeArvDzM/2MQ==}
+  /@sveltejs/kit/1.0.0-next.321_svelte@3.46.4:
+    resolution: {integrity: sha512-Egdmxc+oxmKKhXAtLLHj6LnZQnfxgk/DpdRitDxDlSQq/hj1zSVswe3kGjPDaquNMkxXbvZcHwhbZvNnVTnWag==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -4929,8 +4929,8 @@ packages:
       graphql: 16.3.0
     dev: true
 
-  /graphql-ws/5.7.0_graphql@16.3.0:
-    resolution: {integrity: sha512-8yYuvnyqIjlJ/WfebOyu2GSOQeFauRxnfuTveY9yvrDGs2g3kR9Nv4gu40AKvRHbXlSJwTbMJ6dVxAtEyKwVRA==}
+  /graphql-ws/5.8.1_graphql@16.3.0:
+    resolution: {integrity: sha512-UVf/fxlHultC1+12tX9ShTIipqQFNZ96g7N51RFQlk7MFPsDUUMCR3QXVEzHEd5xlTp16rs5vCyfBljvcPN3fA==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: '>=0.11 <=16'
