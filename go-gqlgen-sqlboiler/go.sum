@@ -472,12 +472,16 @@ github.com/volatiletech/sqlboiler/v4 v4.9.1 h1:vNenaLjj2L9HaKQlDwx4t9BXh8dr55/Jl
 github.com/volatiletech/sqlboiler/v4 v4.9.1/go.mod h1:9XSfpKlhKo37BunpkOG0X95cfhm7YynqpyXfr48Hn6g=
 github.com/volatiletech/sqlboiler/v4 v4.10.2 h1:TnxVoVsqQ69VFCyBuccAwHqqR5s/Z+3pBsMzGl/nfys=
 github.com/volatiletech/sqlboiler/v4 v4.10.2/go.mod h1:kroP3Q/ZkkrvMk6keq9zbJHGyP+d8yTHRCTXcoG1RBM=
+github.com/volatiletech/sqlboiler/v4 v4.11.0 h1:jItTUGIXfCfFiNEGIBZZj4rFMO/gXhjqX03sJ5LiDk8=
+github.com/volatiletech/sqlboiler/v4 v4.11.0/go.mod h1:AAaQj77uX6nyU+Q5q6OcVCFFEs/gs+qsthM18/NVemo=
 github.com/volatiletech/strmangle v0.0.1 h1:UKQoHmY6be/R3tSvD2nQYrH41k43OJkidwEiC74KIzk=
 github.com/volatiletech/strmangle v0.0.1/go.mod h1:F6RA6IkB5vq0yTG4GQ0UsbbRcl3ni9P76i+JrTBKFFg=
 github.com/volatiletech/strmangle v0.0.2 h1:amhpV9ATyq1DtkQ2D8WF94uqGpkYYmSmx7X2QIner/A=
 github.com/volatiletech/strmangle v0.0.2/go.mod h1:F6RA6IkB5vq0yTG4GQ0UsbbRcl3ni9P76i+JrTBKFFg=
 github.com/volatiletech/strmangle v0.0.3 h1:TltBd/LtxPrr1TY29OCroPbeklu+2c3Ih60srrpApSE=
 github.com/volatiletech/strmangle v0.0.3/go.mod h1:ycDvbDkjDvhC0NUU8w3fWwl5JEMTV56vTKXzR3GeR+0=
+github.com/volatiletech/strmangle v0.0.4 h1:CxrEPhobZL/PCZOTDSH1aq7s4Kv76hQpRoTVVlUOim4=
+github.com/volatiletech/strmangle v0.0.4/go.mod h1:ycDvbDkjDvhC0NUU8w3fWwl5JEMTV56vTKXzR3GeR+0=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
