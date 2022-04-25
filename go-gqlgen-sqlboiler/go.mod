@@ -12,7 +12,7 @@ require (
 	github.com/vektah/gqlparser/v2 v2.4.2
 	github.com/volatiletech/randomize v0.0.1
 	github.com/volatiletech/sqlboiler/v4 v4.10.2
-	github.com/volatiletech/strmangle v0.0.3
+	github.com/volatiletech/strmangle v0.0.4
 )
 
 require (
