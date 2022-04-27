@@ -42,5 +42,5 @@
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"
   },
-  "packageManager": "pnpm@6.32.10"
+  "packageManager": "pnpm@6.32.11"
 }
