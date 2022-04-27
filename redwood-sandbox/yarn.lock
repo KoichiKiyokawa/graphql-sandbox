@@ -3543,6 +3543,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/api@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@redwoodjs/api@npm:1.2.0"
+  dependencies:
+    "@babel/runtime-corejs3": 7.16.7
+    "@prisma/client": 3.12.0
+    cross-undici-fetch: 0.3.0
+    crypto-js: 4.1.1
+    humanize-string: 2.1.0
+    jsonwebtoken: 8.5.1
+    jwks-rsa: 2.0.5
+    md5: 2.3.0
+    pascalcase: 1.0.0
+    pino: 7.10.0
+    title-case: 3.0.3
+    uuid: 8.3.2
+  peerDependencies:
+    "@clerk/clerk-sdk-node": 3.3.6
+    "@magic-sdk/admin": 1.4.1
+    firebase-admin: 10.1.0
+  peerDependenciesMeta:
+    "@clerk/clerk-sdk-node":
+      optional: true
+    "@magic-sdk/admin":
+      optional: true
+    firebase-admin:
+      optional: true
+  bin:
+    redwood: dist/bins/redwood.js
+    rw: dist/bins/redwood.js
+    rwfw: dist/bins/rwfw.js
+    tsc: dist/bins/tsc.js
+  checksum: 8181576fea90b261f0bf8fbc32ef84b3d436fd9e517f33e9e8d5d60977b7f8c3b580a0b8c2630600c2e3c92aef4d60a317339f0626372a6b16d98c93f7fe964f
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/auth@npm:1.1.1":
   version: 1.1.1
   resolution: "@redwoodjs/auth@npm:1.1.1"
@@ -3733,6 +3769,33 @@ __metadata:
     lodash.omitby: 4.6.0
     uuid: 8.3.2
   checksum: 2fe71163f1977942991c297c432f54c9d71e92a5eb9f8b499ccb6c252cdf0541f622826af16bdb6f802133ad95717c24dad83a6166da79f92915f95b71351125
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/graphql-server@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@redwoodjs/graphql-server@npm:1.2.0"
+  dependencies:
+    "@envelop/depth-limit": 1.5.1
+    "@envelop/disable-introspection": 3.3.1
+    "@envelop/filter-operation-type": 3.3.1
+    "@envelop/parser-cache": 4.3.1
+    "@envelop/validation-cache": 4.3.1
+    "@graphql-tools/merge": 8.2.10
+    "@graphql-tools/schema": 8.3.10
+    "@graphql-tools/utils": 8.6.9
+    "@graphql-yoga/common": 2.3.0
+    "@prisma/client": 3.12.0
+    "@redwoodjs/api": 1.2.0
+    core-js: 3.22.2
+    cross-undici-fetch: 0.3.0
+    graphql: 16.3.0
+    graphql-scalars: 1.17.0
+    graphql-tag: 2.12.6
+    lodash.merge: 4.6.2
+    lodash.omitby: 4.6.0
+    uuid: 8.3.2
+  checksum: f48d84568a2492553b23b5141bbc38ebdc5fb79a811a59c2446574011e152f517c91518cb1589c11d120cd8b592e3dabe1e67835aea0896fa540dba516fde4c0
   languageName: node
   linkType: hard
 
@@ -7043,7 +7106,7 @@ __metadata:
   resolution: "api@workspace:api"
   dependencies:
     "@redwoodjs/api": 1.1.1
-    "@redwoodjs/graphql-server": 1.1.1
+    "@redwoodjs/graphql-server": 1.2.0
   languageName: unknown
   linkType: soft
 
@@ -9461,7 +9524,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.0.4, core-js@npm:^3.19.0, core-js@npm:^3.6.5, core-js@npm:^3.8.2":
+"core-js@npm:3.22.2, core-js@npm:^3.0.4, core-js@npm:^3.19.0, core-js@npm:^3.6.5, core-js@npm:^3.8.2":
   version: 3.22.2
   resolution: "core-js@npm:3.22.2"
   checksum: fe251c248874d0ad09f2aae155060fcf1b63d0c9ca3257259e6696af812377149bbd06bcde8044a5579c85223f9cce36f5116fbbb295aff685d0b86312c4ce4c
@@ -9661,7 +9724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-undici-fetch@npm:^0.3.0":
+"cross-undici-fetch@npm:0.3.0, cross-undici-fetch@npm:^0.3.0":
   version: 0.3.0
   resolution: "cross-undici-fetch@npm:0.3.0"
   dependencies:
