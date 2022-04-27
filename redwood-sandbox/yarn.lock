@@ -3816,6 +3816,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/router@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@redwoodjs/router@npm:1.2.0"
+  dependencies:
+    "@reach/skip-nav": 0.16.0
+    "@redwoodjs/auth": 1.2.0
+    core-js: 3.22.2
+    lodash.isequal: 4.5.0
+  checksum: 34c2d5d04d04ff38e9791cfaa2f5aaa54629766c89e180a83e3c25eea04cc281914894ab5924c7dd2616da03c1265b17b967ec6c88cec014805548a85828da32
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/structure@npm:1.1.1":
   version: 1.1.1
   resolution: "@redwoodjs/structure@npm:1.1.1"
@@ -9499,7 +9511,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.0.4, core-js@npm:^3.19.0, core-js@npm:^3.6.5, core-js@npm:^3.8.2":
+"core-js@npm:3.22.2, core-js@npm:^3.0.4, core-js@npm:^3.19.0, core-js@npm:^3.6.5, core-js@npm:^3.8.2":
   version: 3.22.2
   resolution: "core-js@npm:3.22.2"
   checksum: fe251c248874d0ad09f2aae155060fcf1b63d0c9ca3257259e6696af812377149bbd06bcde8044a5579c85223f9cce36f5116fbbb295aff685d0b86312c4ce4c
@@ -23535,7 +23547,7 @@ __metadata:
   resolution: "web@workspace:web"
   dependencies:
     "@redwoodjs/forms": 1.2.0
-    "@redwoodjs/router": 1.1.1
+    "@redwoodjs/router": 1.2.0
     "@redwoodjs/web": 1.2.0
     prop-types: 15.8.1
     react: 17.0.2
