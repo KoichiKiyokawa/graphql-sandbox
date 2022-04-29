@@ -3,7 +3,7 @@ module go-gqlgen-sqlboiler
 go 1.18
 
 require (
-	github.com/99designs/gqlgen v0.17.4
+	github.com/99designs/gqlgen v0.17.5
 	github.com/friendsofgo/errors v0.9.2
 	github.com/mattn/go-sqlite3 v1.14.12
 	github.com/pkg/errors v0.9.1
