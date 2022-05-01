@@ -7,7 +7,7 @@ require (
 	github.com/friendsofgo/errors v0.9.2
 	github.com/mattn/go-sqlite3 v1.14.12
 	github.com/pkg/errors v0.9.1
-	github.com/samber/lo v1.15.0
+	github.com/samber/lo v1.19.0
 	github.com/spf13/viper v1.11.0
 	github.com/vektah/gqlparser/v2 v2.4.2
 	github.com/volatiletech/randomize v0.0.1
