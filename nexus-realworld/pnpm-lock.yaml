@@ -105,7 +105,7 @@ importers:
 
   apps/nextjs-apollo:
     specifiers:
-      '@apollo/client': 3.5.10
+      '@apollo/client': 3.6.1
       '@graphql-codegen/cli': 2.6.2
       '@graphql-codegen/introspection': 2.1.1
       '@graphql-codegen/typescript': 2.4.8
@@ -121,7 +121,7 @@ importers:
       react-dom: 18.0.0
       typescript: 4.6.3
     dependencies:
-      '@apollo/client': 3.5.10_graphql@16.3.0+react@18.0.0
+      '@apollo/client': 3.6.1_graphql@16.3.0+react@18.0.0
       '@nexus-realworld/frontend-utils': link:../frontend-utils
       next: 12.1.5_react-dom@18.0.0+react@18.0.0
       react: 18.0.0
@@ -140,7 +140,7 @@ importers:
 
   apps/svelte-kit-apollo:
     specifiers:
-      '@apollo/client': 3.5.10
+      '@apollo/client': 3.6.1
       '@graphql-codegen/cli': 2.6.2
       '@graphql-codegen/typescript': 2.4.8
       '@graphql-codegen/typescript-operations': 2.3.5
@@ -163,7 +163,7 @@ importers:
       tslib: ^2.3.1
       typescript: ~4.6.2
     dependencies:
-      '@apollo/client': 3.5.10_graphql@16.3.0
+      '@apollo/client': 3.6.1_graphql@16.3.0
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_graphql@16.3.0+typescript@4.6.2
       '@graphql-codegen/typescript': 2.4.8_graphql@16.3.0
@@ -237,12 +237,12 @@ packages:
       '@jridgewell/trace-mapping': 0.3.4
     dev: true
 
-  /@apollo/client/3.5.10_graphql@16.3.0:
-    resolution: {integrity: sha512-tL3iSpFe9Oldq7gYikZK1dcYxp1c01nlSwtsMz75382HcI6fvQXyFXUCJTTK3wgO2/ckaBvRGw7VqjFREdVoRw==}
+  /@apollo/client/3.6.1_graphql@16.3.0:
+    resolution: {integrity: sha512-WGC7n2IS7GIbCCfVvu58Qncmj6qUBYbI/DxPVHGffDuY5y5l+OI2YIr5UXyR8+G9Ly1d6iYbX6l6l+Rw6F6gHA==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
-      react: ^16.8.0 || ^17.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
       subscriptions-transport-ws: ^0.9.0 || ^0.11.0
     peerDependenciesMeta:
       graphql-ws:
@@ -262,16 +262,17 @@ packages:
       optimism: 0.16.1
       prop-types: 15.8.1
       symbol-observable: 4.0.0
-      ts-invariant: 0.9.4
+      ts-invariant: 0.10.1
       tslib: 2.3.1
+      use-sync-external-store: 1.1.0
       zen-observable-ts: 1.2.3
 
-  /@apollo/client/3.5.10_graphql@16.3.0+react@18.0.0:
-    resolution: {integrity: sha512-tL3iSpFe9Oldq7gYikZK1dcYxp1c01nlSwtsMz75382HcI6fvQXyFXUCJTTK3wgO2/ckaBvRGw7VqjFREdVoRw==}
+  /@apollo/client/3.6.1_graphql@16.3.0+react@18.0.0:
+    resolution: {integrity: sha512-WGC7n2IS7GIbCCfVvu58Qncmj6qUBYbI/DxPVHGffDuY5y5l+OI2YIr5UXyR8+G9Ly1d6iYbX6l6l+Rw6F6gHA==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
-      react: ^16.8.0 || ^17.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
       subscriptions-transport-ws: ^0.9.0 || ^0.11.0
     peerDependenciesMeta:
       graphql-ws:
@@ -292,8 +293,9 @@ packages:
       prop-types: 15.8.1
       react: 18.0.0
       symbol-observable: 4.0.0
-      ts-invariant: 0.9.4
+      ts-invariant: 0.10.1
       tslib: 2.3.1
+      use-sync-external-store: 1.1.0_react@18.0.0
       zen-observable-ts: 1.2.3
     dev: false
 
@@ -4763,7 +4765,7 @@ packages:
     peerDependencies:
       graphql: ^16.0.1
     dependencies:
-      '@apollo/client': 3.5.10_graphql@16.3.0
+      '@apollo/client': 3.6.1_graphql@16.3.0
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@16.3.0
       '@graphql-codegen/visitor-plugin-common': 2.7.3_graphql@16.3.0
       camel-case: 4.1.2
@@ -7486,8 +7488,8 @@ packages:
   /tr46/0.0.3:
     resolution: {integrity: sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=}
 
-  /ts-invariant/0.9.4:
-    resolution: {integrity: sha512-63jtX/ZSwnUNi/WhXjnK8kz4cHHpYS60AnmA6ixz17l7E12a5puCWFlNpkne5Rl0J8TBPVHpGjsj4fxs8ObVLQ==}
+  /ts-invariant/0.10.1:
+    resolution: {integrity: sha512-dOmY3naALBtNyK+nrVGzD8DVxSJ9OIHragItZ3XvxGORNAZL6uszgQYaD3PW+TPh2NWNsOpuQUxznuvTkmcdqw==}
     engines: {node: '>=8'}
     dependencies:
       tslib: 2.3.1
@@ -7701,6 +7703,19 @@ packages:
     dependencies:
       prepend-http: 2.0.0
     dev: true
+
+  /use-sync-external-store/1.1.0:
+    resolution: {integrity: sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+
+  /use-sync-external-store/1.1.0_react@18.0.0:
+    resolution: {integrity: sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.0.0
+    dev: false
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
