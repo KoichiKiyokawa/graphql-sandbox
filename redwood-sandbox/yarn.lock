@@ -7041,7 +7041,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "api@workspace:api"
   dependencies:
-    "@redwoodjs/api": 1.1.1
+    "@redwoodjs/api": 1.2.0
     "@redwoodjs/graphql-server": 1.2.0
   languageName: unknown
   linkType: soft
