@@ -7,7 +7,7 @@ importers:
 
   apps/apollo-server:
     specifiers:
-      '@prisma/client': 3.12.0
+      '@prisma/client': 3.13.0
       '@types/bcryptjs': 2.4.2
       '@typescript-eslint/eslint-plugin': 5.21.0
       '@typescript-eslint/parser': 5.21.0
@@ -31,7 +31,7 @@ importers:
       typescript: 4.6.3
       ws: 8.6.0
     devDependencies:
-      '@prisma/client': 3.12.0_prisma@3.12.0
+      '@prisma/client': 3.13.0_prisma@3.12.0
       '@types/bcryptjs': 2.4.2
       '@typescript-eslint/eslint-plugin': 5.21.0_829e74f28e9c9eb05edda582d47d45b8
       '@typescript-eslint/parser': 5.21.0_eslint@8.14.0+typescript@4.6.3
@@ -63,7 +63,7 @@ importers:
 
   apps/mercurius-server:
     specifiers:
-      '@prisma/client': 3.12.0
+      '@prisma/client': 3.13.0
       '@types/bcryptjs': 2.4.2
       '@typescript-eslint/eslint-plugin': 5.21.0
       '@typescript-eslint/parser': 5.21.0
@@ -83,7 +83,7 @@ importers:
       prisma: 3.12.0
       typescript: 4.6.3
     devDependencies:
-      '@prisma/client': 3.12.0_prisma@3.12.0
+      '@prisma/client': 3.13.0_prisma@3.12.0
       '@types/bcryptjs': 2.4.2
       '@typescript-eslint/eslint-plugin': 5.21.0_829e74f28e9c9eb05edda582d47d45b8
       '@typescript-eslint/parser': 5.21.0_eslint@8.14.0+typescript@4.6.3
@@ -190,7 +190,7 @@ importers:
   apps/yoga-server:
     specifiers:
       '@graphql-yoga/node': ^2.0.0
-      '@prisma/client': 3.12.0
+      '@prisma/client': 3.13.0
       '@types/bcryptjs': 2.4.2
       '@typescript-eslint/eslint-plugin': 5.21.0
       '@typescript-eslint/parser': 5.21.0
@@ -210,7 +210,7 @@ importers:
     dependencies:
       '@graphql-yoga/node': 2.0.0_graphql@16.3.0
     devDependencies:
-      '@prisma/client': 3.12.0_prisma@3.12.0
+      '@prisma/client': 3.13.0_prisma@3.12.0
       '@types/bcryptjs': 2.4.2
       '@typescript-eslint/eslint-plugin': 5.21.0_829e74f28e9c9eb05edda582d47d45b8
       '@typescript-eslint/parser': 5.21.0_eslint@8.14.0+typescript@4.6.3
@@ -1831,8 +1831,8 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@prisma/client/3.12.0_prisma@3.12.0:
-    resolution: {integrity: sha512-4NEQjUcWja/NVBvfuDFscWSk1/rXg3+wj+TSkqXCb1tKlx/bsUE00rxsvOvGg7VZ6lw1JFpGkwjwmsOIc4zvQw==}
+  /@prisma/client/3.13.0_prisma@3.12.0:
+    resolution: {integrity: sha512-lnEA2tTyVbO5mS1ehmHJQKBDiKB8shaR6s3azwj3Azfi5XHIfnqmkolLCvUeFYnkDCNVzGXJpUgKwQt/UOOYVQ==}
     engines: {node: '>=12.6'}
     requiresBuild: true
     peerDependencies:
@@ -1841,12 +1841,12 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
+      '@prisma/engines-version': 3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b
       prisma: 3.12.0
     dev: true
 
-  /@prisma/engines-version/3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980:
-    resolution: {integrity: sha512-o+jo8d7ZEiVpcpNWUDh3fj2uPQpBxl79XE9ih9nkogJbhw6P33274SHnqheedZ7PyvPIK/mvU8MLNYgetgXPYw==}
+  /@prisma/engines-version/3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b:
+    resolution: {integrity: sha512-TGp9rvgJIKo8NgvAHSwOosbut9mTA7VC6/rpQI9gh+ySSRjdQFhbGyNUiOcQrlI9Ob2DWeO7y4HEnhdKxYiECg==}
     dev: true
 
   /@prisma/engines/3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980:
