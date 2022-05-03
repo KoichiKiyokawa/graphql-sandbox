@@ -3475,6 +3475,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-yoga/common@npm:2.4.0":
+  version: 2.4.0
+  resolution: "@graphql-yoga/common@npm:2.4.0"
+  dependencies:
+    "@envelop/core": ^2.0.0
+    "@envelop/disable-introspection": ^3.0.0
+    "@envelop/parser-cache": ^4.0.0
+    "@envelop/validation-cache": ^4.0.0
+    "@graphql-tools/schema": ^8.3.1
+    "@graphql-tools/utils": ^8.6.0
+    "@graphql-typed-document-node/core": ^3.1.1
+    "@graphql-yoga/subscription": 2.0.0
+    cross-undici-fetch: ^0.3.0
+    dset: ^3.1.1
+    tslib: ^2.3.1
+  peerDependencies:
+    graphql: ^15.2.0 || ^16.0.0
+  checksum: d2adede9444c3d175b28d7290a7fd0548a06aed30df67ea6906479c70cd84dfde3aed5fa6edfb4b395b945ea2228b6ad13b16c959d887918268a98d39c023ce9
+  languageName: node
+  linkType: hard
+
 "@graphql-yoga/node@npm:2.3.0":
   version: 2.3.0
   resolution: "@graphql-yoga/node@npm:2.3.0"
@@ -4108,6 +4129,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma/client@npm:3.13.0":
+  version: 3.13.0
+  resolution: "@prisma/client@npm:3.13.0"
+  dependencies:
+    "@prisma/engines-version": 3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b
+  peerDependencies:
+    prisma: "*"
+  peerDependenciesMeta:
+    prisma:
+      optional: true
+  checksum: 2b7eb23756bcd79f5b0480fb4840d76d635a3baa5063d734186bdc9f8b1cfe763c79f58e88c00f4997e5172e9a95da991b2d0666a3435034b9ad63b1e0575438
+  languageName: node
+  linkType: hard
+
 "@prisma/debug@npm:3.11.1":
   version: 3.11.1
   resolution: "@prisma/debug@npm:3.11.1"
@@ -4155,6 +4190,13 @@ __metadata:
   version: 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
   resolution: "@prisma/engines-version@npm:3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980"
   checksum: cf9615e23b4c9cc5052b2e1e82225adfc1d76a116b60c09f5ad171467f774c26f77cf821f8c393279feecddf54aa0726e76fd4c7502512ff78069822606a45df
+  languageName: node
+  linkType: hard
+
+"@prisma/engines-version@npm:3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b":
+  version: 3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b
+  resolution: "@prisma/engines-version@npm:3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b"
+  checksum: 590aec0e1b24038b61c51669af71cf2363ef1eba80c8c46e329ef7c7b572dd4b6b73127f1370365e30fec5fa471cc415b0fa9122df90d8291553afb49a251458
   languageName: node
   linkType: hard
 
@@ -4344,6 +4386,42 @@ __metadata:
     rwfw: dist/bins/rwfw.js
     tsc: dist/bins/tsc.js
   checksum: 8181576fea90b261f0bf8fbc32ef84b3d436fd9e517f33e9e8d5d60977b7f8c3b580a0b8c2630600c2e3c92aef4d60a317339f0626372a6b16d98c93f7fe964f
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/api@npm:1.3.0":
+  version: 1.3.0
+  resolution: "@redwoodjs/api@npm:1.3.0"
+  dependencies:
+    "@babel/runtime-corejs3": 7.16.7
+    "@prisma/client": 3.13.0
+    cross-undici-fetch: 0.3.6
+    crypto-js: 4.1.1
+    humanize-string: 2.1.0
+    jsonwebtoken: 8.5.1
+    jwks-rsa: 2.0.5
+    md5: 2.3.0
+    pascalcase: 1.0.0
+    pino: 7.10.0
+    title-case: 3.0.3
+    uuid: 8.3.2
+  peerDependencies:
+    "@clerk/clerk-sdk-node": 3.3.10
+    "@magic-sdk/admin": 1.4.1
+    firebase-admin: 10.1.0
+  peerDependenciesMeta:
+    "@clerk/clerk-sdk-node":
+      optional: true
+    "@magic-sdk/admin":
+      optional: true
+    firebase-admin:
+      optional: true
+  bin:
+    redwood: dist/bins/redwood.js
+    rw: dist/bins/redwood.js
+    rwfw: dist/bins/rwfw.js
+    tsc: dist/bins/tsc.js
+  checksum: 4ece5eff747fe578acd4682787843b858d0bd85623b62d0852eeb04638acad7a5950b5ef76d0d593e3101f96d8db736e2306da4c7c292c5cdeca14c427c4f7da
   languageName: node
   linkType: hard
 
@@ -4537,6 +4615,33 @@ __metadata:
     lodash.omitby: 4.6.0
     uuid: 8.3.2
   checksum: f48d84568a2492553b23b5141bbc38ebdc5fb79a811a59c2446574011e152f517c91518cb1589c11d120cd8b592e3dabe1e67835aea0896fa540dba516fde4c0
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/graphql-server@npm:1.3.0":
+  version: 1.3.0
+  resolution: "@redwoodjs/graphql-server@npm:1.3.0"
+  dependencies:
+    "@envelop/depth-limit": 1.5.1
+    "@envelop/disable-introspection": 3.3.1
+    "@envelop/filter-operation-type": 3.3.1
+    "@envelop/parser-cache": 4.3.1
+    "@envelop/validation-cache": 4.3.1
+    "@graphql-tools/merge": 8.2.10
+    "@graphql-tools/schema": 8.3.10
+    "@graphql-tools/utils": 8.6.9
+    "@graphql-yoga/common": 2.4.0
+    "@prisma/client": 3.13.0
+    "@redwoodjs/api": 1.3.0
+    core-js: 3.22.2
+    cross-undici-fetch: 0.3.6
+    graphql: 16.4.0
+    graphql-scalars: 1.17.0
+    graphql-tag: 2.12.6
+    lodash.merge: 4.6.2
+    lodash.omitby: 4.6.0
+    uuid: 8.3.2
+  checksum: 00199914cc3cd07bad52d0d75cf040c0a83ccc3d4db8002cdbaebbd84305d304f70b3eb1f2af1131780f35fa5dbbfa71ce3bb70fa65c4d78a27f66a955f77511
   languageName: node
   linkType: hard
 
@@ -8029,7 +8134,7 @@ __metadata:
   resolution: "api@workspace:api"
   dependencies:
     "@redwoodjs/api": 1.2.0
-    "@redwoodjs/graphql-server": 1.2.0
+    "@redwoodjs/graphql-server": 1.3.0
     serverless: ^3.15.2
   languageName: unknown
   linkType: soft
@@ -10868,6 +10973,20 @@ __metadata:
     undici: ^5.0.0
     web-streams-polyfill: ^3.2.0
   checksum: e2c6b9740023fe24caa7baf07a7a16d81667fe40bf4532d5a57075ae6f3de0633f7dcfed1a55e4f7b89d4560f2a04506a4f333206fc51b32ef71ddaca3bdb76c
+  languageName: node
+  linkType: hard
+
+"cross-undici-fetch@npm:0.3.6":
+  version: 0.3.6
+  resolution: "cross-undici-fetch@npm:0.3.6"
+  dependencies:
+    abort-controller: ^3.0.0
+    form-data-encoder: ^1.7.1
+    formdata-node: ^4.3.1
+    node-fetch: ^2.6.7
+    undici: ^5.1.0
+    web-streams-polyfill: ^3.2.0
+  checksum: 092d4f4f6d7aa541a53cf3edd4eb32c9a1ab137431b5ef6b7305c2725b2825e5d70099707e19c1f85b48ea28df3701df2d751cddc0e6479044e81eab62bca169
   languageName: node
   linkType: hard
 
@@ -14818,6 +14937,13 @@ __metadata:
   version: 16.3.0
   resolution: "graphql@npm:16.3.0"
   checksum: 71f205c16c93a5085c8a5dc3f9a1a27c022140208042d5be1dfacf04c1d3063ec2f62e3d08b0ed2cfb536c59cca65dd027556a22c47082fc348a5050c5535c71
+  languageName: node
+  linkType: hard
+
+"graphql@npm:16.4.0":
+  version: 16.4.0
+  resolution: "graphql@npm:16.4.0"
+  checksum: e93fbba004a6c121cbd618e060ea8bc672c4e324ee8b7e490245eb8c8a06e06a6806d196c19ce80522a4cf83031ed4bd837de5c2d9fcb5d39e24a586abed6d1e
   languageName: node
   linkType: hard
 
@@ -25151,6 +25277,13 @@ __metadata:
   version: 4.16.0
   resolution: "undici@npm:4.16.0"
   checksum: f0b709016eef145e37254c1894a9ca6c769e11e5995d9beb02409be1fc372c2eb53df90299181140d9bdb3f89c4d0f162e03213511a4e75e19757157d325acb7
+  languageName: node
+  linkType: hard
+
+"undici@npm:^5.1.0":
+  version: 5.1.1
+  resolution: "undici@npm:5.1.1"
+  checksum: 7902dffe78f913501b88a7bf1244d9d4b0bbfea3f81ff7c0a175d9f0e19616190432786d430aa2dc382455b0aa88f5844d6d753deec5573b4606358f7bf13de1
   languageName: node
   linkType: hard
 
