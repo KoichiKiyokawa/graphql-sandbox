@@ -38,6 +38,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@apollo/client": "3.6.1"
+		"@apollo/client": "3.6.2"
 	}
 }
