@@ -5,9 +5,10 @@ import (
 )
 
 type User struct {
-	ID    uuid.UUID
-	Name  string
-	Email string
+	ID           uuid.UUID
+	Name         string
+	Email        string
+	PasswordHash string
 	// MEMO: これがあると、articles フィールドのresolverが生成されない。↑のNameとかEmailとかのフィールドに対してresolverが生成されないのと同じ理由
 	// Articles []Article
 

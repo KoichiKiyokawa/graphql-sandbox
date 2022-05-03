@@ -14,15 +14,17 @@ type Loaders struct {
 	LikedArticlesByUserIDs ArticlesLoader
 }
 
-func Middleware(db *gorm.DB, next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ctx := context.WithValue(r.Context(), loadersKey, &Loaders{
-			ArticlesByUserIDs:      articlesByUserIDs(db),
-			LikedArticlesByUserIDs: likedArticlesByUserIDs(db),
+func Middleware(db *gorm.DB) func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			ctx := context.WithValue(r.Context(), loadersKey, &Loaders{
+				ArticlesByUserIDs:      articlesByUserIDs(db),
+				LikedArticlesByUserIDs: likedArticlesByUserIDs(db),
+			})
+			r = r.WithContext(ctx)
+			next.ServeHTTP(w, r)
 		})
-		r = r.WithContext(ctx)
-		next.ServeHTTP(w, r)
-	})
+	}
 }
 
 func For(ctx context.Context) *Loaders {
