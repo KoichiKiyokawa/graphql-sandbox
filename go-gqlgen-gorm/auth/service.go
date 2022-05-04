@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gorilla/sessions"
@@ -22,9 +23,13 @@ func (s *SessionService) save() error {
 	return nil
 }
 
-func (s *SessionService) GetCurrentUserId() string {
+func (s *SessionService) GetCurrentUserId() (string, error) {
 	userID := s.session.Values[userIdSessionKey]
-	return userID.(string)
+	if userID == nil {
+		return "", errors.New("User is not logged in")
+	}
+
+	return userID.(string), nil
 }
 
 func (s *SessionService) SetCurrentUserId(userId string) error {

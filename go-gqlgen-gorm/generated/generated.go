@@ -54,11 +54,16 @@ type ComplexityRoot struct {
 		User      func(childComplexity int) int
 	}
 
+	MeResult struct {
+		UserID func(childComplexity int) int
+	}
+
 	Query struct {
 		Article  func(childComplexity int, id string) int
 		Articles func(childComplexity int) int
 		Login    func(childComplexity int, email string, password string) int
 		Logout   func(childComplexity int) int
+		Me       func(childComplexity int) int
 		User     func(childComplexity int, id string) int
 		Users    func(childComplexity int) int
 	}
@@ -87,6 +92,7 @@ type QueryResolver interface {
 	Articles(ctx context.Context) ([]*model.Article, error)
 	Login(ctx context.Context, email string, password string) (*model.Result, error)
 	Logout(ctx context.Context) (*model.Result, error)
+	Me(ctx context.Context) (*model.MeResult, error)
 	User(ctx context.Context, id string) (*model.User, error)
 	Users(ctx context.Context) ([]*model.User, error)
 }
@@ -154,6 +160,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Article.User(childComplexity), true
 
+	case "MeResult.userId":
+		if e.complexity.MeResult.UserID == nil {
+			break
+		}
+
+		return e.complexity.MeResult.UserID(childComplexity), true
+
 	case "Query.article":
 		if e.complexity.Query.Article == nil {
 			break
@@ -191,6 +204,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.Logout(childComplexity), true
+
+	case "Query.me":
+		if e.complexity.Query.Me == nil {
+			break
+		}
+
+		return e.complexity.Query.Me(childComplexity), true
 
 	case "Query.user":
 		if e.complexity.Query.User == nil {
@@ -322,10 +342,18 @@ extend type Query {
 	{Name: "schema/auth.gql", Input: `extend type Query {
   login(email: String!, password: String!): Result
   logout: Result
+  """
+  Get the current user id
+  """
+  me: MeResult
 }
 
 type Result {
   message: String!
+}
+
+type MeResult {
+  userId: String!
 }
 `, BuiltIn: false},
 	{Name: "schema/scalar.gql", Input: `scalar DateTime
@@ -736,6 +764,50 @@ func (ec *executionContext) fieldContext_Article_user(ctx context.Context, field
 	return fc, nil
 }
 
+func (ec *executionContext) _MeResult_userId(ctx context.Context, field graphql.CollectedField, obj *model.MeResult) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MeResult_userId(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UserID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_MeResult_userId(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "MeResult",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_article(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Query_article(ctx, field)
 	if err != nil {
@@ -956,6 +1028,51 @@ func (ec *executionContext) fieldContext_Query_logout(ctx context.Context, field
 				return ec.fieldContext_Result_message(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Result", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_me(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_me(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Me(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.MeResult)
+	fc.Result = res
+	return ec.marshalOMeResult2ᚖgoᚑgqlgenᚑgormᚋmodelᚐMeResult(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_me(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "userId":
+				return ec.fieldContext_MeResult_userId(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type MeResult", field.Name)
 		},
 	}
 	return fc, nil
@@ -3385,6 +3502,34 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 	return out
 }
 
+var meResultImplementors = []string{"MeResult"}
+
+func (ec *executionContext) _MeResult(ctx context.Context, sel ast.SelectionSet, obj *model.MeResult) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, meResultImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("MeResult")
+		case "userId":
+
+			out.Values[i] = ec._MeResult_userId(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var queryImplementors = []string{"Query"}
 
 func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) graphql.Marshaler {
@@ -3477,6 +3622,26 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_logout(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "me":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_me(ctx, field)
 				return res
 			}
 
@@ -4450,6 +4615,13 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	}
 	res := graphql.MarshalBoolean(*v)
 	return res
+}
+
+func (ec *executionContext) marshalOMeResult2ᚖgoᚑgqlgenᚑgormᚋmodelᚐMeResult(ctx context.Context, sel ast.SelectionSet, v *model.MeResult) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._MeResult(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOResult2ᚖgoᚑgqlgenᚑgormᚋmodelᚐResult(ctx context.Context, sel ast.SelectionSet, v *model.Result) graphql.Marshaler {

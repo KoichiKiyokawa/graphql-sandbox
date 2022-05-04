@@ -38,3 +38,12 @@ func (r *queryResolver) Logout(ctx context.Context) (*model.Result, error) {
 
 	return &model.Result{Message: "ok"}, nil
 }
+
+func (r *queryResolver) Me(ctx context.Context) (*model.MeResult, error) {
+	userID, err := auth.GetSessionServiceForContext(ctx).GetCurrentUserId()
+	if err != nil {
+		return nil, gqlerror.Errorf(err.Error())
+	}
+
+	return &model.MeResult{UserID: userID}, nil
+}

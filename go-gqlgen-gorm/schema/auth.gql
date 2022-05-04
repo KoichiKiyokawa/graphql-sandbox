@@ -1,8 +1,16 @@
 extend type Query {
   login(email: String!, password: String!): Result
   logout: Result
+  """
+  Get the current user id
+  """
+  me: MeResult
 }
 
 type Result {
   message: String!
+}
+
+type MeResult {
+  userId: String!
 }

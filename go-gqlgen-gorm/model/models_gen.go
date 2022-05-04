@@ -2,6 +2,10 @@
 
 package model
 
+type MeResult struct {
+	UserID string `json:"userId"`
+}
+
 type Result struct {
 	Message string `json:"message"`
 }
