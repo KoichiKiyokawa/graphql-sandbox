@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.6.2",
-    "@graphql-codegen/typescript": "2.4.8",
+    "@graphql-codegen/typescript": "2.4.9",
     "@graphql-codegen/typescript-operations": "2.3.5",
     "@types/react": "18.0.6",
     "@types/react-dom": "18.0.3",
