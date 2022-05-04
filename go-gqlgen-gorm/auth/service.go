@@ -1,7 +1,38 @@
 package auth
 
+import (
+	"net/http"
+
+	"github.com/gorilla/sessions"
+)
+
+const userIdSessionKey = "userId"
+
 type SessionService struct {
-	GetCurrentUserId    func() string
-	SetCurrentUserId    func(userId string)
-	RemoveCurrentUserId func()
+	session *sessions.Session
+	w       http.ResponseWriter
+	r       *http.Request
+}
+
+func (s *SessionService) GetCurrentUserId() string {
+	userID := s.session.Values[userIdSessionKey]
+	return userID.(string)
+}
+
+func (s *SessionService) SetCurrentUserId(userId string) error {
+	s.session.Values[userIdSessionKey] = userId
+	if err := s.session.Save(s.r, s.w); err != nil {
+		http.Error(s.w, err.Error(), http.StatusInternalServerError)
+		return err
+	}
+	return nil
+}
+
+func (s *SessionService) RemoveCurrentUserId() error {
+	delete(s.session.Values, userIdSessionKey)
+	if err := s.session.Save(s.r, s.w); err != nil {
+		http.Error(s.w, err.Error(), http.StatusInternalServerError)
+		return err
+	}
+	return nil
 }

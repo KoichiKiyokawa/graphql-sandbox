@@ -19,9 +19,10 @@ var db, err = gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
 func main() {
 	for userIndex := 0; userIndex < 10; userIndex++ {
 		user := model.User{
-			ID:    getUUID(),
-			Name:  fmt.Sprintf("user%d", userIndex),
-			Email: fmt.Sprintf("user%d@example.com", userIndex),
+			ID:           getUUID(),
+			Name:         fmt.Sprintf("user%d", userIndex),
+			Email:        fmt.Sprintf("user%d@example.com", userIndex),
+			PasswordHash: "password",
 		}
 		db.Create(&user)
 

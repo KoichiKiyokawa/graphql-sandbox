@@ -5,7 +5,6 @@ import (
 	"net/http"
 )
 
-const userIdSessionKey = "userId"
 const sessionServiceContextKey = "sessionServiceContextKey"
 
 // sessionを使うためには、http.RequestResolver が必要になる。
@@ -23,27 +22,8 @@ func Middleware(next http.Handler) http.Handler {
 			return
 		}
 
-		sessionService := &SessionService{
-			GetCurrentUserId: func() string {
-				userID := sess.Values[userIdSessionKey]
-				return userID.(string)
-			},
-			SetCurrentUserId: func(userId string) {
-				sess.Values[userIdSessionKey] = userId
-				if err := sess.Save(r, w); err != nil {
-					http.Error(w, err.Error(), http.StatusInternalServerError)
-				}
-			},
-			RemoveCurrentUserId: func() {
-				delete(sess.Values, userIdSessionKey)
-				if err := sess.Save(r, w); err != nil {
-					http.Error(w, err.Error(), http.StatusInternalServerError)
-				}
-			},
-		}
-
 		// put it in context
-		ctx := context.WithValue(r.Context(), sessionServiceContextKey, sessionService)
+		ctx := context.WithValue(r.Context(), sessionServiceContextKey, &SessionService{session: sess, w: w, r: r})
 
 		// and call the next with our new context
 		r = r.WithContext(ctx)
