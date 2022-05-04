@@ -14,6 +14,14 @@ type SessionService struct {
 	r       *http.Request
 }
 
+func (s *SessionService) save() error {
+	if err := s.session.Save(s.r, s.w); err != nil {
+		http.Error(s.w, err.Error(), http.StatusInternalServerError)
+		return err
+	}
+	return nil
+}
+
 func (s *SessionService) GetCurrentUserId() string {
 	userID := s.session.Values[userIdSessionKey]
 	return userID.(string)
@@ -21,18 +29,10 @@ func (s *SessionService) GetCurrentUserId() string {
 
 func (s *SessionService) SetCurrentUserId(userId string) error {
 	s.session.Values[userIdSessionKey] = userId
-	if err := s.session.Save(s.r, s.w); err != nil {
-		http.Error(s.w, err.Error(), http.StatusInternalServerError)
-		return err
-	}
-	return nil
+	return s.save()
 }
 
 func (s *SessionService) RemoveCurrentUserId() error {
 	delete(s.session.Values, userIdSessionKey)
-	if err := s.session.Save(s.r, s.w); err != nil {
-		http.Error(s.w, err.Error(), http.StatusInternalServerError)
-		return err
-	}
-	return nil
+	return s.save()
 }
