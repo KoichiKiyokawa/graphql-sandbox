@@ -4164,20 +4164,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:3.12.0":
-  version: 3.12.0
-  resolution: "@prisma/client@npm:3.12.0"
-  dependencies:
-    "@prisma/engines-version": 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
-  peerDependencies:
-    prisma: "*"
-  peerDependenciesMeta:
-    prisma:
-      optional: true
-  checksum: 1bc93a5f5748648720512200df3540b615d3074902017eae5690086c809a28dbafb8540ee8e5a86b60d6ac221a40730c80a2a83d9e5a5b67862a33ba5babe6d5
-  languageName: node
-  linkType: hard
-
 "@prisma/client@npm:3.13.0":
   version: 3.13.0
   resolution: "@prisma/client@npm:3.13.0"
@@ -4232,13 +4218,6 @@ __metadata:
     terminal-link: 2.1.1
     undici: 5.0.0
   checksum: 651934e302c6aa51d3fdc0cf2c5c222dec5635f687a294a46e1d1e402c88bc0a2ce56bc34dacbc82080f79373d1d2499259ca61600399a3f5b6c6cb0781b4878
-  languageName: node
-  linkType: hard
-
-"@prisma/engines-version@npm:3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980":
-  version: 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
-  resolution: "@prisma/engines-version@npm:3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980"
-  checksum: cf9615e23b4c9cc5052b2e1e82225adfc1d76a116b60c09f5ad171467f774c26f77cf821f8c393279feecddf54aa0726e76fd4c7502512ff78069822606a45df
   languageName: node
   linkType: hard
 
@@ -4407,42 +4386,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redwoodjs/api@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@redwoodjs/api@npm:1.2.0"
-  dependencies:
-    "@babel/runtime-corejs3": 7.16.7
-    "@prisma/client": 3.12.0
-    cross-undici-fetch: 0.3.0
-    crypto-js: 4.1.1
-    humanize-string: 2.1.0
-    jsonwebtoken: 8.5.1
-    jwks-rsa: 2.0.5
-    md5: 2.3.0
-    pascalcase: 1.0.0
-    pino: 7.10.0
-    title-case: 3.0.3
-    uuid: 8.3.2
-  peerDependencies:
-    "@clerk/clerk-sdk-node": 3.3.6
-    "@magic-sdk/admin": 1.4.1
-    firebase-admin: 10.1.0
-  peerDependenciesMeta:
-    "@clerk/clerk-sdk-node":
-      optional: true
-    "@magic-sdk/admin":
-      optional: true
-    firebase-admin:
-      optional: true
-  bin:
-    redwood: dist/bins/redwood.js
-    rw: dist/bins/redwood.js
-    rwfw: dist/bins/rwfw.js
-    tsc: dist/bins/tsc.js
-  checksum: 8181576fea90b261f0bf8fbc32ef84b3d436fd9e517f33e9e8d5d60977b7f8c3b580a0b8c2630600c2e3c92aef4d60a317339f0626372a6b16d98c93f7fe964f
-  languageName: node
-  linkType: hard
-
 "@redwoodjs/api@npm:1.3.0":
   version: 1.3.0
   resolution: "@redwoodjs/api@npm:1.3.0"
@@ -4479,17 +4422,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redwoodjs/auth@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@redwoodjs/auth@npm:1.2.0"
-  checksum: 2ac854796277c02f624cf53ecd78d7d8bbc2e51d71ef60917fcd810b0eb48b3ffab68f9023e49b21a0886d4a8d0ce09c658ed7afce4eb76f24004025ee41aef4
-  languageName: node
-  linkType: hard
-
 "@redwoodjs/auth@npm:1.3.0":
   version: 1.3.0
   resolution: "@redwoodjs/auth@npm:1.3.0"
   checksum: 8fd7d34333705cf0da835801d80d6a80c9a08b20b912b06a6d762ada2d7a25ee561bdfad391ce64a6c6a9ac83512f9d25ec7742aca9d572621041f6f5014b886
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/auth@npm:1.3.1":
+  version: 1.3.1
+  resolution: "@redwoodjs/auth@npm:1.3.1"
+  checksum: c702f7ca77ae9e2008b580cb0e724a51b11d9968cfc1e2e86d1acc7429efbcc6e6e32c5de8744dc747708ebbf89c2a64f92ee912374a0343c02bb1a54dabb964
   languageName: node
   linkType: hard
 
@@ -4833,37 +4776,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redwoodjs/web@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@redwoodjs/web@npm:1.2.0"
-  dependencies:
-    "@apollo/client": 3.5.10
-    "@babel/runtime-corejs3": 7.16.7
-    "@redwoodjs/auth": 1.2.0
-    graphql: 16.3.0
-    graphql-tag: 2.12.6
-    react-helmet-async: 1.3.0
-    react-hot-toast: 2.2.0
-    stacktracey: 2.1.8
-    ts-toolbelt: 9.6.0
-  peerDependencies:
-    prop-types: 15.8.1
-    react: 17.0.2
-    react-dom: 17.0.2
-  bin:
-    build-storybook: dist/bins/build-storybook.js
-    cross-env: dist/bins/cross-env.js
-    msw: dist/bins/msw.js
-    redwood: dist/bins/redwood.js
-    rw: dist/bins/redwood.js
-    rwfw: dist/bins/rwfw.js
-    start-storybook: dist/bins/start-storybook.js
-    tsc: dist/bins/tsc.js
-    webpack: dist/bins/webpack.js
-  checksum: 506f3a97275fefd112a21b1c56bee1af4d3e29a21207c531edb3c9ac4f0d74437c490deb7f80037eddf518a0bf47ac15e52e7e2fb19b42ef00046a702cbd40e5
-  languageName: node
-  linkType: hard
-
 "@redwoodjs/web@npm:1.3.0":
   version: 1.3.0
   resolution: "@redwoodjs/web@npm:1.3.0"
@@ -4892,6 +4804,37 @@ __metadata:
     tsc: dist/bins/tsc.js
     webpack: dist/bins/webpack.js
   checksum: 2782b75bd9966523d44120d9386893b9766b46f52465195b14127e78644365910d036560efda062147740ea6b616128834901658f5403eb7c03cbf61b500e8a9
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/web@npm:1.3.1":
+  version: 1.3.1
+  resolution: "@redwoodjs/web@npm:1.3.1"
+  dependencies:
+    "@apollo/client": 3.5.10
+    "@babel/runtime-corejs3": 7.16.7
+    "@redwoodjs/auth": 1.3.1
+    graphql: 16.4.0
+    graphql-tag: 2.12.6
+    react-helmet-async: 1.3.0
+    react-hot-toast: 2.2.0
+    stacktracey: 2.1.8
+    ts-toolbelt: 9.6.0
+  peerDependencies:
+    prop-types: 15.8.1
+    react: 17.0.2
+    react-dom: 17.0.2
+  bin:
+    build-storybook: dist/bins/build-storybook.js
+    cross-env: dist/bins/cross-env.js
+    msw: dist/bins/msw.js
+    redwood: dist/bins/redwood.js
+    rw: dist/bins/redwood.js
+    rwfw: dist/bins/rwfw.js
+    start-storybook: dist/bins/start-storybook.js
+    tsc: dist/bins/tsc.js
+    webpack: dist/bins/webpack.js
+  checksum: 1f5ce1ae9a227bb1f845d17ab54df8fc95b1de74f40269720bbc9225037d9113ff3589ed1c68070d436a4138d1f8e57d53b72f0405c07695616323110df2fdbd
   languageName: node
   linkType: hard
 
@@ -11037,20 +10980,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-undici-fetch@npm:0.3.0, cross-undici-fetch@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "cross-undici-fetch@npm:0.3.0"
-  dependencies:
-    abort-controller: ^3.0.0
-    form-data-encoder: ^1.7.1
-    formdata-node: ^4.3.1
-    node-fetch: ^2.6.7
-    undici: ^5.0.0
-    web-streams-polyfill: ^3.2.0
-  checksum: e2c6b9740023fe24caa7baf07a7a16d81667fe40bf4532d5a57075ae6f3de0633f7dcfed1a55e4f7b89d4560f2a04506a4f333206fc51b32ef71ddaca3bdb76c
-  languageName: node
-  linkType: hard
-
 "cross-undici-fetch@npm:0.3.6":
   version: 0.3.6
   resolution: "cross-undici-fetch@npm:0.3.6"
@@ -11076,6 +11005,20 @@ __metadata:
     undici: ^5.0.0
     web-streams-polyfill: ^3.2.0
   checksum: b009abcdbe637c36255de7a9d9d0a0038287fcc307a8767648d9100a1c36dc2a1f419b1dc9cf2cd8aaa0c61a52506b01d06d02cef5a2f9b959b7e97c9599d587
+  languageName: node
+  linkType: hard
+
+"cross-undici-fetch@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "cross-undici-fetch@npm:0.3.0"
+  dependencies:
+    abort-controller: ^3.0.0
+    form-data-encoder: ^1.7.1
+    formdata-node: ^4.3.1
+    node-fetch: ^2.6.7
+    undici: ^5.0.0
+    web-streams-polyfill: ^3.2.0
+  checksum: e2c6b9740023fe24caa7baf07a7a16d81667fe40bf4532d5a57075ae6f3de0633f7dcfed1a55e4f7b89d4560f2a04506a4f333206fc51b32ef71ddaca3bdb76c
   languageName: node
   linkType: hard
 
@@ -15015,17 +14958,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:16.3.0, graphql@npm:^16.3.0":
-  version: 16.3.0
-  resolution: "graphql@npm:16.3.0"
-  checksum: 71f205c16c93a5085c8a5dc3f9a1a27c022140208042d5be1dfacf04c1d3063ec2f62e3d08b0ed2cfb536c59cca65dd027556a22c47082fc348a5050c5535c71
-  languageName: node
-  linkType: hard
-
 "graphql@npm:16.4.0":
   version: 16.4.0
   resolution: "graphql@npm:16.4.0"
   checksum: e93fbba004a6c121cbd618e060ea8bc672c4e324ee8b7e490245eb8c8a06e06a6806d196c19ce80522a4cf83031ed4bd837de5c2d9fcb5d39e24a586abed6d1e
+  languageName: node
+  linkType: hard
+
+"graphql@npm:^16.3.0":
+  version: 16.3.0
+  resolution: "graphql@npm:16.3.0"
+  checksum: 71f205c16c93a5085c8a5dc3f9a1a27c022140208042d5be1dfacf04c1d3063ec2f62e3d08b0ed2cfb536c59cca65dd027556a22c47082fc348a5050c5535c71
   languageName: node
   linkType: hard
 
@@ -26189,7 +26132,7 @@ __metadata:
   dependencies:
     "@redwoodjs/forms": 1.3.0
     "@redwoodjs/router": 1.3.0
-    "@redwoodjs/web": 1.3.0
+    "@redwoodjs/web": 1.3.1
     prop-types: 15.8.1
     react: 17.0.2
     react-dom: 18.1.0
