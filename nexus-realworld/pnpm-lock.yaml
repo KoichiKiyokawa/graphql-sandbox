@@ -151,7 +151,7 @@ importers:
       '@typescript-eslint/parser': ^5.10.1
       eslint: ^8.0.0
       eslint-config-prettier: ^8.3.0
-      eslint-plugin-svelte3: ^3.2.1
+      eslint-plugin-svelte3: ^4.0.0
       graphql: 16.3.0
       graphql-codegen-svelte-apollo: 1.1.0
       graphql-tag: 2.12.6
@@ -170,12 +170,12 @@ importers:
       '@graphql-codegen/typescript-operations': 2.3.5_graphql@16.3.0
       '@nexus-realworld/frontend-utils': link:../frontend-utils
       '@sveltejs/adapter-auto': 1.0.0-next.40
-      '@sveltejs/kit': 1.0.0-next.324_svelte@3.46.4
+      '@sveltejs/kit': 1.0.0-next.326_svelte@3.46.4
       '@typescript-eslint/eslint-plugin': 5.14.0_f4054b8c3cd621db16ae1b9d571bccc0
       '@typescript-eslint/parser': 5.14.0_eslint@8.10.0+typescript@4.6.2
       eslint: 8.10.0
       eslint-config-prettier: 8.5.0_eslint@8.10.0
-      eslint-plugin-svelte3: 3.4.1_eslint@8.10.0+svelte@3.46.4
+      eslint-plugin-svelte3: 4.0.0_eslint@8.10.0+svelte@3.46.4
       graphql: 16.3.0
       graphql-codegen-svelte-apollo: 1.1.0_graphql@16.3.0
       graphql-tag: 2.12.6_graphql@16.3.0
@@ -1984,8 +1984,8 @@ packages:
       esbuild: 0.14.38
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.324_svelte@3.46.4:
-    resolution: {integrity: sha512-/CGW9rQpHQLBb2EcMw08yelD/C9hTsypymctUWdhryMTI8n1VWb0gkUcSHsz8n8oAAbKLXqwyHqeLATfcIMg2w==}
+  /@sveltejs/kit/1.0.0-next.326_svelte@3.46.4:
+    resolution: {integrity: sha512-prJqmXZ2H1wmFfnMw7wDujfbkcA8vuubuqUkpVVmXhfh2+SEzQscPTNwxoE5EJxb5sywtLWEvYx3hv1gPS4Lvg==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -4108,11 +4108,10 @@ packages:
       string.prototype.matchall: 4.0.6
     dev: true
 
-  /eslint-plugin-svelte3/3.4.1_eslint@8.10.0+svelte@3.46.4:
-    resolution: {integrity: sha512-7p59WG8qV8L6wLdl4d/c3mdjkgVglQCdv5XOTk/iNPBKXuuV+Q0eFP5Wa6iJd/G2M1qR3BkLPEzaANOqKAZczw==}
-    engines: {node: '>=10'}
+  /eslint-plugin-svelte3/4.0.0_eslint@8.10.0+svelte@3.46.4:
+    resolution: {integrity: sha512-OIx9lgaNzD02+MDFNLw0GEUbuovNcglg+wnd/UY0fbZmlQSz7GlQiQ1f+yX0XvC07XPcDOnFcichqI3xCwp71g==}
     peerDependencies:
-      eslint: '>=6.0.0'
+      eslint: '>=8.0.0'
       svelte: ^3.2.0
     dependencies:
       eslint: 8.10.0
