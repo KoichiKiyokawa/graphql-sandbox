@@ -2,17 +2,17 @@ lockfileVersion: 5.3
 
 specifiers:
   '@prisma/client': ^3.10.0
-  prisma: 3.12.0
+  prisma: 3.13.0
 
 dependencies:
-  '@prisma/client': 3.11.0_prisma@3.12.0
+  '@prisma/client': 3.11.0_prisma@3.13.0
 
 devDependencies:
-  prisma: 3.12.0
+  prisma: 3.13.0
 
 packages:
 
-  /@prisma/client/3.11.0_prisma@3.12.0:
+  /@prisma/client/3.11.0_prisma@3.13.0:
     resolution: {integrity: sha512-d42o/tlalaWMmNOR4r5BiR6YYTYEV82eZ2lNKOm5ht3WyYwI9e+zy2MyZnNO4Fx5e08RAhW+GRVcEgKl5faUaQ==}
     engines: {node: '>=12.6'}
     requiresBuild: true
@@ -23,23 +23,28 @@ packages:
         optional: true
     dependencies:
       '@prisma/engines-version': 3.11.0-48.b371888aaf8f51357c7457d836b86d12da91658b
-      prisma: 3.12.0
+      prisma: 3.13.0
     dev: false
 
   /@prisma/engines-version/3.11.0-48.b371888aaf8f51357c7457d836b86d12da91658b:
     resolution: {integrity: sha512-bhMW1XybXZyqCf+9QqjP7Oi7xgVHcISVyOZNMm51qeZsy12M1RtHaCcXUFeMMV0JOCZZuPFVr3+0KVpQqK35CQ==}
     dev: false
 
-  /@prisma/engines/3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980:
-    resolution: {integrity: sha512-zULjkN8yhzS7B3yeEz4aIym4E2w1ChrV12i14pht3ePFufvsAvBSoZ+tuXMvfSoNTgBS5E4bolRzLbMmbwkkMQ==}
+  /@prisma/engines/3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b:
+    resolution: {integrity: sha512-Ip9CcCeUocH61eXu4BUGpvl5KleQyhcUVLpWCv+0ZmDv44bFaDpREqjGHHdRupvPN/ugB6gTlD9b9ewdj02yVA==}
     requiresBuild: true
     dev: true
 
-  /prisma/3.12.0:
-    resolution: {integrity: sha512-ltCMZAx1i0i9xuPM692Srj8McC665h6E5RqJom999sjtVSccHSD8Z+HSdBN2183h9PJKvC5dapkn78dd0NWMBg==}
+  /prisma/3.13.0:
+    resolution: {integrity: sha512-oO1auBnBtieGdiN+57IgsA9Vr7Sy4HkILi1KSaUG4mpKfEbnkTGnLOxAqjLed+K2nsG/GtE1tJBtB7JxN1a78Q==}
     engines: {node: '>=12.6'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
+      '@prisma/engines': 3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b
+      ts-pattern: 4.0.2
+    dev: true
+
+  /ts-pattern/4.0.2:
+    resolution: {integrity: sha512-eHqR/7A6fcw05vCOfnL6RwgGJbVi9G/YHTdYdjYmElhDdJ1SMn7pWs+6+YuxygaFwQS/g+cIDlu+UD8IVpur1A==}
     dev: true
