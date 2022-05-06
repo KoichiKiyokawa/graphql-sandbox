@@ -110,7 +110,7 @@ importers:
       '@graphql-codegen/introspection': 2.1.1
       '@graphql-codegen/typescript': 2.4.10
       '@graphql-codegen/typescript-operations': 2.3.5
-      '@graphql-codegen/typescript-react-apollo': 3.2.12
+      '@graphql-codegen/typescript-react-apollo': 3.2.13
       '@nexus-realworld/frontend-utils': workspace:*
       '@types/react': ^18.0.0
       eslint: 8.14.0
@@ -131,7 +131,7 @@ importers:
       '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
       '@graphql-codegen/typescript': 2.4.10_graphql@16.3.0
       '@graphql-codegen/typescript-operations': 2.3.5_graphql@16.3.0
-      '@graphql-codegen/typescript-react-apollo': 3.2.12_graphql@16.3.0
+      '@graphql-codegen/typescript-react-apollo': 3.2.13_graphql@16.3.0
       '@types/react': 18.0.0
       eslint: 8.14.0
       eslint-config-next: 12.1.6_d7e9cce678924f6d9856cdbea208c1e6
@@ -1224,14 +1224,14 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/typescript-react-apollo/3.2.12_graphql@16.3.0:
-    resolution: {integrity: sha512-hSNDMdFsbEC3LtAiY5vJwyCTBBh7faoSBpZbj6eboZGJ4gmPOj42Zf7b0QJR7BWDsITkS+WICQtZPQN2tHkHwg==}
+  /@graphql-codegen/typescript-react-apollo/3.2.13_graphql@16.3.0:
+    resolution: {integrity: sha512-g4fsvkHpltCboGEZPWcg0GvPQZ08IskkCZToO/gK7G/EozgJ5yi2HMErZsiygUgMDp5/FZNBaOktkfSKRw6HaA==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-tag: ^2.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.4.2_graphql@16.3.0
-      '@graphql-codegen/visitor-plugin-common': 2.7.5_graphql@16.3.0
+      '@graphql-codegen/visitor-plugin-common': 2.7.6_graphql@16.3.0
       auto-bind: 4.0.0
       change-case-all: 1.0.14
       graphql: 16.3.0
@@ -4958,7 +4958,7 @@ packages:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       graphql: 16.3.0
-      tslib: 2.3.1
+      tslib: 2.4.0
 
   /graphql-ws/5.6.2_graphql@16.3.0:
     resolution: {integrity: sha512-TsjovINNEGfv52uKWYSVCOLX9LFe6wAhf9n7hIsV3zjflky1dv/mAP+kjXAXsnzV1jH5Sx0S73CtBFNvxus+SQ==}
