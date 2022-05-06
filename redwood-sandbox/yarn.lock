@@ -3496,6 +3496,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-yoga/common@npm:2.5.0":
+  version: 2.5.0
+  resolution: "@graphql-yoga/common@npm:2.5.0"
+  dependencies:
+    "@envelop/core": ^2.0.0
+    "@envelop/disable-introspection": ^3.0.0
+    "@envelop/parser-cache": ^4.0.0
+    "@envelop/validation-cache": ^4.0.0
+    "@graphql-tools/schema": ^8.3.1
+    "@graphql-tools/utils": ^8.6.0
+    "@graphql-typed-document-node/core": ^3.1.1
+    "@graphql-yoga/subscription": 2.0.0
+    cross-undici-fetch: ^0.4.2
+    dset: ^3.1.1
+    tslib: ^2.3.1
+  peerDependencies:
+    graphql: ^15.2.0 || ^16.0.0
+  checksum: 9996185dc73c09397b380db5f97c4b2627f068fa7bec0e6793268f8442b4e79a4f2ef61d4bee902aa555c203a4d3e15e411d62f42683e695f288e0c95877a034
+  languageName: node
+  linkType: hard
+
 "@graphql-yoga/node@npm:2.3.0":
   version: 2.3.0
   resolution: "@graphql-yoga/node@npm:2.3.0"
@@ -4422,6 +4443,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/api@npm:1.3.1":
+  version: 1.3.1
+  resolution: "@redwoodjs/api@npm:1.3.1"
+  dependencies:
+    "@babel/runtime-corejs3": 7.16.7
+    "@prisma/client": 3.13.0
+    cross-undici-fetch: 0.1.27
+    crypto-js: 4.1.1
+    humanize-string: 2.1.0
+    jsonwebtoken: 8.5.1
+    jwks-rsa: 2.0.5
+    md5: 2.3.0
+    pascalcase: 1.0.0
+    pino: 7.10.0
+    title-case: 3.0.3
+    uuid: 8.3.2
+  peerDependencies:
+    "@clerk/clerk-sdk-node": 3.3.10
+    "@magic-sdk/admin": 1.4.1
+    firebase-admin: 10.1.0
+  peerDependenciesMeta:
+    "@clerk/clerk-sdk-node":
+      optional: true
+    "@magic-sdk/admin":
+      optional: true
+    firebase-admin:
+      optional: true
+  bin:
+    redwood: dist/bins/redwood.js
+    rw: dist/bins/redwood.js
+    rwfw: dist/bins/rwfw.js
+    tsc: dist/bins/tsc.js
+  checksum: b1da9b8e1c970ddf0ecfc7dee18a7a86095a51fecf5b6f6c26f8d0cc53ff9b6eed3510320828b0a57a4b3d3ede2051216ff8b2d444079ab3d621c47782b950a6
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/auth@npm:1.3.0":
   version: 1.3.0
   resolution: "@redwoodjs/auth@npm:1.3.0"
@@ -4619,6 +4676,33 @@ __metadata:
     lodash.omitby: 4.6.0
     uuid: 8.3.2
   checksum: 00199914cc3cd07bad52d0d75cf040c0a83ccc3d4db8002cdbaebbd84305d304f70b3eb1f2af1131780f35fa5dbbfa71ce3bb70fa65c4d78a27f66a955f77511
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/graphql-server@npm:1.3.1":
+  version: 1.3.1
+  resolution: "@redwoodjs/graphql-server@npm:1.3.1"
+  dependencies:
+    "@envelop/depth-limit": 1.5.1
+    "@envelop/disable-introspection": 3.3.1
+    "@envelop/filter-operation-type": 3.3.1
+    "@envelop/parser-cache": 4.3.1
+    "@envelop/validation-cache": 4.3.1
+    "@graphql-tools/merge": 8.2.10
+    "@graphql-tools/schema": 8.3.10
+    "@graphql-tools/utils": 8.6.9
+    "@graphql-yoga/common": 2.5.0
+    "@prisma/client": 3.13.0
+    "@redwoodjs/api": 1.3.1
+    core-js: 3.22.2
+    cross-undici-fetch: 0.1.27
+    graphql: 16.4.0
+    graphql-scalars: 1.17.0
+    graphql-tag: 2.12.6
+    lodash.merge: 4.6.2
+    lodash.omitby: 4.6.0
+    uuid: 8.3.2
+  checksum: 079d21fbe1e27461d86235ae90fe5181d6fc1dda533c0582f00c62bf752c2acc750bae2ca27276fc4cda5287d4a3c85d3304c86f26803358e0cad0a6949e95a4
   languageName: node
   linkType: hard
 
@@ -8179,7 +8263,7 @@ __metadata:
   resolution: "api@workspace:api"
   dependencies:
     "@redwoodjs/api": 1.3.0
-    "@redwoodjs/graphql-server": 1.3.0
+    "@redwoodjs/graphql-server": 1.3.1
     serverless: ^3.15.2
   languageName: unknown
   linkType: soft
@@ -9543,6 +9627,15 @@ __metadata:
   version: 1.0.3
   resolution: "builtins@npm:1.0.3"
   checksum: 493afcc1db0a56d174cc85bebe5ca69144f6fdd0007d6cbe6b2434185314c79d83cb867e492b56aa5cf421b4b8a8135bf96ba4c3ce71994cf3da154d1ea59747
+  languageName: node
+  linkType: hard
+
+"busboy@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "busboy@npm:1.6.0"
+  dependencies:
+    streamsearch: ^1.1.0
+  checksum: fa7e836a2b82699b6e074393428b91ae579d4f9e21f5ac468e1b459a244341d722d2d22d10920cdd849743dbece6dca11d72de939fb75a7448825cf2babfba1f
   languageName: node
   linkType: hard
 
@@ -10992,6 +11085,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-undici-fetch@npm:0.1.27":
+  version: 0.1.27
+  resolution: "cross-undici-fetch@npm:0.1.27"
+  dependencies:
+    abort-controller: ^3.0.0
+    form-data-encoder: ^1.7.1
+    formdata-node: ^4.3.1
+    node-fetch: ^2.6.7
+    undici: ^4.9.3
+    web-streams-polyfill: ^3.2.0
+  checksum: 4f6e7fa17c676c33fb1003b2d754478e01b27114eef0b2ac9ff1c35a26786c8764dbd80f2dd392f7923e23a037bf4819f9d940ef7c318ff2055e82e1202d981f
+  languageName: node
+  linkType: hard
+
 "cross-undici-fetch@npm:0.3.6":
   version: 0.3.6
   resolution: "cross-undici-fetch@npm:0.3.6"
@@ -11031,6 +11138,21 @@ __metadata:
     undici: ^5.0.0
     web-streams-polyfill: ^3.2.0
   checksum: e2c6b9740023fe24caa7baf07a7a16d81667fe40bf4532d5a57075ae6f3de0633f7dcfed1a55e4f7b89d4560f2a04506a4f333206fc51b32ef71ddaca3bdb76c
+  languageName: node
+  linkType: hard
+
+"cross-undici-fetch@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "cross-undici-fetch@npm:0.4.2"
+  dependencies:
+    abort-controller: ^3.0.0
+    busboy: ^1.6.0
+    form-data-encoder: ^1.7.1
+    formdata-node: ^4.3.1
+    node-fetch: ^2.6.7
+    undici: ^5.1.0
+    web-streams-polyfill: ^3.2.0
+  checksum: a17237830a949fe193e0c105e02ee976cbd5d69878a4be6e511b76e4482dc662ef4ca535383474b01f405b74974b804a8abf04435ed0b6fb9f85c877c3ad70f6
   languageName: node
   linkType: hard
 
@@ -23998,6 +24120,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"streamsearch@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "streamsearch@npm:1.1.0"
+  checksum: fbd9aecc2621364384d157f7e59426f4bfd385e8b424b5aaa79c83a6f5a1c8fd2e4e3289e95de1eb3511cb96bb333d6281a9919fafce760e4edb35b2cd2facab
+  languageName: node
+  linkType: hard
+
 "strict-event-emitter@npm:^0.2.0":
   version: 0.2.4
   resolution: "strict-event-emitter@npm:0.2.4"
@@ -25381,7 +25510,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^4.0.0":
+"undici@npm:^4.0.0, undici@npm:^4.9.3":
   version: 4.16.0
   resolution: "undici@npm:4.16.0"
   checksum: f0b709016eef145e37254c1894a9ca6c769e11e5995d9beb02409be1fc372c2eb53df90299181140d9bdb3f89c4d0f162e03213511a4e75e19757157d325acb7
