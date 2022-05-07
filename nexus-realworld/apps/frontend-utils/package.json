@@ -8,7 +8,7 @@
   "author": "",
   "license": "UNLICENSED",
   "private": true,
-  "packageManager": "pnpm@7.0.0",
+  "packageManager": "pnpm@7.0.1",
   "devDependencies": {
     "typescript": "4.6.4"
   }
