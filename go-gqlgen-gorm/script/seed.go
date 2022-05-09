@@ -8,21 +8,21 @@ import (
 	"go-gqlgen-gorm/model"
 
 	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
-
-var Models = []interface{}{"1"}
 
 var db, err = gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
 
 func main() {
 	for userIndex := 0; userIndex < 10; userIndex++ {
+		hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("password"), bcrypt.DefaultCost)
 		user := model.User{
 			ID:           getUUID(),
 			Name:         fmt.Sprintf("user%d", userIndex),
 			Email:        fmt.Sprintf("user%d@example.com", userIndex),
-			PasswordHash: "password",
+			PasswordHash: string(hashedPassword),
 		}
 		db.Create(&user)
 
