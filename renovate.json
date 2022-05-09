@@ -1,4 +1,4 @@
 {
-  "extends": ["config:base"],
-  "schedule": ["before 12am on Sunday"]
+  "extends": ["group:allNonMajor"],
+  "schedule": ["every weekend"]
 }
