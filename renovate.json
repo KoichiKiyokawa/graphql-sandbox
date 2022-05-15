@@ -1,4 +1,4 @@
 {
-  "extends": ["group:allNonMajor"],
-  "schedule": ["every weekend"]
+  "extends": ["github>KoichiKiyokawa/renovate-config"]
 }
+
