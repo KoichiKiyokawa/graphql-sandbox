@@ -12,7 +12,7 @@
   "devDependencies": {
     "prisma": "3.14.0"
   },
-  "packageManager": "pnpm@7.1.0",
+  "packageManager": "pnpm@7.1.1",
   "dependencies": {
     "@prisma/client": "^3.10.0"
   }
