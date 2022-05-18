@@ -8,7 +8,7 @@ require (
 	github.com/gorilla/sessions v1.2.1
 	github.com/samber/lo v1.21.0
 	github.com/vektah/gqlparser/v2 v2.4.2
-	golang.org/x/crypto v0.0.0-20220507011949-2cf3adece122
+	golang.org/x/crypto v0.0.0-20220518034528-6f7dac969898
 	gorm.io/driver/sqlite v1.3.2
 	gorm.io/gorm v1.23.5
 )
