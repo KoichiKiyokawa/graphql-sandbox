@@ -1,0 +1,27 @@
+type Account {
+  id: ID!
+  username: String!
+  passWordHash: String!
+  followersCount: Int!
+  followingCount: Int!
+  displayName: String
+  note: String
+  avatar: String
+  header: String
+}
+
+input UpdateCredentialsInput {
+  displayName: String
+  note: String
+  avatar: String
+  header: String
+}
+
+type Query {
+  getAccount(username: String!): Account!
+}
+
+extend type Mutation {
+  createAccount(username: String!, password: String!): Account!
+  updateCredentials(id: ID!, input: UpdateCredentialsInput!): Account!
+}
