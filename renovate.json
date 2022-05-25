@@ -1,4 +1,9 @@
 {
-  "extends": ["github>KoichiKiyokawa/renovate-config"]
+  "extends": ["github>KoichiKiyokawa/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["esno"],
+      "allowedVersions": "<=14.0.0"
+    }
+  ]
 }
-
