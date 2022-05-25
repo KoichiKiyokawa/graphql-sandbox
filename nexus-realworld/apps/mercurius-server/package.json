@@ -26,7 +26,7 @@
     "esbuild": "0.14.39",
     "eslint": "8.16.0",
     "eslint-config-prettier": "8.5.0",
-    "esno": "0.16.3",
+    "esno": "0.14.0",
     "fastify": "3.29.0",
     "graphql": "16.5.0",
     "graphql-relay": "0.10.0",
