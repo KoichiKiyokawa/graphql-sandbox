@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-gqlgen-gorm-cockroachdb/auth"
 	"go-gqlgen-gorm-cockroachdb/graph/generated"
 	"go-gqlgen-gorm-cockroachdb/resolver"
 	"log"
@@ -30,7 +31,7 @@ func main() {
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver.NewResolver(db)}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+	http.Handle("/query", auth.Middleware(db)(srv))
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))

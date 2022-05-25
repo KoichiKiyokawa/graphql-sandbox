@@ -4,7 +4,9 @@
 package main
 
 import (
-	"go-gqlgen-gorm-cockroachdb/model"
+	"context"
+	"fmt"
+	"go-gqlgen-gorm-cockroachdb/resolver"
 	"log"
 	"os"
 
@@ -19,5 +21,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	db.AutoMigrate(&model.Account{})
+	r := resolver.NewResolver(db)
+
+	// account x 10
+	for i := 0; i < 10; i++ {
+		_, err := r.Mutation().CreateAccount(context.Background(), fmt.Sprintf("user%d", i), "password")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 }

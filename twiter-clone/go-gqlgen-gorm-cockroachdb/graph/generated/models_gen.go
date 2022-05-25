@@ -2,6 +2,12 @@
 
 package generated
 
+type RelationResult struct {
+	ID         string `json:"id"`
+	Following  bool   `json:"following"`
+	FollowedBy bool   `json:"followedBy"`
+}
+
 type UpdateCredentialsInput struct {
 	DisplayName *string `json:"displayName"`
 	Note        *string `json:"note"`

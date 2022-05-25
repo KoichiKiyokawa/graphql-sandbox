@@ -8,16 +8,14 @@ type (
 	Account struct {
 		ID           AccountID `json:"id" gorm:"primaryKey"`
 		Username     string    `json:"username"`
-		PassWordHash string    `json:"-"`
+		PasswordHash string    `json:"-"`
 		DisplayName  *string   `json:"display_name"`
 		Note         *string   `json:"note"`
 		Avatar       *string   `json:"avatar"`
 		Header       *string   `json:"header"`
-	}
 
-	Relationship struct {
-		FolloweeID AccountID `gorm:"primaryKey"`
-		FollowerID AccountID `gorm:"primaryKey"`
+		FollowersRelation  []Account `gorm:"many2many:relationship;foreignKey:ID;joinForeignKey:FolloweeId;References:ID;joinReferences:FollowerId"`
+		FollowingsRelation []Account `gorm:"many2many:relationship;foreignKey:ID;joinForeignKey:FollowerId;References:ID;joinReferences:FolloweeId"`
 	}
 )
 
@@ -26,6 +24,6 @@ func (a *Account) SetPassword(password string) error {
 	if err != nil {
 		return err
 	}
-	a.PassWordHash = string(hash)
+	a.PasswordHash = string(hash)
 	return nil
 }

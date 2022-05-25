@@ -1,13 +1,22 @@
 type Account {
   id: ID!
   username: String!
-  passWordHash: String!
+  passwordHash: String!
   followersCount: Int!
   followingCount: Int!
   displayName: String
   note: String
   avatar: String
   header: String
+
+  followers: [Account!]!
+  followings: [Account!]!
+}
+
+type RelationResult {
+  id: ID!
+  following: Boolean!
+  followedBy: Boolean!
 }
 
 input UpdateCredentialsInput {
@@ -19,9 +28,11 @@ input UpdateCredentialsInput {
 
 type Query {
   getAccount(username: String!): Account!
+  me: Account
 }
 
 extend type Mutation {
   createAccount(username: String!, password: String!): Account!
   updateCredentials(id: ID!, input: UpdateCredentialsInput!): Account!
+  followSpecificAccount(targetAccountID: ID!): RelationResult!
 }

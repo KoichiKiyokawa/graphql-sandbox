@@ -6,16 +6,26 @@ package resolver
 import (
 	"context"
 	"fmt"
+	"go-gqlgen-gorm-cockroachdb/auth"
 	"go-gqlgen-gorm-cockroachdb/graph/generated"
 	"go-gqlgen-gorm-cockroachdb/model"
 )
 
 func (r *accountResolver) FollowersCount(ctx context.Context, obj *model.Account) (int, error) {
-	// var count int
-	return 0, nil
+	count := r.db.Model(&model.Account{}).Where("id = ?", obj.ID).Association("FollowersRelation").Count()
+	return int(count), nil
 }
 
 func (r *accountResolver) FollowingCount(ctx context.Context, obj *model.Account) (int, error) {
+	count := r.db.Model(&model.Account{}).Where("id = ?", obj.ID).Association("FollowingsRelation").Count()
+	return int(count), nil
+}
+
+func (r *accountResolver) Followers(ctx context.Context, obj *model.Account) ([]*model.Account, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *accountResolver) Followings(ctx context.Context, obj *model.Account) ([]*model.Account, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -33,6 +43,10 @@ func (r *mutationResolver) UpdateCredentials(ctx context.Context, id string, inp
 	panic(fmt.Errorf("not implemented"))
 }
 
+func (r *mutationResolver) FollowSpecificAccount(ctx context.Context, targetAccountID string) (*generated.RelationResult, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
 func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model.Account, error) {
 	var account model.Account
 	if err := r.db.Model(&model.Account{}).Where("username = ?", username).First(&account).Error; err != nil {
@@ -40,6 +54,10 @@ func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model
 	}
 
 	return &account, nil
+}
+
+func (r *queryResolver) Me(ctx context.Context) (*model.Account, error) {
+	return auth.AccountOf(ctx), nil
 }
 
 // Account returns generated.AccountResolver implementation.
