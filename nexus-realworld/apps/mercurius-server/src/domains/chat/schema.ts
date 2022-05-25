@@ -60,7 +60,6 @@ export const Subscription = subscriptionType({
         return ctx.pubsub.subscribe(PUBSUB_KEYS.MESSAGE_ADDED);
       },
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       resolve: (event) => event,
     });
   },
