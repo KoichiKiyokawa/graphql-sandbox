@@ -28,6 +28,7 @@ input UpdateCredentialsInput {
 
 type Query {
   getAccount(username: String!): Account!
+  getRelationships(usernames: [String!]!): [RelationResult!]!
   me: Account
 }
 
@@ -35,4 +36,5 @@ extend type Mutation {
   createAccount(username: String!, password: String!): Account!
   updateCredentials(id: Int!, input: UpdateCredentialsInput!): Account!
   followSpecificAccount(targetAccountID: Int!): RelationResult!
+  unfollowSpecificAccount(targetAccountID: Int!): RelationResult!
 }

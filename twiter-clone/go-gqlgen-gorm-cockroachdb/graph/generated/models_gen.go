@@ -8,6 +8,11 @@ type RelationResult struct {
 	FollowedBy bool `json:"followedBy"`
 }
 
+type Status struct {
+	ID      int    `json:"id"`
+	Content string `json:"content"`
+}
+
 type UpdateCredentialsInput struct {
 	DisplayName *string `json:"displayName"`
 	Note        *string `json:"note"`

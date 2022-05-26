@@ -91,6 +91,15 @@ func (r *mutationResolver) FollowSpecificAccount(ctx context.Context, targetAcco
 	return &result, nil
 }
 
+func (r *mutationResolver) UnfollowSpecificAccount(ctx context.Context, targetAccountID int) (*generated.RelationResult, error) {
+	currentUser := auth.AccountOf(ctx)
+	if err := r.db.Model(&model.Account{ID: currentUser.ID}).Association("FollowingsRelation").Delete(&model.Account{ID: targetAccountID}); err != nil {
+		return nil, err
+	}
+	// TODO:
+	return nil, nil
+}
+
 func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model.Account, error) {
 	var account model.Account
 	if err := r.db.Model(&model.Account{}).Where("username = ?", username).First(&account).Error; err != nil {
@@ -98,6 +107,22 @@ func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model
 	}
 
 	return &account, nil
+}
+
+func (r *queryResolver) GetRelationships(ctx context.Context, usernames []string) ([]*generated.RelationResult, error) {
+	var targetAccountIDs []int
+	r.db.Model(model.Account{}).Select("id").Where("username IN ?", usernames).Scan(&targetAccountIDs)
+
+	currentUser := auth.AccountOf(ctx)
+	var relationResults []*generated.RelationResult
+	if err := r.db.Table("relationship as r").
+		Select(`(from_id = ?) as "following", (to_id = ?) as "followedBy"`, currentUser.ID, currentUser.ID).
+		Where(map[string]any{"from_id": currentUser.ID, "to_id": targetAccountIDs}).
+		Or(map[string]any{"from_id": targetAccountIDs, "to_id": currentUser.ID}).
+		Scan(&relationResults).Error; err != nil {
+		return nil, err
+	}
+	return relationResults, nil
 }
 
 func (r *queryResolver) Me(ctx context.Context) (*model.Account, error) {
