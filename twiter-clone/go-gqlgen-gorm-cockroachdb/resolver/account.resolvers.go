@@ -82,13 +82,7 @@ func (r *mutationResolver) FollowSpecificAccount(ctx context.Context, targetAcco
 		return nil, err
 	}
 
-	result := generated.RelationResult{
-		ID: targetAccountID,
-	}
-
-	r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", currentUserID, targetAccountID).Scan(&result.Following)
-	r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", targetAccountID, currentUserID).Scan(&result.FollowedBy)
-	return &result, nil
+	return r.getRelation(currentUserID, targetAccountID)
 }
 
 func (r *mutationResolver) UnfollowSpecificAccount(ctx context.Context, targetAccountID int) (*generated.RelationResult, error) {
@@ -96,8 +90,21 @@ func (r *mutationResolver) UnfollowSpecificAccount(ctx context.Context, targetAc
 	if err := r.db.Model(&model.Account{ID: currentUser.ID}).Association("FollowingsRelation").Delete(&model.Account{ID: targetAccountID}); err != nil {
 		return nil, err
 	}
-	// TODO:
-	return nil, nil
+	return r.getRelation(currentUser.ID, targetAccountID)
+}
+
+func (r *mutationResolver) getRelation(currentUserID int, targetAccountID int) (*generated.RelationResult, error) {
+	result := generated.RelationResult{
+		ID: targetAccountID,
+	}
+	if err := r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", currentUserID, targetAccountID).Scan(&result.Following).Error; err != nil {
+		return nil, err
+	}
+	if err := r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", targetAccountID, currentUserID).Scan(&result.FollowedBy).Error; err != nil {
+		return nil, err
+	}
+
+	return &result, nil
 }
 
 func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model.Account, error) {
@@ -110,16 +117,16 @@ func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model
 }
 
 func (r *queryResolver) GetRelationships(ctx context.Context, usernames []string) ([]*generated.RelationResult, error) {
-	var targetAccountIDs []int
-	r.db.Model(model.Account{}).Select("id").Where("username IN ?", usernames).Scan(&targetAccountIDs)
-
 	currentUser := auth.AccountOf(ctx)
 	var relationResults []*generated.RelationResult
-	if err := r.db.Table("relationship as r").
-		Select(`(from_id = ?) as "following", (to_id = ?) as "followedBy"`, currentUser.ID, currentUser.ID).
-		Where(map[string]any{"from_id": currentUser.ID, "to_id": targetAccountIDs}).
-		Or(map[string]any{"from_id": targetAccountIDs, "to_id": currentUser.ID}).
-		Scan(&relationResults).Error; err != nil {
+	if err := r.db.Raw(`
+		SELECT
+			target_user_ids.id AS "id",
+			(SELECT count(*) > 0 FROM relationship WHERE from_id = @current_user AND to_id = target_user_ids.id) AS "following",
+			(SELECT count(*) > 0 FROM relationship WHERE from_id = target_user_ids.id AND to_id = @current_user) AS "followedBy"
+		FROM
+			(SELECT id FROM accounts WHERE username IN @usernames) AS "target_user_ids";
+	`, map[string]any{"current_user": currentUser.ID, "usernames": usernames}).Scan(&relationResults).Error; err != nil {
 		return nil, err
 	}
 	return relationResults, nil
