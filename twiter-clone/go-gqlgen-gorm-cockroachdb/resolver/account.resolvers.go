@@ -12,12 +12,14 @@ import (
 )
 
 func (r *accountResolver) FollowersCount(ctx context.Context, obj *model.Account) (int, error) {
-	count := r.db.Model(&model.Account{}).Where("id = ?", obj.ID).Association("FollowersRelation").Count()
+	var count int64
+	r.db.Table("relationship").Where("follower_id = ?", obj.ID).Count(&count)
 	return int(count), nil
 }
 
 func (r *accountResolver) FollowingCount(ctx context.Context, obj *model.Account) (int, error) {
-	count := r.db.Model(&model.Account{}).Where("id = ?", obj.ID).Association("FollowingsRelation").Count()
+	var count int64
+	r.db.Table("relationship").Where("followee_id = ?", obj.ID).Count(&count)
 	return int(count), nil
 }
 
