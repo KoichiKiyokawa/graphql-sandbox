@@ -6,7 +6,7 @@ type (
 	AccountID = int
 
 	Account struct {
-		ID           AccountID `json:"id" gorm:"primaryKey"`
+		ID           AccountID `json:"id" gorm:"primaryKey;autoIncrement"`
 		Username     string    `json:"username"`
 		PasswordHash string    `json:"-"`
 		DisplayName  *string   `json:"display_name"`
@@ -14,8 +14,8 @@ type (
 		Avatar       *string   `json:"avatar"`
 		Header       *string   `json:"header"`
 
-		FollowersRelation  []Account `gorm:"many2many:relationship;foreignKey:ID;joinForeignKey:FolloweeId;References:ID;joinReferences:FollowerId"`
-		FollowingsRelation []Account `gorm:"many2many:relationship;foreignKey:ID;joinForeignKey:FollowerId;References:ID;joinReferences:FolloweeId"`
+		FollowersRelation  []Account `gorm:"many2many:relationship;foreignKey:ID;joinForeignKey:ToId;References:ID;joinReferences:FromId"`
+		FollowingsRelation []Account `gorm:"many2many:relationship;foreignKey:ID;joinForeignKey:FromId;References:ID;joinReferences:ToId"`
 	}
 )
 

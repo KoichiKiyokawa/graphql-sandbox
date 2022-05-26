@@ -6,6 +6,7 @@ import (
 	"go-gqlgen-gorm-cockroachdb/config"
 	"go-gqlgen-gorm-cockroachdb/graph/generated"
 	"go-gqlgen-gorm-cockroachdb/resolver"
+	"go-gqlgen-gorm-cockroachdb/service"
 	"log"
 	"net/http"
 	"os"
@@ -24,7 +25,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver.NewResolver(db)}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{
+		Resolvers: resolver.NewResolver(db.Debug(), &service.UploadService{}),
+	}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", auth.Middleware(db)(srv))

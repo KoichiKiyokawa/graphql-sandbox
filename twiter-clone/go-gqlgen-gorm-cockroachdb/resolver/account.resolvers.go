@@ -9,26 +9,33 @@ import (
 	"go-gqlgen-gorm-cockroachdb/auth"
 	"go-gqlgen-gorm-cockroachdb/graph/generated"
 	"go-gqlgen-gorm-cockroachdb/model"
+	"time"
 )
 
 func (r *accountResolver) FollowersCount(ctx context.Context, obj *model.Account) (int, error) {
-	var count int64
-	r.db.Table("relationship").Where("follower_id = ?", obj.ID).Count(&count)
+	count := r.db.Model(&model.Account{ID: obj.ID}).Association("FollowersRelation").Count()
 	return int(count), nil
 }
 
 func (r *accountResolver) FollowingCount(ctx context.Context, obj *model.Account) (int, error) {
-	var count int64
-	r.db.Table("relationship").Where("followee_id = ?", obj.ID).Count(&count)
+	count := r.db.Model(&model.Account{ID: obj.ID}).Association("FollowingsRelation").Count()
 	return int(count), nil
 }
 
 func (r *accountResolver) Followers(ctx context.Context, obj *model.Account) ([]*model.Account, error) {
-	panic(fmt.Errorf("not implemented"))
+	var followers []*model.Account
+	if err := r.db.Model(&model.Account{ID: obj.ID}).Association("FollowersRelation").Find(&followers); err != nil {
+		return nil, err
+	}
+	return followers, nil
 }
 
 func (r *accountResolver) Followings(ctx context.Context, obj *model.Account) ([]*model.Account, error) {
-	panic(fmt.Errorf("not implemented"))
+	var followings []*model.Account
+	if err := r.db.Model(&model.Account{ID: obj.ID}).Association("FollowingsRelation").Find(&followings); err != nil {
+		return nil, err
+	}
+	return followings, nil
 }
 
 func (r *mutationResolver) CreateAccount(ctx context.Context, username string, password string) (*model.Account, error) {
@@ -42,16 +49,36 @@ func (r *mutationResolver) CreateAccount(ctx context.Context, username string, p
 }
 
 func (r *mutationResolver) UpdateCredentials(ctx context.Context, id int, input generated.UpdateCredentialsInput) (*model.Account, error) {
-	panic(fmt.Errorf("not implemented"))
+	if input.Avatar != nil {
+		path, err := r.uploadService.UploadFile(*input.Avatar, fmt.Sprintf("avatar/%d.png", time.Now().Unix()))
+		if err != nil {
+			return nil, err
+		}
+		input.Avatar = &path
+	}
+
+	if input.Header != nil {
+		path, err := r.uploadService.UploadFile(*input.Header, fmt.Sprintf("header/%d.png", time.Now().Unix()))
+		if err != nil {
+			return nil, err
+		}
+		input.Header = &path
+	}
+
+	if err := r.db.Model(&model.Account{ID: id}).Updates(input).Error; err != nil {
+		return nil, err
+	}
+
+	var updatedAccount model.Account
+	if err := r.db.Model(&model.Account{ID: id}).First(updatedAccount).Error; err != nil {
+		return nil, err
+	}
+	return &updatedAccount, nil
 }
 
 func (r *mutationResolver) FollowSpecificAccount(ctx context.Context, targetAccountID int) (*generated.RelationResult, error) {
-	currentUesrID := auth.AccountOf(ctx).ID
-	// r.db.Model(&model.Account{}).Update(&model.Account{ID: targetAccountID, FollowingsRelation: })
-	if err := r.db.Table("relationship").Create(map[string]any{
-		"follower_id": currentUesrID,   // フォローした人
-		"followee_id": targetAccountID, // フォローされた人
-	}).Error; err != nil {
+	currentUserID := auth.AccountOf(ctx).ID
+	if err := r.db.Model(&model.Account{ID: currentUserID}).Association("FollowingsRelation").Append(&model.Account{ID: targetAccountID}); err != nil {
 		return nil, err
 	}
 
@@ -59,9 +86,8 @@ func (r *mutationResolver) FollowSpecificAccount(ctx context.Context, targetAcco
 		ID: targetAccountID,
 	}
 
-	r.db.Raw("select count(*) > 0 from relationship where followee_id = ? and follower_id = ?", targetAccountID, currentUesrID).Scan(&result.Following)
-	r.db.Raw("select count(*) > 0 from relationship where follower_id = ? and followee_id = ?", targetAccountID, currentUesrID).Scan(&result.FollowedBy)
-
+	r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", currentUserID, targetAccountID).Scan(&result.Following)
+	r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", targetAccountID, currentUserID).Scan(&result.FollowedBy)
 	return &result, nil
 }
 
