@@ -61,8 +61,8 @@ type ComplexityRoot struct {
 
 	Mutation struct {
 		CreateAccount         func(childComplexity int, username string, password string) int
-		FollowSpecificAccount func(childComplexity int, targetAccountID string) int
-		UpdateCredentials     func(childComplexity int, id string, input UpdateCredentialsInput) int
+		FollowSpecificAccount func(childComplexity int, targetAccountID int) int
+		UpdateCredentials     func(childComplexity int, id int, input UpdateCredentialsInput) int
 	}
 
 	Query struct {
@@ -86,8 +86,8 @@ type AccountResolver interface {
 }
 type MutationResolver interface {
 	CreateAccount(ctx context.Context, username string, password string) (*model.Account, error)
-	UpdateCredentials(ctx context.Context, id string, input UpdateCredentialsInput) (*model.Account, error)
-	FollowSpecificAccount(ctx context.Context, targetAccountID string) (*RelationResult, error)
+	UpdateCredentials(ctx context.Context, id int, input UpdateCredentialsInput) (*model.Account, error)
+	FollowSpecificAccount(ctx context.Context, targetAccountID int) (*RelationResult, error)
 }
 type QueryResolver interface {
 	GetAccount(ctx context.Context, username string) (*model.Account, error)
@@ -208,7 +208,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.FollowSpecificAccount(childComplexity, args["targetAccountID"].(string)), true
+		return e.complexity.Mutation.FollowSpecificAccount(childComplexity, args["targetAccountID"].(int)), true
 
 	case "Mutation.updateCredentials":
 		if e.complexity.Mutation.UpdateCredentials == nil {
@@ -220,7 +220,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateCredentials(childComplexity, args["id"].(string), args["input"].(UpdateCredentialsInput)), true
+		return e.complexity.Mutation.UpdateCredentials(childComplexity, args["id"].(int), args["input"].(UpdateCredentialsInput)), true
 
 	case "Query.getAccount":
 		if e.complexity.Query.GetAccount == nil {
@@ -332,7 +332,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 
 var sources = []*ast.Source{
 	{Name: "../../schema/account.gql", Input: `type Account {
-  id: ID!
+  id: Int!
   username: String!
   passwordHash: String!
   followersCount: Int!
@@ -347,7 +347,7 @@ var sources = []*ast.Source{
 }
 
 type RelationResult {
-  id: ID!
+  id: Int!
   following: Boolean!
   followedBy: Boolean!
 }
@@ -366,8 +366,8 @@ type Query {
 
 extend type Mutation {
   createAccount(username: String!, password: String!): Account!
-  updateCredentials(id: ID!, input: UpdateCredentialsInput!): Account!
-  followSpecificAccount(targetAccountID: ID!): RelationResult!
+  updateCredentials(id: Int!, input: UpdateCredentialsInput!): Account!
+  followSpecificAccount(targetAccountID: Int!): RelationResult!
 }
 `, BuiltIn: false},
 }
@@ -404,10 +404,10 @@ func (ec *executionContext) field_Mutation_createAccount_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_followSpecificAccount_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 string
+	var arg0 int
 	if tmp, ok := rawArgs["targetAccountID"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("targetAccountID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -419,10 +419,10 @@ func (ec *executionContext) field_Mutation_followSpecificAccount_args(ctx contex
 func (ec *executionContext) field_Mutation_updateCredentials_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 string
+	var arg0 int
 	if tmp, ok := rawArgs["id"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -536,7 +536,7 @@ func (ec *executionContext) _Account_id(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.(int)
 	fc.Result = res
-	return ec.marshalNID2int(ctx, field.Selections, res)
+	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Account_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -546,7 +546,7 @@ func (ec *executionContext) fieldContext_Account_id(ctx context.Context, field g
 		IsMethod:   false,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type ID does not have child fields")
+			return nil, errors.New("field of type Int does not have child fields")
 		},
 	}
 	return fc, nil
@@ -1121,7 +1121,7 @@ func (ec *executionContext) _Mutation_updateCredentials(ctx context.Context, fie
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateCredentials(rctx, fc.Args["id"].(string), fc.Args["input"].(UpdateCredentialsInput))
+		return ec.resolvers.Mutation().UpdateCredentials(rctx, fc.Args["id"].(int), fc.Args["input"].(UpdateCredentialsInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1200,7 +1200,7 @@ func (ec *executionContext) _Mutation_followSpecificAccount(ctx context.Context,
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().FollowSpecificAccount(rctx, fc.Args["targetAccountID"].(string))
+		return ec.resolvers.Mutation().FollowSpecificAccount(rctx, fc.Args["targetAccountID"].(int))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1548,9 +1548,9 @@ func (ec *executionContext) _RelationResult_id(ctx context.Context, field graphq
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(int)
 	fc.Result = res
-	return ec.marshalNID2string(ctx, field.Selections, res)
+	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_RelationResult_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1560,7 +1560,7 @@ func (ec *executionContext) fieldContext_RelationResult_id(ctx context.Context, 
 		IsMethod:   false,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type ID does not have child fields")
+			return nil, errors.New("field of type Int does not have child fields")
 		},
 	}
 	return fc, nil
@@ -4187,36 +4187,6 @@ func (ec *executionContext) unmarshalNBoolean2bool(ctx context.Context, v interf
 
 func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.SelectionSet, v bool) graphql.Marshaler {
 	res := graphql.MarshalBoolean(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-	}
-	return res
-}
-
-func (ec *executionContext) unmarshalNID2int(ctx context.Context, v interface{}) (int, error) {
-	res, err := graphql.UnmarshalInt(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNID2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
-	res := graphql.MarshalInt(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-	}
-	return res
-}
-
-func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {
-	res, err := graphql.UnmarshalID(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
-	res := graphql.MarshalID(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")

@@ -1,5 +1,5 @@
 type Account {
-  id: ID!
+  id: Int!
   username: String!
   passwordHash: String!
   followersCount: Int!
@@ -14,7 +14,7 @@ type Account {
 }
 
 type RelationResult {
-  id: ID!
+  id: Int!
   following: Boolean!
   followedBy: Boolean!
 }
@@ -33,6 +33,6 @@ type Query {
 
 extend type Mutation {
   createAccount(username: String!, password: String!): Account!
-  updateCredentials(id: ID!, input: UpdateCredentialsInput!): Account!
-  followSpecificAccount(targetAccountID: ID!): RelationResult!
+  updateCredentials(id: Int!, input: UpdateCredentialsInput!): Account!
+  followSpecificAccount(targetAccountID: Int!): RelationResult!
 }

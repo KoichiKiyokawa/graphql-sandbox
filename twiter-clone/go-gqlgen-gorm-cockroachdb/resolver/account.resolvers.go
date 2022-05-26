@@ -39,12 +39,28 @@ func (r *mutationResolver) CreateAccount(ctx context.Context, username string, p
 	return r.Query().GetAccount(ctx, username)
 }
 
-func (r *mutationResolver) UpdateCredentials(ctx context.Context, id string, input generated.UpdateCredentialsInput) (*model.Account, error) {
+func (r *mutationResolver) UpdateCredentials(ctx context.Context, id int, input generated.UpdateCredentialsInput) (*model.Account, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) FollowSpecificAccount(ctx context.Context, targetAccountID string) (*generated.RelationResult, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) FollowSpecificAccount(ctx context.Context, targetAccountID int) (*generated.RelationResult, error) {
+	currentUesrID := auth.AccountOf(ctx).ID
+	// r.db.Model(&model.Account{}).Update(&model.Account{ID: targetAccountID, FollowingsRelation: })
+	if err := r.db.Table("relationship").Create(map[string]any{
+		"follower_id": currentUesrID,   // フォローした人
+		"followee_id": targetAccountID, // フォローされた人
+	}).Error; err != nil {
+		return nil, err
+	}
+
+	result := generated.RelationResult{
+		ID: targetAccountID,
+	}
+
+	r.db.Raw("select count(*) > 0 from relationship where followee_id = ? and follower_id = ?", targetAccountID, currentUesrID).Scan(&result.Following)
+	r.db.Raw("select count(*) > 0 from relationship where follower_id = ? and followee_id = ?", targetAccountID, currentUesrID).Scan(&result.FollowedBy)
+
+	return &result, nil
 }
 
 func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model.Account, error) {
