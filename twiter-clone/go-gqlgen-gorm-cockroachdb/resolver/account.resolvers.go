@@ -93,20 +93,6 @@ func (r *mutationResolver) UnfollowSpecificAccount(ctx context.Context, targetAc
 	return r.getRelation(currentUser.ID, targetAccountID)
 }
 
-func (r *mutationResolver) getRelation(currentUserID int, targetAccountID int) (*generated.RelationResult, error) {
-	result := generated.RelationResult{
-		ID: targetAccountID,
-	}
-	if err := r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", currentUserID, targetAccountID).Scan(&result.Following).Error; err != nil {
-		return nil, err
-	}
-	if err := r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", targetAccountID, currentUserID).Scan(&result.FollowedBy).Error; err != nil {
-		return nil, err
-	}
-
-	return &result, nil
-}
-
 func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model.Account, error) {
 	var account model.Account
 	if err := r.db.Model(&model.Account{}).Where("username = ?", username).First(&account).Error; err != nil {
@@ -148,3 +134,23 @@ func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 type accountResolver struct{ *Resolver }
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//  - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//    it when you're done.
+//  - You have helper methods in this file. Move them out to keep these resolver files clean.
+func (r *mutationResolver) getRelation(currentUserID int, targetAccountID int) (*generated.RelationResult, error) {
+	result := generated.RelationResult{
+		ID: targetAccountID,
+	}
+	if err := r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", currentUserID, targetAccountID).Scan(&result.Following).Error; err != nil {
+		return nil, err
+	}
+	if err := r.db.Table("relationship").Select("count(*) > 0").Where("from_id = ? AND to_id = ?", targetAccountID, currentUserID).Scan(&result.FollowedBy).Error; err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}

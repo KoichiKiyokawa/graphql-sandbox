@@ -1,4 +1,21 @@
 type Status {
   id: Int!
   content: String!
+
+  account: Account!
+  mediaAttachments: [Attachment!]!
+}
+
+input CreateStatusInput {
+  status: String!
+  mediaIds: [Int!]!
+}
+
+extend type Query {
+  getStatus(id: Int!): Status
+}
+
+extend type Mutation {
+  createStatus(input: CreateStatusInput): Status!
+  deleteStatus(id: Int!): Message!
 }

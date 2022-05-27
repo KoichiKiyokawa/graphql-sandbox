@@ -1,0 +1,12 @@
+enum Type {
+  IMAGE
+  VIDEO
+  GIFV
+}
+
+type Attachment {
+  id: Int!
+  type: Type!
+  url: String!
+  description: String
+}

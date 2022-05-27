@@ -16,6 +16,8 @@ import (
 
 var tables = []any{
 	&model.Account{},
+	&model.Status{},
+	&model.Attachment{},
 }
 
 func main() {

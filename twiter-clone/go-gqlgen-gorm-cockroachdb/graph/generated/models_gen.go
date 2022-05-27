@@ -2,15 +2,25 @@
 
 package generated
 
+import (
+	"fmt"
+	"io"
+	"strconv"
+)
+
+type CreateStatusInput struct {
+	Status   string `json:"status"`
+	MediaIds []int  `json:"mediaIds"`
+}
+
+type Message struct {
+	Message string `json:"message"`
+}
+
 type RelationResult struct {
 	ID         int  `json:"id"`
 	Following  bool `json:"following"`
 	FollowedBy bool `json:"followedBy"`
-}
-
-type Status struct {
-	ID      int    `json:"id"`
-	Content string `json:"content"`
 }
 
 type UpdateCredentialsInput struct {
@@ -18,4 +28,47 @@ type UpdateCredentialsInput struct {
 	Note        *string `json:"note"`
 	Avatar      *string `json:"avatar"`
 	Header      *string `json:"header"`
+}
+
+type Type string
+
+const (
+	TypeImage Type = "IMAGE"
+	TypeVideo Type = "VIDEO"
+	TypeGifv  Type = "GIFV"
+)
+
+var AllType = []Type{
+	TypeImage,
+	TypeVideo,
+	TypeGifv,
+}
+
+func (e Type) IsValid() bool {
+	switch e {
+	case TypeImage, TypeVideo, TypeGifv:
+		return true
+	}
+	return false
+}
+
+func (e Type) String() string {
+	return string(e)
+}
+
+func (e *Type) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Type(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Type", str)
+	}
+	return nil
+}
+
+func (e Type) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
 }
