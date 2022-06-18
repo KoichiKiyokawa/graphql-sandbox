@@ -4667,17 +4667,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redwoodjs/forms@npm:1.4.2":
-  version: 1.4.2
-  resolution: "@redwoodjs/forms@npm:1.4.2"
+"@redwoodjs/forms@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@redwoodjs/forms@npm:2.0.0"
   dependencies:
     "@babel/runtime-corejs3": 7.16.7
+    core-js: 3.22.8
     pascalcase: 1.0.0
-    react-hook-form: 7.30.0
+    react-hook-form: 7.31.3
   peerDependencies:
-    graphql: 16.4.0
+    graphql: 16.5.0
     react: 17.0.2
-  checksum: 663a062847d1b870abe15594af747ddfdb36197bee10de085140d4d511e7ff47091712dc0d421eb11a11b3798370c4d92b5c17d37062ffeafc52ed64540c95e5
+  checksum: ff0869e256698f18a2e61fd5f48424a30643568fd8bd1b7e92a9a35ba3d447834948f287351a27aa83825628e9e893c87f04cc7d6f1c4b467ab5fe4af2e14ed7
   languageName: node
   linkType: hard
 
@@ -10863,6 +10864,13 @@ __metadata:
   version: 3.22.4
   resolution: "core-js@npm:3.22.4"
   checksum: 2f4bcce914fb0798e68fe8f6a2122398fd2f7a6d7085924b6b05795d8eead1c1a759c2cde92c4868c9800d682c22d3fc6348bc06017b46100ac6567922d8125d
+  languageName: node
+  linkType: hard
+
+"core-js@npm:3.22.8":
+  version: 3.22.8
+  resolution: "core-js@npm:3.22.8"
+  checksum: 431fa4c9028bd2fdaffaba490e6dc2b9fcebef50a62d4ef15d37f04b98a7ae7adda370811db61a439a2068d75da7314ba0532b1e4ee00b39bda3b01af89c282a
   languageName: node
   linkType: hard
 
@@ -21900,12 +21908,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.30.0":
-  version: 7.30.0
-  resolution: "react-hook-form@npm:7.30.0"
+"react-hook-form@npm:7.31.3":
+  version: 7.31.3
+  resolution: "react-hook-form@npm:7.31.3"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: c76c705bfc02c8e4beecdf20b0ff624997d86385982269231d5b7ae953c47abfd936af317c55448ffc4eeb85bde82b582629108e4e63d199f7176d7bfa6fb470
+  checksum: 41875aad648dbb9f9f0b297fc6e4601656ceae502ec4d77a7644cc66eb54f1ba0c645bac6bce7d5e099d4e52f5870c2dd9d48d6760220453412c1d5865b72738
   languageName: node
   linkType: hard
 
@@ -26172,7 +26180,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:web"
   dependencies:
-    "@redwoodjs/forms": 1.4.2
+    "@redwoodjs/forms": 2.0.0
     "@redwoodjs/router": 1.4.2
     "@redwoodjs/web": 1.4.2
     prop-types: 15.8.1
