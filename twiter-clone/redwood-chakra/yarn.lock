@@ -11344,6 +11344,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.3":
+  version: 1.11.3
+  resolution: "dayjs@npm:1.11.3"
+  checksum: 989758998b6ce11af4a12cd8cdb99ca1d24163db585564472d7bd2cef06fd68998b0e784867b4a1ca4cb8e31af5991ecd9c8f816a8f31967bde375bd58bb4230
+  languageName: node
+  linkType: hard
+
 "debounce@npm:^1.2.0":
   version: 1.2.1
   resolution: "debounce@npm:1.2.1"
@@ -25208,6 +25215,7 @@ __metadata:
     "@redwoodjs/forms": 2.0.0
     "@redwoodjs/router": 2.0.0
     "@redwoodjs/web": 2.0.0
+    dayjs: ^1.11.3
     framer-motion: ^4
     prop-types: 15.8.1
     react: 17.0.2

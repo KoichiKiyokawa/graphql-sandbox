@@ -9,15 +9,26 @@ export default async () => {
     //
     // Update "const data = []" to match your data model and seeding needs
     //
-    const data: Prisma.UserExampleCreateArgs['data'][] = [
-      // To try this example data with the UserExample model in schema.prisma,
-      // uncomment the lines below and run 'yarn rw prisma migrate dev'
-      //
-      // { name: 'alice', email: 'alice@example.com' },
-      // { name: 'mark', email: 'mark@example.com' },
-      // { name: 'jackie', email: 'jackie@example.com' },
-      // { name: 'bob', email: 'bob@example.com' },
-    ]
+    const seedAccountData: Prisma.AccountCreateInput[] = [...range(1, 5)].map(
+      (i) => ({
+        username: `user${i}`,
+        displayName: `User${i}`,
+        statuses: {
+          create: [...range(1, 10)].map((j) => ({
+            content: `user${i}-content${j}`,
+            createAt: new Date(),
+            ...(j === 1 && {
+              mediaAttachments: {
+                create: [...range(1, 2)].map(() => ({
+                  type: 'image',
+                  url: 'https://placehold.jp/150x150.png',
+                })),
+              },
+            }),
+          })),
+        },
+      })
+    )
     console.log(
       "\nUsing the default './scripts/seed.{js,ts}' template\nEdit the file to add seed data\n"
     )
@@ -28,8 +39,8 @@ export default async () => {
       //
       // Change to match your data model and seeding needs
       //
-      data.map(async (data: Prisma.UserExampleCreateArgs['data']) => {
-        const record = await db.userExample.create({ data })
+      seedAccountData.map(async (data) => {
+        const record = await db.account.create({ data })
         console.log(record)
       })
     )
@@ -37,4 +48,8 @@ export default async () => {
     console.warn('Please define your seed data.')
     console.error(error)
   }
+}
+
+function* range(start: number, end: number) {
+  for (let i = start; i <= end; i++) yield i
 }

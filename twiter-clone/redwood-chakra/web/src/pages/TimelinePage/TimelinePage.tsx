@@ -1,5 +1,6 @@
-import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
+
+import TimelineCell from 'src/components/Status/TimelineCell'
 
 const TimelinePage = () => {
   return (
