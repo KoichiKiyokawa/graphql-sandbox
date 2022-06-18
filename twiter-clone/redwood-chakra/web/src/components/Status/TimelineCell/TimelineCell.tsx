@@ -24,7 +24,7 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export { default as Loading } from 'src/components/Core/Loading'
 
 export const Empty = () => <div>Empty</div>
 
