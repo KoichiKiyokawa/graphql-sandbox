@@ -13,4 +13,4 @@ export const generated = () => (
   </>
 )
 
-export default { title: 'Components/TimelineCard' }
+export default {}

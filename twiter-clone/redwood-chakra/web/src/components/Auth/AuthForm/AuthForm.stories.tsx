@@ -7,6 +7,5 @@ export const generated: ComponentStoryFn<typeof AuthForm> = (args) => (
 )
 
 export default {
-  title: 'Components/AuthForm',
   component: AuthForm,
 }
