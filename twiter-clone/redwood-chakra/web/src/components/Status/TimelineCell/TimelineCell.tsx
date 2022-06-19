@@ -1,13 +1,26 @@
-import { Container } from '@chakra-ui/react'
+import { useState } from 'react'
+
+import { useLazyQuery } from '@apollo/client'
+import { Button, Container } from '@chakra-ui/react'
 import { TimelineQuery, TimelineQueryVariables } from 'types/graphql'
 
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+import { CellFailureProps, CellSuccessProps } from '@redwoodjs/web'
 
 import TimelineCard from '../TimelineCard'
 
 export const QUERY = gql`
-  query TimelineQuery {
-    statuses: timelinePublic {
+  query TimelineQuery(
+    $onlyMedia: Boolean
+    $maxId: Int
+    $sinceId: Int
+    $limit: Int
+  ) {
+    statuses: timelinePublic(
+      onlyMedia: $onlyMedia
+      maxId: $maxId
+      sinceId: $sinceId
+      limit: $limit
+    ) {
       id
       content
       createAt
@@ -35,11 +48,43 @@ export const Failure = ({ error }: CellFailureProps<TimelineQuery>) => (
 export const Success = ({
   statuses,
 }: CellSuccessProps<TimelineQuery, TimelineQueryVariables>) => {
+  const [moreStatuses, setMoreStatuses] = useState<TimelineQuery['statuses']>(
+    []
+  )
+  const [noMoreStatuses, setNoMoreStatuses] = useState(false)
+  const mergedStatuses = [...statuses, ...moreStatuses]
+  const [loadMore, { loading }] = useLazyQuery<
+    TimelineQuery,
+    TimelineQueryVariables
+  >(QUERY)
+
+  const onClickLoadMore = async () => {
+    const oldestId = mergedStatuses[mergedStatuses.length - 1].id
+    const more = await loadMore({
+      variables: {
+        maxId: oldestId - 1,
+      },
+    })
+
+    if (more.data.statuses.length === 0) {
+      setNoMoreStatuses(true)
+      return
+    }
+
+    setMoreStatuses((prev) => [...prev, ...more.data.statuses])
+  }
+
   return (
     <Container>
-      {statuses.map((status) => (
+      {mergedStatuses.map((status) => (
         <TimelineCard data={status} key={status.id} />
       ))}
+
+      {!noMoreStatuses && (
+        <Button isLoading={loading} onClick={onClickLoadMore}>
+          Load more
+        </Button>
+      )}
     </Container>
   )
 }

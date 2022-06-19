@@ -6,13 +6,15 @@ import type {
 
 import { db } from 'src/lib/db'
 
-export const timelinePublic: QueryResolvers['timelinePublic'] = () => {
+export const timelinePublic: QueryResolvers['timelinePublic'] = (arg) => {
   return db.status.findMany({
     include: {
       account: true,
       mediaAttachments: true,
     },
-    orderBy: { createAt: 'desc' },
+    orderBy: { id: 'desc' },
+    where: { AND: [{ id: { lte: arg.maxId } }, { id: { gte: arg.sinceId } }] },
+    take: Math.min(arg.limit ?? 40, 80), // default 50, max 80
   })
 }
 

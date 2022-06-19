@@ -8,7 +8,12 @@ export const schema = gql`
   }
 
   type Query {
-    timelinePublic: [Status!]! @requireAuth
+    timelinePublic(
+      onlyMedia: Boolean
+      maxId: Int
+      sinceId: Int
+      limit: Int
+    ): [Status!]! @skipAuth
     status(id: Int!): Status @requireAuth
   }
 
