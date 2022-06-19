@@ -57,6 +57,38 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@apollo/client@npm:3.6.6":
+  version: 3.6.6
+  resolution: "@apollo/client@npm:3.6.6"
+  dependencies:
+    "@graphql-typed-document-node/core": ^3.1.1
+    "@wry/context": ^0.6.0
+    "@wry/equality": ^0.5.0
+    "@wry/trie": ^0.3.0
+    graphql-tag: ^2.12.6
+    hoist-non-react-statics: ^3.3.2
+    optimism: ^0.16.1
+    prop-types: ^15.7.2
+    symbol-observable: ^4.0.0
+    ts-invariant: ^0.10.3
+    tslib: ^2.3.0
+    zen-observable-ts: ^1.2.5
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    graphql-ws: ^5.5.5
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    subscriptions-transport-ws: ^0.9.0 || ^0.11.0
+  peerDependenciesMeta:
+    graphql-ws:
+      optional: true
+    react:
+      optional: true
+    subscriptions-transport-ws:
+      optional: true
+  checksum: aeef464741353cc247560e07c1d6991cdd7a97072399c2888267ede80eda97c9bba39f5f641290354d1c1343986ccbf9eb511533866c5f212ea37f0b8dfdd553
+  languageName: node
+  linkType: hard
+
 "@aws-cdk/assets@npm:1.153.1":
   version: 1.153.1
   resolution: "@aws-cdk/assets@npm:1.153.1"
@@ -4580,6 +4612,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/auth@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@redwoodjs/auth@npm:2.0.0"
+  dependencies:
+    "@babel/runtime-corejs3": 7.16.7
+    core-js: 3.22.8
+  checksum: 9e4271656c1cf184034341b55f35cc3dba976abf4eab32d8a4ec6618d5046bf87a14ebdf2e6bb4719dea3e809242bb948fc8aa59e0d782984c02f1b64afbfdca
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/cli@npm:1.4.2":
   version: 1.4.2
   resolution: "@redwoodjs/cli@npm:1.4.2"
@@ -4948,6 +4990,38 @@ __metadata:
     tsc: dist/bins/tsc.js
     webpack: dist/bins/webpack.js
   checksum: 69ae7ffc4e54c339082457248af4aea790e9d5e5d33ff952ff7957ee93ccf113a5de18da2b1279eda253152af1f2a8bf77bb63c0c7fad8eec41aac1472d95ea9
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/web@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@redwoodjs/web@npm:2.0.0"
+  dependencies:
+    "@apollo/client": 3.6.6
+    "@babel/runtime-corejs3": 7.16.7
+    "@redwoodjs/auth": 2.0.0
+    core-js: 3.22.8
+    graphql: 16.5.0
+    graphql-tag: 2.12.6
+    react-helmet-async: 1.3.0
+    react-hot-toast: 2.2.0
+    stacktracey: 2.1.8
+    ts-toolbelt: 9.6.0
+  peerDependencies:
+    prop-types: 15.8.1
+    react: 17.0.2
+    react-dom: 17.0.2
+  bin:
+    build-storybook: dist/bins/build-storybook.js
+    cross-env: dist/bins/cross-env.js
+    msw: dist/bins/msw.js
+    redwood: dist/bins/redwood.js
+    rw: dist/bins/redwood.js
+    rwfw: dist/bins/rwfw.js
+    start-storybook: dist/bins/start-storybook.js
+    tsc: dist/bins/tsc.js
+    webpack: dist/bins/webpack.js
+  checksum: 5f71d377f426c54638982ce5940ac87cded35a85ebcca2652c0d3650b623a2913cc104acce6ad6cfaedd99e030cdd06f038b94c7328c3cf3f0b3756aecf9e947
   languageName: node
   linkType: hard
 
@@ -15060,6 +15134,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"graphql@npm:16.5.0":
+  version: 16.5.0
+  resolution: "graphql@npm:16.5.0"
+  checksum: 082bad733549a032fe313dd94b780c0e2a46a6a362183e02e2050f6e083fb49722afb1413b069314d5ba1bc3fa14e22817820a9e61e2bbcba8d35f925d0de60e
+  languageName: node
+  linkType: hard
+
 "graphql@npm:^16.3.0":
   version: 16.3.0
   resolution: "graphql@npm:16.3.0"
@@ -25159,7 +25240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-invariant@npm:^0.10.0":
+"ts-invariant@npm:^0.10.0, ts-invariant@npm:^0.10.3":
   version: 0.10.3
   resolution: "ts-invariant@npm:0.10.3"
   dependencies:
@@ -26239,7 +26320,7 @@ __metadata:
   dependencies:
     "@redwoodjs/forms": 1.4.2
     "@redwoodjs/router": 1.4.2
-    "@redwoodjs/web": 1.4.2
+    "@redwoodjs/web": 2.0.0
     prop-types: 15.8.1
     react: 17.0.2
     react-dom: 18.1.0
@@ -27098,6 +27179,15 @@ __metadata:
   dependencies:
     zen-observable: 0.8.15
   checksum: fa4c1ebbbbc3e7d41dca6d9dc74cb96440ee4767c50d8f9a3b3f84f823d9832d148f76187cd65c30d9ab4008f88c7248fe8774f7cedf98fbfc2e0a6429ce08f5
+  languageName: node
+  linkType: hard
+
+"zen-observable-ts@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "zen-observable-ts@npm:1.2.5"
+  dependencies:
+    zen-observable: 0.8.15
+  checksum: 21d586f3d0543e1d6f05d9333a137b407dbf337907c1ee1c2fa7a7da044f7e1262e4baf4ef8902f230c6f5acb561047659eb7df73df33307233cc451efe46db1
   languageName: node
   linkType: hard
 
