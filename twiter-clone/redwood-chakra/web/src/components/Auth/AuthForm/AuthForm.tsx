@@ -6,6 +6,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  Text,
 } from '@chakra-ui/react'
 
 import { useAuth } from '@redwoodjs/auth'
@@ -46,6 +47,7 @@ const AuthForm = ({ pageType }: { pageType: 'login' | 'signup' }) => {
 
         <FormControl isInvalid={!!errors.username}>
           <FormLabel>
+            <Text>Email</Text>
             <Input
               {...register('username', {
                 required: { value: true, message: 'username is required' },
@@ -57,6 +59,7 @@ const AuthForm = ({ pageType }: { pageType: 'login' | 'signup' }) => {
 
         <FormControl isInvalid={!!errors.password} mt={4}>
           <FormLabel>
+            <Text>Password</Text>
             <Input
               type="password"
               {...register('password', {
