@@ -4271,6 +4271,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma/client@npm:3.14.0":
+  version: 3.14.0
+  resolution: "@prisma/client@npm:3.14.0"
+  dependencies:
+    "@prisma/engines-version": 3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a
+  peerDependencies:
+    prisma: "*"
+  peerDependenciesMeta:
+    prisma:
+      optional: true
+  checksum: 73de113bdeea256560b6091f206ca75ca2323afda54632351ba8963e1592fc94da5bceb3b11b854d1e95d1ef5154164020a3e51a349b457161379eed47d59ad8
+  languageName: node
+  linkType: hard
+
 "@prisma/debug@npm:3.12.0":
   version: 3.12.0
   resolution: "@prisma/debug@npm:3.12.0"
@@ -4318,6 +4332,13 @@ __metadata:
   version: 3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b
   resolution: "@prisma/engines-version@npm:3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b"
   checksum: 590aec0e1b24038b61c51669af71cf2363ef1eba80c8c46e329ef7c7b572dd4b6b73127f1370365e30fec5fa471cc415b0fa9122df90d8291553afb49a251458
+  languageName: node
+  linkType: hard
+
+"@prisma/engines-version@npm:3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a":
+  version: 3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a
+  resolution: "@prisma/engines-version@npm:3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a"
+  checksum: 8fafd3eafc941347e4111beef0f8428b14101d3153073e46d09f8ac89e6db9cfe4426c86fd8b7054bbbb5b05b143c9cd426a83eabee43afd7c471af400d51b3b
   languageName: node
   linkType: hard
 
@@ -4512,6 +4533,43 @@ __metadata:
     rwfw: dist/bins/rwfw.js
     tsc: dist/bins/tsc.js
   checksum: 0152a3118e2b8509f51ea2129c9ebd57a15ee4bb7074d4e751ca86ae6cf9d58a7ada4d249f0d477ebf3918905da516c3ec3e556aef0fc5e92b78f7a0d4ddc692
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/api@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@redwoodjs/api@npm:2.0.0"
+  dependencies:
+    "@babel/runtime-corejs3": 7.16.7
+    "@prisma/client": 3.14.0
+    core-js: 3.22.8
+    cross-undici-fetch: 0.1.27
+    crypto-js: 4.1.1
+    humanize-string: 2.1.0
+    jsonwebtoken: 8.5.1
+    jwks-rsa: 2.0.5
+    md5: 2.3.0
+    pascalcase: 1.0.0
+    pino: 7.11.0
+    title-case: 3.0.3
+    uuid: 8.3.2
+  peerDependencies:
+    "@clerk/clerk-sdk-node": 3.6.1
+    "@magic-sdk/admin": 1.4.1
+    firebase-admin: 10.2.0
+  peerDependenciesMeta:
+    "@clerk/clerk-sdk-node":
+      optional: true
+    "@magic-sdk/admin":
+      optional: true
+    firebase-admin:
+      optional: true
+  bin:
+    redwood: dist/bins/redwood.js
+    rw: dist/bins/redwood.js
+    rwfw: dist/bins/rwfw.js
+    tsc: dist/bins/tsc.js
+  checksum: 5274c1b23b602bf5c36162c4a889216ed5bc87a467feab52aadd6f820f56561f29f8f1ef3943a9b3cb413c438a588f58114614f3fdbf65c9ee1d890dedb4a27d
   languageName: node
   linkType: hard
 
@@ -8231,7 +8289,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "api@workspace:api"
   dependencies:
-    "@redwoodjs/api": 1.4.2
+    "@redwoodjs/api": 2.0.0
     "@redwoodjs/graphql-server": 1.4.2
     serverless: ^3.15.2
   languageName: unknown
@@ -10863,6 +10921,13 @@ __metadata:
   version: 3.22.4
   resolution: "core-js@npm:3.22.4"
   checksum: 2f4bcce914fb0798e68fe8f6a2122398fd2f7a6d7085924b6b05795d8eead1c1a759c2cde92c4868c9800d682c22d3fc6348bc06017b46100ac6567922d8125d
+  languageName: node
+  linkType: hard
+
+"core-js@npm:3.22.8":
+  version: 3.22.8
+  resolution: "core-js@npm:3.22.8"
+  checksum: 431fa4c9028bd2fdaffaba490e6dc2b9fcebef50a62d4ef15d37f04b98a7ae7adda370811db61a439a2068d75da7314ba0532b1e4ee00b39bda3b01af89c282a
   languageName: node
   linkType: hard
 
