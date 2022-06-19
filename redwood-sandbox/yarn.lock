@@ -5023,6 +5023,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/router@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@redwoodjs/router@npm:2.0.0"
+  dependencies:
+    "@babel/runtime-corejs3": 7.16.7
+    "@reach/skip-nav": 0.16.0
+    "@redwoodjs/auth": 2.0.0
+    core-js: 3.22.8
+    lodash.isequal: 4.5.0
+  checksum: 4f959d52bf1a33ebd94158ce106e5f835800daef73ad6f5fdb8e2d7a0d8b5e85455428469f89dafdbcff9992ba7594294b3cb941b8a8f1cf58debf176c83bd9f
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/structure@npm:1.4.2":
   version: 1.4.2
   resolution: "@redwoodjs/structure@npm:1.4.2"
@@ -26461,7 +26474,7 @@ __metadata:
   resolution: "web@workspace:web"
   dependencies:
     "@redwoodjs/forms": 2.0.0
-    "@redwoodjs/router": 1.4.2
+    "@redwoodjs/router": 2.0.0
     "@redwoodjs/web": 2.0.0
     prop-types: 15.8.1
     react: 17.0.2
