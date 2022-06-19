@@ -1,6 +1,11 @@
-import { FindAccountQuery, FindAccountQueryVariables } from 'types/graphql'
+import {
+  FindAccountQuery,
+  FindAccountQueryVariables,
+  FollowSpecificAccount,
+  FollowSpecificAccountVariables,
+} from 'types/graphql'
 
-import type { CellFailureProps, CellSuccessProps } from '@redwoodjs/web'
+import { CellFailureProps, CellSuccessProps, useMutation } from '@redwoodjs/web'
 
 import AccountCard from '../AccountCard/AccountCard'
 
@@ -17,6 +22,14 @@ export const QUERY = gql`
   }
 `
 
+const MUTATION = gql`
+  mutation FollowSpecificAccount($username: String!) {
+    follow(username: $username) {
+      id
+    }
+  }
+`
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -24,11 +37,25 @@ export const Empty = () => <div>Empty</div>
 export const Failure = ({
   error,
 }: CellFailureProps<FindAccountQueryVariables>) => (
-  <div style={{ color: 'red' }}>Error: {error.message}</div>
+  <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
 export const Success = ({
   account,
 }: CellSuccessProps<FindAccountQuery, FindAccountQueryVariables>) => {
-  return <AccountCard data={account} />
+  const [follow, { loading }] = useMutation<
+    FollowSpecificAccount,
+    FollowSpecificAccountVariables
+  >(MUTATION)
+  if (account == null) return <Empty />
+
+  return (
+    <AccountCard
+      data={account}
+      loading={loading}
+      onClickFollow={() => {
+        follow({ variables: { username: account.username } })
+      }}
+    />
+  )
 }

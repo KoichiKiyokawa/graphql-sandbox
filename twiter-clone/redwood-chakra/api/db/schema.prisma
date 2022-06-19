@@ -23,6 +23,9 @@ model Account {
   salt                String
   resetToken          String?
   resetTokenExpiresAt DateTime?
+
+  followers  Account[] @relation(name: "AccountFollows", references: [id])
+  followings Account[] @relation(name: "AccountFollows", references: [id])
 }
 
 model Status {

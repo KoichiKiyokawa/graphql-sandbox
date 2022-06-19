@@ -8,6 +8,21 @@ export const schema = gql`
     avatar: String
     header: String
     note: String
+
+    """
+    Whether the logged in user is following this account or not
+    """
+    isCurrentAccountFollowingTo: Boolean! @requireAuth
+    """
+    Whether the logged in user is followed by this account or not
+    """
+    isCurrentAccountFollowedBy: Boolean! @requireAuth
+  }
+
+  type RelationResult {
+    id: Int!
+    following: Boolean!
+    followedBy: Boolean!
   }
 
   type Query {
@@ -23,13 +38,15 @@ export const schema = gql`
 
   input UpdateAccountInput {
     username: String
+    displayName: String
     avatar: String
     header: String
   }
 
   type Mutation {
-    createAccount(input: CreateAccountInput!): Account! @requireAuth
     updateAccount(id: Int!, input: UpdateAccountInput!): Account! @requireAuth
     deleteAccount(id: Int!): Account! @requireAuth
+    follow(username: String!): RelationResult! @requireAuth
+    unFollow(username: String!): RelationResult! @requireAuth
   }
 `

@@ -1,17 +1,25 @@
 import { Avatar, Box, Button, HStack, Image, Text } from '@chakra-ui/react'
 import { FindAccountQuery } from 'types/graphql'
 
-const AccountCard = ({ data }: { data: FindAccountQuery['account'] }) => {
+const AccountCard = ({
+  data,
+  loading,
+  onClickFollow,
+}: {
+  data: NonNullable<FindAccountQuery['account']>
+  loading: boolean
+  onClickFollow: () => void
+}) => {
   return (
     <Box as="article">
       <Image
-        src={data.header}
+        src={data.header || ''}
         alt={`${data.username}のヘッダー画像`}
         w="full"
       />
       <Box px={8}>
         <Avatar
-          src={data.avatar}
+          src={data.avatar || ''}
           name={data.displayName || data.username}
           width={20}
           height={20}
@@ -25,7 +33,9 @@ const AccountCard = ({ data }: { data: FindAccountQuery['account'] }) => {
             </Text>
             <Text>@{data.username}</Text>
           </HStack>
-          <Button size="sm">フォローする</Button>
+          <Button isLoading={loading} onClick={onClickFollow} size="sm">
+            フォローする
+          </Button>
         </HStack>
         <Text>{data.note}</Text>
       </Box>

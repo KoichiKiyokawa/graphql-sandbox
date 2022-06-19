@@ -1,0 +1,6 @@
+config:
+  customResolverFn: |
+    (
+      args: TArgs,
+      obj: { root: TParent; context: TContext; info: GraphQLResolveInfo }
+    ) => Promise<Partial<TResult>> | Partial<TResult>;
