@@ -16,6 +16,7 @@ model Account {
   displayName String?
   avatar      String?
   header      String?
+  note        String?
 
   // for auth
   hashedPassword      String

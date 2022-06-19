@@ -7,6 +7,7 @@ export const schema = gql`
     displayName: String
     avatar: String
     header: String
+    note: String
   }
 
   type Query {
