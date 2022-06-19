@@ -4,7 +4,11 @@ CREATE TABLE "Account" (
     "username" TEXT NOT NULL,
     "displayName" TEXT,
     "avatar" TEXT,
-    "header" TEXT
+    "header" TEXT,
+    "hashedPassword" TEXT NOT NULL,
+    "salt" TEXT NOT NULL,
+    "resetToken" TEXT,
+    "resetTokenExpiresAt" DATETIME
 );
 
 -- CreateTable

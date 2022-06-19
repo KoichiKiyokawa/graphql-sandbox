@@ -16,6 +16,12 @@ model Account {
   displayName String?
   avatar      String?
   header      String?
+
+  // for auth
+  hashedPassword      String
+  salt                String
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
 }
 
 model Status {
