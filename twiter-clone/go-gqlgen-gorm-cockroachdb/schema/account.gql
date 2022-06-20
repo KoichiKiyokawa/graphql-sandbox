@@ -9,6 +9,7 @@ type Account {
   avatar: String
   header: String
 
+  statuses: [Status!]!
   followers: [Account!]!
   followings: [Account!]!
 }
@@ -27,7 +28,8 @@ input UpdateCredentialsInput {
 }
 
 type Query {
-  getAccount(username: String!): Account!
+  account(username: String!): Account!
+  accounts: [Account!]!
   getRelationships(usernames: [String!]!): [RelationResult!]!
   me: Account
 }

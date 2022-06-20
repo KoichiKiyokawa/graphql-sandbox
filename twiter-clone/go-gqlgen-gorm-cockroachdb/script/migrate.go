@@ -20,16 +20,18 @@ var tables = []any{
 	&model.Attachment{},
 }
 
+// go run script/migrate.go # only migrate
+// go run script/migrate.go --reset # with reset
 func main() {
+	needReset := flag.Bool("reset", false, "reset tables")
 	flag.Parse()
-	args := flag.Args()
 
 	db, err := gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if len(args) > 0 && args[0] == "reset" {
+	if *needReset {
 		reset(db)
 	}
 

@@ -5,21 +5,12 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 	"go-gqlgen-gorm-cockroachdb/graph/generated"
 	"go-gqlgen-gorm-cockroachdb/model"
 )
 
 func (r *attachmentResolver) Type(ctx context.Context, obj *model.Attachment) (generated.Type, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *attachmentResolver) URL(ctx context.Context, obj *model.Attachment) (string, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *attachmentResolver) Description(ctx context.Context, obj *model.Attachment) (*string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return generated.Type(obj.Type), nil
 }
 
 // Attachment returns generated.AttachmentResolver implementation.

@@ -22,6 +22,15 @@ func (r *accountResolver) FollowingCount(ctx context.Context, obj *model.Account
 	return int(count), nil
 }
 
+func (r *accountResolver) Statuses(ctx context.Context, obj *model.Account) ([]*model.Status, error) {
+	// TODO: dataloader
+	var statuses []*model.Status
+	if err := r.db.Model(&model.Status{AccountID: obj.ID}).Find(&statuses).Error; err != nil {
+		return nil, err
+	}
+	return statuses, nil
+}
+
 func (r *accountResolver) Followers(ctx context.Context, obj *model.Account) ([]*model.Account, error) {
 	var followers []*model.Account
 	if err := r.db.Model(&model.Account{ID: obj.ID}).Association("FollowersRelation").Find(&followers); err != nil {
@@ -45,7 +54,7 @@ func (r *mutationResolver) CreateAccount(ctx context.Context, username string, p
 		return nil, err
 	}
 
-	return r.Query().GetAccount(ctx, username)
+	return r.Query().Account(ctx, username)
 }
 
 func (r *mutationResolver) UpdateCredentials(ctx context.Context, id int, input generated.UpdateCredentialsInput) (*model.Account, error) {
@@ -93,13 +102,21 @@ func (r *mutationResolver) UnfollowSpecificAccount(ctx context.Context, targetAc
 	return r.getRelation(currentUser.ID, targetAccountID)
 }
 
-func (r *queryResolver) GetAccount(ctx context.Context, username string) (*model.Account, error) {
+func (r *queryResolver) Account(ctx context.Context, username string) (*model.Account, error) {
 	var account model.Account
 	if err := r.db.Model(&model.Account{}).Where("username = ?", username).First(&account).Error; err != nil {
 		return nil, err
 	}
 
 	return &account, nil
+}
+
+func (r *queryResolver) Accounts(ctx context.Context) ([]*model.Account, error) {
+	var accounts []*model.Account
+	if err := r.db.Model(&model.Account{}).Find(&accounts).Error; err != nil {
+		return nil, err
+	}
+	return accounts, nil
 }
 
 func (r *queryResolver) GetRelationships(ctx context.Context, usernames []string) ([]*generated.RelationResult, error) {

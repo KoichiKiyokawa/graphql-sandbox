@@ -58,6 +58,7 @@ type ComplexityRoot struct {
 		ID             func(childComplexity int) int
 		Note           func(childComplexity int) int
 		PasswordHash   func(childComplexity int) int
+		Statuses       func(childComplexity int) int
 		Username       func(childComplexity int) int
 	}
 
@@ -65,7 +66,7 @@ type ComplexityRoot struct {
 		Description func(childComplexity int) int
 		ID          func(childComplexity int) int
 		Type        func(childComplexity int) int
-		URL         func(childComplexity int) int
+		Url         func(childComplexity int) int
 	}
 
 	Message struct {
@@ -82,7 +83,8 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		GetAccount       func(childComplexity int, username string) int
+		Account          func(childComplexity int, username string) int
+		Accounts         func(childComplexity int) int
 		GetRelationships func(childComplexity int, usernames []string) int
 		GetStatus        func(childComplexity int, id int) int
 		Me               func(childComplexity int) int
@@ -106,13 +108,12 @@ type AccountResolver interface {
 	FollowersCount(ctx context.Context, obj *model.Account) (int, error)
 	FollowingCount(ctx context.Context, obj *model.Account) (int, error)
 
+	Statuses(ctx context.Context, obj *model.Account) ([]*model.Status, error)
 	Followers(ctx context.Context, obj *model.Account) ([]*model.Account, error)
 	Followings(ctx context.Context, obj *model.Account) ([]*model.Account, error)
 }
 type AttachmentResolver interface {
 	Type(ctx context.Context, obj *model.Attachment) (Type, error)
-	URL(ctx context.Context, obj *model.Attachment) (string, error)
-	Description(ctx context.Context, obj *model.Attachment) (*string, error)
 }
 type MutationResolver interface {
 	CreateAccount(ctx context.Context, username string, password string) (*model.Account, error)
@@ -123,7 +124,8 @@ type MutationResolver interface {
 	DeleteStatus(ctx context.Context, id int) (*Message, error)
 }
 type QueryResolver interface {
-	GetAccount(ctx context.Context, username string) (*model.Account, error)
+	Account(ctx context.Context, username string) (*model.Account, error)
+	Accounts(ctx context.Context) ([]*model.Account, error)
 	GetRelationships(ctx context.Context, usernames []string) ([]*RelationResult, error)
 	Me(ctx context.Context) (*model.Account, error)
 	GetStatus(ctx context.Context, id int) (*model.Status, error)
@@ -218,6 +220,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Account.PasswordHash(childComplexity), true
 
+	case "Account.statuses":
+		if e.complexity.Account.Statuses == nil {
+			break
+		}
+
+		return e.complexity.Account.Statuses(childComplexity), true
+
 	case "Account.username":
 		if e.complexity.Account.Username == nil {
 			break
@@ -247,11 +256,11 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		return e.complexity.Attachment.Type(childComplexity), true
 
 	case "Attachment.url":
-		if e.complexity.Attachment.URL == nil {
+		if e.complexity.Attachment.Url == nil {
 			break
 		}
 
-		return e.complexity.Attachment.URL(childComplexity), true
+		return e.complexity.Attachment.Url(childComplexity), true
 
 	case "Message.message":
 		if e.complexity.Message.Message == nil {
@@ -332,17 +341,24 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.UpdateCredentials(childComplexity, args["id"].(int), args["input"].(UpdateCredentialsInput)), true
 
-	case "Query.getAccount":
-		if e.complexity.Query.GetAccount == nil {
+	case "Query.account":
+		if e.complexity.Query.Account == nil {
 			break
 		}
 
-		args, err := ec.field_Query_getAccount_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_account_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.GetAccount(childComplexity, args["username"].(string)), true
+		return e.complexity.Query.Account(childComplexity, args["username"].(string)), true
+
+	case "Query.accounts":
+		if e.complexity.Query.Accounts == nil {
+			break
+		}
+
+		return e.complexity.Query.Accounts(childComplexity), true
 
 	case "Query.getRelationships":
 		if e.complexity.Query.GetRelationships == nil {
@@ -505,6 +521,7 @@ var sources = []*ast.Source{
   avatar: String
   header: String
 
+  statuses: [Status!]!
   followers: [Account!]!
   followings: [Account!]!
 }
@@ -523,7 +540,8 @@ input UpdateCredentialsInput {
 }
 
 type Query {
-  getAccount(username: String!): Account!
+  account(username: String!): Account!
+  accounts: [Account!]!
   getRelationships(usernames: [String!]!): [RelationResult!]!
   me: Account
 }
@@ -704,7 +722,7 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 	return args, nil
 }
 
-func (ec *executionContext) field_Query_getAccount_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Query_account_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 string
@@ -1171,6 +1189,60 @@ func (ec *executionContext) fieldContext_Account_header(ctx context.Context, fie
 	return fc, nil
 }
 
+func (ec *executionContext) _Account_statuses(ctx context.Context, field graphql.CollectedField, obj *model.Account) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Account_statuses(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Account().Statuses(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.Status)
+	fc.Result = res
+	return ec.marshalNStatus2ᚕᚖgoᚑgqlgenᚑgormᚑcockroachdbᚋmodelᚐStatusᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Account_statuses(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Account",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Status_id(ctx, field)
+			case "content":
+				return ec.fieldContext_Status_content(ctx, field)
+			case "account":
+				return ec.fieldContext_Status_account(ctx, field)
+			case "mediaAttachments":
+				return ec.fieldContext_Status_mediaAttachments(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Status", field.Name)
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Account_followers(ctx context.Context, field graphql.CollectedField, obj *model.Account) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Account_followers(ctx, field)
 	if err != nil {
@@ -1228,6 +1300,8 @@ func (ec *executionContext) fieldContext_Account_followers(ctx context.Context, 
 				return ec.fieldContext_Account_avatar(ctx, field)
 			case "header":
 				return ec.fieldContext_Account_header(ctx, field)
+			case "statuses":
+				return ec.fieldContext_Account_statuses(ctx, field)
 			case "followers":
 				return ec.fieldContext_Account_followers(ctx, field)
 			case "followings":
@@ -1296,6 +1370,8 @@ func (ec *executionContext) fieldContext_Account_followings(ctx context.Context,
 				return ec.fieldContext_Account_avatar(ctx, field)
 			case "header":
 				return ec.fieldContext_Account_header(ctx, field)
+			case "statuses":
+				return ec.fieldContext_Account_statuses(ctx, field)
 			case "followers":
 				return ec.fieldContext_Account_followers(ctx, field)
 			case "followings":
@@ -1409,7 +1485,7 @@ func (ec *executionContext) _Attachment_url(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Attachment().URL(rctx, obj)
+		return obj.Url, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1430,8 +1506,8 @@ func (ec *executionContext) fieldContext_Attachment_url(ctx context.Context, fie
 	fc = &graphql.FieldContext{
 		Object:     "Attachment",
 		Field:      field,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type String does not have child fields")
 		},
@@ -1453,7 +1529,7 @@ func (ec *executionContext) _Attachment_description(ctx context.Context, field g
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Attachment().Description(rctx, obj)
+		return obj.Description, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1462,17 +1538,17 @@ func (ec *executionContext) _Attachment_description(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Attachment_description(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Attachment",
 		Field:      field,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type String does not have child fields")
 		},
@@ -1581,6 +1657,8 @@ func (ec *executionContext) fieldContext_Mutation_createAccount(ctx context.Cont
 				return ec.fieldContext_Account_avatar(ctx, field)
 			case "header":
 				return ec.fieldContext_Account_header(ctx, field)
+			case "statuses":
+				return ec.fieldContext_Account_statuses(ctx, field)
 			case "followers":
 				return ec.fieldContext_Account_followers(ctx, field)
 			case "followings":
@@ -1660,6 +1738,8 @@ func (ec *executionContext) fieldContext_Mutation_updateCredentials(ctx context.
 				return ec.fieldContext_Account_avatar(ctx, field)
 			case "header":
 				return ec.fieldContext_Account_header(ctx, field)
+			case "statuses":
+				return ec.fieldContext_Account_statuses(ctx, field)
 			case "followers":
 				return ec.fieldContext_Account_followers(ctx, field)
 			case "followings":
@@ -1932,8 +2012,8 @@ func (ec *executionContext) fieldContext_Mutation_deleteStatus(ctx context.Conte
 	return fc, nil
 }
 
-func (ec *executionContext) _Query_getAccount(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Query_getAccount(ctx, field)
+func (ec *executionContext) _Query_account(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_account(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1946,7 +2026,7 @@ func (ec *executionContext) _Query_getAccount(ctx context.Context, field graphql
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().GetAccount(rctx, fc.Args["username"].(string))
+		return ec.resolvers.Query().Account(rctx, fc.Args["username"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1963,7 +2043,7 @@ func (ec *executionContext) _Query_getAccount(ctx context.Context, field graphql
 	return ec.marshalNAccount2ᚖgoᚑgqlgenᚑgormᚑcockroachdbᚋmodelᚐAccount(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Query_getAccount(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Query_account(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Query",
 		Field:      field,
@@ -1989,6 +2069,8 @@ func (ec *executionContext) fieldContext_Query_getAccount(ctx context.Context, f
 				return ec.fieldContext_Account_avatar(ctx, field)
 			case "header":
 				return ec.fieldContext_Account_header(ctx, field)
+			case "statuses":
+				return ec.fieldContext_Account_statuses(ctx, field)
 			case "followers":
 				return ec.fieldContext_Account_followers(ctx, field)
 			case "followings":
@@ -2004,9 +2086,79 @@ func (ec *executionContext) fieldContext_Query_getAccount(ctx context.Context, f
 		}
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
-	if fc.Args, err = ec.field_Query_getAccount_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+	if fc.Args, err = ec.field_Query_account_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_accounts(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Accounts(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.Account)
+	fc.Result = res
+	return ec.marshalNAccount2ᚕᚖgoᚑgqlgenᚑgormᚑcockroachdbᚋmodelᚐAccountᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_accounts(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Account_id(ctx, field)
+			case "username":
+				return ec.fieldContext_Account_username(ctx, field)
+			case "passwordHash":
+				return ec.fieldContext_Account_passwordHash(ctx, field)
+			case "followersCount":
+				return ec.fieldContext_Account_followersCount(ctx, field)
+			case "followingCount":
+				return ec.fieldContext_Account_followingCount(ctx, field)
+			case "displayName":
+				return ec.fieldContext_Account_displayName(ctx, field)
+			case "note":
+				return ec.fieldContext_Account_note(ctx, field)
+			case "avatar":
+				return ec.fieldContext_Account_avatar(ctx, field)
+			case "header":
+				return ec.fieldContext_Account_header(ctx, field)
+			case "statuses":
+				return ec.fieldContext_Account_statuses(ctx, field)
+			case "followers":
+				return ec.fieldContext_Account_followers(ctx, field)
+			case "followings":
+				return ec.fieldContext_Account_followings(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Account", field.Name)
+		},
 	}
 	return fc, nil
 }
@@ -2128,6 +2280,8 @@ func (ec *executionContext) fieldContext_Query_me(ctx context.Context, field gra
 				return ec.fieldContext_Account_avatar(ctx, field)
 			case "header":
 				return ec.fieldContext_Account_header(ctx, field)
+			case "statuses":
+				return ec.fieldContext_Account_statuses(ctx, field)
 			case "followers":
 				return ec.fieldContext_Account_followers(ctx, field)
 			case "followings":
@@ -2607,6 +2761,8 @@ func (ec *executionContext) fieldContext_Status_account(ctx context.Context, fie
 				return ec.fieldContext_Account_avatar(ctx, field)
 			case "header":
 				return ec.fieldContext_Account_header(ctx, field)
+			case "statuses":
+				return ec.fieldContext_Account_statuses(ctx, field)
 			case "followers":
 				return ec.fieldContext_Account_followers(ctx, field)
 			case "followings":
@@ -4618,6 +4774,26 @@ func (ec *executionContext) _Account(ctx context.Context, sel ast.SelectionSet, 
 
 			out.Values[i] = ec._Account_header(ctx, field, obj)
 
+		case "statuses":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Account_statuses(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		case "followers":
 			field := field
 
@@ -4707,42 +4883,16 @@ func (ec *executionContext) _Attachment(ctx context.Context, sel ast.SelectionSe
 
 			})
 		case "url":
-			field := field
 
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Attachment_url(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
+			out.Values[i] = ec._Attachment_url(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
 			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
 		case "description":
-			field := field
 
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Attachment_description(ctx, field, obj)
-				return res
-			}
+			out.Values[i] = ec._Attachment_description(ctx, field, obj)
 
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4885,7 +5035,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Query")
-		case "getAccount":
+		case "account":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -4894,7 +5044,30 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_getAccount(ctx, field)
+				res = ec._Query_account(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "accounts":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_accounts(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -5679,6 +5852,50 @@ func (ec *executionContext) marshalNStatus2goᚑgqlgenᚑgormᚑcockroachdbᚋmo
 	return ec._Status(ctx, sel, &v)
 }
 
+func (ec *executionContext) marshalNStatus2ᚕᚖgoᚑgqlgenᚑgormᚑcockroachdbᚋmodelᚐStatusᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Status) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNStatus2ᚖgoᚑgqlgenᚑgormᚑcockroachdbᚋmodelᚐStatus(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
+}
+
 func (ec *executionContext) marshalNStatus2ᚖgoᚑgqlgenᚑgormᚑcockroachdbᚋmodelᚐStatus(ctx context.Context, sel ast.SelectionSet, v *model.Status) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
@@ -6050,6 +6267,16 @@ func (ec *executionContext) marshalOStatus2ᚖgoᚑgqlgenᚑgormᚑcockroachdb�
 		return graphql.Null
 	}
 	return ec._Status(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {
+	res, err := graphql.UnmarshalString(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOString2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
+	res := graphql.MarshalString(v)
+	return res
 }
 
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v interface{}) (*string, error) {

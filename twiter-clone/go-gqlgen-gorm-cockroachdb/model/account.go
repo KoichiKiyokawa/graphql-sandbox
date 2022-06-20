@@ -14,6 +14,7 @@ type (
 		Avatar       *string   `json:"avatar"`
 		Header       *string   `json:"header"`
 
+		StatusesRelation   []Status
 		FollowersRelation  []Account `gorm:"many2many:relationship;foreignKey:ID;joinForeignKey:ToId;References:ID;joinReferences:FromId"`
 		FollowingsRelation []Account `gorm:"many2many:relationship;foreignKey:ID;joinForeignKey:FromId;References:ID;joinReferences:ToId"`
 	}

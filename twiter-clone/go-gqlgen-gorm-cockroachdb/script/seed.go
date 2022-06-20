@@ -24,6 +24,15 @@ func main() {
 	for i := 1; i <= 10; i++ {
 		account := model.Account{ID: i, Username: fmt.Sprintf("user%d", i)}
 		account.SetPassword("password")
+
+		// status x 100
+		account.StatusesRelation = []model.Status{}
+		for j := 1; j <= 100; j++ {
+			account.StatusesRelation = append(account.StatusesRelation, model.Status{
+				Content: fmt.Sprintf("user%d-status%d", i, j),
+			})
+		}
+
 		db.Create(&account)
 	}
 }
