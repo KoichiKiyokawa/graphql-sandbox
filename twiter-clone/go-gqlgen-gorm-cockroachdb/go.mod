@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/99designs/gqlgen v0.17.8
+	github.com/graph-gophers/dataloader/v7 v7.0.0
 	github.com/joho/godotenv v1.4.0
 	github.com/vektah/gqlparser/v2 v2.4.3
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d

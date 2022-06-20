@@ -5,6 +5,7 @@ import (
 	"go-gqlgen-gorm-cockroachdb/auth"
 	"go-gqlgen-gorm-cockroachdb/config"
 	"go-gqlgen-gorm-cockroachdb/graph/generated"
+	"go-gqlgen-gorm-cockroachdb/loader"
 	"go-gqlgen-gorm-cockroachdb/resolver"
 	"go-gqlgen-gorm-cockroachdb/service"
 	"log"
@@ -19,7 +20,6 @@ import (
 )
 
 func main() {
-
 	db, err := gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
@@ -30,7 +30,9 @@ func main() {
 	}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", auth.Middleware(db)(srv))
+	http.Handle("/query", loader.Middleware(loader.NewLoaders(db.Debug()))(
+		auth.Middleware(db)(srv),
+	))
 
 	config := config.NewConfig()
 	addr := fmt.Sprintf("%s:%s", config.Host(), config.Port())

@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"go-gqlgen-gorm-cockroachdb/auth"
 	"go-gqlgen-gorm-cockroachdb/graph/generated"
+	"go-gqlgen-gorm-cockroachdb/loader"
 	"go-gqlgen-gorm-cockroachdb/model"
 	"time"
 )
@@ -23,11 +24,11 @@ func (r *accountResolver) FollowingCount(ctx context.Context, obj *model.Account
 }
 
 func (r *accountResolver) Statuses(ctx context.Context, obj *model.Account) ([]*model.Status, error) {
-	// TODO: dataloader
-	var statuses []*model.Status
-	if err := r.db.Model(&model.Status{AccountID: obj.ID}).Find(&statuses).Error; err != nil {
+	statuses, err := loader.For(ctx).StatusLoader.Load(ctx, obj.ID)()
+	if err != nil {
 		return nil, err
 	}
+
 	return statuses, nil
 }
 
