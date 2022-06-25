@@ -6,7 +6,7 @@ require (
 	github.com/99designs/gqlgen v0.17.8
 	github.com/joho/godotenv v1.4.0
 	github.com/vektah/gqlparser/v2 v2.4.3
-	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e
+	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
 	gorm.io/driver/postgres v1.3.6
 	gorm.io/gorm v1.23.5
 )
