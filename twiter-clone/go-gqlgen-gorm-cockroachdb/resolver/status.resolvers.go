@@ -7,6 +7,7 @@ import (
 	"context"
 	"go-gqlgen-gorm-cockroachdb/auth"
 	"go-gqlgen-gorm-cockroachdb/graph/generated"
+	"go-gqlgen-gorm-cockroachdb/loader"
 	"go-gqlgen-gorm-cockroachdb/model"
 )
 
@@ -50,11 +51,7 @@ func (r *queryResolver) Statuses(ctx context.Context) ([]*model.Status, error) {
 }
 
 func (r *statusResolver) Account(ctx context.Context, obj *model.Status) (*model.Account, error) {
-	account := model.Account{ID: obj.AccountID}
-	if err := r.db.Find(&account).Error; err != nil {
-		return nil, err
-	}
-	return &account, nil
+	return loader.For(ctx).AccountLoader.Load(ctx, obj.ID)()
 }
 
 func (r *statusResolver) MediaAttachments(ctx context.Context, obj *model.Status) ([]*model.Attachment, error) {

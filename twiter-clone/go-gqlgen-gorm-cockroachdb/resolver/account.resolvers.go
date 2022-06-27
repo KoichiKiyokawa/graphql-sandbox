@@ -24,7 +24,7 @@ func (r *accountResolver) FollowingCount(ctx context.Context, obj *model.Account
 }
 
 func (r *accountResolver) Statuses(ctx context.Context, obj *model.Account) ([]*model.Status, error) {
-	statuses, err := loader.For(ctx).StatusLoader.Load(ctx, obj.ID)()
+	statuses, err := loader.For(ctx).StatusesLoader.Load(ctx, obj.ID)()
 	if err != nil {
 		return nil, err
 	}
@@ -33,19 +33,11 @@ func (r *accountResolver) Statuses(ctx context.Context, obj *model.Account) ([]*
 }
 
 func (r *accountResolver) Followers(ctx context.Context, obj *model.Account) ([]*model.Account, error) {
-	var followers []*model.Account
-	if err := r.db.Model(&model.Account{ID: obj.ID}).Association("FollowersRelation").Find(&followers); err != nil {
-		return nil, err
-	}
-	return followers, nil
+	return loader.For(ctx).FollowersLoader.Load(ctx, obj.ID)()
 }
 
 func (r *accountResolver) Followings(ctx context.Context, obj *model.Account) ([]*model.Account, error) {
-	var followings []*model.Account
-	if err := r.db.Model(&model.Account{ID: obj.ID}).Association("FollowingsRelation").Find(&followings); err != nil {
-		return nil, err
-	}
-	return followings, nil
+	return loader.For(ctx).FollowingsLoader.Load(ctx, obj.ID)()
 }
 
 func (r *mutationResolver) CreateAccount(ctx context.Context, username string, password string) (*model.Account, error) {

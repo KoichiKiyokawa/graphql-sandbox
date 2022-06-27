@@ -12,17 +12,27 @@ import (
 
 var loadersKey = struct{}{}
 
+type reader struct {
+	db *gorm.DB
+}
+
 // Loaders wrap your data loaders to inject via middleware
 type Loaders struct {
-	StatusLoader *dataloader.Loader[int, []*model.Status]
+	StatusesLoader   *dataloader.Loader[int, []*model.Status]
+	AccountLoader    *dataloader.Loader[int, *model.Account]
+	FollowersLoader  *dataloader.Loader[int, []*model.Account]
+	FollowingsLoader *dataloader.Loader[int, []*model.Account]
 }
 
 // NewLoaders instantiates data loaders for the middleware
 func NewLoaders(db *gorm.DB) *Loaders {
 	// define the data loader
-	statusReader := &StatusReader{db: db}
+	r := &reader{db: db}
 	loaders := &Loaders{
-		StatusLoader: dataloader.NewBatchedLoader(statusReader.GetStatusesByAccountIDs),
+		StatusesLoader:   dataloader.NewBatchedLoader(r.GetStatusesByAccountIDs),
+		AccountLoader:    dataloader.NewBatchedLoader(r.GetAccountByStatusIDs),
+		FollowersLoader:  dataloader.NewBatchedLoader(r.GetFollowersByAccountIDs),
+		FollowingsLoader: dataloader.NewBatchedLoader(r.GetFollowingsByAccountIDs),
 	}
 	return loaders
 }
