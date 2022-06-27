@@ -3,33 +3,30 @@ package loader
 import (
 	"context"
 	"go-gqlgen-gorm-cockroachdb/model"
+	"go-gqlgen-gorm-cockroachdb/util"
 
 	"github.com/graph-gophers/dataloader/v7"
-	"gorm.io/gorm"
 )
 
-type StatusReader struct {
-	db *gorm.DB
-}
-
-func (s *StatusReader) GetStatusesByAccountIDs(ctx context.Context, keys []int) []*dataloader.Result[[]*model.Status] {
+func (r *reader) GetStatusesByAccountIDs(ctx context.Context, keys []int) []*dataloader.Result[[]*model.Status] {
 	var statuses []*model.Status
-	var results []*dataloader.Result[[]*model.Status]
+	results := make([]*dataloader.Result[[]*model.Status], len(keys))
 
-	if err := s.db.Model(&model.Status{}).Where("account_id IN ?", keys).Order("id DESC").Find(&statuses).Error; err != nil {
-		for range keys {
-			results = append(results, &dataloader.Result[[]*model.Status]{Data: []*model.Status{}, Error: err})
+	if err := r.db.Model(&model.Status{}).Where("account_id IN ?", keys).Order("id DESC").Find(&statuses).Error; err != nil {
+		for i := range keys {
+			results[i] = &dataloader.Result[[]*model.Status]{Data: []*model.Status{}, Error: err}
 		}
 		return results
 	}
 
-	statusesByAccountIdMap := make(map[int][]*model.Status)
+	cachedKeys := util.NewCachedSlice(keys)
 	for _, status := range statuses {
-		statusesByAccountIdMap[status.AccountID] = append(statusesByAccountIdMap[status.AccountID], status)
+		index := cachedKeys.IndexOf(status.AccountID)
+		if results[index] == nil {
+			results[index] = &dataloader.Result[[]*model.Status]{Data: []*model.Status{}, Error: nil}
+		}
+		results[index].Data = append(results[index].Data, status)
 	}
 
-	for _, key := range keys {
-		results = append(results, &dataloader.Result[[]*model.Status]{Data: statusesByAccountIdMap[key], Error: nil})
-	}
 	return results
 }
