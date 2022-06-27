@@ -12,7 +12,8 @@ input CreateStatusInput {
 }
 
 extend type Query {
-  getStatus(id: Int!): Status
+  status(id: Int!): Status
+  statuses: [Status!]!
 }
 
 extend type Mutation {

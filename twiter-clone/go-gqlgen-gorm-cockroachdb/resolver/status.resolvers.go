@@ -33,12 +33,20 @@ func (r *mutationResolver) DeleteStatus(ctx context.Context, id int) (*generated
 	return &generated.Message{Message: "Status deleted"}, nil
 }
 
-func (r *queryResolver) GetStatus(ctx context.Context, id int) (*model.Status, error) {
+func (r *queryResolver) Status(ctx context.Context, id int) (*model.Status, error) {
 	status := model.Status{ID: id}
 	if err := r.db.First(&status).Error; err != nil {
 		return nil, err
 	}
 	return &status, nil
+}
+
+func (r *queryResolver) Statuses(ctx context.Context) ([]*model.Status, error) {
+	var statuses []*model.Status
+	if err := r.db.Find(&statuses).Error; err != nil {
+		return nil, err
+	}
+	return statuses, nil
 }
 
 func (r *statusResolver) Account(ctx context.Context, obj *model.Status) (*model.Account, error) {

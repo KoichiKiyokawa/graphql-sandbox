@@ -86,8 +86,9 @@ type ComplexityRoot struct {
 		Account          func(childComplexity int, username string) int
 		Accounts         func(childComplexity int) int
 		GetRelationships func(childComplexity int, usernames []string) int
-		GetStatus        func(childComplexity int, id int) int
 		Me               func(childComplexity int) int
+		Status           func(childComplexity int, id int) int
+		Statuses         func(childComplexity int) int
 	}
 
 	RelationResult struct {
@@ -128,7 +129,8 @@ type QueryResolver interface {
 	Accounts(ctx context.Context) ([]*model.Account, error)
 	GetRelationships(ctx context.Context, usernames []string) ([]*RelationResult, error)
 	Me(ctx context.Context) (*model.Account, error)
-	GetStatus(ctx context.Context, id int) (*model.Status, error)
+	Status(ctx context.Context, id int) (*model.Status, error)
+	Statuses(ctx context.Context) ([]*model.Status, error)
 }
 type StatusResolver interface {
 	Account(ctx context.Context, obj *model.Status) (*model.Account, error)
@@ -372,24 +374,31 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.GetRelationships(childComplexity, args["usernames"].([]string)), true
 
-	case "Query.getStatus":
-		if e.complexity.Query.GetStatus == nil {
-			break
-		}
-
-		args, err := ec.field_Query_getStatus_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Query.GetStatus(childComplexity, args["id"].(int)), true
-
 	case "Query.me":
 		if e.complexity.Query.Me == nil {
 			break
 		}
 
 		return e.complexity.Query.Me(childComplexity), true
+
+	case "Query.status":
+		if e.complexity.Query.Status == nil {
+			break
+		}
+
+		args, err := ec.field_Query_status_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Status(childComplexity, args["id"].(int)), true
+
+	case "Query.statuses":
+		if e.complexity.Query.Statuses == nil {
+			break
+		}
+
+		return e.complexity.Query.Statuses(childComplexity), true
 
 	case "RelationResult.followedBy":
 		if e.complexity.RelationResult.FollowedBy == nil {
@@ -584,7 +593,8 @@ input CreateStatusInput {
 }
 
 extend type Query {
-  getStatus(id: Int!): Status
+  status(id: Int!): Status
+  statuses: [Status!]!
 }
 
 extend type Mutation {
@@ -752,7 +762,7 @@ func (ec *executionContext) field_Query_getRelationships_args(ctx context.Contex
 	return args, nil
 }
 
-func (ec *executionContext) field_Query_getStatus_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Query_status_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 int
@@ -2293,8 +2303,8 @@ func (ec *executionContext) fieldContext_Query_me(ctx context.Context, field gra
 	return fc, nil
 }
 
-func (ec *executionContext) _Query_getStatus(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Query_getStatus(ctx, field)
+func (ec *executionContext) _Query_status(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_status(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -2307,7 +2317,7 @@ func (ec *executionContext) _Query_getStatus(ctx context.Context, field graphql.
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().GetStatus(rctx, fc.Args["id"].(int))
+		return ec.resolvers.Query().Status(rctx, fc.Args["id"].(int))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2321,7 +2331,7 @@ func (ec *executionContext) _Query_getStatus(ctx context.Context, field graphql.
 	return ec.marshalOStatus2ᚖgoᚑgqlgenᚑgormᚑcockroachdbᚋmodelᚐStatus(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Query_getStatus(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Query_status(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Query",
 		Field:      field,
@@ -2348,9 +2358,63 @@ func (ec *executionContext) fieldContext_Query_getStatus(ctx context.Context, fi
 		}
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
-	if fc.Args, err = ec.field_Query_getStatus_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+	if fc.Args, err = ec.field_Query_status_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_statuses(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_statuses(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Statuses(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.Status)
+	fc.Result = res
+	return ec.marshalNStatus2ᚕᚖgoᚑgqlgenᚑgormᚑcockroachdbᚋmodelᚐStatusᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_statuses(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Status_id(ctx, field)
+			case "content":
+				return ec.fieldContext_Status_content(ctx, field)
+			case "account":
+				return ec.fieldContext_Status_account(ctx, field)
+			case "mediaAttachments":
+				return ec.fieldContext_Status_mediaAttachments(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Status", field.Name)
+		},
 	}
 	return fc, nil
 }
@@ -5124,7 +5188,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "getStatus":
+		case "status":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -5133,7 +5197,30 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_getStatus(ctx, field)
+				res = ec._Query_status(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "statuses":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_statuses(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
 				return res
 			}
 
