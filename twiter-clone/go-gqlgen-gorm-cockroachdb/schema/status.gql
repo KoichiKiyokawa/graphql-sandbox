@@ -1,4 +1,10 @@
+"""
+投稿
+"""
 type Status {
+  """
+  投稿ID
+  """
   id: Int!
   content: String!
 

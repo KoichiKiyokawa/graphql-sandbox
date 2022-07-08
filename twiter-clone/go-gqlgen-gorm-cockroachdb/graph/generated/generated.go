@@ -579,7 +579,13 @@ type Attachment {
   message: String!
 }
 `, BuiltIn: false},
-	{Name: "../../schema/status.gql", Input: `type Status {
+	{Name: "../../schema/status.gql", Input: `"""
+投稿
+"""
+type Status {
+  """
+  投稿ID
+  """
   id: Int!
   content: String!
 
