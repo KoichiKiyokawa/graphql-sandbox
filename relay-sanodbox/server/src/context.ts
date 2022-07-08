@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client";
 
 export interface Context {
-  db: PrismaClient
+  db: PrismaClient;
 }
 
 export const context = {
-  db: new PrismaClient(),
-}
+  db: new PrismaClient({ log: ["error", "info", "query", "warn"] }),
+};

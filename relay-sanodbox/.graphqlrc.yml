@@ -1,0 +1,1 @@
+schema: ./server/src/generated/schema.graphql
