@@ -1,0 +1,10 @@
+type Tag {
+  id: ID!
+  text: String!
+
+  posts: [Post!]!
+}
+
+extend type Mutation {
+  createTag(text: String!): Tag
+}

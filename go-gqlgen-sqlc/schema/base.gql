@@ -1,0 +1,5 @@
+scalar Time
+
+type MessageResponse {
+  message: String!
+}

@@ -1,0 +1,22 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+
+  posts: [Post!]!
+}
+
+input CreateUserParams {
+  name: String!
+  email: String!
+}
+
+input UpdateUserParams {
+  name: String
+  email: String
+}
+
+type Mutation {
+  createUser(input: CreateUserParams): User!
+  updateUser(input: UpdateUserParams): User!
+}
