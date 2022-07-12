@@ -1,6 +1,6 @@
 version: "2"
 sql:
-- schema: "sql/schema.sql"
+- schema: "prisma/migrations/*"
   queries: "sql/query/"
   engine: "postgresql"
   gen:
