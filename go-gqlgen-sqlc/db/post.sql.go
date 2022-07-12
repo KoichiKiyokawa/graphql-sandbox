@@ -116,6 +116,40 @@ func (q *Queries) GetPostByUserId(ctx context.Context, userID int64) ([]*Post, e
 	return items, nil
 }
 
+const getPostsByTagId = `-- name: GetPostsByTagId :many
+select posts.id, posts.title, posts.body, posts.user_id, posts.created_at, posts.updated_at from posts join posts_tags on posts.id = posts_tags.post_id and posts_tags.tag_id = ($1::bigserial)
+`
+
+func (q *Queries) GetPostsByTagId(ctx context.Context, tagID int64) ([]*Post, error) {
+	rows, err := q.db.QueryContext(ctx, getPostsByTagId, tagID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*Post
+	for rows.Next() {
+		var i Post
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Body,
+			&i.UserID,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getPostsByUserIds = `-- name: GetPostsByUserIds :many
 select id, title, body, user_id, created_at, updated_at from posts where user_id = ANY($1::bigserial[])
 `

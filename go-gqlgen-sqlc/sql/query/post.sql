@@ -7,6 +7,9 @@ select * from posts where user_id = (@user_id::bigserial);
 -- name: GetPostsByUserIds :many
 select * from posts where user_id = ANY(@ids::bigserial[]);
 
+-- name: GetPostsByTagId :many
+select posts.* from posts join posts_tags on posts.id = posts_tags.post_id and posts_tags.tag_id = (@tag_id::bigserial);
+
 -- name: CreatePost :one
 insert into posts (title, body) values($1, $2) returning *;
 

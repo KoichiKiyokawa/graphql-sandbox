@@ -5,7 +5,6 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 	"go-gqlgen-sqlc/db"
 	"go-gqlgen-sqlc/generated"
 	"strconv"
@@ -42,7 +41,7 @@ func (r *postResolver) UpdatedAt(ctx context.Context, obj *db.Post) (*time.Time,
 
 // Tags is the resolver for the tags field.
 func (r *postResolver) Tags(ctx context.Context, obj *db.Post) ([]*db.Tag, error) {
-	panic(fmt.Errorf("not implemented"))
+	return r.queries.GetTagsByPostId(ctx, obj.ID)
 }
 
 // Posts is the resolver for the posts field.
