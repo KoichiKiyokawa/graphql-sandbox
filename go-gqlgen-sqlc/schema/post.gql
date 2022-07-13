@@ -8,7 +8,7 @@ type Post {
   tags: [Tag!]!
 }
 
-type Query {
+extend type Query {
   posts: [Post!]!
 }
 

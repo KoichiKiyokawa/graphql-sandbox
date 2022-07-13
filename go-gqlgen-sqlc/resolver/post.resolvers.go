@@ -51,8 +51,4 @@ func (r *queryResolver) Posts(ctx context.Context) ([]*db.Post, error) {
 // Post returns generated.PostResolver implementation.
 func (r *Resolver) Post() generated.PostResolver { return &postResolver{r} }
 
-// Query returns generated.QueryResolver implementation.
-func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
-
 type postResolver struct{ *Resolver }
-type queryResolver struct{ *Resolver }

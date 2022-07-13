@@ -1,3 +1,9 @@
+-- name: GetUser :one
+select * from users where id = $1;
+
+-- name: GetUsers :many
+select * from users;
+
 -- name: GetPostCountsByUserIds :many
 select user_id, count(*) from posts where user_id = ANY(@user_ids::uuid[]);
 

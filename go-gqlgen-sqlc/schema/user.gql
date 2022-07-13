@@ -17,6 +17,11 @@ input UpdateUserParams {
   email: String
 }
 
+type Query {
+  user(id: UUID!): User
+  users: [User!]!
+}
+
 type Mutation {
   createUser(input: CreateUserParams): User!
   updateUser(input: UpdateUserParams): User!
