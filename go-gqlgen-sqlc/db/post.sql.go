@@ -27,16 +27,17 @@ func (q *Queries) ConnectTagToPost(ctx context.Context, arg *ConnectTagToPostPar
 }
 
 const createPost = `-- name: CreatePost :one
-insert into posts (title, body) values($1, $2) returning id, title, body, user_id, created_at, updated_at
+insert into posts (user_id ,title, body) values($1, $2, $3) returning id, title, body, user_id, created_at, updated_at
 `
 
 type CreatePostParams struct {
-	Title string
-	Body  string
+	UserID scalar.UUID
+	Title  string
+	Body   string
 }
 
 func (q *Queries) CreatePost(ctx context.Context, arg *CreatePostParams) (*Post, error) {
-	row := q.db.QueryRowContext(ctx, createPost, arg.Title, arg.Body)
+	row := q.db.QueryRowContext(ctx, createPost, arg.UserID, arg.Title, arg.Body)
 	var i Post
 	err := row.Scan(
 		&i.ID,
