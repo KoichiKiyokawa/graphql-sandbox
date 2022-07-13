@@ -8,16 +8,17 @@ package db
 import (
 	"context"
 
+	"github.com/google/uuid"
 	"github.com/lib/pq"
 )
 
 const connectTagToPost = `-- name: ConnectTagToPost :exec
-insert into posts_tags (post_id, tag_id) values($1::bigserial, $2::bigserial)
+insert into posts_tags (post_id, tag_id) values($1::uuid, $2::uuid)
 `
 
 type ConnectTagToPostParams struct {
-	PostID int64
-	TagID  int64
+	PostID uuid.UUID
+	TagID  uuid.UUID
 }
 
 func (q *Queries) ConnectTagToPost(ctx context.Context, arg *ConnectTagToPostParams) error {
@@ -83,10 +84,10 @@ func (q *Queries) GetAllPosts(ctx context.Context) ([]*Post, error) {
 }
 
 const getPostByUserId = `-- name: GetPostByUserId :many
-select id, title, body, user_id, created_at, updated_at from posts where user_id = ($1::bigserial) order by created_at desc
+select id, title, body, user_id, created_at, updated_at from posts where user_id = ($1::uuid) order by created_at desc
 `
 
-func (q *Queries) GetPostByUserId(ctx context.Context, userID int64) ([]*Post, error) {
+func (q *Queries) GetPostByUserId(ctx context.Context, userID uuid.UUID) ([]*Post, error) {
 	rows, err := q.db.QueryContext(ctx, getPostByUserId, userID)
 	if err != nil {
 		return nil, err
@@ -117,10 +118,10 @@ func (q *Queries) GetPostByUserId(ctx context.Context, userID int64) ([]*Post, e
 }
 
 const getPostsByTagId = `-- name: GetPostsByTagId :many
-select posts.id, posts.title, posts.body, posts.user_id, posts.created_at, posts.updated_at from posts join posts_tags on posts.id = posts_tags.post_id and posts_tags.tag_id = ($1::bigserial)
+select posts.id, posts.title, posts.body, posts.user_id, posts.created_at, posts.updated_at from posts join posts_tags on posts.id = posts_tags.post_id and posts_tags.tag_id = ($1::uuid)
 `
 
-func (q *Queries) GetPostsByTagId(ctx context.Context, tagID int64) ([]*Post, error) {
+func (q *Queries) GetPostsByTagId(ctx context.Context, tagID uuid.UUID) ([]*Post, error) {
 	rows, err := q.db.QueryContext(ctx, getPostsByTagId, tagID)
 	if err != nil {
 		return nil, err
@@ -151,10 +152,10 @@ func (q *Queries) GetPostsByTagId(ctx context.Context, tagID int64) ([]*Post, er
 }
 
 const getPostsByUserIds = `-- name: GetPostsByUserIds :many
-select id, title, body, user_id, created_at, updated_at from posts where user_id = ANY($1::bigserial[]) order by created_at desc
+select id, title, body, user_id, created_at, updated_at from posts where user_id = ANY($1::uuid[]) order by created_at desc
 `
 
-func (q *Queries) GetPostsByUserIds(ctx context.Context, ids []int64) ([]*Post, error) {
+func (q *Queries) GetPostsByUserIds(ctx context.Context, ids []uuid.UUID) ([]*Post, error) {
 	rows, err := q.db.QueryContext(ctx, getPostsByUserIds, pq.Array(ids))
 	if err != nil {
 		return nil, err

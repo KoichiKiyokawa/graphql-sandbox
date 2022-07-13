@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"go-gqlgen-sqlc/db"
+	"go-gqlgen-sqlc/graphql/scalar"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -53,11 +54,12 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		ConnectTag func(childComplexity int, postID string, tagID string) int
-		CreatePost func(childComplexity int, input *db.CreatePostParams) int
-		CreateTag  func(childComplexity int, text string) int
-		CreateUser func(childComplexity int, input *db.CreateUserParams) int
-		UpdateUser func(childComplexity int, input *db.UpdateUserParams) int
+		ConnectTag                func(childComplexity int, postID scalar.UUID, tagID scalar.UUID) int
+		CreatePost                func(childComplexity int, input *db.CreatePostParams) int
+		CreateTag                 func(childComplexity int, text string) int
+		CreateTagAndConnectToPost func(childComplexity int, text string, postID scalar.UUID) int
+		CreateUser                func(childComplexity int, input *db.CreateUserParams) int
+		UpdateUser                func(childComplexity int, input *db.UpdateUserParams) int
 	}
 
 	Post struct {
@@ -91,10 +93,13 @@ type MutationResolver interface {
 	CreateUser(ctx context.Context, input *db.CreateUserParams) (*db.User, error)
 	UpdateUser(ctx context.Context, input *db.UpdateUserParams) (*db.User, error)
 	CreatePost(ctx context.Context, input *db.CreatePostParams) (*db.Post, error)
-	ConnectTag(ctx context.Context, postID string, tagID string) (*MessageResponse, error)
+	ConnectTag(ctx context.Context, postID scalar.UUID, tagID scalar.UUID) (*MessageResponse, error)
 	CreateTag(ctx context.Context, text string) (*db.Tag, error)
+	CreateTagAndConnectToPost(ctx context.Context, text string, postID scalar.UUID) (*db.Tag, error)
 }
 type PostResolver interface {
+	ID(ctx context.Context, obj *db.Post) (*scalar.UUID, error)
+
 	CreatedAt(ctx context.Context, obj *db.Post) (*time.Time, error)
 	UpdatedAt(ctx context.Context, obj *db.Post) (*time.Time, error)
 	Tags(ctx context.Context, obj *db.Post) ([]*db.Tag, error)
@@ -103,9 +108,13 @@ type QueryResolver interface {
 	Posts(ctx context.Context) ([]*db.Post, error)
 }
 type TagResolver interface {
+	ID(ctx context.Context, obj *db.Tag) (*scalar.UUID, error)
+
 	Posts(ctx context.Context, obj *db.Tag) ([]*db.Post, error)
 }
 type UserResolver interface {
+	ID(ctx context.Context, obj *db.User) (*scalar.UUID, error)
+
 	Posts(ctx context.Context, obj *db.User) ([]*db.Post, error)
 }
 
@@ -141,7 +150,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.ConnectTag(childComplexity, args["postId"].(string), args["tagId"].(string)), true
+		return e.complexity.Mutation.ConnectTag(childComplexity, args["postId"].(scalar.UUID), args["tagId"].(scalar.UUID)), true
 
 	case "Mutation.createPost":
 		if e.complexity.Mutation.CreatePost == nil {
@@ -166,6 +175,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.CreateTag(childComplexity, args["text"].(string)), true
+
+	case "Mutation.createTagAndConnectToPost":
+		if e.complexity.Mutation.CreateTagAndConnectToPost == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_createTagAndConnectToPost_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.CreateTagAndConnectToPost(childComplexity, args["text"].(string), args["postId"].(scalar.UUID)), true
 
 	case "Mutation.createUser":
 		if e.complexity.Mutation.CreateUser == nil {
@@ -361,13 +382,14 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 
 var sources = []*ast.Source{
 	{Name: "../schema/base.gql", Input: `scalar Time
+scalar UUID
 
 type MessageResponse {
   message: String!
 }
 `, BuiltIn: false},
 	{Name: "../schema/post.gql", Input: `type Post {
-  id: ID!
+  id: UUID!
   title: String!
   body: String!
   createdAt: Time!
@@ -387,11 +409,11 @@ input CreatePostParams {
 
 extend type Mutation {
   createPost(input: CreatePostParams): Post!
-  connectTag(postId: ID!, tagId: ID!): MessageResponse!
+  connectTag(postId: UUID!, tagId: UUID!): MessageResponse!
 }
 `, BuiltIn: false},
 	{Name: "../schema/tag.gql", Input: `type Tag {
-  id: ID!
+  id: UUID!
   text: String!
 
   posts: [Post!]!
@@ -399,10 +421,11 @@ extend type Mutation {
 
 extend type Mutation {
   createTag(text: String!): Tag
+  createTagAndConnectToPost(text: String!, postId: UUID!): Tag
 }
 `, BuiltIn: false},
 	{Name: "../schema/user.gql", Input: `type User {
-  id: ID!
+  id: UUID!
   name: String!
   email: String!
 
@@ -434,19 +457,19 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_connectTag_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 string
+	var arg0 scalar.UUID
 	if tmp, ok := rawArgs["postId"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("postId"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		arg0, err = ec.unmarshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
 	args["postId"] = arg0
-	var arg1 string
+	var arg1 scalar.UUID
 	if tmp, ok := rawArgs["tagId"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tagId"))
-		arg1, err = ec.unmarshalNID2string(ctx, tmp)
+		arg1, err = ec.unmarshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -467,6 +490,30 @@ func (ec *executionContext) field_Mutation_createPost_args(ctx context.Context, 
 		}
 	}
 	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_createTagAndConnectToPost_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["text"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("text"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["text"] = arg0
+	var arg1 scalar.UUID
+	if tmp, ok := rawArgs["postId"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("postId"))
+		arg1, err = ec.unmarshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["postId"] = arg1
 	return args, nil
 }
 
@@ -825,7 +872,7 @@ func (ec *executionContext) _Mutation_connectTag(ctx context.Context, field grap
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ConnectTag(rctx, fc.Args["postId"].(string), fc.Args["tagId"].(string))
+		return ec.resolvers.Mutation().ConnectTag(rctx, fc.Args["postId"].(scalar.UUID), fc.Args["tagId"].(scalar.UUID))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -930,6 +977,66 @@ func (ec *executionContext) fieldContext_Mutation_createTag(ctx context.Context,
 	return fc, nil
 }
 
+func (ec *executionContext) _Mutation_createTagAndConnectToPost(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_createTagAndConnectToPost(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CreateTagAndConnectToPost(rctx, fc.Args["text"].(string), fc.Args["postId"].(scalar.UUID))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*db.Tag)
+	fc.Result = res
+	return ec.marshalOTag2ᚖgoᚑgqlgenᚑsqlcᚋdbᚐTag(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_createTagAndConnectToPost(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Tag_id(ctx, field)
+			case "text":
+				return ec.fieldContext_Tag_text(ctx, field)
+			case "posts":
+				return ec.fieldContext_Tag_posts(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Tag", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_createTagAndConnectToPost_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Post_id(ctx context.Context, field graphql.CollectedField, obj *db.Post) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Post_id(ctx, field)
 	if err != nil {
@@ -944,7 +1051,7 @@ func (ec *executionContext) _Post_id(ctx context.Context, field graphql.Collecte
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.ID, nil
+		return ec.resolvers.Post().ID(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -956,19 +1063,19 @@ func (ec *executionContext) _Post_id(ctx context.Context, field graphql.Collecte
 		}
 		return graphql.Null
 	}
-	res := resTmp.(int64)
+	res := resTmp.(*scalar.UUID)
 	fc.Result = res
-	return ec.marshalNID2int64(ctx, field.Selections, res)
+	return ec.marshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Post_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Post",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type ID does not have child fields")
+			return nil, errors.New("field of type UUID does not have child fields")
 		},
 	}
 	return fc, nil
@@ -1403,7 +1510,7 @@ func (ec *executionContext) _Tag_id(ctx context.Context, field graphql.Collected
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.ID, nil
+		return ec.resolvers.Tag().ID(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1415,19 +1522,19 @@ func (ec *executionContext) _Tag_id(ctx context.Context, field graphql.Collected
 		}
 		return graphql.Null
 	}
-	res := resTmp.(int64)
+	res := resTmp.(*scalar.UUID)
 	fc.Result = res
-	return ec.marshalNID2int64(ctx, field.Selections, res)
+	return ec.marshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Tag_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Tag",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type ID does not have child fields")
+			return nil, errors.New("field of type UUID does not have child fields")
 		},
 	}
 	return fc, nil
@@ -1549,7 +1656,7 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.ID, nil
+		return ec.resolvers.User().ID(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1561,19 +1668,19 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 		}
 		return graphql.Null
 	}
-	res := resTmp.(int64)
+	res := resTmp.(*scalar.UUID)
 	fc.Result = res
-	return ec.marshalNID2int64(ctx, field.Selections, res)
+	return ec.marshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "User",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type ID does not have child fields")
+			return nil, errors.New("field of type UUID does not have child fields")
 		},
 	}
 	return fc, nil
@@ -3703,6 +3810,12 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 				return ec._Mutation_createTag(ctx, field)
 			})
 
+		case "createTagAndConnectToPost":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_createTagAndConnectToPost(ctx, field)
+			})
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -3725,12 +3838,25 @@ func (ec *executionContext) _Post(ctx context.Context, sel ast.SelectionSet, obj
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Post")
 		case "id":
+			field := field
 
-			out.Values[i] = ec._Post_id(ctx, field, obj)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Post_id(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		case "title":
 
 			out.Values[i] = ec._Post_title(ctx, field, obj)
@@ -3892,12 +4018,25 @@ func (ec *executionContext) _Tag(ctx context.Context, sel ast.SelectionSet, obj 
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Tag")
 		case "id":
+			field := field
 
-			out.Values[i] = ec._Tag_id(ctx, field, obj)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Tag_id(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		case "text":
 
 			out.Values[i] = ec._Tag_text(ctx, field, obj)
@@ -3947,12 +4086,25 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("User")
 		case "id":
+			field := field
 
-			out.Values[i] = ec._User_id(ctx, field, obj)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._User_id(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		case "name":
 
 			out.Values[i] = ec._User_name(ctx, field, obj)
@@ -4331,36 +4483,6 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalNID2int64(ctx context.Context, v interface{}) (int64, error) {
-	res, err := graphql.UnmarshalInt64(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNID2int64(ctx context.Context, sel ast.SelectionSet, v int64) graphql.Marshaler {
-	res := graphql.MarshalInt64(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-	}
-	return res
-}
-
-func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {
-	res, err := graphql.UnmarshalID(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
-	res := graphql.MarshalID(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-	}
-	return res
-}
-
 func (ec *executionContext) marshalNMessageResponse2goᚑgqlgenᚑsqlcᚋgeneratedᚐMessageResponse(ctx context.Context, sel ast.SelectionSet, v MessageResponse) graphql.Marshaler {
 	return ec._MessageResponse(ctx, sel, &v)
 }
@@ -4536,6 +4658,32 @@ func (ec *executionContext) marshalNTime2ᚖtimeᚐTime(ctx context.Context, sel
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) unmarshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx context.Context, v interface{}) (scalar.UUID, error) {
+	var res scalar.UUID
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx context.Context, sel ast.SelectionSet, v scalar.UUID) graphql.Marshaler {
+	return v
+}
+
+func (ec *executionContext) unmarshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx context.Context, v interface{}) (*scalar.UUID, error) {
+	var res = new(scalar.UUID)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx context.Context, sel ast.SelectionSet, v *scalar.UUID) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return v
 }
 
 func (ec *executionContext) marshalNUser2goᚑgqlgenᚑsqlcᚋdbᚐUser(ctx context.Context, sel ast.SelectionSet, v db.User) graphql.Marshaler {

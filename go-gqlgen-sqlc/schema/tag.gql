@@ -1,5 +1,5 @@
 type Tag {
-  id: ID!
+  id: UUID!
   text: String!
 
   posts: [Post!]!
@@ -7,4 +7,5 @@ type Tag {
 
 extend type Mutation {
   createTag(text: String!): Tag
+  createTagAndConnectToPost(text: String!, postId: UUID!): Tag
 }

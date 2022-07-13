@@ -35,7 +35,7 @@ func main() {
 	queries := db.New(database)
 	loaders := loader.NewLoaders(queries)
 
-	gqlSrv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver.NewResolver(queries)}))
+	gqlSrv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver.NewResolver(database, queries)}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", loader.Middleware(loaders, gqlSrv))

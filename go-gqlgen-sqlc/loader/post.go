@@ -4,6 +4,7 @@ import (
 	"context"
 	"go-gqlgen-sqlc/db"
 
+	"github.com/google/uuid"
 	"github.com/graph-gophers/dataloader/v7"
 )
 
@@ -11,7 +12,7 @@ type postReader struct {
 	queries *db.Queries
 }
 
-func (p *postReader) PostsByUserID(ctx context.Context, keys []int64) []*dataloader.Result[[]*db.Post] {
+func (p *postReader) PostsByUserID(ctx context.Context, keys []uuid.UUID) []*dataloader.Result[[]*db.Post] {
 	allPosts, err := p.queries.GetPostsByUserIds(ctx, keys)
 	results := make([]*dataloader.Result[[]*db.Post], len(keys))
 	if err != nil {

@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/google/uuid"
 )
 
 const createUser = `-- name: CreateUser :one
@@ -41,7 +43,7 @@ where id = $3 returning id, name, email, created_at, updated_at
 type UpdateUserParams struct {
 	Name  string
 	Email string
-	ID    int64
+	ID    uuid.UUID
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg *UpdateUserParams) (*User, error) {

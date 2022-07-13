@@ -6,29 +6,31 @@ package db
 
 import (
 	"database/sql"
+
+	"github.com/google/uuid"
 )
 
 type Post struct {
-	ID        int64
+	ID        uuid.UUID
 	Title     string
 	Body      string
-	UserID    int64
+	UserID    uuid.UUID
 	CreatedAt sql.NullTime
 	UpdatedAt sql.NullTime
 }
 
 type PostsTag struct {
-	PostID int64
-	TagID  int64
+	PostID uuid.UUID
+	TagID  uuid.UUID
 }
 
 type Tag struct {
-	ID   int64
+	ID   uuid.UUID
 	Text string
 }
 
 type User struct {
-	ID        int64
+	ID        uuid.UUID
 	Name      string
 	Email     string
 	CreatedAt sql.NullTime

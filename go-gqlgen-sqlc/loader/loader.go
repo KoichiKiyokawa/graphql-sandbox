@@ -5,13 +5,14 @@ import (
 	"go-gqlgen-sqlc/db"
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/graph-gophers/dataloader/v7"
 )
 
 var loadersKey = struct{}{}
 
 type loaders struct {
-	PostsByUserID *dataloader.Loader[int64, []*db.Post]
+	PostsByUserID *dataloader.Loader[uuid.UUID, []*db.Post]
 }
 
 func NewLoaders(queries *db.Queries) *loaders {

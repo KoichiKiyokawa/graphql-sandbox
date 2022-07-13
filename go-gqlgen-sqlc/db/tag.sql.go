@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/google/uuid"
 )
 
 const createTag = `-- name: CreateTag :one
@@ -21,10 +23,10 @@ func (q *Queries) CreateTag(ctx context.Context, text string) (*Tag, error) {
 }
 
 const getTagsByPostId = `-- name: GetTagsByPostId :many
-select id, text from tags where post_id = ($1::bigserial)
+select id, text from tags where post_id = ($1::uuid)
 `
 
-func (q *Queries) GetTagsByPostId(ctx context.Context, postID int64) ([]*Tag, error) {
+func (q *Queries) GetTagsByPostId(ctx context.Context, postID uuid.UUID) ([]*Tag, error) {
 	rows, err := q.db.QueryContext(ctx, getTagsByPostId, postID)
 	if err != nil {
 		return nil, err
