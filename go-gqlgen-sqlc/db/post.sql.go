@@ -49,7 +49,7 @@ func (q *Queries) CreatePost(ctx context.Context, arg *CreatePostParams) (*Post,
 }
 
 const getAllPosts = `-- name: GetAllPosts :many
-select id, title, body, user_id, created_at, updated_at from posts
+select id, title, body, user_id, created_at, updated_at from posts order by created_at desc
 `
 
 func (q *Queries) GetAllPosts(ctx context.Context) ([]*Post, error) {
@@ -83,7 +83,7 @@ func (q *Queries) GetAllPosts(ctx context.Context) ([]*Post, error) {
 }
 
 const getPostByUserId = `-- name: GetPostByUserId :many
-select id, title, body, user_id, created_at, updated_at from posts where user_id = ($1::bigserial)
+select id, title, body, user_id, created_at, updated_at from posts where user_id = ($1::bigserial) order by created_at desc
 `
 
 func (q *Queries) GetPostByUserId(ctx context.Context, userID int64) ([]*Post, error) {
@@ -151,7 +151,7 @@ func (q *Queries) GetPostsByTagId(ctx context.Context, tagID int64) ([]*Post, er
 }
 
 const getPostsByUserIds = `-- name: GetPostsByUserIds :many
-select id, title, body, user_id, created_at, updated_at from posts where user_id = ANY($1::bigserial[])
+select id, title, body, user_id, created_at, updated_at from posts where user_id = ANY($1::bigserial[]) order by created_at desc
 `
 
 func (q *Queries) GetPostsByUserIds(ctx context.Context, ids []int64) ([]*Post, error) {

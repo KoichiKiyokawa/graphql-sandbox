@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"go-gqlgen-sqlc/db"
 	"go-gqlgen-sqlc/generated"
+	"go-gqlgen-sqlc/loader"
 	"go-gqlgen-sqlc/resolver"
 	"log"
 	"net/http"
@@ -27,11 +28,12 @@ func main() {
 	}
 
 	queries := db.New(database)
+	loaders := loader.NewLoaders(queries)
 
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver.NewResolver(queries)}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+	http.Handle("/query", loader.Middleware(loaders, srv))
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe("127.0.0.1:"+port, nil))

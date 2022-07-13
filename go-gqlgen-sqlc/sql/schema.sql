@@ -13,7 +13,7 @@ create table posts (
   user_id bigserial not null,
   created_at timestamp default now(),
   updated_at timestamp default now(),
-  foreign key (user_id) references users(id)
+  foreign key (user_id) references users(id) on delete cascade
 );
 
 create table tags (
@@ -24,6 +24,6 @@ create table tags (
 create table posts_tags (
   post_id bigserial not null,
   tag_id bigserial not null,
-  foreign key (post_id) references posts(id),
-  foreign key (tag_id) references tags(id)
+  foreign key (post_id) references posts(id) on delete cascade,
+  foreign key (tag_id) references tags(id) on delete cascade
 );

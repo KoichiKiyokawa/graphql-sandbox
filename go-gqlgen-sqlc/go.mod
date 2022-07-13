@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/99designs/gqlgen v0.17.12
+	github.com/graph-gophers/dataloader/v7 v7.0.0
 	github.com/lib/pq v1.10.6
 	github.com/vektah/gqlparser/v2 v2.4.6
 )

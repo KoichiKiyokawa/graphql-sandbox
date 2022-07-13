@@ -7,6 +7,7 @@ import (
 	"context"
 	"go-gqlgen-sqlc/db"
 	"go-gqlgen-sqlc/generated"
+	"go-gqlgen-sqlc/loader"
 )
 
 // CreateUser is the resolver for the createUser field.
@@ -21,7 +22,7 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, input *db.UpdateUserP
 
 // Posts is the resolver for the posts field.
 func (r *userResolver) Posts(ctx context.Context, obj *db.User) ([]*db.Post, error) {
-	return r.queries.GetPostByUserId(ctx, obj.ID)
+	return loader.For(ctx).PostsByUserID.Load(ctx, obj.ID)()
 }
 
 // Mutation returns generated.MutationResolver implementation.
