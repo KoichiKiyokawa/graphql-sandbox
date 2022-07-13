@@ -4,6 +4,7 @@ type User {
   email: String!
 
   posts: [Post!]!
+  postCount: Int!
 }
 
 input CreateUserParams {

@@ -36,3 +36,22 @@ func (p *postReader) PostsByUserID(ctx context.Context, keys []scalar.UUID) []*d
 
 	return results
 }
+
+func (p *postReader) PostCountByUserID(ctx context.Context, keys []scalar.UUID) []*dataloader.Result[int] {
+	postCounts, err := p.queries.GetPostCountsByUserIds(ctx, keys)
+	results := make([]*dataloader.Result[int], len(keys))
+	if err != nil {
+		results[0] = &dataloader.Result[int]{Error: err}
+		return results
+	}
+
+	for i, key := range keys {
+		for _, postCount := range postCounts {
+			if postCount.UserID == key {
+				results[i].Data = int(postCount.Count)
+			}
+		}
+	}
+
+	return results
+}

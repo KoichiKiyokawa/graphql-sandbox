@@ -8,6 +8,7 @@ package db
 import (
 	"context"
 
+	"github.com/lib/pq"
 	"go-gqlgen-sqlc/graphql/scalar"
 )
 
@@ -31,6 +32,38 @@ func (q *Queries) CreateUser(ctx context.Context, arg *CreateUserParams) (*User,
 		&i.UpdatedAt,
 	)
 	return &i, err
+}
+
+const getPostCountsByUserIds = `-- name: GetPostCountsByUserIds :many
+select user_id, count(*) from posts where user_id = ANY($1::uuid[])
+`
+
+type GetPostCountsByUserIdsRow struct {
+	UserID scalar.UUID
+	Count  int64
+}
+
+func (q *Queries) GetPostCountsByUserIds(ctx context.Context, userIds []scalar.UUID) ([]*GetPostCountsByUserIdsRow, error) {
+	rows, err := q.db.QueryContext(ctx, getPostCountsByUserIds, pq.Array(userIds))
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*GetPostCountsByUserIdsRow
+	for rows.Next() {
+		var i GetPostCountsByUserIdsRow
+		if err := rows.Scan(&i.UserID, &i.Count); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const updateUser = `-- name: UpdateUser :one

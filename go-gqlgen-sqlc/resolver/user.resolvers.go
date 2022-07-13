@@ -25,6 +25,11 @@ func (r *userResolver) Posts(ctx context.Context, obj *db.User) ([]*db.Post, err
 	return loader.For(ctx).PostsByUserID.Load(ctx, obj.ID)()
 }
 
+// PostCount is the resolver for the postCount field.
+func (r *userResolver) PostCount(ctx context.Context, obj *db.User) (int, error) {
+	return loader.For(ctx).PostCountByUserID.Load(ctx, obj.ID)()
+}
+
 // Mutation returns generated.MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 

@@ -12,13 +12,15 @@ import (
 var loadersKey = struct{}{}
 
 type loaders struct {
-	PostsByUserID *dataloader.Loader[scalar.UUID, []*db.Post]
+	PostsByUserID     *dataloader.Loader[scalar.UUID, []*db.Post]
+	PostCountByUserID *dataloader.Loader[scalar.UUID, int]
 }
 
 func NewLoaders(queries *db.Queries) *loaders {
 	pr := &postReader{queries}
 	return &loaders{
-		PostsByUserID: dataloader.NewBatchedLoader(pr.PostsByUserID),
+		PostsByUserID:     dataloader.NewBatchedLoader(pr.PostsByUserID),
+		PostCountByUserID: dataloader.NewBatchedLoader(pr.PostCountByUserID),
 	}
 }
 
