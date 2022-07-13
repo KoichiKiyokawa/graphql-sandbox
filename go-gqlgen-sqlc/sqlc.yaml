@@ -9,3 +9,6 @@ sql:
       out: db
       emit_result_struct_pointers: true
       emit_params_struct_pointers: true
+      overrides:
+        - db_type: "uuid"
+          go_type: "go-gqlgen-sqlc/graphql/scalar.UUID"

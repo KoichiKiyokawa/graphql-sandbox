@@ -8,7 +8,7 @@ package db
 import (
 	"context"
 
-	"github.com/google/uuid"
+	"go-gqlgen-sqlc/graphql/scalar"
 )
 
 const createUser = `-- name: CreateUser :one
@@ -43,7 +43,7 @@ where id = $3 returning id, name, email, created_at, updated_at
 type UpdateUserParams struct {
 	Name  string
 	Email string
-	ID    uuid.UUID
+	ID    scalar.UUID
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg *UpdateUserParams) (*User, error) {

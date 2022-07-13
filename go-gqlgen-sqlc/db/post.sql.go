@@ -8,8 +8,8 @@ package db
 import (
 	"context"
 
-	"github.com/google/uuid"
 	"github.com/lib/pq"
+	"go-gqlgen-sqlc/graphql/scalar"
 )
 
 const connectTagToPost = `-- name: ConnectTagToPost :exec
@@ -17,8 +17,8 @@ insert into posts_tags (post_id, tag_id) values($1::uuid, $2::uuid)
 `
 
 type ConnectTagToPostParams struct {
-	PostID uuid.UUID
-	TagID  uuid.UUID
+	PostID scalar.UUID
+	TagID  scalar.UUID
 }
 
 func (q *Queries) ConnectTagToPost(ctx context.Context, arg *ConnectTagToPostParams) error {
@@ -87,7 +87,7 @@ const getPostByUserId = `-- name: GetPostByUserId :many
 select id, title, body, user_id, created_at, updated_at from posts where user_id = ($1::uuid) order by created_at desc
 `
 
-func (q *Queries) GetPostByUserId(ctx context.Context, userID uuid.UUID) ([]*Post, error) {
+func (q *Queries) GetPostByUserId(ctx context.Context, userID scalar.UUID) ([]*Post, error) {
 	rows, err := q.db.QueryContext(ctx, getPostByUserId, userID)
 	if err != nil {
 		return nil, err
@@ -121,7 +121,7 @@ const getPostsByTagId = `-- name: GetPostsByTagId :many
 select posts.id, posts.title, posts.body, posts.user_id, posts.created_at, posts.updated_at from posts join posts_tags on posts.id = posts_tags.post_id and posts_tags.tag_id = ($1::uuid)
 `
 
-func (q *Queries) GetPostsByTagId(ctx context.Context, tagID uuid.UUID) ([]*Post, error) {
+func (q *Queries) GetPostsByTagId(ctx context.Context, tagID scalar.UUID) ([]*Post, error) {
 	rows, err := q.db.QueryContext(ctx, getPostsByTagId, tagID)
 	if err != nil {
 		return nil, err
@@ -155,7 +155,7 @@ const getPostsByUserIds = `-- name: GetPostsByUserIds :many
 select id, title, body, user_id, created_at, updated_at from posts where user_id = ANY($1::uuid[]) order by created_at desc
 `
 
-func (q *Queries) GetPostsByUserIds(ctx context.Context, ids []uuid.UUID) ([]*Post, error) {
+func (q *Queries) GetPostsByUserIds(ctx context.Context, ids []scalar.UUID) ([]*Post, error) {
 	rows, err := q.db.QueryContext(ctx, getPostsByUserIds, pq.Array(ids))
 	if err != nil {
 		return nil, err

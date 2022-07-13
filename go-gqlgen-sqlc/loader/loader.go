@@ -3,16 +3,16 @@ package loader
 import (
 	"context"
 	"go-gqlgen-sqlc/db"
+	"go-gqlgen-sqlc/graphql/scalar"
 	"net/http"
 
-	"github.com/google/uuid"
 	"github.com/graph-gophers/dataloader/v7"
 )
 
 var loadersKey = struct{}{}
 
 type loaders struct {
-	PostsByUserID *dataloader.Loader[uuid.UUID, []*db.Post]
+	PostsByUserID *dataloader.Loader[scalar.UUID, []*db.Post]
 }
 
 func NewLoaders(queries *db.Queries) *loaders {

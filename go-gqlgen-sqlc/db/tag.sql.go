@@ -8,7 +8,7 @@ package db
 import (
 	"context"
 
-	"github.com/google/uuid"
+	"go-gqlgen-sqlc/graphql/scalar"
 )
 
 const createTag = `-- name: CreateTag :one
@@ -26,7 +26,7 @@ const getTagsByPostId = `-- name: GetTagsByPostId :many
 select id, text from tags where post_id = ($1::uuid)
 `
 
-func (q *Queries) GetTagsByPostId(ctx context.Context, postID uuid.UUID) ([]*Tag, error) {
+func (q *Queries) GetTagsByPostId(ctx context.Context, postID scalar.UUID) ([]*Tag, error) {
 	rows, err := q.db.QueryContext(ctx, getTagsByPostId, postID)
 	if err != nil {
 		return nil, err

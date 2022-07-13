@@ -7,30 +7,30 @@ package db
 import (
 	"database/sql"
 
-	"github.com/google/uuid"
+	"go-gqlgen-sqlc/graphql/scalar"
 )
 
 type Post struct {
-	ID        uuid.UUID
+	ID        scalar.UUID
 	Title     string
 	Body      string
-	UserID    uuid.UUID
+	UserID    scalar.UUID
 	CreatedAt sql.NullTime
 	UpdatedAt sql.NullTime
 }
 
 type PostsTag struct {
-	PostID uuid.UUID
-	TagID  uuid.UUID
+	PostID scalar.UUID
+	TagID  scalar.UUID
 }
 
 type Tag struct {
-	ID   uuid.UUID
+	ID   scalar.UUID
 	Text string
 }
 
 type User struct {
-	ID        uuid.UUID
+	ID        scalar.UUID
 	Name      string
 	Email     string
 	CreatedAt sql.NullTime

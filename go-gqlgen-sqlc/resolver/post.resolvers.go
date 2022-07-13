@@ -5,7 +5,6 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 	"go-gqlgen-sqlc/db"
 	"go-gqlgen-sqlc/generated"
 	"go-gqlgen-sqlc/graphql/scalar"
@@ -20,18 +19,13 @@ func (r *mutationResolver) CreatePost(ctx context.Context, input *db.CreatePostP
 // ConnectTag is the resolver for the connectTag field.
 func (r *mutationResolver) ConnectTag(ctx context.Context, postID scalar.UUID, tagID scalar.UUID) (*generated.MessageResponse, error) {
 	err := r.queries.ConnectTagToPost(ctx, &db.ConnectTagToPostParams{
-		PostID: postID.UUID,
-		TagID:  tagID.UUID,
+		PostID: postID,
+		TagID:  tagID,
 	})
 	if err != nil {
 		return nil, err
 	}
 	return &generated.MessageResponse{Message: "ok"}, nil
-}
-
-// ID is the resolver for the id field.
-func (r *postResolver) ID(ctx context.Context, obj *db.Post) (*scalar.UUID, error) {
-	panic(fmt.Errorf("not implemented"))
 }
 
 // CreatedAt is the resolver for the createdAt field.

@@ -98,8 +98,6 @@ type MutationResolver interface {
 	CreateTagAndConnectToPost(ctx context.Context, text string, postID scalar.UUID) (*db.Tag, error)
 }
 type PostResolver interface {
-	ID(ctx context.Context, obj *db.Post) (*scalar.UUID, error)
-
 	CreatedAt(ctx context.Context, obj *db.Post) (*time.Time, error)
 	UpdatedAt(ctx context.Context, obj *db.Post) (*time.Time, error)
 	Tags(ctx context.Context, obj *db.Post) ([]*db.Tag, error)
@@ -108,13 +106,9 @@ type QueryResolver interface {
 	Posts(ctx context.Context) ([]*db.Post, error)
 }
 type TagResolver interface {
-	ID(ctx context.Context, obj *db.Tag) (*scalar.UUID, error)
-
 	Posts(ctx context.Context, obj *db.Tag) ([]*db.Post, error)
 }
 type UserResolver interface {
-	ID(ctx context.Context, obj *db.User) (*scalar.UUID, error)
-
 	Posts(ctx context.Context, obj *db.User) ([]*db.Post, error)
 }
 
@@ -1051,7 +1045,7 @@ func (ec *executionContext) _Post_id(ctx context.Context, field graphql.Collecte
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Post().ID(rctx, obj)
+		return obj.ID, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1063,17 +1057,17 @@ func (ec *executionContext) _Post_id(ctx context.Context, field graphql.Collecte
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*scalar.UUID)
+	res := resTmp.(scalar.UUID)
 	fc.Result = res
-	return ec.marshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
+	return ec.marshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Post_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Post",
 		Field:      field,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type UUID does not have child fields")
 		},
@@ -1510,7 +1504,7 @@ func (ec *executionContext) _Tag_id(ctx context.Context, field graphql.Collected
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Tag().ID(rctx, obj)
+		return obj.ID, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1522,17 +1516,17 @@ func (ec *executionContext) _Tag_id(ctx context.Context, field graphql.Collected
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*scalar.UUID)
+	res := resTmp.(scalar.UUID)
 	fc.Result = res
-	return ec.marshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
+	return ec.marshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Tag_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Tag",
 		Field:      field,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type UUID does not have child fields")
 		},
@@ -1656,7 +1650,7 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.User().ID(rctx, obj)
+		return obj.ID, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1668,17 +1662,17 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*scalar.UUID)
+	res := resTmp.(scalar.UUID)
 	fc.Result = res
-	return ec.marshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
+	return ec.marshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "User",
 		Field:      field,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type UUID does not have child fields")
 		},
@@ -3838,25 +3832,12 @@ func (ec *executionContext) _Post(ctx context.Context, sel ast.SelectionSet, obj
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Post")
 		case "id":
-			field := field
 
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Post_id(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
+			out.Values[i] = ec._Post_id(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
 			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
 		case "title":
 
 			out.Values[i] = ec._Post_title(ctx, field, obj)
@@ -4018,25 +3999,12 @@ func (ec *executionContext) _Tag(ctx context.Context, sel ast.SelectionSet, obj 
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Tag")
 		case "id":
-			field := field
 
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Tag_id(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
+			out.Values[i] = ec._Tag_id(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
 			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
 		case "text":
 
 			out.Values[i] = ec._Tag_text(ctx, field, obj)
@@ -4086,25 +4054,12 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("User")
 		case "id":
-			field := field
 
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._User_id(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
+			out.Values[i] = ec._User_id(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
 			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
 		case "name":
 
 			out.Values[i] = ec._User_name(ctx, field, obj)
@@ -4667,22 +4622,6 @@ func (ec *executionContext) unmarshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalar
 }
 
 func (ec *executionContext) marshalNUUID2goᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx context.Context, sel ast.SelectionSet, v scalar.UUID) graphql.Marshaler {
-	return v
-}
-
-func (ec *executionContext) unmarshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx context.Context, v interface{}) (*scalar.UUID, error) {
-	var res = new(scalar.UUID)
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNUUID2ᚖgoᚑgqlgenᚑsqlcᚋgraphqlᚋscalarᚐUUID(ctx context.Context, sel ast.SelectionSet, v *scalar.UUID) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-		return graphql.Null
-	}
 	return v
 }
 

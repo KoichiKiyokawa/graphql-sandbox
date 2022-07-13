@@ -5,10 +5,8 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 	"go-gqlgen-sqlc/db"
 	"go-gqlgen-sqlc/generated"
-	"go-gqlgen-sqlc/graphql/scalar"
 	"go-gqlgen-sqlc/loader"
 )
 
@@ -20,11 +18,6 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input *db.CreateUserP
 // UpdateUser is the resolver for the updateUser field.
 func (r *mutationResolver) UpdateUser(ctx context.Context, input *db.UpdateUserParams) (*db.User, error) {
 	return r.queries.UpdateUser(ctx, input)
-}
-
-// ID is the resolver for the id field.
-func (r *userResolver) ID(ctx context.Context, obj *db.User) (*scalar.UUID, error) {
-	panic(fmt.Errorf("not implemented"))
 }
 
 // Posts is the resolver for the posts field.
