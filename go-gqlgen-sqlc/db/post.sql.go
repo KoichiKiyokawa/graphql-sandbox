@@ -7,7 +7,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 
 	"github.com/lib/pq"
 	"go-gqlgen-sqlc/graphql/scalar"
@@ -52,10 +51,13 @@ func (q *Queries) CreatePost(ctx context.Context, arg *CreatePostParams) (*Post,
 }
 
 const getAllPosts = `-- name: GetAllPosts :many
-select id, title, body, user_id, created_at, updated_at from posts order by created_at desc limit $1
+select id, title, body, user_id, created_at, updated_at
+from posts 
+order by created_at desc
+limit $1::integer
 `
 
-func (q *Queries) GetAllPosts(ctx context.Context, limit sql.NullInt32) ([]*Post, error) {
+func (q *Queries) GetAllPosts(ctx context.Context, limit int32) ([]*Post, error) {
 	rows, err := q.db.QueryContext(ctx, getAllPosts, limit)
 	if err != nil {
 		return nil, err

@@ -9,7 +9,7 @@ type Post {
 }
 
 extend type Query {
-  posts: [Post!]!
+  posts(limit: Int): [Post!]!
 }
 
 input CreatePostParams {

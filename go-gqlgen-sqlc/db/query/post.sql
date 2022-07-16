@@ -1,5 +1,8 @@
 -- name: GetAllPosts :many
-select * from posts order by created_at desc limit coalesce(sqlc.narg('limit'), 100);
+select *
+from posts 
+order by created_at desc
+limit sqlc.arg('limit')::integer;
 
 -- name: GetPostByUserId :many
 select * from posts where user_id = (@user_id::uuid) order by created_at desc;

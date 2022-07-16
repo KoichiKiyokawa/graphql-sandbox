@@ -72,7 +72,7 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Posts func(childComplexity int) int
+		Posts func(childComplexity int, limit *int) int
 		User  func(childComplexity int, id scalar.UUID) int
 		Users func(childComplexity int) int
 	}
@@ -108,7 +108,7 @@ type PostResolver interface {
 type QueryResolver interface {
 	User(ctx context.Context, id scalar.UUID) (*db.User, error)
 	Users(ctx context.Context) ([]*db.User, error)
-	Posts(ctx context.Context) ([]*db.Post, error)
+	Posts(ctx context.Context, limit *int) ([]*db.Post, error)
 }
 type TagResolver interface {
 	Posts(ctx context.Context, obj *db.Tag) ([]*db.Post, error)
@@ -259,7 +259,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			break
 		}
 
-		return e.complexity.Query.Posts(childComplexity), true
+		args, err := ec.field_Query_posts_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Posts(childComplexity, args["limit"].(*int)), true
 
 	case "Query.user":
 		if e.complexity.Query.User == nil {
@@ -425,7 +430,7 @@ type MessageResponse {
 }
 
 extend type Query {
-  posts: [Post!]!
+  posts(limit: Int): [Post!]!
 }
 
 input CreatePostParams {
@@ -606,6 +611,21 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 		}
 	}
 	args["name"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_posts_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 *int
+	if tmp, ok := rawArgs["limit"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("limit"))
+		arg0, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["limit"] = arg0
 	return args, nil
 }
 
@@ -1494,7 +1514,7 @@ func (ec *executionContext) _Query_posts(ctx context.Context, field graphql.Coll
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Posts(rctx)
+		return ec.resolvers.Query().Posts(rctx, fc.Args["limit"].(*int))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1534,6 +1554,17 @@ func (ec *executionContext) fieldContext_Query_posts(ctx context.Context, field 
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Post", field.Name)
 		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_posts_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
 	}
 	return fc, nil
 }
@@ -5275,6 +5306,22 @@ func (ec *executionContext) unmarshalOCreateUserParams2ᚖgoᚑgqlgenᚑsqlcᚋd
 	}
 	res, err := ec.unmarshalInputCreateUserParams(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalOInt2ᚖint(ctx context.Context, v interface{}) (*int, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := graphql.UnmarshalInt(v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.SelectionSet, v *int) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	res := graphql.MarshalInt(*v)
+	return res
 }
 
 func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {
