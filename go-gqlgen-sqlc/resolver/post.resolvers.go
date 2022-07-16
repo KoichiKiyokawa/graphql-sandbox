@@ -5,6 +5,7 @@ package resolver
 
 import (
 	"context"
+	"database/sql"
 	"go-gqlgen-sqlc/db"
 	"go-gqlgen-sqlc/generated"
 	"go-gqlgen-sqlc/graphql/scalar"
@@ -45,7 +46,7 @@ func (r *postResolver) Tags(ctx context.Context, obj *db.Post) ([]*db.Tag, error
 
 // Posts is the resolver for the posts field.
 func (r *queryResolver) Posts(ctx context.Context) ([]*db.Post, error) {
-	return r.queries.GetAllPosts(ctx)
+	return r.queries.GetAllPosts(ctx, sql.NullInt32{})
 }
 
 // Post returns generated.PostResolver implementation.
