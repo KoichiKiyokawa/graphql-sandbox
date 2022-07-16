@@ -6,5 +6,6 @@ create-migrate:
 	@read name; \
 	$(migration_command) create -dir $(migration_dir) -seq -ext sql "$$name"
 
-run-migrate:
-	$(migration_command) -path $(migration_dir) -database postgres://localhost:5432/database
+up-migrate:
+	. ./.env && \
+	$(migration_command) -path $(migration_dir) -database "$$DATABASE_URL" up
