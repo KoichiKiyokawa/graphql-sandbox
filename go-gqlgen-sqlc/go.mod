@@ -6,9 +6,11 @@ require (
 	github.com/99designs/gqlgen v0.17.12
 	github.com/google/uuid v1.3.0
 	github.com/graph-gophers/dataloader/v7 v7.0.0
+	github.com/joho/godotenv v1.4.0
 	github.com/kyleconroy/sqlc v1.14.0
 	github.com/lib/pq v1.10.6
 	github.com/vektah/gqlparser/v2 v2.4.6
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 )
 
 require (

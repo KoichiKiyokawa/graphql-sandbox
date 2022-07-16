@@ -14,7 +14,7 @@ select * from posts where user_id = ANY(@ids::uuid[]) order by created_at desc;
 select posts.* from posts join posts_tags on posts.id = posts_tags.post_id and posts_tags.tag_id = (@tag_id::uuid);
 
 -- name: CreatePost :one
-insert into posts (user_id ,title, body) values($1, $2, $3) returning *;
+insert into posts (id, user_id ,title, body) values($1, $2, $3, $4) returning *;
 
 -- name: ConnectTagToPost :exec
 insert into posts_tags (post_id, tag_id) values(@post_id::uuid, @tag_id::uuid);

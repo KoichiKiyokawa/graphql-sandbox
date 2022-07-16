@@ -30,9 +30,10 @@ type Tag struct {
 }
 
 type User struct {
-	ID        scalar.UUID
-	Name      string
-	Email     string
-	CreatedAt sql.NullTime
-	UpdatedAt sql.NullTime
+	ID           scalar.UUID
+	Name         string
+	Email        string
+	CreatedAt    sql.NullTime
+	UpdatedAt    sql.NullTime
+	PasswordHash string
 }

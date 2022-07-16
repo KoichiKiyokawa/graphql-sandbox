@@ -13,16 +13,23 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-insert into users (name, email) values($1, $2) returning id, name, email, created_at, updated_at
+insert into users (id, name, email, password_hash) values($1, $2, $3, $4) returning id, name, email, created_at, updated_at, password_hash
 `
 
 type CreateUserParams struct {
-	Name  string
-	Email string
+	ID           scalar.UUID
+	Name         string
+	Email        string
+	PasswordHash string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg *CreateUserParams) (*User, error) {
-	row := q.db.QueryRowContext(ctx, createUser, arg.Name, arg.Email)
+	row := q.db.QueryRowContext(ctx, createUser,
+		arg.ID,
+		arg.Name,
+		arg.Email,
+		arg.PasswordHash,
+	)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -30,6 +37,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg *CreateUserParams) (*User,
 		&i.Email,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.PasswordHash,
 	)
 	return &i, err
 }
@@ -67,7 +75,7 @@ func (q *Queries) GetPostCountsByUserIds(ctx context.Context, userIds []scalar.U
 }
 
 const getUser = `-- name: GetUser :one
-select id, name, email, created_at, updated_at from users where id = $1
+select id, name, email, created_at, updated_at, password_hash from users where id = $1
 `
 
 func (q *Queries) GetUser(ctx context.Context, id scalar.UUID) (*User, error) {
@@ -79,12 +87,13 @@ func (q *Queries) GetUser(ctx context.Context, id scalar.UUID) (*User, error) {
 		&i.Email,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.PasswordHash,
 	)
 	return &i, err
 }
 
 const getUsers = `-- name: GetUsers :many
-select id, name, email, created_at, updated_at from users
+select id, name, email, created_at, updated_at, password_hash from users
 `
 
 func (q *Queries) GetUsers(ctx context.Context) ([]*User, error) {
@@ -102,6 +111,7 @@ func (q *Queries) GetUsers(ctx context.Context) ([]*User, error) {
 			&i.Email,
 			&i.CreatedAt,
 			&i.UpdatedAt,
+			&i.PasswordHash,
 		); err != nil {
 			return nil, err
 		}
@@ -120,7 +130,7 @@ const updateUser = `-- name: UpdateUser :one
 update users set 
   name = $1,
   email = $2 
-where id = $3 returning id, name, email, created_at, updated_at
+where id = $3 returning id, name, email, created_at, updated_at, password_hash
 `
 
 type UpdateUserParams struct {
@@ -138,6 +148,7 @@ func (q *Queries) UpdateUser(ctx context.Context, arg *UpdateUserParams) (*User,
 		&i.Email,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.PasswordHash,
 	)
 	return &i, err
 }
