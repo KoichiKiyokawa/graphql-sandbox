@@ -13,7 +13,7 @@ specifiers:
   relay-compiler: 14.0.0
   relay-runtime: ^14.0.0
   typescript: ^4.6.3
-  vite: ^2.9.9
+  vite: ^3.0.0
   vite-plugin-relay: 1.0.7
 
 dependencies:
@@ -28,11 +28,11 @@ devDependencies:
   '@types/react-dom': 18.0.6
   '@types/react-relay': 13.0.2
   '@types/relay-runtime': 13.0.3
-  '@vitejs/plugin-react': 2.0.0_vite@2.9.14
+  '@vitejs/plugin-react': 2.0.0_vite@3.0.0
   relay-compiler: 14.0.0
   typescript: 4.7.4
-  vite: 2.9.14
-  vite-plugin-relay: 1.0.7_graphql@16.5.0+vite@2.9.14
+  vite: 3.0.0
+  vite-plugin-relay: 1.0.7_graphql@16.5.0+vite@3.0.0
 
 packages:
 
@@ -378,7 +378,7 @@ packages:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
     dev: true
 
-  /@vitejs/plugin-react/2.0.0_vite@2.9.14:
+  /@vitejs/plugin-react/2.0.0_vite@3.0.0:
     resolution: {integrity: sha512-zHkRR+X4zqEPNBbKV2FvWSxK7Q6crjMBVIAYroSU8Nbb4M3E5x4qOiLoqJBHtXgr27kfednXjkwr3lr8jS6Wrw==}
     engines: {node: '>=14.18.0'}
     peerDependencies:
@@ -391,7 +391,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.18.6_@babel+core@7.18.6
       magic-string: 0.26.2
       react-refresh: 0.14.0
-      vite: 2.9.14
+      vite: 3.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -775,6 +775,7 @@ packages:
   /graphql/16.5.0:
     resolution: {integrity: sha512-qbHgh8Ix+j/qY+a/ZcJnFQ+j8ezakqPiHwPiZhV/3PgGlgf96QMBB5/f2rkiC9sgLoy/xvT6TSiaf2nTHJh5iA==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
+    dev: false
 
   /has-flag/3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
@@ -1076,33 +1077,36 @@ packages:
       picocolors: 1.0.0
     dev: true
 
-  /vite-plugin-relay/1.0.7_graphql@16.5.0+vite@2.9.14:
+  /vite-plugin-relay/1.0.7_graphql@16.5.0+vite@3.0.0:
     resolution: {integrity: sha512-DFeWikFGBk4+kowPUOTRwjGb1zlmJarPLC/9yp9KHh7tsfr0Uv/QD0MBe57iu6jA/IOpqsXzZtgnNx7z9hSoJw==}
     peerDependencies:
       vite: '>2.0.0-0'
     dependencies:
       '@babel/core': 7.18.6
       babel-plugin-relay: 12.0.0_graphql@16.5.0
-      vite: 2.9.14
+      vite: 3.0.0
     transitivePeerDependencies:
       - graphql
       - supports-color
     dev: true
 
-  /vite/2.9.14:
-    resolution: {integrity: sha512-P/UCjSpSMcE54r4mPak55hWAZPlyfS369svib/gpmz8/01L822lMPOJ/RYW6tLCe1RPvMvOsJ17erf55bKp4Hw==}
-    engines: {node: '>=12.2.0'}
+  /vite/3.0.0:
+    resolution: {integrity: sha512-M7phQhY3+fRZa0H+1WzI6N+/onruwPTBTMvaj7TzgZ0v2TE+N2sdLKxJOfOv9CckDWt5C4HmyQP81xB4dwRKzA==}
+    engines: {node: '>=14.18.0'}
     hasBin: true
     peerDependencies:
       less: '*'
       sass: '*'
       stylus: '*'
+      terser: ^5.4.0
     peerDependenciesMeta:
       less:
         optional: true
       sass:
         optional: true
       stylus:
+        optional: true
+      terser:
         optional: true
     dependencies:
       esbuild: 0.14.48
