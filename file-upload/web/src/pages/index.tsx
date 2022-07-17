@@ -1,15 +1,15 @@
-import { FormEventHandler } from "react"
-import { useUploadFileMutation } from "../generated/graphql"
+import { FormEventHandler } from "react";
+import { useUploadFileMutation } from "../generated/graphql";
 
 export const PageIndex = () => {
-  const [uploadFileResult, uploadFile] = useUploadFileMutation()
+  const [_uploadFileResult, uploadFile] = useUploadFileMutation();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const file = formData.get("file") as File
-    uploadFile({ file })
-  }
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const file = formData.get("file") as File;
+    uploadFile({ file });
+  };
 
   return (
     <div>
@@ -21,5 +21,5 @@ export const PageIndex = () => {
         <button>ok</button>
       </form>
     </div>
-  )
-}
+  );
+};
