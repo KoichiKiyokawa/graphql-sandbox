@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "prisma": "3.14.0"
+    "prisma": "4.0.0"
   },
   "packageManager": "pnpm@7.1.2",
   "dependencies": {
-    "@prisma/client": "^3.10.0"
+    "@prisma/client": "^4.0.0"
   }
 }
