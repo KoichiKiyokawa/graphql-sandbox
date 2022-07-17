@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@KoichiKiyokawa/eslint-config-prettier-react-typescript': github:KoichiKiyokawa/eslint-config-prettier-react-typescript#v0.0.2
+  '@KoichiKiyokawa/eslint-config-prettier-react-typescript': github:KoichiKiyokawa/eslint-config-prettier-react-typescript#v0.0.1
   '@graphql-codegen/cli': 2.8.0
   '@graphql-codegen/introspection': 2.2.0
   '@graphql-codegen/typescript': 2.7.1
@@ -28,7 +28,7 @@ dependencies:
   urql: 2.2.2_qqwiqvxtmci56vqbugarzkey5u
 
 devDependencies:
-  '@KoichiKiyokawa/eslint-config-prettier-react-typescript': github.com/KoichiKiyokawa/eslint-config-prettier-react-typescript/4d610a7d029c05edf7c03efc1f3f60f1301edb35_typescript@4.6.3
+  '@KoichiKiyokawa/eslint-config-prettier-react-typescript': github.com/KoichiKiyokawa/eslint-config-prettier-react-typescript/3b3df2d8bd18912da4c7a2b6b97514dcb038bf52_typescript@4.6.3
   '@graphql-codegen/cli': 2.8.0_awctmscz2javbz6y45uuo5hniy
   '@graphql-codegen/introspection': 2.2.0_graphql@16.5.0
   '@graphql-codegen/typescript': 2.7.1_graphql@16.5.0
@@ -1938,7 +1938,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /constant-case/3.0.4:
@@ -4668,11 +4668,11 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/KoichiKiyokawa/eslint-config-prettier-react-typescript/4d610a7d029c05edf7c03efc1f3f60f1301edb35_typescript@4.6.3:
-    resolution: {tarball: https://codeload.github.com/KoichiKiyokawa/eslint-config-prettier-react-typescript/tar.gz/4d610a7d029c05edf7c03efc1f3f60f1301edb35}
-    id: github.com/KoichiKiyokawa/eslint-config-prettier-react-typescript/4d610a7d029c05edf7c03efc1f3f60f1301edb35
+  github.com/KoichiKiyokawa/eslint-config-prettier-react-typescript/3b3df2d8bd18912da4c7a2b6b97514dcb038bf52_typescript@4.6.3:
+    resolution: {tarball: https://codeload.github.com/KoichiKiyokawa/eslint-config-prettier-react-typescript/tar.gz/3b3df2d8bd18912da4c7a2b6b97514dcb038bf52}
+    id: github.com/KoichiKiyokawa/eslint-config-prettier-react-typescript/3b3df2d8bd18912da4c7a2b6b97514dcb038bf52
     name: '@KoichiKiyokawa/eslint-config-prettier-react-typescript'
-    version: 0.0.2
+    version: 0.0.1
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.30.6_m565t22pk4tbafmgs4lajcq26m
       '@typescript-eslint/parser': 5.30.6_ed5gxwv6gpi5htrorjmkxfvwzu

@@ -19,7 +19,7 @@
     "urql": "2.2.2"
   },
   "devDependencies": {
-    "@KoichiKiyokawa/eslint-config-prettier-react-typescript": "github:KoichiKiyokawa/eslint-config-prettier-react-typescript#v0.0.2",
+    "@KoichiKiyokawa/eslint-config-prettier-react-typescript": "github:KoichiKiyokawa/eslint-config-prettier-react-typescript#v0.0.1",
     "@graphql-codegen/cli": "2.8.0",
     "@graphql-codegen/introspection": "2.2.0",
     "@graphql-codegen/typescript": "2.7.1",
