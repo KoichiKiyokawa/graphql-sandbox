@@ -11,7 +11,7 @@ export const createArticleOperation = operationStore<
 	CreateArticleMutationVariables
 >(gql`
 	mutation CreateArticle($data: ArticleCreateInput!) {
-		createArticle(data: $data) {
+		createOneArticle(data: $data) {
 			slug
 		}
 	}
@@ -22,7 +22,7 @@ export const incrementLikeOperation = operationStore<
 	IncrementLikeMutationVariables
 >(gql`
 	mutation IncrementLike($userId: String!, $articleSlug: String!) {
-		updateArticle(
+		updateOneArticle(
 			data: { likes: { create: { user: { connect: { id: $userId } } } } }
 			where: { slug: $articleSlug }
 		) {

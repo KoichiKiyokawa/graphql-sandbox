@@ -30,8 +30,8 @@ const GET_ARTICLE = gql`
 `
 
 const CREATE_ARTICLE = gql`
-  mutation CreateArticle($input: ArticleCreateInput!) {
-    createArticle(data: $input) {
+  mutation CreateOneArticle($input: ArticleCreateInput!) {
+    createOneArticle(data: $input) {
       slug
     }
   }

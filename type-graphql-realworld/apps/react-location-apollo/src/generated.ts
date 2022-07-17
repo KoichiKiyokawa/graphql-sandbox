@@ -307,12 +307,12 @@ export type ArticleScalarWhereWithAggregatesInput = {
 };
 
 export type ArticleUpdateInput = {
-  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleInput>;
+  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleNestedInput>;
   body?: InputMaybe<StringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutArticleInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutArticleNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
-  tags?: InputMaybe<TagUpdateManyWithoutArticleInput>;
+  tags?: InputMaybe<TagUpdateManyWithoutArticleNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -330,7 +330,7 @@ export type ArticleUpdateManyWithWhereWithoutAuthorInput = {
   where: ArticleScalarWhereInput;
 };
 
-export type ArticleUpdateManyWithoutAuthorInput = {
+export type ArticleUpdateManyWithoutAuthorNestedInput = {
   connect?: InputMaybe<Array<ArticleWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ArticleCreateOrConnectWithoutAuthorInput>>;
   create?: InputMaybe<Array<ArticleCreateWithoutAuthorInput>>;
@@ -343,7 +343,7 @@ export type ArticleUpdateManyWithoutAuthorInput = {
   upsert?: InputMaybe<Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>>;
 };
 
-export type ArticleUpdateOneRequiredWithoutLikesInput = {
+export type ArticleUpdateOneRequiredWithoutLikesNestedInput = {
   connect?: InputMaybe<ArticleWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ArticleCreateOrConnectWithoutLikesInput>;
   create?: InputMaybe<ArticleCreateWithoutLikesInput>;
@@ -351,7 +351,7 @@ export type ArticleUpdateOneRequiredWithoutLikesInput = {
   upsert?: InputMaybe<ArticleUpsertWithoutLikesInput>;
 };
 
-export type ArticleUpdateOneWithoutTagsInput = {
+export type ArticleUpdateOneWithoutTagsNestedInput = {
   connect?: InputMaybe<ArticleWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ArticleCreateOrConnectWithoutTagsInput>;
   create?: InputMaybe<ArticleCreateWithoutTagsInput>;
@@ -369,28 +369,28 @@ export type ArticleUpdateWithWhereUniqueWithoutAuthorInput = {
 export type ArticleUpdateWithoutAuthorInput = {
   body?: InputMaybe<StringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutArticleInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutArticleNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
-  tags?: InputMaybe<TagUpdateManyWithoutArticleInput>;
+  tags?: InputMaybe<TagUpdateManyWithoutArticleNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ArticleUpdateWithoutLikesInput = {
-  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleInput>;
+  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleNestedInput>;
   body?: InputMaybe<StringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
-  tags?: InputMaybe<TagUpdateManyWithoutArticleInput>;
+  tags?: InputMaybe<TagUpdateManyWithoutArticleNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ArticleUpdateWithoutTagsInput = {
-  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleInput>;
+  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleNestedInput>;
   body?: InputMaybe<StringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutArticleInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutArticleNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -675,11 +675,11 @@ export type LikeUnique_LikeCompoundUniqueInput = {
 };
 
 export type LikeUpdateInput = {
-  article?: InputMaybe<ArticleUpdateOneRequiredWithoutLikesInput>;
+  article?: InputMaybe<ArticleUpdateOneRequiredWithoutLikesNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutLikesInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutLikesNestedInput>;
 };
 
 export type LikeUpdateManyMutationInput = {
@@ -698,7 +698,7 @@ export type LikeUpdateManyWithWhereWithoutUserInput = {
   where: LikeScalarWhereInput;
 };
 
-export type LikeUpdateManyWithoutArticleInput = {
+export type LikeUpdateManyWithoutArticleNestedInput = {
   connect?: InputMaybe<Array<LikeWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LikeCreateOrConnectWithoutArticleInput>>;
   create?: InputMaybe<Array<LikeCreateWithoutArticleInput>>;
@@ -711,7 +711,7 @@ export type LikeUpdateManyWithoutArticleInput = {
   upsert?: InputMaybe<Array<LikeUpsertWithWhereUniqueWithoutArticleInput>>;
 };
 
-export type LikeUpdateManyWithoutUserInput = {
+export type LikeUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<LikeWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LikeCreateOrConnectWithoutUserInput>>;
   create?: InputMaybe<Array<LikeCreateWithoutUserInput>>;
@@ -738,11 +738,11 @@ export type LikeUpdateWithoutArticleInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutLikesInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutLikesNestedInput>;
 };
 
 export type LikeUpdateWithoutUserInput = {
-  article?: InputMaybe<ArticleUpdateOneRequiredWithoutLikesInput>;
+  article?: InputMaybe<ArticleUpdateOneRequiredWithoutLikesNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -780,62 +780,52 @@ export type LikeWhereUniqueInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createArticle: Article;
-  createLike: Like;
-  createTag: Tag;
-  createUser: User;
-  deleteArticle?: Maybe<Article>;
-  deleteLike?: Maybe<Like>;
+  createOneArticle: Article;
+  createOneLike: Like;
+  createOneTag: Tag;
+  createOneUser: User;
   deleteManyArticle: AffectedRowsOutput;
   deleteManyLike: AffectedRowsOutput;
   deleteManyTag: AffectedRowsOutput;
   deleteManyUser: AffectedRowsOutput;
-  deleteTag?: Maybe<Tag>;
-  deleteUser?: Maybe<User>;
+  deleteOneArticle?: Maybe<Article>;
+  deleteOneLike?: Maybe<Like>;
+  deleteOneTag?: Maybe<Tag>;
+  deleteOneUser?: Maybe<User>;
   login: User;
   logout: Scalars['Boolean'];
-  updateArticle?: Maybe<Article>;
-  updateLike?: Maybe<Like>;
   updateManyArticle: AffectedRowsOutput;
   updateManyLike: AffectedRowsOutput;
   updateManyTag: AffectedRowsOutput;
   updateManyUser: AffectedRowsOutput;
-  updateTag?: Maybe<Tag>;
-  updateUser?: Maybe<User>;
-  upsertArticle: Article;
-  upsertLike: Like;
-  upsertTag: Tag;
-  upsertUser: User;
+  updateOneArticle?: Maybe<Article>;
+  updateOneLike?: Maybe<Like>;
+  updateOneTag?: Maybe<Tag>;
+  updateOneUser?: Maybe<User>;
+  upsertOneArticle: Article;
+  upsertOneLike: Like;
+  upsertOneTag: Tag;
+  upsertOneUser: User;
 };
 
 
-export type MutationCreateArticleArgs = {
+export type MutationCreateOneArticleArgs = {
   data: ArticleCreateInput;
 };
 
 
-export type MutationCreateLikeArgs = {
+export type MutationCreateOneLikeArgs = {
   data: LikeCreateInput;
 };
 
 
-export type MutationCreateTagArgs = {
+export type MutationCreateOneTagArgs = {
   data: TagCreateInput;
 };
 
 
-export type MutationCreateUserArgs = {
+export type MutationCreateOneUserArgs = {
   data: UserCreateInput;
-};
-
-
-export type MutationDeleteArticleArgs = {
-  where: ArticleWhereUniqueInput;
-};
-
-
-export type MutationDeleteLikeArgs = {
-  where: LikeWhereUniqueInput;
 };
 
 
@@ -859,12 +849,22 @@ export type MutationDeleteManyUserArgs = {
 };
 
 
-export type MutationDeleteTagArgs = {
+export type MutationDeleteOneArticleArgs = {
+  where: ArticleWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneLikeArgs = {
+  where: LikeWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneTagArgs = {
   where: TagWhereUniqueInput;
 };
 
 
-export type MutationDeleteUserArgs = {
+export type MutationDeleteOneUserArgs = {
   where: UserWhereUniqueInput;
 };
 
@@ -872,18 +872,6 @@ export type MutationDeleteUserArgs = {
 export type MutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
-};
-
-
-export type MutationUpdateArticleArgs = {
-  data: ArticleUpdateInput;
-  where: ArticleWhereUniqueInput;
-};
-
-
-export type MutationUpdateLikeArgs = {
-  data: LikeUpdateInput;
-  where: LikeWhereUniqueInput;
 };
 
 
@@ -911,40 +899,52 @@ export type MutationUpdateManyUserArgs = {
 };
 
 
-export type MutationUpdateTagArgs = {
+export type MutationUpdateOneArticleArgs = {
+  data: ArticleUpdateInput;
+  where: ArticleWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneLikeArgs = {
+  data: LikeUpdateInput;
+  where: LikeWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneTagArgs = {
   data: TagUpdateInput;
   where: TagWhereUniqueInput;
 };
 
 
-export type MutationUpdateUserArgs = {
+export type MutationUpdateOneUserArgs = {
   data: UserUpdateInput;
   where: UserWhereUniqueInput;
 };
 
 
-export type MutationUpsertArticleArgs = {
+export type MutationUpsertOneArticleArgs = {
   create: ArticleCreateInput;
   update: ArticleUpdateInput;
   where: ArticleWhereUniqueInput;
 };
 
 
-export type MutationUpsertLikeArgs = {
+export type MutationUpsertOneLikeArgs = {
   create: LikeCreateInput;
   update: LikeUpdateInput;
   where: LikeWhereUniqueInput;
 };
 
 
-export type MutationUpsertTagArgs = {
+export type MutationUpsertOneTagArgs = {
   create: TagCreateInput;
   update: TagUpdateInput;
   where: TagWhereUniqueInput;
 };
 
 
-export type MutationUpsertUserArgs = {
+export type MutationUpsertOneUserArgs = {
   create: UserCreateInput;
   update: UserUpdateInput;
   where: UserWhereUniqueInput;
@@ -1509,7 +1509,7 @@ export type TagSumOrderByAggregateInput = {
 };
 
 export type TagUpdateInput = {
-  Article?: InputMaybe<ArticleUpdateOneWithoutTagsInput>;
+  Article?: InputMaybe<ArticleUpdateOneWithoutTagsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
 
@@ -1522,7 +1522,7 @@ export type TagUpdateManyWithWhereWithoutArticleInput = {
   where: TagScalarWhereInput;
 };
 
-export type TagUpdateManyWithoutArticleInput = {
+export type TagUpdateManyWithoutArticleNestedInput = {
   connect?: InputMaybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutArticleInput>>;
   create?: InputMaybe<Array<TagCreateWithoutArticleInput>>;
@@ -1792,12 +1792,12 @@ export type UserScalarWhereWithAggregatesInput = {
 };
 
 export type UserUpdateInput = {
-  Article?: InputMaybe<ArticleUpdateManyWithoutAuthorInput>;
+  Article?: InputMaybe<ArticleUpdateManyWithoutAuthorNestedInput>;
   birthday?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutUserInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutUserNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   passwordHash?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -1813,7 +1813,7 @@ export type UserUpdateManyMutationInput = {
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutArticleInput = {
+export type UserUpdateOneRequiredWithoutArticleNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutArticleInput>;
   create?: InputMaybe<UserCreateWithoutArticleInput>;
@@ -1821,7 +1821,7 @@ export type UserUpdateOneRequiredWithoutArticleInput = {
   upsert?: InputMaybe<UserUpsertWithoutArticleInput>;
 };
 
-export type UserUpdateOneRequiredWithoutLikesInput = {
+export type UserUpdateOneRequiredWithoutLikesNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutLikesInput>;
   create?: InputMaybe<UserCreateWithoutLikesInput>;
@@ -1834,14 +1834,14 @@ export type UserUpdateWithoutArticleInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutUserInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutUserNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   passwordHash?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type UserUpdateWithoutLikesInput = {
-  Article?: InputMaybe<ArticleUpdateManyWithoutAuthorInput>;
+  Article?: InputMaybe<ArticleUpdateManyWithoutAuthorNestedInput>;
   birthday?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -1893,9 +1893,9 @@ export type GetArticleQueryVariables = Exact<{
 
 export type GetArticleQuery = { __typename?: 'Query', article?: { __typename?: 'Article', slug: string, title: string, body: string } | null };
 
-export type CreateArticleMutationVariables = Exact<{
+export type CreateOneArticleMutationVariables = Exact<{
   input: ArticleCreateInput;
 }>;
 
 
-export type CreateArticleMutation = { __typename?: 'Mutation', createArticle: { __typename?: 'Article', slug: string } };
+export type CreateOneArticleMutation = { __typename?: 'Mutation', createOneArticle: { __typename?: 'Article', slug: string } };
