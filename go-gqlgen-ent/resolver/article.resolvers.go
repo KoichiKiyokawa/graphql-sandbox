@@ -24,11 +24,11 @@ func (r *articleResolver) UpdatedAt(ctx context.Context, obj *ent.Article) (stri
 }
 
 func (r *queryResolver) Article(ctx context.Context, id string) (*ent.Article, error) {
-	return r.Client.Article.Get(ctx, uuid.MustParse(id))
+	return r.client.Article.Get(ctx, uuid.MustParse(id))
 }
 
 func (r *queryResolver) Articles(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int) (*ent.ArticleConnection, error) {
-	return r.Client.Article.Query().Paginate(ctx, after, first, before, last)
+	return r.client.Article.Query().Paginate(ctx, after, first, before, last)
 }
 
 // Article returns generated.ArticleResolver implementation.

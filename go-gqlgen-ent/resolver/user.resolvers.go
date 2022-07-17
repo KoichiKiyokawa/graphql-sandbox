@@ -13,11 +13,11 @@ import (
 )
 
 func (r *queryResolver) User(ctx context.Context, id string) (*ent.User, error) {
-	return r.Client.User.Get(ctx, uuid.MustParse(id))
+	return r.client.User.Get(ctx, uuid.MustParse(id))
 }
 
 func (r *queryResolver) Users(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int) (*ent.UserConnection, error) {
-	return r.Client.User.Query().Paginate(ctx, after, first, before, last)
+	return r.client.User.Query().Paginate(ctx, after, first, before, last)
 }
 
 func (r *userResolver) ID(ctx context.Context, obj *ent.User) (string, error) {

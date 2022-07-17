@@ -9,5 +9,9 @@ import "go-gqlgen-ent/ent"
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct {
-	Client *ent.Client
+	client *ent.Client
+}
+
+func NewResolver(client *ent.Client) *Resolver {
+	return &Resolver{client: client}
 }
