@@ -423,6 +423,7 @@ var sources = []*ast.Source{
   body: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+
   author: User!
 }
 

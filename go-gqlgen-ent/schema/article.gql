@@ -4,6 +4,7 @@ type Article {
   body: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+
   author: User!
 }
 
