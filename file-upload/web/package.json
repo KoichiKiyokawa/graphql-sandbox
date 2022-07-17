@@ -6,26 +6,33 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "fmt": "prettier --write .",
+    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}' --ignore-path .gitignore && pnpm fmt"
   },
   "dependencies": {
-    "@urql/exchange-multipart-fetch": "^0.1.14",
-    "graphql": "^16.5.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "urql": "^2.2.2"
+    "@urql/exchange-multipart-fetch": "0.1.14",
+    "graphql": "16.5.0",
+    "graphql-tag": "2.12.6",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "urql": "2.2.2"
   },
   "devDependencies": {
+    "@KoichiKiyokawa/eslint-config-prettier-react-typescript": "github:KoichiKiyokawa/eslint-config-prettier-react-typescript#v0.0.2",
     "@graphql-codegen/cli": "2.8.0",
     "@graphql-codegen/introspection": "2.2.0",
     "@graphql-codegen/typescript": "2.7.1",
     "@graphql-codegen/typescript-operations": "2.5.1",
     "@graphql-codegen/typescript-urql": "3.6.1",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@vitejs/plugin-react": "^2.0.0",
-    "typescript": "^4.6.3",
-    "vite": "^3.0.0"
+    "@types/react": "18.0.0",
+    "@types/react-dom": "18.0.0",
+    "@vitejs/plugin-react": "2.0.0",
+    "typescript": "4.6.3",
+    "vite": "3.0.0"
   },
-  "packageManager": "pnpm@7.5.0"
+  "packageManager": "pnpm@7.5.0",
+  "prettier": {
+    "printWidth": 120
+  }
 }
