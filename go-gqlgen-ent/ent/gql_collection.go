@@ -6,6 +6,7 @@ import (
 	"context"
 	"database/sql/driver"
 	"fmt"
+	"go-gqlgen-ent/ent/article"
 	"go-gqlgen-ent/ent/user"
 
 	"entgo.io/ent/dialect/sql"
@@ -38,6 +39,15 @@ func (a *ArticleQuery) collectField(ctx context.Context, op *graphql.OperationCo
 				return err
 			}
 			a.withAuthor = query
+		case "likedusers", "likedUsers":
+			var (
+				path  = append(path, field.Name)
+				query = &UserQuery{config: a.config}
+			)
+			if err := query.collectField(ctx, op, field, path, satisfies...); err != nil {
+				return err
+			}
+			a.withLikedUsers = query
 		}
 	}
 	return nil
@@ -182,6 +192,111 @@ func (u *UserQuery) collectField(ctx context.Context, op *graphql.OperationConte
 				}
 			}
 			u.withArticles = query
+		case "likedarticles", "likedArticles":
+			var (
+				path  = append(path, field.Name)
+				query = &ArticleQuery{config: u.config}
+			)
+			args := newArticlePaginateArgs(fieldArgs(ctx, nil, path...))
+			if err := validateFirstLast(args.first, args.last); err != nil {
+				return fmt.Errorf("validate first and last in path %q: %w", path, err)
+			}
+			pager, err := newArticlePager(args.opts)
+			if err != nil {
+				return fmt.Errorf("create new pager in path %q: %w", path, err)
+			}
+			if query, err = pager.applyFilter(query); err != nil {
+				return err
+			}
+			if !hasCollectedField(ctx, append(path, edgesField)...) || args.first != nil && *args.first == 0 || args.last != nil && *args.last == 0 {
+				if hasCollectedField(ctx, append(path, totalCountField)...) || hasCollectedField(ctx, append(path, pageInfoField)...) {
+					query := query.Clone()
+					u.loadTotal = append(u.loadTotal, func(ctx context.Context, nodes []*User) error {
+						ids := make([]driver.Value, len(nodes))
+						for i := range nodes {
+							ids[i] = nodes[i].ID
+						}
+						var v []struct {
+							NodeID uuid.UUID `sql:"user_id"`
+							Count  int       `sql:"count"`
+						}
+						query.Where(func(s *sql.Selector) {
+							joinT := sql.Table(user.LikedArticlesTable)
+							s.Join(joinT).On(s.C(article.FieldID), joinT.C(user.LikedArticlesPrimaryKey[1]))
+							s.Where(sql.InValues(joinT.C(user.LikedArticlesPrimaryKey[0]), ids...))
+							s.Select(joinT.C(user.LikedArticlesPrimaryKey[0]), sql.Count("*"))
+							s.GroupBy(joinT.C(user.LikedArticlesPrimaryKey[0]))
+						})
+						if err := query.Select().Scan(ctx, &v); err != nil {
+							return err
+						}
+						m := make(map[uuid.UUID]int, len(v))
+						for i := range v {
+							m[v[i].NodeID] = v[i].Count
+						}
+						for i := range nodes {
+							n := m[nodes[i].ID]
+							nodes[i].Edges.totalCount[1] = &n
+						}
+						return nil
+					})
+				}
+				continue
+			}
+			if (args.after != nil || args.first != nil || args.before != nil || args.last != nil) && hasCollectedField(ctx, append(path, totalCountField)...) {
+				query := query.Clone()
+				u.loadTotal = append(u.loadTotal, func(ctx context.Context, nodes []*User) error {
+					ids := make([]driver.Value, len(nodes))
+					for i := range nodes {
+						ids[i] = nodes[i].ID
+					}
+					var v []struct {
+						NodeID uuid.UUID `sql:"user_id"`
+						Count  int       `sql:"count"`
+					}
+					query.Where(func(s *sql.Selector) {
+						joinT := sql.Table(user.LikedArticlesTable)
+						s.Join(joinT).On(s.C(article.FieldID), joinT.C(user.LikedArticlesPrimaryKey[1]))
+						s.Where(sql.InValues(joinT.C(user.LikedArticlesPrimaryKey[0]), ids...))
+						s.Select(joinT.C(user.LikedArticlesPrimaryKey[0]), sql.Count("*"))
+						s.GroupBy(joinT.C(user.LikedArticlesPrimaryKey[0]))
+					})
+					if err := query.Select().Scan(ctx, &v); err != nil {
+						return err
+					}
+					m := make(map[uuid.UUID]int, len(v))
+					for i := range v {
+						m[v[i].NodeID] = v[i].Count
+					}
+					for i := range nodes {
+						n := m[nodes[i].ID]
+						nodes[i].Edges.totalCount[1] = &n
+					}
+					return nil
+				})
+			} else {
+				u.loadTotal = append(u.loadTotal, func(_ context.Context, nodes []*User) error {
+					for i := range nodes {
+						n := len(nodes[i].Edges.LikedArticles)
+						nodes[i].Edges.totalCount[1] = &n
+					}
+					return nil
+				})
+			}
+			query = pager.applyCursors(query, args.after, args.before)
+			if limit := paginateLimit(args.first, args.last); limit > 0 {
+				modify := limitRows(user.LikedArticlesPrimaryKey[0], limit, pager.orderExpr(args.last != nil))
+				query.modifiers = append(query.modifiers, modify)
+			} else {
+				query = pager.applyOrder(query, args.last != nil)
+			}
+			path = append(path, edgesField, nodeField)
+			if field := collectedField(ctx, path...); field != nil {
+				if err := query.collectField(ctx, op, *field, path, satisfies...); err != nil {
+					return err
+				}
+			}
+			u.withLikedArticles = query
 		}
 	}
 	return nil

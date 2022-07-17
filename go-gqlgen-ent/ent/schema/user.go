@@ -27,5 +27,6 @@ func (User) Fields() []ent.Field {
 func (User) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("articles", Article.Type).Annotations(entgql.RelayConnection()),
+		edge.To("likedArticles", Article.Type).Annotations(entgql.RelayConnection()),
 	}
 }

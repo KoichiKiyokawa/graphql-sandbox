@@ -33,19 +33,22 @@ const (
 // ArticleMutation represents an operation that mutates the Article nodes in the graph.
 type ArticleMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *uuid.UUID
-	title         *string
-	body          *string
-	createdAt     *time.Time
-	updatedAt     *time.Time
-	clearedFields map[string]struct{}
-	author        *uuid.UUID
-	clearedauthor bool
-	done          bool
-	oldValue      func(context.Context) (*Article, error)
-	predicates    []predicate.Article
+	op                Op
+	typ               string
+	id                *uuid.UUID
+	title             *string
+	body              *string
+	createdAt         *time.Time
+	updatedAt         *time.Time
+	clearedFields     map[string]struct{}
+	author            *uuid.UUID
+	clearedauthor     bool
+	likedUsers        map[uuid.UUID]struct{}
+	removedlikedUsers map[uuid.UUID]struct{}
+	clearedlikedUsers bool
+	done              bool
+	oldValue          func(context.Context) (*Article, error)
+	predicates        []predicate.Article
 }
 
 var _ ent.Mutation = (*ArticleMutation)(nil)
@@ -335,6 +338,60 @@ func (m *ArticleMutation) ResetAuthor() {
 	m.clearedauthor = false
 }
 
+// AddLikedUserIDs adds the "likedUsers" edge to the User entity by ids.
+func (m *ArticleMutation) AddLikedUserIDs(ids ...uuid.UUID) {
+	if m.likedUsers == nil {
+		m.likedUsers = make(map[uuid.UUID]struct{})
+	}
+	for i := range ids {
+		m.likedUsers[ids[i]] = struct{}{}
+	}
+}
+
+// ClearLikedUsers clears the "likedUsers" edge to the User entity.
+func (m *ArticleMutation) ClearLikedUsers() {
+	m.clearedlikedUsers = true
+}
+
+// LikedUsersCleared reports if the "likedUsers" edge to the User entity was cleared.
+func (m *ArticleMutation) LikedUsersCleared() bool {
+	return m.clearedlikedUsers
+}
+
+// RemoveLikedUserIDs removes the "likedUsers" edge to the User entity by IDs.
+func (m *ArticleMutation) RemoveLikedUserIDs(ids ...uuid.UUID) {
+	if m.removedlikedUsers == nil {
+		m.removedlikedUsers = make(map[uuid.UUID]struct{})
+	}
+	for i := range ids {
+		delete(m.likedUsers, ids[i])
+		m.removedlikedUsers[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedLikedUsers returns the removed IDs of the "likedUsers" edge to the User entity.
+func (m *ArticleMutation) RemovedLikedUsersIDs() (ids []uuid.UUID) {
+	for id := range m.removedlikedUsers {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// LikedUsersIDs returns the "likedUsers" edge IDs in the mutation.
+func (m *ArticleMutation) LikedUsersIDs() (ids []uuid.UUID) {
+	for id := range m.likedUsers {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetLikedUsers resets all changes to the "likedUsers" edge.
+func (m *ArticleMutation) ResetLikedUsers() {
+	m.likedUsers = nil
+	m.clearedlikedUsers = false
+	m.removedlikedUsers = nil
+}
+
 // Where appends a list predicates to the ArticleMutation builder.
 func (m *ArticleMutation) Where(ps ...predicate.Article) {
 	m.predicates = append(m.predicates, ps...)
@@ -504,9 +561,12 @@ func (m *ArticleMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *ArticleMutation) AddedEdges() []string {
-	edges := make([]string, 0, 1)
+	edges := make([]string, 0, 2)
 	if m.author != nil {
 		edges = append(edges, article.EdgeAuthor)
+	}
+	if m.likedUsers != nil {
+		edges = append(edges, article.EdgeLikedUsers)
 	}
 	return edges
 }
@@ -519,13 +579,22 @@ func (m *ArticleMutation) AddedIDs(name string) []ent.Value {
 		if id := m.author; id != nil {
 			return []ent.Value{*id}
 		}
+	case article.EdgeLikedUsers:
+		ids := make([]ent.Value, 0, len(m.likedUsers))
+		for id := range m.likedUsers {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *ArticleMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 1)
+	edges := make([]string, 0, 2)
+	if m.removedlikedUsers != nil {
+		edges = append(edges, article.EdgeLikedUsers)
+	}
 	return edges
 }
 
@@ -533,15 +602,24 @@ func (m *ArticleMutation) RemovedEdges() []string {
 // the given name in this mutation.
 func (m *ArticleMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
+	case article.EdgeLikedUsers:
+		ids := make([]ent.Value, 0, len(m.removedlikedUsers))
+		for id := range m.removedlikedUsers {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *ArticleMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 1)
+	edges := make([]string, 0, 2)
 	if m.clearedauthor {
 		edges = append(edges, article.EdgeAuthor)
+	}
+	if m.clearedlikedUsers {
+		edges = append(edges, article.EdgeLikedUsers)
 	}
 	return edges
 }
@@ -552,6 +630,8 @@ func (m *ArticleMutation) EdgeCleared(name string) bool {
 	switch name {
 	case article.EdgeAuthor:
 		return m.clearedauthor
+	case article.EdgeLikedUsers:
+		return m.clearedlikedUsers
 	}
 	return false
 }
@@ -574,6 +654,9 @@ func (m *ArticleMutation) ResetEdge(name string) error {
 	case article.EdgeAuthor:
 		m.ResetAuthor()
 		return nil
+	case article.EdgeLikedUsers:
+		m.ResetLikedUsers()
+		return nil
 	}
 	return fmt.Errorf("unknown Article edge %s", name)
 }
@@ -581,19 +664,22 @@ func (m *ArticleMutation) ResetEdge(name string) error {
 // UserMutation represents an operation that mutates the User nodes in the graph.
 type UserMutation struct {
 	config
-	op              Op
-	typ             string
-	id              *uuid.UUID
-	name            *string
-	email           *string
-	passwordHash    *string
-	clearedFields   map[string]struct{}
-	articles        map[uuid.UUID]struct{}
-	removedarticles map[uuid.UUID]struct{}
-	clearedarticles bool
-	done            bool
-	oldValue        func(context.Context) (*User, error)
-	predicates      []predicate.User
+	op                   Op
+	typ                  string
+	id                   *uuid.UUID
+	name                 *string
+	email                *string
+	passwordHash         *string
+	clearedFields        map[string]struct{}
+	articles             map[uuid.UUID]struct{}
+	removedarticles      map[uuid.UUID]struct{}
+	clearedarticles      bool
+	likedArticles        map[uuid.UUID]struct{}
+	removedlikedArticles map[uuid.UUID]struct{}
+	clearedlikedArticles bool
+	done                 bool
+	oldValue             func(context.Context) (*User, error)
+	predicates           []predicate.User
 }
 
 var _ ent.Mutation = (*UserMutation)(nil)
@@ -862,6 +948,60 @@ func (m *UserMutation) ResetArticles() {
 	m.removedarticles = nil
 }
 
+// AddLikedArticleIDs adds the "likedArticles" edge to the Article entity by ids.
+func (m *UserMutation) AddLikedArticleIDs(ids ...uuid.UUID) {
+	if m.likedArticles == nil {
+		m.likedArticles = make(map[uuid.UUID]struct{})
+	}
+	for i := range ids {
+		m.likedArticles[ids[i]] = struct{}{}
+	}
+}
+
+// ClearLikedArticles clears the "likedArticles" edge to the Article entity.
+func (m *UserMutation) ClearLikedArticles() {
+	m.clearedlikedArticles = true
+}
+
+// LikedArticlesCleared reports if the "likedArticles" edge to the Article entity was cleared.
+func (m *UserMutation) LikedArticlesCleared() bool {
+	return m.clearedlikedArticles
+}
+
+// RemoveLikedArticleIDs removes the "likedArticles" edge to the Article entity by IDs.
+func (m *UserMutation) RemoveLikedArticleIDs(ids ...uuid.UUID) {
+	if m.removedlikedArticles == nil {
+		m.removedlikedArticles = make(map[uuid.UUID]struct{})
+	}
+	for i := range ids {
+		delete(m.likedArticles, ids[i])
+		m.removedlikedArticles[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedLikedArticles returns the removed IDs of the "likedArticles" edge to the Article entity.
+func (m *UserMutation) RemovedLikedArticlesIDs() (ids []uuid.UUID) {
+	for id := range m.removedlikedArticles {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// LikedArticlesIDs returns the "likedArticles" edge IDs in the mutation.
+func (m *UserMutation) LikedArticlesIDs() (ids []uuid.UUID) {
+	for id := range m.likedArticles {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetLikedArticles resets all changes to the "likedArticles" edge.
+func (m *UserMutation) ResetLikedArticles() {
+	m.likedArticles = nil
+	m.clearedlikedArticles = false
+	m.removedlikedArticles = nil
+}
+
 // Where appends a list predicates to the UserMutation builder.
 func (m *UserMutation) Where(ps ...predicate.User) {
 	m.predicates = append(m.predicates, ps...)
@@ -1014,9 +1154,12 @@ func (m *UserMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *UserMutation) AddedEdges() []string {
-	edges := make([]string, 0, 1)
+	edges := make([]string, 0, 2)
 	if m.articles != nil {
 		edges = append(edges, user.EdgeArticles)
+	}
+	if m.likedArticles != nil {
+		edges = append(edges, user.EdgeLikedArticles)
 	}
 	return edges
 }
@@ -1031,15 +1174,24 @@ func (m *UserMutation) AddedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case user.EdgeLikedArticles:
+		ids := make([]ent.Value, 0, len(m.likedArticles))
+		for id := range m.likedArticles {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *UserMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 1)
+	edges := make([]string, 0, 2)
 	if m.removedarticles != nil {
 		edges = append(edges, user.EdgeArticles)
+	}
+	if m.removedlikedArticles != nil {
+		edges = append(edges, user.EdgeLikedArticles)
 	}
 	return edges
 }
@@ -1054,15 +1206,24 @@ func (m *UserMutation) RemovedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case user.EdgeLikedArticles:
+		ids := make([]ent.Value, 0, len(m.removedlikedArticles))
+		for id := range m.removedlikedArticles {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *UserMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 1)
+	edges := make([]string, 0, 2)
 	if m.clearedarticles {
 		edges = append(edges, user.EdgeArticles)
+	}
+	if m.clearedlikedArticles {
+		edges = append(edges, user.EdgeLikedArticles)
 	}
 	return edges
 }
@@ -1073,6 +1234,8 @@ func (m *UserMutation) EdgeCleared(name string) bool {
 	switch name {
 	case user.EdgeArticles:
 		return m.clearedarticles
+	case user.EdgeLikedArticles:
+		return m.clearedlikedArticles
 	}
 	return false
 }
@@ -1091,6 +1254,9 @@ func (m *UserMutation) ResetEdge(name string) error {
 	switch name {
 	case user.EdgeArticles:
 		m.ResetArticles()
+		return nil
+	case user.EdgeLikedArticles:
+		m.ResetLikedArticles()
 		return nil
 	}
 	return fmt.Errorf("unknown User edge %s", name)

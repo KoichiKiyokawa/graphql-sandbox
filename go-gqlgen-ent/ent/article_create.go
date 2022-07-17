@@ -95,6 +95,21 @@ func (ac *ArticleCreate) SetAuthor(u *User) *ArticleCreate {
 	return ac.SetAuthorID(u.ID)
 }
 
+// AddLikedUserIDs adds the "likedUsers" edge to the User entity by IDs.
+func (ac *ArticleCreate) AddLikedUserIDs(ids ...uuid.UUID) *ArticleCreate {
+	ac.mutation.AddLikedUserIDs(ids...)
+	return ac
+}
+
+// AddLikedUsers adds the "likedUsers" edges to the User entity.
+func (ac *ArticleCreate) AddLikedUsers(u ...*User) *ArticleCreate {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return ac.AddLikedUserIDs(ids...)
+}
+
 // Mutation returns the ArticleMutation object of the builder.
 func (ac *ArticleCreate) Mutation() *ArticleMutation {
 	return ac.mutation
@@ -296,6 +311,25 @@ func (ac *ArticleCreate) createSpec() (*Article, *sqlgraph.CreateSpec) {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.article_author = &nodes[0]
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := ac.mutation.LikedUsersIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   article.LikedUsersTable,
+			Columns: article.LikedUsersPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

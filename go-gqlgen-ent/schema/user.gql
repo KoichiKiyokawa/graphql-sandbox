@@ -34,3 +34,7 @@ extend type Query {
   user(id: ID!): User
   users(after: Cursor, first: Int, before: Cursor, last: Int): UserConnection!
 }
+
+extend type Mutation {
+  likeArticle(articleID: ID!): Response!
+}

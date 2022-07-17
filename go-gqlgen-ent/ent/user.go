@@ -31,11 +31,13 @@ type User struct {
 type UserEdges struct {
 	// Articles holds the value of the articles edge.
 	Articles []*Article `json:"articles,omitempty"`
+	// LikedArticles holds the value of the likedArticles edge.
+	LikedArticles []*Article `json:"likedArticles,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [1]bool
+	loadedTypes [2]bool
 	// totalCount holds the count of the edges above.
-	totalCount [1]*int
+	totalCount [2]*int
 }
 
 // ArticlesOrErr returns the Articles value or an error if the edge
@@ -45,6 +47,15 @@ func (e UserEdges) ArticlesOrErr() ([]*Article, error) {
 		return e.Articles, nil
 	}
 	return nil, &NotLoadedError{edge: "articles"}
+}
+
+// LikedArticlesOrErr returns the LikedArticles value or an error if the edge
+// was not loaded in eager-loading.
+func (e UserEdges) LikedArticlesOrErr() ([]*Article, error) {
+	if e.loadedTypes[1] {
+		return e.LikedArticles, nil
+	}
+	return nil, &NotLoadedError{edge: "likedArticles"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -103,6 +114,11 @@ func (u *User) assignValues(columns []string, values []interface{}) error {
 // QueryArticles queries the "articles" edge of the User entity.
 func (u *User) QueryArticles() *ArticleQuery {
 	return (&UserClient{config: u.config}).QueryArticles(u)
+}
+
+// QueryLikedArticles queries the "likedArticles" edge of the User entity.
+func (u *User) QueryLikedArticles() *ArticleQuery {
+	return (&UserClient{config: u.config}).QueryLikedArticles(u)
 }
 
 // Update returns a builder for updating this User.

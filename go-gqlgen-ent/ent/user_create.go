@@ -68,6 +68,21 @@ func (uc *UserCreate) AddArticles(a ...*Article) *UserCreate {
 	return uc.AddArticleIDs(ids...)
 }
 
+// AddLikedArticleIDs adds the "likedArticles" edge to the Article entity by IDs.
+func (uc *UserCreate) AddLikedArticleIDs(ids ...uuid.UUID) *UserCreate {
+	uc.mutation.AddLikedArticleIDs(ids...)
+	return uc
+}
+
+// AddLikedArticles adds the "likedArticles" edges to the Article entity.
+func (uc *UserCreate) AddLikedArticles(a ...*Article) *UserCreate {
+	ids := make([]uuid.UUID, len(a))
+	for i := range a {
+		ids[i] = a[i].ID
+	}
+	return uc.AddLikedArticleIDs(ids...)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uc *UserCreate) Mutation() *UserMutation {
 	return uc.mutation
@@ -243,6 +258,25 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Inverse: false,
 			Table:   user.ArticlesTable,
 			Columns: []string{user.ArticlesColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: article.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := uc.mutation.LikedArticlesIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   user.LikedArticlesTable,
+			Columns: user.LikedArticlesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

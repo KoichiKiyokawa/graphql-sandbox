@@ -6,6 +6,7 @@ type Article {
   updatedAt: DateTime!
 
   author: User!
+  likedUsers: UserConnection!
 }
 
 type ArticleConnection {

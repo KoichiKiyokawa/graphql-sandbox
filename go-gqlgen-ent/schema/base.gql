@@ -4,3 +4,7 @@ type PageInfo {
   startCursor: Cursor
   endCursor: Cursor
 }
+
+type Response {
+  message: String!
+}

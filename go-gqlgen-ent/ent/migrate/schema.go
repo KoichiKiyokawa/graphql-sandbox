@@ -51,14 +51,42 @@ var (
 		Columns:    UsersColumns,
 		PrimaryKey: []*schema.Column{UsersColumns[0]},
 	}
+	// UserLikedArticlesColumns holds the columns for the "user_likedArticles" table.
+	UserLikedArticlesColumns = []*schema.Column{
+		{Name: "user_id", Type: field.TypeUUID},
+		{Name: "article_id", Type: field.TypeUUID},
+	}
+	// UserLikedArticlesTable holds the schema information for the "user_likedArticles" table.
+	UserLikedArticlesTable = &schema.Table{
+		Name:       "user_likedArticles",
+		Columns:    UserLikedArticlesColumns,
+		PrimaryKey: []*schema.Column{UserLikedArticlesColumns[0], UserLikedArticlesColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "user_likedArticles_user_id",
+				Columns:    []*schema.Column{UserLikedArticlesColumns[0]},
+				RefColumns: []*schema.Column{UsersColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "user_likedArticles_article_id",
+				Columns:    []*schema.Column{UserLikedArticlesColumns[1]},
+				RefColumns: []*schema.Column{ArticlesColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		ArticlesTable,
 		UsersTable,
+		UserLikedArticlesTable,
 	}
 )
 
 func init() {
 	ArticlesTable.ForeignKeys[0].RefTable = UsersTable
 	ArticlesTable.ForeignKeys[1].RefTable = UsersTable
+	UserLikedArticlesTable.ForeignKeys[0].RefTable = UsersTable
+	UserLikedArticlesTable.ForeignKeys[1].RefTable = ArticlesTable
 }

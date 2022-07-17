@@ -29,5 +29,6 @@ func (Article) Fields() []ent.Field {
 func (Article) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("author", User.Type).Unique(),
+		edge.From("likedUsers", User.Type).Ref("likedArticles"),
 	}
 }

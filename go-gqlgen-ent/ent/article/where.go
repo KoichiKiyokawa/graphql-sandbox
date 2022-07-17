@@ -524,6 +524,34 @@ func HasAuthorWith(preds ...predicate.User) predicate.Article {
 	})
 }
 
+// HasLikedUsers applies the HasEdge predicate on the "likedUsers" edge.
+func HasLikedUsers() predicate.Article {
+	return predicate.Article(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(LikedUsersTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, true, LikedUsersTable, LikedUsersPrimaryKey...),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasLikedUsersWith applies the HasEdge predicate on the "likedUsers" edge with a given conditions (other predicates).
+func HasLikedUsersWith(preds ...predicate.User) predicate.Article {
+	return predicate.Article(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(LikedUsersInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, true, LikedUsersTable, LikedUsersPrimaryKey...),
+		)
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
 // And groups predicates with the AND operator between them.
 func And(predicates ...predicate.Article) predicate.Article {
 	return predicate.Article(func(s *sql.Selector) {

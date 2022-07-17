@@ -5,6 +5,7 @@ package resolver
 
 import (
 	"context"
+	"fmt"
 	"go-gqlgen-ent/ent"
 	"go-gqlgen-ent/generated"
 
@@ -21,6 +22,10 @@ func (r *articleResolver) CreatedAt(ctx context.Context, obj *ent.Article) (stri
 
 func (r *articleResolver) UpdatedAt(ctx context.Context, obj *ent.Article) (string, error) {
 	return obj.UpdatedAt.String(), nil
+}
+
+func (r *articleResolver) LikedUsers(ctx context.Context, obj *ent.Article) (*ent.UserConnection, error) {
+	panic(fmt.Errorf("not implemented"))
 }
 
 func (r *queryResolver) Article(ctx context.Context, id string) (*ent.Article, error) {

@@ -23,6 +23,8 @@ const (
 	FieldUpdatedAt = "updated_at"
 	// EdgeAuthor holds the string denoting the author edge name in mutations.
 	EdgeAuthor = "author"
+	// EdgeLikedUsers holds the string denoting the likedusers edge name in mutations.
+	EdgeLikedUsers = "likedUsers"
 	// Table holds the table name of the article in the database.
 	Table = "articles"
 	// AuthorTable is the table that holds the author relation/edge.
@@ -32,6 +34,11 @@ const (
 	AuthorInverseTable = "users"
 	// AuthorColumn is the table column denoting the author relation/edge.
 	AuthorColumn = "article_author"
+	// LikedUsersTable is the table that holds the likedUsers relation/edge. The primary key declared below.
+	LikedUsersTable = "user_likedArticles"
+	// LikedUsersInverseTable is the table name for the User entity.
+	// It exists in this package in order to avoid circular dependency with the "user" package.
+	LikedUsersInverseTable = "users"
 )
 
 // Columns holds all SQL columns for article fields.
@@ -49,6 +56,12 @@ var ForeignKeys = []string{
 	"article_author",
 	"user_articles",
 }
+
+var (
+	// LikedUsersPrimaryKey and LikedUsersColumn2 are the table columns denoting the
+	// primary key for the likedUsers relation (M2M).
+	LikedUsersPrimaryKey = []string{"user_id", "article_id"}
+)
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {

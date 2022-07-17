@@ -10,6 +10,7 @@ import (
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func main() {
@@ -28,7 +29,7 @@ func main() {
 		user, err := client.User.Create().
 			SetEmail(fmt.Sprintf("user%d@example.com", userIndex)).
 			SetName(fmt.Sprintf("user%d", userIndex)).
-			SetPasswordHash("TODO:foobar").
+			SetPasswordHash(getHashedDummyPassword()).
 			Save(ctx)
 
 		if err != nil {
@@ -50,4 +51,13 @@ func main() {
 			fmt.Println(article)
 		}
 	}
+}
+
+func getHashedDummyPassword() string {
+	pass, err := bcrypt.GenerateFromPassword([]byte("password"), bcrypt.DefaultCost)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return string(pass)
 }

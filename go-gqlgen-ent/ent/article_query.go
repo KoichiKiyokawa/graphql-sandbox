@@ -4,6 +4,7 @@ package ent
 
 import (
 	"context"
+	"database/sql/driver"
 	"fmt"
 	"go-gqlgen-ent/ent/article"
 	"go-gqlgen-ent/ent/predicate"
@@ -26,10 +27,11 @@ type ArticleQuery struct {
 	fields     []string
 	predicates []predicate.Article
 	// eager-loading edges.
-	withAuthor *UserQuery
-	withFKs    bool
-	modifiers  []func(*sql.Selector)
-	loadTotal  []func(context.Context, []*Article) error
+	withAuthor     *UserQuery
+	withLikedUsers *UserQuery
+	withFKs        bool
+	modifiers      []func(*sql.Selector)
+	loadTotal      []func(context.Context, []*Article) error
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -81,6 +83,28 @@ func (aq *ArticleQuery) QueryAuthor() *UserQuery {
 			sqlgraph.From(article.Table, article.FieldID, selector),
 			sqlgraph.To(user.Table, user.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, article.AuthorTable, article.AuthorColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(aq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryLikedUsers chains the current query on the "likedUsers" edge.
+func (aq *ArticleQuery) QueryLikedUsers() *UserQuery {
+	query := &UserQuery{config: aq.config}
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := aq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := aq.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(article.Table, article.FieldID, selector),
+			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, true, article.LikedUsersTable, article.LikedUsersPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(aq.driver.Dialect(), step)
 		return fromU, nil
@@ -264,12 +288,13 @@ func (aq *ArticleQuery) Clone() *ArticleQuery {
 		return nil
 	}
 	return &ArticleQuery{
-		config:     aq.config,
-		limit:      aq.limit,
-		offset:     aq.offset,
-		order:      append([]OrderFunc{}, aq.order...),
-		predicates: append([]predicate.Article{}, aq.predicates...),
-		withAuthor: aq.withAuthor.Clone(),
+		config:         aq.config,
+		limit:          aq.limit,
+		offset:         aq.offset,
+		order:          append([]OrderFunc{}, aq.order...),
+		predicates:     append([]predicate.Article{}, aq.predicates...),
+		withAuthor:     aq.withAuthor.Clone(),
+		withLikedUsers: aq.withLikedUsers.Clone(),
 		// clone intermediate query.
 		sql:    aq.sql.Clone(),
 		path:   aq.path,
@@ -285,6 +310,17 @@ func (aq *ArticleQuery) WithAuthor(opts ...func(*UserQuery)) *ArticleQuery {
 		opt(query)
 	}
 	aq.withAuthor = query
+	return aq
+}
+
+// WithLikedUsers tells the query-builder to eager-load the nodes that are connected to
+// the "likedUsers" edge. The optional arguments are used to configure the query builder of the edge.
+func (aq *ArticleQuery) WithLikedUsers(opts ...func(*UserQuery)) *ArticleQuery {
+	query := &UserQuery{config: aq.config}
+	for _, opt := range opts {
+		opt(query)
+	}
+	aq.withLikedUsers = query
 	return aq
 }
 
@@ -359,8 +395,9 @@ func (aq *ArticleQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Arti
 		nodes       = []*Article{}
 		withFKs     = aq.withFKs
 		_spec       = aq.querySpec()
-		loadedTypes = [1]bool{
+		loadedTypes = [2]bool{
 			aq.withAuthor != nil,
+			aq.withLikedUsers != nil,
 		}
 	)
 	if aq.withAuthor != nil {
@@ -416,6 +453,59 @@ func (aq *ArticleQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Arti
 			}
 			for i := range nodes {
 				nodes[i].Edges.Author = n
+			}
+		}
+	}
+
+	if query := aq.withLikedUsers; query != nil {
+		edgeids := make([]driver.Value, len(nodes))
+		byid := make(map[uuid.UUID]*Article)
+		nids := make(map[uuid.UUID]map[*Article]struct{})
+		for i, node := range nodes {
+			edgeids[i] = node.ID
+			byid[node.ID] = node
+			node.Edges.LikedUsers = []*User{}
+		}
+		query.Where(func(s *sql.Selector) {
+			joinT := sql.Table(article.LikedUsersTable)
+			s.Join(joinT).On(s.C(user.FieldID), joinT.C(article.LikedUsersPrimaryKey[0]))
+			s.Where(sql.InValues(joinT.C(article.LikedUsersPrimaryKey[1]), edgeids...))
+			columns := s.SelectedColumns()
+			s.Select(joinT.C(article.LikedUsersPrimaryKey[1]))
+			s.AppendSelect(columns...)
+			s.SetDistinct(false)
+		})
+		neighbors, err := query.sqlAll(ctx, func(_ context.Context, spec *sqlgraph.QuerySpec) {
+			assign := spec.Assign
+			values := spec.ScanValues
+			spec.ScanValues = func(columns []string) ([]interface{}, error) {
+				values, err := values(columns[1:])
+				if err != nil {
+					return nil, err
+				}
+				return append([]interface{}{new(uuid.UUID)}, values...), nil
+			}
+			spec.Assign = func(columns []string, values []interface{}) error {
+				outValue := *values[0].(*uuid.UUID)
+				inValue := *values[1].(*uuid.UUID)
+				if nids[inValue] == nil {
+					nids[inValue] = map[*Article]struct{}{byid[outValue]: struct{}{}}
+					return assign(columns[1:], values[1:])
+				}
+				nids[inValue][byid[outValue]] = struct{}{}
+				return nil
+			}
+		})
+		if err != nil {
+			return nil, err
+		}
+		for _, n := range neighbors {
+			nodes, ok := nids[n.ID]
+			if !ok {
+				return nil, fmt.Errorf(`unexpected "likedUsers" node returned %v`, n.ID)
+			}
+			for kn := range nodes {
+				kn.Edges.LikedUsers = append(kn.Edges.LikedUsers, n)
 			}
 		}
 	}

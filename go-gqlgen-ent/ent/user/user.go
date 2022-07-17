@@ -19,6 +19,8 @@ const (
 	FieldPasswordHash = "password_hash"
 	// EdgeArticles holds the string denoting the articles edge name in mutations.
 	EdgeArticles = "articles"
+	// EdgeLikedArticles holds the string denoting the likedarticles edge name in mutations.
+	EdgeLikedArticles = "likedArticles"
 	// Table holds the table name of the user in the database.
 	Table = "users"
 	// ArticlesTable is the table that holds the articles relation/edge.
@@ -28,6 +30,11 @@ const (
 	ArticlesInverseTable = "articles"
 	// ArticlesColumn is the table column denoting the articles relation/edge.
 	ArticlesColumn = "user_articles"
+	// LikedArticlesTable is the table that holds the likedArticles relation/edge. The primary key declared below.
+	LikedArticlesTable = "user_likedArticles"
+	// LikedArticlesInverseTable is the table name for the Article entity.
+	// It exists in this package in order to avoid circular dependency with the "article" package.
+	LikedArticlesInverseTable = "articles"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -37,6 +44,12 @@ var Columns = []string{
 	FieldEmail,
 	FieldPasswordHash,
 }
+
+var (
+	// LikedArticlesPrimaryKey and LikedArticlesColumn2 are the table columns denoting the
+	// primary key for the likedArticles relation (M2M).
+	LikedArticlesPrimaryKey = []string{"user_id", "article_id"}
+)
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {

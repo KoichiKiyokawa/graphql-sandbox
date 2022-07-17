@@ -89,6 +89,21 @@ func (au *ArticleUpdate) SetAuthor(u *User) *ArticleUpdate {
 	return au.SetAuthorID(u.ID)
 }
 
+// AddLikedUserIDs adds the "likedUsers" edge to the User entity by IDs.
+func (au *ArticleUpdate) AddLikedUserIDs(ids ...uuid.UUID) *ArticleUpdate {
+	au.mutation.AddLikedUserIDs(ids...)
+	return au
+}
+
+// AddLikedUsers adds the "likedUsers" edges to the User entity.
+func (au *ArticleUpdate) AddLikedUsers(u ...*User) *ArticleUpdate {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return au.AddLikedUserIDs(ids...)
+}
+
 // Mutation returns the ArticleMutation object of the builder.
 func (au *ArticleUpdate) Mutation() *ArticleMutation {
 	return au.mutation
@@ -98,6 +113,27 @@ func (au *ArticleUpdate) Mutation() *ArticleMutation {
 func (au *ArticleUpdate) ClearAuthor() *ArticleUpdate {
 	au.mutation.ClearAuthor()
 	return au
+}
+
+// ClearLikedUsers clears all "likedUsers" edges to the User entity.
+func (au *ArticleUpdate) ClearLikedUsers() *ArticleUpdate {
+	au.mutation.ClearLikedUsers()
+	return au
+}
+
+// RemoveLikedUserIDs removes the "likedUsers" edge to User entities by IDs.
+func (au *ArticleUpdate) RemoveLikedUserIDs(ids ...uuid.UUID) *ArticleUpdate {
+	au.mutation.RemoveLikedUserIDs(ids...)
+	return au
+}
+
+// RemoveLikedUsers removes "likedUsers" edges to User entities.
+func (au *ArticleUpdate) RemoveLikedUsers(u ...*User) *ArticleUpdate {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return au.RemoveLikedUserIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -256,6 +292,60 @@ func (au *ArticleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	if au.mutation.LikedUsersCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   article.LikedUsersTable,
+			Columns: article.LikedUsersPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := au.mutation.RemovedLikedUsersIDs(); len(nodes) > 0 && !au.mutation.LikedUsersCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   article.LikedUsersTable,
+			Columns: article.LikedUsersPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := au.mutation.LikedUsersIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   article.LikedUsersTable,
+			Columns: article.LikedUsersPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{article.Label}
@@ -334,6 +424,21 @@ func (auo *ArticleUpdateOne) SetAuthor(u *User) *ArticleUpdateOne {
 	return auo.SetAuthorID(u.ID)
 }
 
+// AddLikedUserIDs adds the "likedUsers" edge to the User entity by IDs.
+func (auo *ArticleUpdateOne) AddLikedUserIDs(ids ...uuid.UUID) *ArticleUpdateOne {
+	auo.mutation.AddLikedUserIDs(ids...)
+	return auo
+}
+
+// AddLikedUsers adds the "likedUsers" edges to the User entity.
+func (auo *ArticleUpdateOne) AddLikedUsers(u ...*User) *ArticleUpdateOne {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return auo.AddLikedUserIDs(ids...)
+}
+
 // Mutation returns the ArticleMutation object of the builder.
 func (auo *ArticleUpdateOne) Mutation() *ArticleMutation {
 	return auo.mutation
@@ -343,6 +448,27 @@ func (auo *ArticleUpdateOne) Mutation() *ArticleMutation {
 func (auo *ArticleUpdateOne) ClearAuthor() *ArticleUpdateOne {
 	auo.mutation.ClearAuthor()
 	return auo
+}
+
+// ClearLikedUsers clears all "likedUsers" edges to the User entity.
+func (auo *ArticleUpdateOne) ClearLikedUsers() *ArticleUpdateOne {
+	auo.mutation.ClearLikedUsers()
+	return auo
+}
+
+// RemoveLikedUserIDs removes the "likedUsers" edge to User entities by IDs.
+func (auo *ArticleUpdateOne) RemoveLikedUserIDs(ids ...uuid.UUID) *ArticleUpdateOne {
+	auo.mutation.RemoveLikedUserIDs(ids...)
+	return auo
+}
+
+// RemoveLikedUsers removes "likedUsers" edges to User entities.
+func (auo *ArticleUpdateOne) RemoveLikedUsers(u ...*User) *ArticleUpdateOne {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return auo.RemoveLikedUserIDs(ids...)
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
@@ -518,6 +644,60 @@ func (auo *ArticleUpdateOne) sqlSave(ctx context.Context) (_node *Article, err e
 			Inverse: false,
 			Table:   article.AuthorTable,
 			Columns: []string{article.AuthorColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if auo.mutation.LikedUsersCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   article.LikedUsersTable,
+			Columns: article.LikedUsersPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := auo.mutation.RemovedLikedUsersIDs(); len(nodes) > 0 && !auo.mutation.LikedUsersCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   article.LikedUsersTable,
+			Columns: article.LikedUsersPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := auo.mutation.LikedUsersIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   article.LikedUsersTable,
+			Columns: article.LikedUsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
