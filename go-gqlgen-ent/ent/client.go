@@ -147,7 +147,7 @@ func (c *ArticleClient) Use(hooks ...Hook) {
 	c.hooks.Article = append(c.hooks.Article, hooks...)
 }
 
-// Create returns a create builder for Article.
+// Create returns a builder for creating a Article entity.
 func (c *ArticleClient) Create() *ArticleCreate {
 	mutation := newArticleMutation(c.config, OpCreate)
 	return &ArticleCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
@@ -182,12 +182,12 @@ func (c *ArticleClient) Delete() *ArticleDelete {
 	return &ArticleDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// DeleteOne returns a delete builder for the given entity.
+// DeleteOne returns a builder for deleting the given entity.
 func (c *ArticleClient) DeleteOne(a *Article) *ArticleDeleteOne {
 	return c.DeleteOneID(a.ID)
 }
 
-// DeleteOneID returns a delete builder for the given id.
+// DeleteOne returns a builder for deleting the given entity by its id.
 func (c *ArticleClient) DeleteOneID(id uuid.UUID) *ArticleDeleteOne {
 	builder := c.Delete().Where(article.ID(id))
 	builder.mutation.id = &id
@@ -253,7 +253,7 @@ func (c *UserClient) Use(hooks ...Hook) {
 	c.hooks.User = append(c.hooks.User, hooks...)
 }
 
-// Create returns a create builder for User.
+// Create returns a builder for creating a User entity.
 func (c *UserClient) Create() *UserCreate {
 	mutation := newUserMutation(c.config, OpCreate)
 	return &UserCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
@@ -288,12 +288,12 @@ func (c *UserClient) Delete() *UserDelete {
 	return &UserDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// DeleteOne returns a delete builder for the given entity.
+// DeleteOne returns a builder for deleting the given entity.
 func (c *UserClient) DeleteOne(u *User) *UserDeleteOne {
 	return c.DeleteOneID(u.ID)
 }
 
-// DeleteOneID returns a delete builder for the given id.
+// DeleteOne returns a builder for deleting the given entity by its id.
 func (c *UserClient) DeleteOneID(id uuid.UUID) *UserDeleteOne {
 	builder := c.Delete().Where(user.ID(id))
 	builder.mutation.id = &id

@@ -39,6 +39,8 @@ type ArticleEdges struct {
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
+	// totalCount holds the count of the edges above.
+	totalCount [1]*int
 }
 
 // AuthorOrErr returns the Author value or an error if the edge
@@ -152,14 +154,17 @@ func (a *Article) Unwrap() *Article {
 func (a *Article) String() string {
 	var builder strings.Builder
 	builder.WriteString("Article(")
-	builder.WriteString(fmt.Sprintf("id=%v", a.ID))
-	builder.WriteString(", title=")
+	builder.WriteString(fmt.Sprintf("id=%v, ", a.ID))
+	builder.WriteString("title=")
 	builder.WriteString(a.Title)
-	builder.WriteString(", body=")
+	builder.WriteString(", ")
+	builder.WriteString("body=")
 	builder.WriteString(a.Body)
-	builder.WriteString(", createdAt=")
+	builder.WriteString(", ")
+	builder.WriteString("createdAt=")
 	builder.WriteString(a.CreatedAt.Format(time.ANSIC))
-	builder.WriteString(", updatedAt=")
+	builder.WriteString(", ")
+	builder.WriteString("updatedAt=")
 	builder.WriteString(a.UpdatedAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()

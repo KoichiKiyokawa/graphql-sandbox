@@ -34,6 +34,8 @@ type UserEdges struct {
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
+	// totalCount holds the count of the edges above.
+	totalCount [1]*int
 }
 
 // ArticlesOrErr returns the Articles value or an error if the edge
@@ -125,12 +127,14 @@ func (u *User) Unwrap() *User {
 func (u *User) String() string {
 	var builder strings.Builder
 	builder.WriteString("User(")
-	builder.WriteString(fmt.Sprintf("id=%v", u.ID))
-	builder.WriteString(", name=")
+	builder.WriteString(fmt.Sprintf("id=%v, ", u.ID))
+	builder.WriteString("name=")
 	builder.WriteString(u.Name)
-	builder.WriteString(", email=")
+	builder.WriteString(", ")
+	builder.WriteString("email=")
 	builder.WriteString(u.Email)
-	builder.WriteString(", passwordHash=")
+	builder.WriteString(", ")
+	builder.WriteString("passwordHash=")
 	builder.WriteString(u.PasswordHash)
 	builder.WriteByte(')')
 	return builder.String()

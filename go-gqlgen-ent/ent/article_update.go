@@ -383,9 +383,15 @@ func (auo *ArticleUpdateOne) Save(ctx context.Context) (*Article, error) {
 			}
 			mut = auo.hooks[i](mut)
 		}
-		if _, err := mut.Mutate(ctx, auo.mutation); err != nil {
+		v, err := mut.Mutate(ctx, auo.mutation)
+		if err != nil {
 			return nil, err
 		}
+		nv, ok := v.(*Article)
+		if !ok {
+			return nil, fmt.Errorf("unexpected node type %T returned from ArticleMutation", v)
+		}
+		node = nv
 	}
 	return node, err
 }

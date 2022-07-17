@@ -57,4 +57,4 @@ models:
   Node:
     model:
       # ent.Noderは、Nodeテンプレートが生成する新しいインターフェースである
-      - entgo.io/contrib/entgql/internal/todo/ent.Noder
+      - go-gqlgen-ent/ent.Noder
