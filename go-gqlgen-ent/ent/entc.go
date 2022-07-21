@@ -12,7 +12,15 @@ import (
 )
 
 func main() {
-	ex, err := entgql.NewExtension()
+	ex, err := entgql.NewExtension(
+		entgql.WithConfigPath("../gqlgen.yml"),
+		// Generate GQL schema from the Ent's schema.
+		entgql.WithSchemaGenerator(),
+		// Generate the filters to a separate schema
+		// file and load it in the gqlgen.yml config.
+		entgql.WithSchemaPath("./ent.gql"),
+		// entgql.WithWhereFilters(true),
+	)
 	if err != nil {
 		log.Fatalf("creating entgql extension: %v", err)
 	}

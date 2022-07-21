@@ -1,9 +1,4 @@
-type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: Cursor
-  endCursor: Cursor
-}
+scalar Time
 
 type Response {
   message: String!
