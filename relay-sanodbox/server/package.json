@@ -5,8 +5,10 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "build": "esbuild src/main.ts --outfile=dist/index.js --bundle --sourcemap --platform=node --target=node16 && pkg dist/index.js --out-path dist",
     "dev": "tsx watch src/main.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "codegen": "GENERATE_ONLY=true tsx src/main.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,8 @@
     "nexus": "^1.3.0"
   },
   "devDependencies": {
+    "esbuild": "0.14.49",
+    "pkg": "5.8.0",
     "prettier": "2.7.1",
     "prisma": "4.0.0",
     "tsx": "3.7.1",

@@ -4,11 +4,13 @@ import { resolve } from "path";
 import { context } from "./context";
 import * as Schema from "./schema";
 
+const isProd = process.env.NODE_ENV === "production";
+
 export const schema = makeSchema({
   types: [Schema],
   outputs: {
-    typegen: resolve("src/generated/nexus.ts"),
-    schema: resolve("src/generated/schema.graphql"),
+    typegen: isProd && resolve("src/generated/nexus.ts"),
+    schema: isProd && resolve("src/generated/schema.graphql"),
   },
   contextType: {
     module: resolve("src/context.ts"),
@@ -18,8 +20,9 @@ export const schema = makeSchema({
 });
 
 async function main() {
+  throw Error("hoge");
   const server = createServer({ schema, maskedErrors: false, context });
   await server.start();
 }
 
-main();
+if (!process.env.GENERATE_ONLY) main();
