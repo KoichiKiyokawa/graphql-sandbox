@@ -9,7 +9,7 @@
 # COPY --from=0 /work/prisma/schema.prisma /app/schema.prisma
 # CMD [ "node", "." ]
 
-FROM node:16.16
+FROM node:18.6
 WORKDIR /work
 COPY . .
 RUN corepack enable pnpm && pnpm i && pnpm prisma generate && pnpm build && pnpm pkg dist/index.js
