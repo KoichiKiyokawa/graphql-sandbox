@@ -39,9 +39,9 @@ func (Article) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entgql.RelayConnection(),
 		entgql.QueryField(),
-		entgql.Mutations(
-			entgql.MutationCreate(),
-			entgql.MutationUpdate(),
-		),
+		// entgql.Mutations(
+		// 	entgql.MutationCreate(),
+		// 	entgql.MutationUpdate(),
+		// ),
 	}
 }
