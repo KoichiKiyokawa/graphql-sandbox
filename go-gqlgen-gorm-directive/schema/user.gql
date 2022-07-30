@@ -2,7 +2,12 @@ type User {
   id: ID!
   name: String!
   email: String!
-  password: String
+  password: String!
 
-  posts: [Post!]!
+  posts: [Post!]! @goField(forceResolver: true)
+}
+
+extend type Query {
+  user(id: ID!): User
+  users: [User!]!
 }

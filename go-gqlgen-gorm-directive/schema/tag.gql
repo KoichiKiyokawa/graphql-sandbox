@@ -1,0 +1,8 @@
+type Tag {
+  id: ID!
+  name: String!
+
+  posts: [Post!]!
+    @goTag(key: "gorm", value: "many2many:post_tag")
+    @goField(forceResolver: true)
+}

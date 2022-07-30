@@ -7,19 +7,26 @@ import (
 )
 
 type Post struct {
-	ID        string    `json:"id"`
+	ID        int       `json:"id"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	User      *User     `json:"user"`
-	UserID    string    `json:"userID"`
+	UserID    int       `json:"userID"`
+	Tags      []*Tag    `json:"tags" gorm:"many2many:post_tag"`
+}
+
+type Tag struct {
+	ID    int     `json:"id"`
+	Name  string  `json:"name"`
+	Posts []*Post `json:"posts" gorm:"many2many:post_tag"`
 }
 
 type User struct {
-	ID       string  `json:"id"`
+	ID       int     `json:"id"`
 	Name     string  `json:"name"`
 	Email    string  `json:"email"`
-	Password *string `json:"password"`
-	Posts    []*Post `json:"posts" gorm:""`
+	Password string  `json:"password"`
+	Posts    []*Post `json:"posts"`
 }

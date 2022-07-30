@@ -7,4 +7,12 @@ type Post {
 
   user: User!
   userID: ID!
+  tags: [Tag!]!
+    @goTag(key: "gorm", value: "many2many:post_tag")
+    @goField(forceResolver: true)
+}
+
+extend type Query {
+  posts: [Post!]!
+  post(id: ID!): Post
 }
