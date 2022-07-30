@@ -4,33 +4,58 @@ import (
 	"github.com/graph-gophers/dataloader/v7"
 )
 
-func sortItemsAsKeysOrder1d[K comparable, I any, V any](keys []K, items []I, itemToKey func(item I) K, itemToValue func(item I) V) []*dataloader.Result[V] {
+type dataloaderBuilder[K comparable, I any, V any] struct {
+	keys         []K
+	itemsFetcher func() ([]I, error)
+	itemToKey    func(item I) K
+	itemToValue  func(item I) V
+}
+
+func (d *dataloaderBuilder[K, I, V]) sortTo1d() []*dataloader.Result[V] {
+	items, err := d.itemsFetcher()
+	keyLength := len(d.keys)
+	result := make([]*dataloader.Result[V], keyLength)
+	if err != nil {
+		for i := 0; i < keyLength; i++ {
+			result[i] = &dataloader.Result[V]{Error: err}
+		}
+		return result
+	}
+
 	keyToIndex := map[K]int{}
-	for i, key := range keys {
+	for i, key := range d.keys {
 		keyToIndex[key] = i
 	}
 
-	result := make([]*dataloader.Result[V], len(keys))
 	for _, item := range items {
-		i := keyToIndex[itemToKey(item)]
-		result[i].Data = itemToValue(item)
+		i := keyToIndex[d.itemToKey(item)]
+		result[i].Data = d.itemToValue(item)
 	}
 	return result
 }
 
-func sortItemsAsKeysOrder2d[K comparable, T any](keys []K, items []T, itemToKey func(item T) K) []*dataloader.Result[[]T] {
+func (d *dataloaderBuilder[K, I, V]) sortTo2d() []*dataloader.Result[[]V] {
+	items, err := d.itemsFetcher()
+	keyLength := len(d.keys)
+	result := make([]*dataloader.Result[[]V], keyLength)
+	if err != nil {
+		for i := 0; i < keyLength; i++ {
+			result[i] = &dataloader.Result[[]V]{Error: err}
+		}
+		return result
+	}
+
 	keyToIndex := map[K]int{}
-	for i, key := range keys {
+	for i, key := range d.keys {
 		keyToIndex[key] = i
 	}
 
-	result := make([]*dataloader.Result[[]T], len(keys))
 	for _, item := range items {
-		i := keyToIndex[itemToKey(item)]
+		i := keyToIndex[d.itemToKey(item)]
 		if result[i] == nil {
-			result[i] = &dataloader.Result[[]T]{Data: []T{}}
+			result[i] = &dataloader.Result[[]V]{Data: []V{}}
 		}
-		result[i].Data = append(result[i].Data, item)
+		result[i].Data = append(result[i].Data, d.itemToValue(item))
 	}
 	return result
 }
