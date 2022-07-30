@@ -17,5 +17,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	db.AutoMigrate(&model.User{}, &model.Post{})
+	db.AutoMigrate(&model.User{}, &model.Post{}, &model.Tag{})
 }
