@@ -16,22 +16,24 @@ func (p *postReader) PostsByUserID(ctx context.Context, keys []scalar.UUID) []*d
 	allPosts, err := p.queries.GetPostsByUserIds(ctx, keys)
 	results := make([]*dataloader.Result[[]*db.Post], len(keys))
 	if err != nil {
-		results[0] = &dataloader.Result[[]*db.Post]{Error: err}
+		for i := range keys {
+			results[i] = &dataloader.Result[[]*db.Post]{Error: err}
+		}
 		return results
 	}
 
+	keyToIndex := map[scalar.UUID]int{}
 	for i, key := range keys {
-		for _, post := range allPosts {
-			if post.UserID != key {
-				continue
-			}
+		keyToIndex[key] = i
+	}
 
-			if results[i] == nil {
-				results[i] = &dataloader.Result[[]*db.Post]{Data: []*db.Post{}}
-			}
-
-			results[i].Data = append(results[i].Data, post)
+	for _, post := range allPosts {
+		i := keyToIndex[post.UserID]
+		if results[i] == nil {
+			results[i] = &dataloader.Result[[]*db.Post]{Data: []*db.Post{}}
 		}
+
+		results[i].Data = append(results[i].Data, post)
 	}
 
 	return results
@@ -41,16 +43,20 @@ func (p *postReader) PostCountByUserID(ctx context.Context, keys []scalar.UUID) 
 	postCounts, err := p.queries.GetPostCountsByUserIds(ctx, keys)
 	results := make([]*dataloader.Result[int], len(keys))
 	if err != nil {
-		results[0] = &dataloader.Result[int]{Error: err}
+		for i := range keys {
+			results[i] = &dataloader.Result[int]{Error: err}
+		}
 		return results
 	}
 
+	keyToIndex := map[scalar.UUID]int{}
 	for i, key := range keys {
-		for _, postCount := range postCounts {
-			if postCount.UserID == key {
-				results[i].Data = int(postCount.Count)
-			}
-		}
+		keyToIndex[key] = i
+	}
+
+	for _, postCount := range postCounts {
+		i := keyToIndex[postCount.UserID]
+		results[i].Data = int(postCount.Count)
 	}
 
 	return results
