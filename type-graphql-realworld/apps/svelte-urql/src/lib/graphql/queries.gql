@@ -1,0 +1,14 @@
+query GetArticles {
+	articles(orderBy: { createdAt: desc }) {
+		slug
+		title
+		body
+		author {
+			id
+			name
+		}
+		_count {
+			likes
+		}
+	}
+}

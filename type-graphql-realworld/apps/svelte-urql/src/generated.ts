@@ -1,3 +1,4 @@
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -307,12 +308,12 @@ export type ArticleScalarWhereWithAggregatesInput = {
 };
 
 export type ArticleUpdateInput = {
-  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleInput>;
+  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleNestedInput>;
   body?: InputMaybe<StringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutArticleInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutArticleNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
-  tags?: InputMaybe<TagUpdateManyWithoutArticleInput>;
+  tags?: InputMaybe<TagUpdateManyWithoutArticleNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -330,7 +331,7 @@ export type ArticleUpdateManyWithWhereWithoutAuthorInput = {
   where: ArticleScalarWhereInput;
 };
 
-export type ArticleUpdateManyWithoutAuthorInput = {
+export type ArticleUpdateManyWithoutAuthorNestedInput = {
   connect?: InputMaybe<Array<ArticleWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ArticleCreateOrConnectWithoutAuthorInput>>;
   create?: InputMaybe<Array<ArticleCreateWithoutAuthorInput>>;
@@ -343,7 +344,7 @@ export type ArticleUpdateManyWithoutAuthorInput = {
   upsert?: InputMaybe<Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>>;
 };
 
-export type ArticleUpdateOneRequiredWithoutLikesInput = {
+export type ArticleUpdateOneRequiredWithoutLikesNestedInput = {
   connect?: InputMaybe<ArticleWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ArticleCreateOrConnectWithoutLikesInput>;
   create?: InputMaybe<ArticleCreateWithoutLikesInput>;
@@ -351,7 +352,7 @@ export type ArticleUpdateOneRequiredWithoutLikesInput = {
   upsert?: InputMaybe<ArticleUpsertWithoutLikesInput>;
 };
 
-export type ArticleUpdateOneWithoutTagsInput = {
+export type ArticleUpdateOneWithoutTagsNestedInput = {
   connect?: InputMaybe<ArticleWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ArticleCreateOrConnectWithoutTagsInput>;
   create?: InputMaybe<ArticleCreateWithoutTagsInput>;
@@ -369,28 +370,28 @@ export type ArticleUpdateWithWhereUniqueWithoutAuthorInput = {
 export type ArticleUpdateWithoutAuthorInput = {
   body?: InputMaybe<StringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutArticleInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutArticleNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
-  tags?: InputMaybe<TagUpdateManyWithoutArticleInput>;
+  tags?: InputMaybe<TagUpdateManyWithoutArticleNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ArticleUpdateWithoutLikesInput = {
-  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleInput>;
+  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleNestedInput>;
   body?: InputMaybe<StringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
-  tags?: InputMaybe<TagUpdateManyWithoutArticleInput>;
+  tags?: InputMaybe<TagUpdateManyWithoutArticleNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ArticleUpdateWithoutTagsInput = {
-  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleInput>;
+  author?: InputMaybe<UserUpdateOneRequiredWithoutArticleNestedInput>;
   body?: InputMaybe<StringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutArticleInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutArticleNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -675,11 +676,11 @@ export type LikeUnique_LikeCompoundUniqueInput = {
 };
 
 export type LikeUpdateInput = {
-  article?: InputMaybe<ArticleUpdateOneRequiredWithoutLikesInput>;
+  article?: InputMaybe<ArticleUpdateOneRequiredWithoutLikesNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutLikesInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutLikesNestedInput>;
 };
 
 export type LikeUpdateManyMutationInput = {
@@ -698,7 +699,7 @@ export type LikeUpdateManyWithWhereWithoutUserInput = {
   where: LikeScalarWhereInput;
 };
 
-export type LikeUpdateManyWithoutArticleInput = {
+export type LikeUpdateManyWithoutArticleNestedInput = {
   connect?: InputMaybe<Array<LikeWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LikeCreateOrConnectWithoutArticleInput>>;
   create?: InputMaybe<Array<LikeCreateWithoutArticleInput>>;
@@ -711,7 +712,7 @@ export type LikeUpdateManyWithoutArticleInput = {
   upsert?: InputMaybe<Array<LikeUpsertWithWhereUniqueWithoutArticleInput>>;
 };
 
-export type LikeUpdateManyWithoutUserInput = {
+export type LikeUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<LikeWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LikeCreateOrConnectWithoutUserInput>>;
   create?: InputMaybe<Array<LikeCreateWithoutUserInput>>;
@@ -738,11 +739,11 @@ export type LikeUpdateWithoutArticleInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutLikesInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutLikesNestedInput>;
 };
 
 export type LikeUpdateWithoutUserInput = {
-  article?: InputMaybe<ArticleUpdateOneRequiredWithoutLikesInput>;
+  article?: InputMaybe<ArticleUpdateOneRequiredWithoutLikesNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -780,62 +781,52 @@ export type LikeWhereUniqueInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createArticle: Article;
-  createLike: Like;
-  createTag: Tag;
-  createUser: User;
-  deleteArticle?: Maybe<Article>;
-  deleteLike?: Maybe<Like>;
+  createOneArticle: Article;
+  createOneLike: Like;
+  createOneTag: Tag;
+  createOneUser: User;
   deleteManyArticle: AffectedRowsOutput;
   deleteManyLike: AffectedRowsOutput;
   deleteManyTag: AffectedRowsOutput;
   deleteManyUser: AffectedRowsOutput;
-  deleteTag?: Maybe<Tag>;
-  deleteUser?: Maybe<User>;
+  deleteOneArticle?: Maybe<Article>;
+  deleteOneLike?: Maybe<Like>;
+  deleteOneTag?: Maybe<Tag>;
+  deleteOneUser?: Maybe<User>;
   login: User;
   logout: Scalars['Boolean'];
-  updateArticle?: Maybe<Article>;
-  updateLike?: Maybe<Like>;
   updateManyArticle: AffectedRowsOutput;
   updateManyLike: AffectedRowsOutput;
   updateManyTag: AffectedRowsOutput;
   updateManyUser: AffectedRowsOutput;
-  updateTag?: Maybe<Tag>;
-  updateUser?: Maybe<User>;
-  upsertArticle: Article;
-  upsertLike: Like;
-  upsertTag: Tag;
-  upsertUser: User;
+  updateOneArticle?: Maybe<Article>;
+  updateOneLike?: Maybe<Like>;
+  updateOneTag?: Maybe<Tag>;
+  updateOneUser?: Maybe<User>;
+  upsertOneArticle: Article;
+  upsertOneLike: Like;
+  upsertOneTag: Tag;
+  upsertOneUser: User;
 };
 
 
-export type MutationCreateArticleArgs = {
+export type MutationCreateOneArticleArgs = {
   data: ArticleCreateInput;
 };
 
 
-export type MutationCreateLikeArgs = {
+export type MutationCreateOneLikeArgs = {
   data: LikeCreateInput;
 };
 
 
-export type MutationCreateTagArgs = {
+export type MutationCreateOneTagArgs = {
   data: TagCreateInput;
 };
 
 
-export type MutationCreateUserArgs = {
+export type MutationCreateOneUserArgs = {
   data: UserCreateInput;
-};
-
-
-export type MutationDeleteArticleArgs = {
-  where: ArticleWhereUniqueInput;
-};
-
-
-export type MutationDeleteLikeArgs = {
-  where: LikeWhereUniqueInput;
 };
 
 
@@ -859,12 +850,22 @@ export type MutationDeleteManyUserArgs = {
 };
 
 
-export type MutationDeleteTagArgs = {
+export type MutationDeleteOneArticleArgs = {
+  where: ArticleWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneLikeArgs = {
+  where: LikeWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneTagArgs = {
   where: TagWhereUniqueInput;
 };
 
 
-export type MutationDeleteUserArgs = {
+export type MutationDeleteOneUserArgs = {
   where: UserWhereUniqueInput;
 };
 
@@ -872,18 +873,6 @@ export type MutationDeleteUserArgs = {
 export type MutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
-};
-
-
-export type MutationUpdateArticleArgs = {
-  data: ArticleUpdateInput;
-  where: ArticleWhereUniqueInput;
-};
-
-
-export type MutationUpdateLikeArgs = {
-  data: LikeUpdateInput;
-  where: LikeWhereUniqueInput;
 };
 
 
@@ -911,40 +900,52 @@ export type MutationUpdateManyUserArgs = {
 };
 
 
-export type MutationUpdateTagArgs = {
+export type MutationUpdateOneArticleArgs = {
+  data: ArticleUpdateInput;
+  where: ArticleWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneLikeArgs = {
+  data: LikeUpdateInput;
+  where: LikeWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneTagArgs = {
   data: TagUpdateInput;
   where: TagWhereUniqueInput;
 };
 
 
-export type MutationUpdateUserArgs = {
+export type MutationUpdateOneUserArgs = {
   data: UserUpdateInput;
   where: UserWhereUniqueInput;
 };
 
 
-export type MutationUpsertArticleArgs = {
+export type MutationUpsertOneArticleArgs = {
   create: ArticleCreateInput;
   update: ArticleUpdateInput;
   where: ArticleWhereUniqueInput;
 };
 
 
-export type MutationUpsertLikeArgs = {
+export type MutationUpsertOneLikeArgs = {
   create: LikeCreateInput;
   update: LikeUpdateInput;
   where: LikeWhereUniqueInput;
 };
 
 
-export type MutationUpsertTagArgs = {
+export type MutationUpsertOneTagArgs = {
   create: TagCreateInput;
   update: TagUpdateInput;
   where: TagWhereUniqueInput;
 };
 
 
-export type MutationUpsertUserArgs = {
+export type MutationUpsertOneUserArgs = {
   create: UserCreateInput;
   update: UserUpdateInput;
   where: UserWhereUniqueInput;
@@ -1509,7 +1510,7 @@ export type TagSumOrderByAggregateInput = {
 };
 
 export type TagUpdateInput = {
-  Article?: InputMaybe<ArticleUpdateOneWithoutTagsInput>;
+  Article?: InputMaybe<ArticleUpdateOneWithoutTagsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
 
@@ -1522,7 +1523,7 @@ export type TagUpdateManyWithWhereWithoutArticleInput = {
   where: TagScalarWhereInput;
 };
 
-export type TagUpdateManyWithoutArticleInput = {
+export type TagUpdateManyWithoutArticleNestedInput = {
   connect?: InputMaybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutArticleInput>>;
   create?: InputMaybe<Array<TagCreateWithoutArticleInput>>;
@@ -1792,12 +1793,12 @@ export type UserScalarWhereWithAggregatesInput = {
 };
 
 export type UserUpdateInput = {
-  Article?: InputMaybe<ArticleUpdateManyWithoutAuthorInput>;
+  Article?: InputMaybe<ArticleUpdateManyWithoutAuthorNestedInput>;
   birthday?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutUserInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutUserNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   passwordHash?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -1813,7 +1814,7 @@ export type UserUpdateManyMutationInput = {
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutArticleInput = {
+export type UserUpdateOneRequiredWithoutArticleNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutArticleInput>;
   create?: InputMaybe<UserCreateWithoutArticleInput>;
@@ -1821,7 +1822,7 @@ export type UserUpdateOneRequiredWithoutArticleInput = {
   upsert?: InputMaybe<UserUpsertWithoutArticleInput>;
 };
 
-export type UserUpdateOneRequiredWithoutLikesInput = {
+export type UserUpdateOneRequiredWithoutLikesNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutLikesInput>;
   create?: InputMaybe<UserCreateWithoutLikesInput>;
@@ -1834,14 +1835,14 @@ export type UserUpdateWithoutArticleInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  likes?: InputMaybe<LikeUpdateManyWithoutUserInput>;
+  likes?: InputMaybe<LikeUpdateManyWithoutUserNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   passwordHash?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type UserUpdateWithoutLikesInput = {
-  Article?: InputMaybe<ArticleUpdateManyWithoutAuthorInput>;
+  Article?: InputMaybe<ArticleUpdateManyWithoutAuthorNestedInput>;
   birthday?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -1886,7 +1887,7 @@ export type CreateArticleMutationVariables = Exact<{
 }>;
 
 
-export type CreateArticleMutation = { __typename?: 'Mutation', createArticle: { __typename?: 'Article', slug: string } };
+export type CreateArticleMutation = { __typename?: 'Mutation', createOneArticle: { __typename?: 'Article', slug: string } };
 
 export type IncrementLikeMutationVariables = Exact<{
   userId: Scalars['String'];
@@ -1894,7 +1895,7 @@ export type IncrementLikeMutationVariables = Exact<{
 }>;
 
 
-export type IncrementLikeMutation = { __typename?: 'Mutation', updateArticle?: { __typename?: 'Article', slug: string } | null | undefined };
+export type IncrementLikeMutation = { __typename?: 'Mutation', updateOneArticle?: { __typename?: 'Article', slug: string } | null };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -1917,4 +1918,12 @@ export type GetMeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: 
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, body: string, author: { __typename?: 'User', id: string, name: string }, _count?: { __typename?: 'ArticleCount', likes: number } | null | undefined }> };
+export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, body: string, author: { __typename?: 'User', id: string, name: string }, _count?: { __typename?: 'ArticleCount', likes: number } | null }> };
+
+
+export const CreateArticleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateArticle"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ArticleCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createOneArticle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<CreateArticleMutation, CreateArticleMutationVariables>;
+export const IncrementLikeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"IncrementLike"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"articleSlug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOneArticle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"likes"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"create"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"connect"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"articleSlug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<IncrementLikeMutation, IncrementLikeMutationVariables>;
+export const LoginDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"login"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
+export const LogoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Logout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logout"}}]}}]} as unknown as DocumentNode<LogoutMutation, LogoutMutationVariables>;
+export const GetMeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<GetMeQuery, GetMeQueryVariables>;
+export const GetArticlesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetArticles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"articles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"createdAt"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"_count"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"likes"}}]}}]}}]}}]} as unknown as DocumentNode<GetArticlesQuery, GetArticlesQueryVariables>;

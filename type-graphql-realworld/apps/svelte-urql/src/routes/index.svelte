@@ -1,27 +1,30 @@
 <script lang="ts">
-	import { createArticleOperation, incrementLikeOperation } from '$lib/graphql/mutations/article';
-	import { getArticleWithAuthorOperation } from '$lib/graphql/queries';
-	import { mutation, query } from '@urql/svelte';
-	import type { ArticleCreateInput } from 'src/generated';
+	import { client } from '$lib/graphql/client';
+	import { queryStore } from '@urql/svelte';
+	import {
+		ArticleCreateInput,
+		CreateArticleDocument,
+		GetArticlesDocument,
+		IncrementLikeDocument
+	} from 'src/generated';
 
-	query(getArticleWithAuthorOperation);
+	const getArticleWithAuthorOperation = queryStore({ client, query: GetArticlesDocument });
 
 	let form = {} as ArticleCreateInput;
-
-	const createArticle = mutation(createArticleOperation);
-	const incrementLike = mutation(incrementLikeOperation);
 
 	$: currentUserId = $getArticleWithAuthorOperation.data?.articles[0].author.id;
 
 	let submitting = false;
 	async function onSubmit() {
 		submitting = true;
-		const { error } = await createArticle({
-			data: {
-				...form,
-				author: { connect: { id: currentUserId } }
-			}
-		});
+		const { error } = await client
+			.mutation(CreateArticleDocument, {
+				data: {
+					...form,
+					author: { connect: { id: currentUserId } }
+				}
+			})
+			.toPromise();
 		submitting = false;
 		if (error) return alert(error);
 
@@ -52,7 +55,10 @@
 			<li>
 				<button
 					on:click={() => {
-						incrementLike({ articleSlug: article.slug, userId: currentUserId ?? '' });
+						client.mutation(IncrementLikeDocument, {
+							articleSlug: article.slug,
+							userId: currentUserId ?? ''
+						});
 					}}>いいね: {article._count?.likes ?? 0}</button
 				>
 			</li>

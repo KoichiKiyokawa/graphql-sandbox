@@ -1,0 +1,14 @@
+mutation CreateArticle($data: ArticleCreateInput!) {
+	createOneArticle(data: $data) {
+		slug
+	}
+}
+
+mutation IncrementLike($userId: String!, $articleSlug: String!) {
+	updateOneArticle(
+		data: { likes: { create: { user: { connect: { id: $userId } } } } }
+		where: { slug: $articleSlug }
+	) {
+		slug
+	}
+}

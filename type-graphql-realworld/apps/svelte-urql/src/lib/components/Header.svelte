@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { logoutOperation } from '$lib/graphql/mutations/auth';
+	import { client } from '$lib/graphql/client';
 	import { currentUser } from '$lib/stores/currentUser';
-	import { mutation } from '@urql/svelte';
-
-	const logout = mutation(logoutOperation);
+	import { LogoutDocument } from 'src/generated';
 
 	async function handleLogout() {
-		const { error } = await logout();
+		const { error } = await client.mutation(LogoutDocument).toPromise();
 		if (error) return alert(error.message);
 
 		$currentUser = null;

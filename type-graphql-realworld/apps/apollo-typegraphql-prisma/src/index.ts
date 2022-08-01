@@ -50,9 +50,9 @@ async function bootstrap() {
     cors: corsOption,
   })
   await new Promise<void>((resolve) =>
-    httpServer.listen({ port: 4000 }, resolve)
+    httpServer.listen({ port: 4040 }, resolve)
   )
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  console.log(`🚀 Server ready at http://localhost:4040${server.graphqlPath}`)
 }
 
 bootstrap()

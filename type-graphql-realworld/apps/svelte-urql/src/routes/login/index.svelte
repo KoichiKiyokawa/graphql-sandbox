@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { loginOperation } from '$lib/graphql/mutations/auth';
+	import { client } from '$lib/graphql/client';
 	import { currentUser } from '$lib/stores/currentUser';
-	import { mutation } from '@urql/svelte';
+	import { LoginDocument } from 'src/generated';
 
 	let form = {} as { email: string; password: string };
 
-	const login = mutation(loginOperation);
 	async function onSubmit() {
-		const { data, error } = await login(form);
+		const { data, error } = await client.mutation(LoginDocument, form).toPromise();
 		if (error) return alert(error.message);
 		if (!data) return;
 

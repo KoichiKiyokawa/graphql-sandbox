@@ -1,9 +1,8 @@
-schema: http://localhost:4000/graphql
-documents: src/**/*.ts
+schema: http://localhost:4040/graphql
+documents: src/**/*.gql
 generates:
   src/generated.ts:
     plugins:
       - typescript
       - typescript-operations
-      # strict: trueと型が合わない
-      # - urql-svelte-operations-store
+      - typed-document-node
