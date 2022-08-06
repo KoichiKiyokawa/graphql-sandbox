@@ -4231,6 +4231,71 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@motionone/animation@npm:^10.13.1":
+  version: 10.13.2
+  resolution: "@motionone/animation@npm:10.13.2"
+  dependencies:
+    "@motionone/easing": ^10.13.2
+    "@motionone/types": ^10.13.2
+    "@motionone/utils": ^10.13.2
+    tslib: ^2.3.1
+  checksum: 90c749d9c8c6ae44ca02d825a90edac53a02b455fa4a2a3075a8b63d8c874d681e074c945432f2eddabaea47075e2f3378f2ab80372ed90a3d301c4fc14d297c
+  languageName: node
+  linkType: hard
+
+"@motionone/dom@npm:10.13.1":
+  version: 10.13.1
+  resolution: "@motionone/dom@npm:10.13.1"
+  dependencies:
+    "@motionone/animation": ^10.13.1
+    "@motionone/generators": ^10.13.1
+    "@motionone/types": ^10.13.0
+    "@motionone/utils": ^10.13.1
+    hey-listen: ^1.0.8
+    tslib: ^2.3.1
+  checksum: bfa681c1043de39b1768d6e87f6212eb7ce7e567c5fe94b14e0ce1789b822c6367e427d1b789d5cdc62baa4b6292e416a728f136e7d70808791c33c844bf461f
+  languageName: node
+  linkType: hard
+
+"@motionone/easing@npm:^10.13.2":
+  version: 10.13.2
+  resolution: "@motionone/easing@npm:10.13.2"
+  dependencies:
+    "@motionone/utils": ^10.13.2
+    tslib: ^2.3.1
+  checksum: 2c9775e7a2b46eac374d77322b6bea629f797c70d4e25f055003effc41e8846bf068207742325f3952e5d0c3dc1644af0eeb08a5956c9ffabec787999d662928
+  languageName: node
+  linkType: hard
+
+"@motionone/generators@npm:^10.13.1":
+  version: 10.13.2
+  resolution: "@motionone/generators@npm:10.13.2"
+  dependencies:
+    "@motionone/types": ^10.13.2
+    "@motionone/utils": ^10.13.2
+    tslib: ^2.3.1
+  checksum: 0967cfe694208f30a7c687b0ab58c2e4406e676b3403e74b2d9d875dd65820e589ba8da7cef4db49924f1ab4c958f81f873c9567ffa9174b7df2f119f8ab8a7e
+  languageName: node
+  linkType: hard
+
+"@motionone/types@npm:^10.13.0, @motionone/types@npm:^10.13.2":
+  version: 10.13.2
+  resolution: "@motionone/types@npm:10.13.2"
+  checksum: 1ba5e6f92a1b78f59b1f756a003cc3c504ee0dc192aedfd7dee0f3c11151dedee8189c0ddf6e38ab880db0a1ddd58260675309676c02f7f55ef20e950533967d
+  languageName: node
+  linkType: hard
+
+"@motionone/utils@npm:^10.13.1, @motionone/utils@npm:^10.13.2":
+  version: 10.13.2
+  resolution: "@motionone/utils@npm:10.13.2"
+  dependencies:
+    "@motionone/types": ^10.13.2
+    hey-listen: ^1.0.8
+    tslib: ^2.3.1
+  checksum: a62884fdaee958e8faf4f31d85565ce8ce4e5bbef2a293d41267a3bcd0a86ab7d2136fa770693e7cfcf9e63d4314a6510e005d9dc91141148083929fccf7213e
+  languageName: node
+  linkType: hard
+
 "@mrmlnc/readdir-enhanced@npm:^2.2.1":
   version: 2.2.1
   resolution: "@mrmlnc/readdir-enhanced@npm:2.2.1"
@@ -13983,23 +14048,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^6.0.0":
-  version: 6.3.11
-  resolution: "framer-motion@npm:6.3.11"
+"framer-motion@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "framer-motion@npm:7.0.0"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
+    "@motionone/dom": 10.13.1
     framesync: 6.0.1
     hey-listen: ^1.0.8
     popmotion: 11.0.3
-    style-value-types: 5.0.0
+    style-value-types: 5.1.0
     tslib: ^2.1.0
   peerDependencies:
-    react: ">=16.8 || ^17.0.0 || ^18.0.0"
-    react-dom: ">=16.8 || ^17.0.0 || ^18.0.0"
+    react: ^18.0.0
+    react-dom: ^18.0.0
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: c4b4f92ac1769b8b7bef85c2424082e454f91b10c1234d745138a574168c8fe76229330783cfadee419d601614a1f741870e2e49504333ec2024ab83df459c6c
+  checksum: 660b27d4d7ba83be0b55bbda684191a33e1b122f190e8e8561d99436da0a626ae32f38a352ba6c75a63732a53301e5a54eec396f0ecef7d9dd5bb3843400fc70
   languageName: node
   linkType: hard
 
@@ -23490,6 +23556,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"style-value-types@npm:5.1.0":
+  version: 5.1.0
+  resolution: "style-value-types@npm:5.1.0"
+  dependencies:
+    hey-listen: ^1.0.8
+    tslib: ^2.3.1
+  checksum: a3b950f40faa0c038380f952d9f8f117659375119004a80ffbacc2c73e46313923e9432e9f09d9e2875a20e9f93250871a1d25667179709ed37096ef96aac932
+  languageName: node
+  linkType: hard
+
 "stylehacks@npm:^5.1.0":
   version: 5.1.0
   resolution: "stylehacks@npm:5.1.0"
@@ -25173,7 +25249,7 @@ __metadata:
     "@redwoodjs/router": 2.0.0
     "@redwoodjs/web": 2.0.0
     dayjs: ^1.11.3
-    framer-motion: ^6.0.0
+    framer-motion: ^7.0.0
     prop-types: 15.8.1
     react: 17.0.2
     react-dom: 17.0.2
