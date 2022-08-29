@@ -1,0 +1,16 @@
+{
+  "name": "ts-schema-first",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm run --filter ./apps/** dev",
+    "codegen": "pnpm run --filter ./apps/** codegen",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@7.9.5"
+}
