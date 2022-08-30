@@ -9,7 +9,6 @@ async function main() {
     loadFiles(join(__dirname, "../../../schemas/*.gql")),
     loadFiles(join(__dirname, "./domains/**/*.resolver.{js,ts}")),
   ])
-  console.log({ typeDefs, resolvers })
 
   const server = createServer({
     schema: makeExecutableSchema({
