@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/99designs/gqlgen v0.17.5
 	github.com/friendsofgo/errors v0.9.2
-	github.com/mattn/go-sqlite3 v1.14.13
+	github.com/mattn/go-sqlite3/v2 v2.0.3+incompatible
 	github.com/pkg/errors v0.9.1
 	github.com/samber/lo v1.21.0
 	github.com/spf13/viper v1.11.0
