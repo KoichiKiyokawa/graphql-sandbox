@@ -13,16 +13,35 @@ type postReader struct {
 }
 
 func (p *postReader) PostsByUserID(ctx context.Context, keys []scalar.UUID) []*dataloader.Result[[]*db.Post] {
-	builder := &dataloaderBuilder[scalar.UUID, *db.Post, *db.Post]{
-		keys: keys,
-		itemsFetcher: func() ([]*db.Post, error) {
-			return p.queries.GetPostsByUserIds(ctx, keys)
-		},
-		itemToKey: func(item *db.Post) scalar.UUID {
-			return item.UserID
-		},
+	posts, err := p.queries.GetPostsByUserIds(ctx, keys)
+	result := make([]*dataloader.Result[[]*db.Post], len(keys))
+	if err != nil {
+		for i := range keys {
+			result[i] = &dataloader.Result[[]*db.Post]{Error: err}
+		}
+		return result
 	}
-	return builder.sortTo2d()
+
+	keyToPosts := make(map[scalar.UUID][]*db.Post)
+	for _, post := range posts {
+		keyToPosts[post.UserID] = append(keyToPosts[post.UserID], post)
+	}
+
+	for i, key := range keys {
+		result[i] = &dataloader.Result[[]*db.Post]{Data: keyToPosts[key]}
+	}
+	return result
+
+	// builder := &dataloaderBuilder[scalar.UUID, *db.Post, *db.Post]{
+	// 	keys: keys,
+	// 	itemsFetcher: func() ([]*db.Post, error) {
+	// 		return p.queries.GetPostsByUserIds(ctx, keys)
+	// 	},
+	// 	itemToKey: func(item *db.Post) scalar.UUID {
+	// 		return item.UserID
+	// 	},
+	// }
+	// return builder.sortTo2d()
 }
 
 func (p *postReader) PostCountByUserID(ctx context.Context, keys []scalar.UUID) []*dataloader.Result[int] {

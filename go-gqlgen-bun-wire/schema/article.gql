@@ -1,0 +1,8 @@
+type Article {
+  id: ID!
+  title: String!
+  description: String!
+  body: String!
+
+  tagList: [Tag!]!
+}
