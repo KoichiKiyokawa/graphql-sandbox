@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/99designs/gqlgen v0.17.20
 	github.com/google/wire v0.5.0
+	github.com/graph-gophers/dataloader/v7 v7.0.0
 	github.com/uptrace/bun v1.1.8
 	github.com/uptrace/bun/dialect/pgdialect v1.1.8
 	github.com/uptrace/bun/driver/pgdriver v1.1.8

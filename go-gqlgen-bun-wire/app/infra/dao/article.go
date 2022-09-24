@@ -2,9 +2,9 @@ package dao
 
 import (
 	"context"
+	"go-gqlgen-bun-wire/app/domain/model"
 	"go-gqlgen-bun-wire/app/domain/repository"
-	"go-gqlgen-bun-wire/app/infra/model"
-	"go-gqlgen-bun-wire/generated"
+	"go-gqlgen-bun-wire/app/infra/db"
 
 	"github.com/uptrace/bun"
 )
@@ -18,28 +18,19 @@ func NewArticle(db *bun.DB) repository.ArticleRepository {
 }
 
 // FindAll implements repository.ArticleRepository
-func (a *article) FindAll(ctx context.Context) ([]*generated.Article, error) {
-	var articles []*model.Article
+func (a *article) FindAll(ctx context.Context) ([]*model.Article, error) {
+	var articles []*db.Article
 	err := a.db.NewSelect().Model(articles).Scan(ctx)
-	result := make([]*generated.Article, len(articles))
+	result := make([]*model.Article, len(articles))
 	for i, article := range articles {
-		result[i] = convertModel(article)
+		result[i] = article.ConvertToModel()
 	}
 	return result, err
 }
 
 // FindById implements repository.ArticleRepository
-func (a *article) FindById(ctx context.Context, id string) (*generated.Article, error) {
-	article := &model.Article{ID: id}
+func (a *article) FindBySlug(ctx context.Context, slug string) (*model.Article, error) {
+	article := &db.Article{Slug: slug}
 	err := a.db.NewSelect().Model(article).WherePK().Scan(ctx)
-	return convertModel(article), err
-}
-
-func convertModel(article *model.Article) *generated.Article {
-	return &generated.Article{
-		ID:          article.ID,
-		Title:       article.Title,
-		Description: article.Description,
-		Body:        article.Body,
-	}
+	return article.ConvertToModel(), err
 }

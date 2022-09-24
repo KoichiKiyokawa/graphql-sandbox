@@ -13,5 +13,7 @@ func NewDB() *bun.DB {
 	// dsn := "unix://user:pass@dbname/var/run/postgresql/.s.PGSQL.5432"
 	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(dsn)))
 
-	return bun.NewDB(sqldb, pgdialect.New())
+	db := bun.NewDB(sqldb, pgdialect.New())
+	db.RegisterModel((*ArticleTag)(nil))
+	return db
 }

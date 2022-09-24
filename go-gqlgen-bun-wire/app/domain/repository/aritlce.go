@@ -2,10 +2,10 @@ package repository
 
 import (
 	"context"
-	"go-gqlgen-bun-wire/generated"
+	"go-gqlgen-bun-wire/app/domain/model"
 )
 
 type ArticleRepository interface {
-	FindAll(ctx context.Context) ([]*generated.Article, error)
-	FindById(ctx context.Context, id string) (*generated.Article, error)
+	FindAll(ctx context.Context) ([]*model.Article, error)
+	FindBySlug(ctx context.Context, id string) (*model.Article, error)
 }

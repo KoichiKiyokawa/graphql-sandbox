@@ -2,13 +2,13 @@ package service
 
 import (
 	"context"
+	"go-gqlgen-bun-wire/app/domain/model"
 	"go-gqlgen-bun-wire/app/domain/repository"
-	"go-gqlgen-bun-wire/generated"
 )
 
 type ArticleService interface {
-	FindAll(ctx context.Context) ([]*generated.Article, error)
-	FindById(ctx context.Context, id string) (*generated.Article, error)
+	FindAll(ctx context.Context) ([]*model.Article, error)
+	FindBySlug(ctx context.Context, id string) (*model.Article, error)
 }
 
 type article struct {
@@ -20,11 +20,11 @@ func NewArticle(articleRepo repository.ArticleRepository) ArticleService {
 }
 
 // FindAll implements ArticleService
-func (a *article) FindAll(ctx context.Context) ([]*generated.Article, error) {
+func (a *article) FindAll(ctx context.Context) ([]*model.Article, error) {
 	return a.articleRepo.FindAll(ctx)
 }
 
 // FindById implements ArticleService
-func (a *article) FindById(ctx context.Context, id string) (*generated.Article, error) {
-	return a.articleRepo.FindById(ctx, id)
+func (a *article) FindBySlug(ctx context.Context, id string) (*model.Article, error) {
+	return a.articleRepo.FindBySlug(ctx, id)
 }
