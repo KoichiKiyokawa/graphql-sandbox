@@ -1,0 +1,16 @@
+services:
+  crdb:
+   image: cockroachdb/cockroach:v22.1.7
+   ports:
+     - "26257:26257"
+     - "9090:8080"
+   command: start-single-node --insecure
+   volumes:
+     - "${PWD}/cockroach-data/crdb:/cockroach/cockroach-data"
+  atlas:
+    build:
+      dockerfile: docker/Dockerfile.atlas
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    command: version
