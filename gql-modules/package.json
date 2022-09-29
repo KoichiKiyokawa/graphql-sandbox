@@ -1,0 +1,29 @@
+{
+  "name": "gql-modules",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "codegen": "graphql-codegen",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@7.12.2",
+  "dependencies": {
+    "@prisma/client": "4.4.0",
+    "graphql": "^16.6.0",
+    "graphql-modules": "^2.1.0"
+  },
+  "devDependencies": {
+    "@envelop/graphql-modules": "3.6.0",
+    "@graphql-codegen/cli": "^2.13.1",
+    "@graphql-codegen/graphql-modules-preset": "^2.5.1",
+    "@graphql-codegen/typescript-resolvers": "^2.7.3",
+    "@graphql-tools/load-files": "6.6.1",
+    "@graphql-yoga/node": "2.13.13",
+    "prisma": "4.4.0",
+    "typescript": "4.8.4"
+  }
+}
