@@ -5,9 +5,6 @@ const config: CodegenConfig = {
   generates: {
     "./src/modules/": {
       preset: "graphql-modules",
-      config: {
-        contextType: "GraphQLModules.Context",
-      },
       presetConfig: {
         baseTypesPath: "../generated-types/graphql.ts",
         filename: "generated-types/module-types.ts",
@@ -21,6 +18,11 @@ const config: CodegenConfig = {
         "typescript",
         "typescript-resolvers",
       ],
+      config: {
+        contextType: "GraphQLModules.Context",
+        resolverTypeWrapperSignature:
+          "T | Promise<T> | Partial<T> | Promise<Partial<T>>",
+      },
     },
   },
 }

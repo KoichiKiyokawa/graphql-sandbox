@@ -14,27 +14,46 @@ export type Scalars = {
   Float: number;
 };
 
+export type Article = {
+  __typename?: 'Article';
+  author: User;
+  body: Scalars['String'];
+  description: Scalars['String'];
+  slug: Scalars['String'];
+  tagList: Array<Tag>;
+  title: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
-  user?: Maybe<User>;
-  users: Array<User>;
+  article?: Maybe<Article>;
+  articles: Array<Article>;
 };
 
 
-export type QueryUserArgs = {
+export type QueryArticleArgs = {
+  slug: Scalars['String'];
+};
+
+export type Tag = {
+  __typename?: 'Tag';
   id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type User = {
   __typename?: 'User';
+  articles: Array<Article>;
+  bio?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
 };
 
 
 
-export type ResolverTypeWrapper<T> = Promise<T> | T;
+export type ResolverTypeWrapper<T> = T | Promise<T> | Partial<T> | Promise<Partial<T>>;
 
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
@@ -101,36 +120,61 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Article: ResolverTypeWrapper<Article>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Tag: ResolverTypeWrapper<Tag>;
   User: ResolverTypeWrapper<User>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Article: Article;
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
   Query: {};
   String: Scalars['String'];
+  Tag: Tag;
   User: User;
 };
 
-export type QueryResolvers<ContextType = GraphQLModules.Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
-  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+export type ArticleResolvers<ContextType = GraphQLModules.Context, ParentType extends ResolversParentTypes['Article'] = ResolversParentTypes['Article']> = {
+  author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  tagList?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type UserResolvers<ContextType = GraphQLModules.Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+export type QueryResolvers<ContextType = GraphQLModules.Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  article?: Resolver<Maybe<ResolversTypes['Article']>, ParentType, ContextType, RequireFields<QueryArticleArgs, 'slug'>>;
+  articles?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType>;
+};
+
+export type TagResolvers<ContextType = GraphQLModules.Context, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserResolvers<ContextType = GraphQLModules.Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  articles?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType>;
+  bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = GraphQLModules.Context> = {
+  Article?: ArticleResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Tag?: TagResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 
