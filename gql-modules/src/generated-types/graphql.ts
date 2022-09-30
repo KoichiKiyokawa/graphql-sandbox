@@ -19,6 +19,7 @@ export type Article = {
   author: User;
   body: Scalars['String'];
   description: Scalars['String'];
+  id: Scalars['ID'];
   slug: Scalars['String'];
   tagList: Array<Tag>;
   title: Scalars['String'];
@@ -32,7 +33,7 @@ export type Query = {
 
 
 export type QueryArticleArgs = {
-  slug: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 export type Tag = {
@@ -144,6 +145,7 @@ export type ArticleResolvers<ContextType = GraphQLModules.Context, ParentType ex
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   tagList?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -151,7 +153,7 @@ export type ArticleResolvers<ContextType = GraphQLModules.Context, ParentType ex
 };
 
 export type QueryResolvers<ContextType = GraphQLModules.Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  article?: Resolver<Maybe<ResolversTypes['Article']>, ParentType, ContextType, RequireFields<QueryArticleArgs, 'slug'>>;
+  article?: Resolver<Maybe<ResolversTypes['Article']>, ParentType, ContextType, RequireFields<QueryArticleArgs, 'id'>>;
   articles?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType>;
 };
 

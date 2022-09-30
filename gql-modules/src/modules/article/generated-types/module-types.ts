@@ -2,7 +2,7 @@ import * as Types from "../../../generated-types/graphql";
 import * as gm from "graphql-modules";
 export namespace ArticleModule {
   interface DefinedFields {
-    Article: 'slug' | 'title' | 'description' | 'body' | 'tagList' | 'author';
+    Article: 'id' | 'slug' | 'title' | 'description' | 'body' | 'tagList' | 'author';
     Tag: 'id' | 'name';
     Query: 'article' | 'articles';
   };
@@ -28,6 +28,7 @@ export namespace ArticleModule {
     };
     Article?: {
       '*'?: gm.Middleware[];
+      id?: gm.Middleware[];
       slug?: gm.Middleware[];
       title?: gm.Middleware[];
       description?: gm.Middleware[];

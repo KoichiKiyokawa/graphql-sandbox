@@ -3,9 +3,10 @@ import { useGraphQLModules } from "@envelop/graphql-modules"
 import { db } from "./lib/db"
 import { createApplication } from "graphql-modules"
 import { UserModule } from "./modules/user/module"
+import { ArticleModule } from "./modules/article/module"
 
 const application = createApplication({
-  modules: [UserModule],
+  modules: [UserModule, ArticleModule],
 })
 
 const server = createServer({

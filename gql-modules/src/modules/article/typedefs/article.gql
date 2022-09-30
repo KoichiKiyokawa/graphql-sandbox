@@ -1,8 +1,11 @@
 type Article {
+  id: ID!
   slug: String!
   title: String!
   description: String!
   body: String!
+  tagList: [Tag!]!
+  author: User!
 }
 
 type Tag {
@@ -10,12 +13,7 @@ type Tag {
   name: String!
 }
 
-extend type Query {
-  article(slug: String!): Article
+type Query {
+  article(id: ID!): Article
   articles: [Article!]!
-}
-
-extend type Article {
-  tagList: [Tag!]!
-  author: User!
 }
