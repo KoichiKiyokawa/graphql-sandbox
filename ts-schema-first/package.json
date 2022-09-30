@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm run --filter ./apps/** dev",
-    "codegen": "pnpm run --filter ./apps/** codegen",
+    "run-all-packages": "pnpm run --filter './packages/**'",
+    "dev": "pnpm run-all-packages dev",
+    "codegen": "pnpm run-all-packages codegen",
+    "build": "pnpm run-all-packages build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

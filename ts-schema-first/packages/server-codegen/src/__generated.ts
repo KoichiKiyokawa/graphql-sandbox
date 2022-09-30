@@ -50,7 +50,7 @@ export type User = {
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
-export type ResolverTypeWrapper<T> = Promise<T> | T;
+export type ResolverTypeWrapper<T> = Promise<Partial<T>> | Partial<T>;
 
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
@@ -117,24 +117,24 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
-  DateTime: ResolverTypeWrapper<Partial<Scalars['DateTime']>>;
-  ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
-  Post: ResolverTypeWrapper<Partial<Post>>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
-  User: ResolverTypeWrapper<Partial<User>>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  User: ResolverTypeWrapper<User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Boolean: Partial<Scalars['Boolean']>;
-  DateTime: Partial<Scalars['DateTime']>;
-  ID: Partial<Scalars['ID']>;
-  Post: Partial<Post>;
+  Boolean: Scalars['Boolean'];
+  DateTime: Scalars['DateTime'];
+  ID: Scalars['ID'];
+  Post: Post;
   Query: {};
-  String: Partial<Scalars['String']>;
-  User: Partial<User>;
+  String: Scalars['String'];
+  User: User;
 }>;
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {

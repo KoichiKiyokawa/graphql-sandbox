@@ -6,7 +6,7 @@ import { join } from "path"
 
 async function main() {
   const [typeDefs, resolvers] = await Promise.all([
-    loadFiles(join(__dirname, "../../../schemas/*.gql")),
+    loadFiles("node_modules/schemas/*.gql"),
     loadFiles(join(__dirname, "./domains/**/*.resolver.{js,ts}")),
   ])
 

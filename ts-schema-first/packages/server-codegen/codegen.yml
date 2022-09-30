@@ -1,4 +1,4 @@
-schema: ../../schemas/**/*.gql
+schema: ./node_modules/schemas/**/*.gql
 generates:
   ./src/__generated.ts:
     plugins:
@@ -9,4 +9,4 @@ generates:
         DateTime: Date
       contextType: ./context#GraphQLContext
       useIndexSignature: true
-      defaultMapper: Partial<{T}>
+      resolverTypeWrapperSignature: Promise<Partial<T>> | Partial<T> # To avoid field resolver type error

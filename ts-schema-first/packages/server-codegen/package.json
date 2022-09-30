@@ -16,7 +16,8 @@
     "@graphql-tools/schema": "^9.0.2",
     "@graphql-yoga/node": "^2.13.11",
     "@prisma/client": "4.2.1",
-    "graphql": "^16.6.0"
+    "graphql": "^16.6.0",
+    "schemas": "workspace:*"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.11.8",

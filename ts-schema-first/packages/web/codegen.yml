@@ -1,0 +1,5 @@
+schema: "./node_modules/schemas/**/*.gql"
+documents: src/**/*.tsx
+generates:
+  ./src/gql/:
+    preset: gql-tag-operations-preset

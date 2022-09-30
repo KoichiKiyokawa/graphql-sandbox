@@ -1,0 +1,27 @@
+{
+  "name": "web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "codegen": "graphql-codegen"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "urql": "3.0.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.11.8",
+    "@graphql-codegen/gql-tag-operations-preset": "1.6.0",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.1.0",
+    "schemas": "workspace:*",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0"
+  }
+}
