@@ -6,3 +6,4 @@
 - GraphQL Yoga
 - gql-tag-operations-preset
 - Vite + React
+- Jest + SWC
