@@ -1,4 +1,4 @@
-schema: ./node_modules/schemas/**/*.gql
+schema: node_modules/@ts-schema-first/schemas/**/*.gql
 generates:
   ./src/__generated.ts:
     plugins:
