@@ -1,4 +1,4 @@
-import { Resolvers } from "../../__generated"
+import { Resolvers } from "~/__generated"
 
 const resolver: Resolvers = {
   Query: {
