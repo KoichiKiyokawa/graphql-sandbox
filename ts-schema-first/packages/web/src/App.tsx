@@ -1,10 +1,9 @@
 import { useState } from "react"
-import reactLogo from "./assets/react.svg"
+import { useQuery } from "urql"
 import "./App.css"
 import { gql } from "./gql"
-import { useQuery } from "urql"
 
-const userDocument = gql(/* GraphQL */ `
+const userDocument = gql(`
   query GetUsers {
     users {
       id
