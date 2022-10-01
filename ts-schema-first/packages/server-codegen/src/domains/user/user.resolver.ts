@@ -1,6 +1,6 @@
 import { Resolvers } from "~/__generated"
 
-const resolver: Resolvers = {
+const resolvers: Resolvers = {
   Query: {
     user(_parent, args, ctx) {
       return ctx.db.user.findUniqueOrThrow({ where: { id: args.id } })
@@ -23,4 +23,4 @@ const resolver: Resolvers = {
   },
 }
 
-export default resolver
+export default resolvers
