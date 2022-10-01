@@ -6,6 +6,7 @@ type User {
   updatedAt: DateTime!
 
   posts: [Post!]!
+  postCount: Int!
 }
 
 extend type Query {

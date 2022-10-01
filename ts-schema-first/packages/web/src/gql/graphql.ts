@@ -17,6 +17,7 @@ export type Scalars = {
 
 export type Post = {
   __typename?: 'Post';
+  author: User;
   content: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
@@ -27,8 +28,15 @@ export type Post = {
 export type Query = {
   __typename?: 'Query';
   health?: Maybe<Scalars['String']>;
+  post: Post;
+  posts: Array<Post>;
   user?: Maybe<User>;
   users: Array<User>;
+};
+
+
+export type QueryPostArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -42,6 +50,7 @@ export type User = {
   email: Scalars['String'];
   id: Scalars['ID'];
   name: Scalars['String'];
+  postCount: Scalars['Int'];
   posts: Array<Post>;
   updatedAt: Scalars['DateTime'];
 };

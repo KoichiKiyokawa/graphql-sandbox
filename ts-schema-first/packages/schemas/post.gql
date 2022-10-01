@@ -4,4 +4,11 @@ type Post {
   content: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+
+  author: User!
+}
+
+extend type Query {
+  posts: [Post!]!
+  post(id: ID!): Post!
 }
