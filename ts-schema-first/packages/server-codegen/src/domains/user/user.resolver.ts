@@ -6,7 +6,7 @@ const resolver: Resolvers = {
       return ctx.db.user.findUniqueOrThrow({ where: { id: args.id } })
     },
     users(_parent, _args, ctx) {
-      return ctx.db.user.findMany()
+      return ctx.db.user.findMany({ orderBy: { id: "asc" } })
     },
   },
   User: {

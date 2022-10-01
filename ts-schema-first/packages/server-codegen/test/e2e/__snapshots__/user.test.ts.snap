@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user Query.user (with posts field) 1`] = `
+{
+  "user": {
+    "createdAt": "2000-01-01T00:00:00.000Z",
+    "email": "user1@example.com",
+    "id": "1",
+    "name": "user1",
+    "posts": [
+      {
+        "content": "user1-content",
+        "createdAt": "2000-01-01T00:00:00.000Z",
+        "id": "user1-post",
+        "title": "user1-title",
+        "updatedAt": "2000-01-01T00:00:00.000Z",
+      },
+    ],
+    "updatedAt": "2000-01-01T00:00:00.000Z",
+  },
+}
+`;
+
+exports[`user Query.users (with posts field) 1`] = `
+{
+  "users": [
+    {
+      "createdAt": "2000-01-01T00:00:00.000Z",
+      "email": "user1@example.com",
+      "id": "1",
+      "name": "user1",
+      "posts": [
+        {
+          "content": "user1-content",
+          "createdAt": "2000-01-01T00:00:00.000Z",
+          "id": "user1-post",
+          "title": "user1-title",
+          "updatedAt": "2000-01-01T00:00:00.000Z",
+        },
+      ],
+      "updatedAt": "2000-01-01T00:00:00.000Z",
+    },
+    {
+      "createdAt": "2000-01-01T00:00:00.000Z",
+      "email": "user2@example.com",
+      "id": "2",
+      "name": "user2",
+      "posts": [
+        {
+          "content": "user2-content",
+          "createdAt": "2000-01-01T00:00:00.000Z",
+          "id": "user2-post",
+          "title": "user2-title",
+          "updatedAt": "2000-01-01T00:00:00.000Z",
+        },
+      ],
+      "updatedAt": "2000-01-01T00:00:00.000Z",
+    },
+  ],
+}
+`;
