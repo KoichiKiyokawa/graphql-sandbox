@@ -1,11 +1,11 @@
 {
-  "name": "server",
+  "name": "@ts-schema-first/server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "build": "tsc",
+    "build": "node -e 'fs.rmSync(`dist`, {recursive:true, force:true})' && tsc -p tsconfig.build.json",
     "codegen": "prisma generate && graphql-codegen",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +18,7 @@
     "@graphql-yoga/node": "^2.13.11",
     "@prisma/client": "4.2.1",
     "graphql": "^16.6.0",
-    "schemas": "workspace:*"
+    "@ts-schema-first/schemas": "workspace:*"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.11.8",

@@ -8,6 +8,9 @@ importers:
   packages/schemas:
     specifiers: {}
 
+  packages/scripts:
+    specifiers: {}
+
   packages/server-codegen:
     specifiers:
       '@graphql-codegen/cli': 2.11.8
@@ -17,9 +20,9 @@ importers:
       '@graphql-tools/schema': ^9.0.2
       '@graphql-yoga/node': ^2.13.11
       '@prisma/client': 4.2.1
+      '@ts-schema-first/schemas': workspace:*
       graphql: ^16.6.0
       prisma: 4.2.1
-      schemas: workspace:*
       tsx: 3.8.2
       typescript: 4.8.2
     dependencies:
@@ -27,8 +30,8 @@ importers:
       '@graphql-tools/schema': 9.0.2_graphql@16.6.0
       '@graphql-yoga/node': 2.13.11_graphql@16.6.0
       '@prisma/client': 4.2.1_prisma@4.2.1
+      '@ts-schema-first/schemas': link:../schemas
       graphql: 16.6.0
-      schemas: link:../schemas
     devDependencies:
       '@graphql-codegen/cli': 2.11.8_nbdtl5zjnc5fbuqkvq4dqcnza4
       '@graphql-codegen/typescript': 2.7.3_graphql@16.6.0
@@ -41,12 +44,12 @@ importers:
     specifiers:
       '@graphql-codegen/cli': 2.11.8
       '@graphql-codegen/gql-tag-operations-preset': 1.6.0
+      '@ts-schema-first/schemas': workspace:*
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
       '@vitejs/plugin-react': ^2.1.0
       react: ^18.2.0
       react-dom: ^18.2.0
-      schemas: workspace:*
       typescript: ^4.6.4
       urql: 3.0.3
       vite: ^3.1.0
@@ -57,10 +60,10 @@ importers:
     devDependencies:
       '@graphql-codegen/cli': 2.11.8_typescript@4.8.2
       '@graphql-codegen/gql-tag-operations-preset': 1.6.0
+      '@ts-schema-first/schemas': link:../schemas
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
       '@vitejs/plugin-react': 2.1.0_vite@3.1.4
-      schemas: link:../schemas
       typescript: 4.8.2
       vite: 3.1.4
 
