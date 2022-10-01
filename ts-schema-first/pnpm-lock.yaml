@@ -8,9 +8,6 @@ importers:
   packages/schemas:
     specifiers: {}
 
-  packages/scripts:
-    specifiers: {}
-
   packages/server-codegen:
     specifiers:
       '@graphql-codegen/cli': 2.11.8
