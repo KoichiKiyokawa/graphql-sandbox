@@ -1,0 +1,42 @@
+name: ts-schema-first
+on:
+  push:
+    paths:
+      - ts-schema-first/**
+      - .github/workflows/ts-schema-first.yml
+    branches:
+      - main
+  pull_request:
+    paths:
+      - ts-schema-first/**
+      - .github/workflows/ts-schema-first.yml
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ts-schema-first
+    strategy:
+      matrix:
+        node-version:
+          - 16.x
+    steps:
+      - uses: actions/checkout@v3
+      - run: corepack enable pnpm
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          # cache: pnpm
+          cache-dependency-path: ts-schema-first/pnpm-lock.yaml
+      - run: pnpm i
+      - run: pnpm run codegen
+      - name: Validate that there is no diff in a codegen result for web
+        run: ./scripts/assert_no_diff.sh packages/web
+      - name: Validate that there is no diff in a codegen result for server
+        run: ./scripts/assert_no_diff.sh packages/server
+      - run: pnpm run build
+      - run: pnpm run test
