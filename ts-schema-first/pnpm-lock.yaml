@@ -8,7 +8,7 @@ importers:
   packages/schemas:
     specifiers: {}
 
-  packages/server-codegen:
+  packages/server:
     specifiers:
       '@graphql-codegen/cli': 2.11.8
       '@graphql-codegen/typescript': 2.7.3
