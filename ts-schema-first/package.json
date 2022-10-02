@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run-all-packages": "pnpm run --filter './packages/**'",
-    "dev": "pnpm run-all-packages dev",
-    "codegen": "pnpm run-all-packages codegen",
-    "build": "pnpm run-all-packages build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm run --recursive dev",
+    "codegen": "pnpm run --recursive codegen",
+    "build": "pnpm run --recursive build",
+    "test": "pnpm run --recursive test"
   },
   "keywords": [],
   "author": "",
