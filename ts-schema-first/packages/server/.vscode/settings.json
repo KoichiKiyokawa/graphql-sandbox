@@ -1,3 +1,4 @@
 {
-  "jest.nodeEnv": { "DATABASE_URL": "file:./test.db" }
+  "jest.nodeEnv": { "DATABASE_URL": "file:./test.db" },
+  "prettier.enable": false
 }
