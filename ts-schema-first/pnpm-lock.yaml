@@ -10,6 +10,7 @@ importers:
 
   packages/server:
     specifiers:
+      '@graphql-codegen/add': 3.2.1
       '@graphql-codegen/cli': 2.11.8
       '@graphql-codegen/typescript': 2.7.3
       '@graphql-codegen/typescript-resolvers': 2.7.3
@@ -26,6 +27,7 @@ importers:
       graphql-request: 5.0.0
       jest: 29.1.2
       prisma: 4.2.1
+      rome: 0.10.0-next
       tsx: 3.8.2
       typescript: 4.8.2
     dependencies:
@@ -36,6 +38,7 @@ importers:
       '@ts-schema-first/schemas': link:../schemas
       graphql: 16.6.0
     devDependencies:
+      '@graphql-codegen/add': 3.2.1_graphql@16.6.0
       '@graphql-codegen/cli': 2.11.8_rxdgttbmy4mtx666c3hfaqikqe
       '@graphql-codegen/typescript': 2.7.3_graphql@16.6.0
       '@graphql-codegen/typescript-resolvers': 2.7.3_graphql@16.6.0
@@ -46,6 +49,7 @@ importers:
       graphql-request: 5.0.0_graphql@16.6.0
       jest: 29.1.2
       prisma: 4.2.1
+      rome: 0.10.0-next
       tsx: 3.8.2
       typescript: 4.8.2
 
@@ -932,6 +936,16 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.6.2
+      tslib: 2.4.0
+    dev: true
+
+  /@graphql-codegen/add/3.2.1_graphql@16.6.0:
+    resolution: {integrity: sha512-w82H/evh8SSGoD3K6K/Oh3kqSdbuU+TgHqMYmmHFxtH692v2xhN/cu1s/TotBQ7r4mO7OQutze7dde2tZEXGEQ==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.6.2_graphql@16.6.0
+      graphql: 16.6.0
       tslib: 2.4.0
     dev: true
 
@@ -2246,6 +2260,72 @@ packages:
   /@repeaterjs/repeater/3.0.4:
     resolution: {integrity: sha512-AW8PKd6iX3vAZ0vA43nOUOnbq/X5ihgU+mSXXqunMkeQADGiqw/PY0JNeYtD5sr0PAy51YPgAPbDoeapv9r8WA==}
     dev: false
+
+  /@rometools/cli-darwin-arm64/0.10.0-next:
+    resolution: {integrity: sha512-/4Q4LHZNr+hmmdT/VR0Fo2ULs3/VeqN4TPPKJ7Zfpb0U83LFxkymdk8c9Lz2f/ExVwQFvl3imkShFYHufHsaHQ==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-darwin-x64/0.10.0-next:
+    resolution: {integrity: sha512-FCl9p37NagVyQgfY8u2+4rydF3kmkb7QtMChoQglkCcr8pbCJ8o9lY00df9qAQCtZncdsO6YvSDp9q7h8PLR8g==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-linux-arm64/0.10.0-next:
+    resolution: {integrity: sha512-CU3MnIs+HNGSixjbDKM0UEe1ypXTSO4b1H1rKo+J5H9gdxmtA8U2wofclIMz4UXCkMnOcC3FPyO3cehAI+UKpQ==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-linux-x64/0.10.0-next:
+    resolution: {integrity: sha512-gAN4NLCUtxe+B4hKLnnl9KSgdk9upbrLQI2dkA8Jyp01M+g9rf9p+r04eUj6yXKxTqxSitEGVtrtyFirAnhoUQ==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-win32-arm64/0.10.0-next:
+    resolution: {integrity: sha512-7mWmLAUVwlWmlAUIEwE1Dqk5VY3QfwBb9ZNIJQZTEyn/tIiQ7gQOkbGttzSZOWrAlDS0hwn1OqxO6ZVycQ+aKg==}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-win32-x64/0.10.0-next:
+    resolution: {integrity: sha512-Ex96KMdJq4t2SCMHmbKRL0j3X6wVgHALqP/m1zSj1/IZ2hN/Wwz64mT79cNfDiVEgmMqZ6ntK82Sz9egHoxeZQ==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/wasm-bundler/0.10.0-next:
+    resolution: {integrity: sha512-2NCNuUcxL5Ta53danDGwMvUMcxh4VvcmOp3FpTni4VNXj3GDnoLWwCqIUoG+eP0zLws/XZmXyZuTaFQDm093ug==}
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/wasm-nodejs/0.10.0-next:
+    resolution: {integrity: sha512-6xLk5JRR3uusAJiTXdOubw2ntZDYTZlEhtXZbCwmMuQoDNpCcjEHwr5a5YgV8ed56vKu9PAOdjy/TlXMLLYjgw==}
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/wasm-web/0.10.0-next:
+    resolution: {integrity: sha512-lE6aEr5k6QmnsImYK2FgOSL6PmvOWZoaxy2s4aNVr9PlGdfxKWd1J/hELPfTwg9XdM2ZrYEroIV43MJi7WlHjQ==}
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /@sinclair/typebox/0.24.44:
     resolution: {integrity: sha512-ka0W0KN5i6LfrSocduwliMMpqVgohtPFidKdMEOUjoOFCHcOOYkKsPRxfs5f15oPNHTm6ERAm0GV/+/LTKeiWg==}
@@ -5467,6 +5547,23 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /rome/0.10.0-next:
+    resolution: {integrity: sha512-3fhvE5EizEGjB0SOuuQ7iPGCBcAoPxlrBFZ7Rt0z2CK/H/Y7a8UpyURMRmabruOnCv3m3kjeloBfJ0/ROAWa/Q==}
+    engines: {node: '>=14.*'}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      '@rometools/cli-darwin-arm64': 0.10.0-next
+      '@rometools/cli-darwin-x64': 0.10.0-next
+      '@rometools/cli-linux-arm64': 0.10.0-next
+      '@rometools/cli-linux-x64': 0.10.0-next
+      '@rometools/cli-win32-arm64': 0.10.0-next
+      '@rometools/cli-win32-x64': 0.10.0-next
+      '@rometools/wasm-bundler': 0.10.0-next
+      '@rometools/wasm-nodejs': 0.10.0-next
+      '@rometools/wasm-web': 0.10.0-next
     dev: true
 
   /run-async/2.4.1:

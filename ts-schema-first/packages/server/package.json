@@ -7,7 +7,8 @@
     "dev": "tsx watch src/main.ts",
     "build": "node -e 'fs.rmSync(`dist`, {recursive:true, force:true})' && swc src/ -d dist",
     "codegen": "prisma generate && graphql-codegen",
-    "test": "DATABASE_URL=file:./test.db jest"
+    "test": "DATABASE_URL=file:./test.db jest",
+    "lint": "rome"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
     "graphql": "^16.6.0"
   },
   "devDependencies": {
+    "@graphql-codegen/add": "3.2.1",
     "@graphql-codegen/cli": "2.11.8",
     "@graphql-codegen/typescript": "2.7.3",
     "@graphql-codegen/typescript-resolvers": "2.7.3",
@@ -31,6 +33,7 @@
     "graphql-request": "5.0.0",
     "jest": "29.1.2",
     "prisma": "4.2.1",
+    "rome": "0.10.0-next",
     "tsx": "3.8.2",
     "typescript": "4.8.2"
   },
