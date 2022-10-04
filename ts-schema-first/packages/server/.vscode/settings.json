@@ -1,0 +1,3 @@
+{
+  "jest.nodeEnv": { "DATABASE_URL": "file:./test.db" }
+}
