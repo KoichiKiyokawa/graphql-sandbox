@@ -12,6 +12,10 @@ table "articles" {
     null = false
     type = varchar(255)
   }
+  column "body" {
+    null = false
+    type = varchar(255)
+  }
   column "user_id" {
     null = false
     type = uuid
