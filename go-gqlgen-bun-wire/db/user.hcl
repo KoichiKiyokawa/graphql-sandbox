@@ -8,6 +8,10 @@ table "users" {
     null = false
     type = varchar(255)
   }
+  column "username" {
+    null = false
+    type = varchar(255)
+  }
   column "bio" {
     null = true
     type = varchar(255)
