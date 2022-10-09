@@ -14,21 +14,21 @@ type UserReader struct {
 	db *bun.DB
 }
 
-func (u *UserReader) UserByID(ctx context.Context, keys []string) []*dataloader.Result[*model.User] {
-	users := make([]*db.User, len(keys))
-	for i, key := range keys {
-		users[i] = &db.User{ID: key}
+func (u *UserReader) AuthorByArticleSlugLoader(ctx context.Context, slugs []string) []*dataloader.Result[*model.User] {
+	articles := make([]*db.Article, len(slugs))
+	for i, key := range slugs {
+		articles[i] = &db.Article{Slug: key}
 	}
 
-	u.db.NewSelect().Model(users).WherePK().Scan(ctx)
-	idToUser := make(map[string]*db.User, len(users))
-	for _, user := range users {
-		idToUser[user.ID] = user
+	u.db.NewSelect().Model(&articles).Relation("User").Scan(ctx)
+	slugToAuthor := make(map[string]*db.User, len(articles))
+	for _, article := range articles {
+		slugToAuthor[article.Slug] = &article.User
 	}
 
-	result := make([]*dataloader.Result[*model.User], len(keys))
-	for i, key := range keys {
-		result[i] = &dataloader.Result[*model.User]{Data: idToUser[key].ConvertToModel()}
+	result := make([]*dataloader.Result[*model.User], len(slugs))
+	for i, key := range slugs {
+		result[i] = &dataloader.Result[*model.User]{Data: slugToAuthor[key].ConvertToModel()}
 	}
 	return result
 }

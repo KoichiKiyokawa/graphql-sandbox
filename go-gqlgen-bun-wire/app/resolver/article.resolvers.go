@@ -18,7 +18,7 @@ func (r *articleResolver) TagList(ctx context.Context, obj *model.Article) ([]*g
 
 // Author is the resolver for the author field.
 func (r *articleResolver) Author(ctx context.Context, obj *model.Article) (*model.User, error) {
-	return loader.For(ctx).UserLoader.Load(ctx, obj.AuthorID)()
+	return loader.For(ctx).AuthorByArticleSlugLoader.Load(ctx, obj.Slug)()
 }
 
 // Article is the resolver for the article field.

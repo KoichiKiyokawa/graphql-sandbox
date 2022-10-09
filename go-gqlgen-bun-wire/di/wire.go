@@ -7,6 +7,7 @@ import (
 	"go-gqlgen-bun-wire/app"
 	"go-gqlgen-bun-wire/app/infra/dao"
 	"go-gqlgen-bun-wire/app/infra/db"
+	"go-gqlgen-bun-wire/app/infra/loader"
 	"go-gqlgen-bun-wire/app/resolver"
 	"go-gqlgen-bun-wire/app/service"
 
@@ -22,6 +23,7 @@ func InitializeApp() *app.App {
 		service.NewArticle,
 
 		db.NewDB,
+		loader.NewLoaders,
 		resolver.NewResolver,
 		app.NewApp,
 	)

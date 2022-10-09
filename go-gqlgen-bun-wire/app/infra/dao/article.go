@@ -20,7 +20,7 @@ func NewArticle(db *bun.DB) repository.ArticleRepository {
 // FindAll implements repository.ArticleRepository
 func (a *article) FindAll(ctx context.Context) ([]*model.Article, error) {
 	var articles []*db.Article
-	err := a.db.NewSelect().Model(articles).Scan(ctx)
+	err := a.db.NewSelect().Model(&articles).Scan(ctx)
 	result := make([]*model.Article, len(articles))
 	for i, article := range articles {
 		result[i] = article.ConvertToModel()

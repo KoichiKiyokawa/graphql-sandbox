@@ -5,6 +5,4 @@ type Article struct {
 	Title       string
 	Description string
 	Body        string
-
-	AuthorID string
 }

@@ -1,9 +1,13 @@
 package db
 
-import "go-gqlgen-bun-wire/app/domain/model"
+import (
+	"go-gqlgen-bun-wire/app/domain/model"
+
+	"github.com/google/uuid"
+)
 
 type User struct {
-	ID       string `bun:",pk"`
+	ID       uuid.UUID `bun:",pk,type:uuid,default:uuid_generate_v4()"`
 	Email    string
 	Username string
 	Bio      *string

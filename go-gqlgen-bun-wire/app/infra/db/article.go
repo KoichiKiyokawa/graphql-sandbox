@@ -1,6 +1,10 @@
 package db
 
-import "go-gqlgen-bun-wire/app/domain/model"
+import (
+	"go-gqlgen-bun-wire/app/domain/model"
+
+	"github.com/google/uuid"
+)
 
 type Article struct {
 	Slug        string `bun:",pk"`
@@ -8,8 +12,9 @@ type Article struct {
 	Description string
 	Body        string
 
-	UserID string
-	User   User `bun:"belongs-to,join:user_id=id"`
+	UserID uuid.UUID
+	User   User  `bun:"rel:belongs-to,join:user_id=id"`
+	Tags   []Tag `bun:"m2m:article_tags,join:Article=Tag"`
 }
 
 func (a *Article) ConvertToModel() *model.Article {
@@ -18,19 +23,18 @@ func (a *Article) ConvertToModel() *model.Article {
 		Title:       a.Title,
 		Description: a.Description,
 		Body:        a.Body,
-		AuthorID:    a.UserID,
 	}
 }
 
 type ArticleTag struct {
-	ArticleID string   `bun:",pk"`
-	Article   *Article `bun:"rel:belongs-to,join:article_id=id"`
+	ArticleSlug string   `bun:",pk"`
+	Article     *Article `bun:"rel:belongs-to,join:article_slug=slug"`
 
 	TagID string `bun:",pk"`
 	Tag   *Tag   `bun:"rel:belongs-to,join:tag_id=id"`
 }
 
 type Tag struct {
-	ID   string
+	ID   int `bun:",pk"`
 	Name string
 }

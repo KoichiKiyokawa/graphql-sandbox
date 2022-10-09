@@ -15,22 +15,22 @@ const (
 	loadersKey = ctxKey("dataloaders")
 )
 
-// loaders wrap your data loaders to inject via middleware
-type loaders struct {
-	UserLoader *dataloader.Loader[string, *model.User]
+// Loaders wrap your data Loaders to inject via middleware
+type Loaders struct {
+	AuthorByArticleSlugLoader *dataloader.Loader[string, *model.User]
 }
 
 // NewLoaders instantiates data loaders for the middleware
-func NewLoaders(db *bun.DB) *loaders {
+func NewLoaders(db *bun.DB) *Loaders {
 	// define the data loader
 	userReader := &UserReader{db: db}
-	return &loaders{
-		UserLoader: dataloader.NewBatchedLoader(userReader.UserByID),
+	return &Loaders{
+		AuthorByArticleSlugLoader: dataloader.NewBatchedLoader(userReader.AuthorByArticleSlugLoader),
 	}
 }
 
 // Middleware injects data loaders into the context
-func Middleware(loaders *loaders, next http.Handler) http.Handler {
+func Middleware(loaders *Loaders, next http.Handler) http.Handler {
 	// return a middleware that injects the loader to the request context
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		nextCtx := context.WithValue(r.Context(), loadersKey, loaders)
@@ -40,6 +40,6 @@ func Middleware(loaders *loaders, next http.Handler) http.Handler {
 }
 
 // For returns the dataloader for a given context
-func For(ctx context.Context) *loaders {
-	return ctx.Value(loadersKey).(*loaders)
+func For(ctx context.Context) *Loaders {
+	return ctx.Value(loadersKey).(*Loaders)
 }
