@@ -1,4 +1,4 @@
-.PHONY: di dev schema-apply schema-fmt
+.PHONY: di dev schema-apply schema-fmt seed
 
 di:
 	cd di && go run -mod=mod github.com/google/wire/cmd/wire
@@ -11,3 +11,6 @@ schema-apply:
 
 schema-fmt:
 	docker compose run --rm atlas schema fmt db/
+
+seed:
+	go run cmd/seed/main.go
