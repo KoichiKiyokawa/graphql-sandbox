@@ -12,7 +12,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.13
 	github.com/vektah/gqlparser/v2 v2.4.3-0.20220508162109-d3d9eb001575
 	github.com/vmihailenco/msgpack/v5 v5.3.5
-	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
+	golang.org/x/crypto v0.0.0-20221012134737-56aed061732a
 )
 
 require (

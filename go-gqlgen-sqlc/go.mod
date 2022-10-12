@@ -10,7 +10,7 @@ require (
 	github.com/kyleconroy/sqlc v1.14.0
 	github.com/lib/pq v1.10.6
 	github.com/vektah/gqlparser/v2 v2.4.6
-	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
+	golang.org/x/crypto v0.0.0-20221012134737-56aed061732a
 )
 
 require (
