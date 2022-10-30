@@ -1,7 +1,8 @@
 # go-gqlgen-bun-wire
 
 ## Tech Stack
-- Go
+- Language: Go
 - ORM: Bun (https://bun.uptrace.dev/)
 - DI: Wire
 - DB Schema: Atlas (https://atlasgo.io/)
+- DB: cockroach
