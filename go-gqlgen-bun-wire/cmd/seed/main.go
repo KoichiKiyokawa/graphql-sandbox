@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"go-gqlgen-bun-wire/app/domain/model"
 	"go-gqlgen-bun-wire/app/infra/db"
 	"os"
 
@@ -48,7 +49,7 @@ func main() {
 		// Create 100 articles for each user
 		for a := 0; a < 100; a++ {
 			article := &db.Article{
-				Slug:        fmt.Sprintf("article%d-%d", u, a),
+				Slug:        model.ArticleSlug(fmt.Sprintf("article%d-%d", u, a)),
 				Title:       fmt.Sprintf("Article %d-%d", u, a),
 				Description: fmt.Sprintf("Article %d-%d description", u, a),
 				Body:        fmt.Sprintf("Article %d-%d body", u, a),

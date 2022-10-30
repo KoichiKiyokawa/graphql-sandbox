@@ -7,7 +7,7 @@ import (
 )
 
 type Article struct {
-	Slug        string `bun:",pk"`
+	Slug        model.ArticleSlug `bun:",pk"`
 	Title       string
 	Description string
 	Body        string

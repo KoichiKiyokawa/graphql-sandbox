@@ -8,7 +8,7 @@ import (
 
 type ArticleService interface {
 	FindAll(ctx context.Context) ([]*model.Article, error)
-	FindBySlug(ctx context.Context, id string) (*model.Article, error)
+	FindBySlug(ctx context.Context, slug string) (*model.Article, error)
 }
 
 type article struct {
@@ -25,6 +25,6 @@ func (a *article) FindAll(ctx context.Context) ([]*model.Article, error) {
 }
 
 // FindById implements ArticleService
-func (a *article) FindBySlug(ctx context.Context, id string) (*model.Article, error) {
-	return a.articleRepo.FindBySlug(ctx, id)
+func (a *article) FindBySlug(ctx context.Context, slug string) (*model.Article, error) {
+	return a.articleRepo.FindBySlug(ctx, model.ArticleSlug(slug))
 }

@@ -1,7 +1,9 @@
 package model
 
+type ArticleSlug string
+
 type Article struct {
-	Slug        string
+	Slug        ArticleSlug
 	Title       string
 	Description string
 	Body        string

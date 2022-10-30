@@ -7,5 +7,5 @@ import (
 
 type ArticleRepository interface {
 	FindAll(ctx context.Context) ([]*model.Article, error)
-	FindBySlug(ctx context.Context, id string) (*model.Article, error)
+	FindBySlug(ctx context.Context, slug model.ArticleSlug) (*model.Article, error)
 }

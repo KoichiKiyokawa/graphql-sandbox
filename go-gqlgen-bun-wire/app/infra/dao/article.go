@@ -29,7 +29,7 @@ func (a *article) FindAll(ctx context.Context) ([]*model.Article, error) {
 }
 
 // FindById implements repository.ArticleRepository
-func (a *article) FindBySlug(ctx context.Context, slug string) (*model.Article, error) {
+func (a *article) FindBySlug(ctx context.Context, slug model.ArticleSlug) (*model.Article, error) {
 	article := &db.Article{Slug: slug}
 	err := a.db.NewSelect().Model(article).WherePK().Scan(ctx)
 	return article.ConvertToModel(), err

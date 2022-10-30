@@ -17,7 +17,7 @@ const (
 
 // Loaders wrap your data Loaders to inject via middleware
 type Loaders struct {
-	AuthorByArticleSlugLoader *dataloader.Loader[string, *model.User]
+	AuthorByArticleSlugLoader *dataloader.Loader[model.ArticleSlug, *model.User]
 }
 
 // NewLoaders instantiates data loaders for the middleware
