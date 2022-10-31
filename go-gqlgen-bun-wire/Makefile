@@ -15,5 +15,10 @@ schema-apply: ## Apply schema to database
 schema-fmt: ## Format schema files
 	docker compose run --rm atlas schema fmt db/
 
-seed: ## Seed database. Set RESEt=1 to reset before seeding.
+seed: ## Seed database. Set RESET=1 to reset before seeding.
 	go run cmd/seed/main.go
+
+deploy: ## Deploy to Cloud Run
+	cp docker/Dockerfile.api Dockerfile
+	gcloud run deploy go-gqlgen-bun-wire --region=asia-northeast1 --allow-unauthenticated --source=. || exit 0
+	rm Dockerfile
