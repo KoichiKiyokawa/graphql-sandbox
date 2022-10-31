@@ -4,7 +4,7 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 di: ## Run dependency injection
-	cd di && go run -mod=mod github.com/google/wire/cmd/wire
+	cd cmd/api/di && go run -mod=mod github.com/google/wire/cmd/wire
 
 dev: ## Run dev server
 	air -build.cmd="go build -o tmp/main cmd/api/main.go"

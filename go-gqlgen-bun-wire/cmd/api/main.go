@@ -1,6 +1,6 @@
 package main
 
-import "go-gqlgen-bun-wire/di"
+import "go-gqlgen-bun-wire/cmd/api/di"
 
 const defaultPort = "8080"
 

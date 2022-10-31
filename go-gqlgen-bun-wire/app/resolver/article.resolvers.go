@@ -11,6 +11,11 @@ import (
 	"go-gqlgen-bun-wire/generated"
 )
 
+// Slug is the resolver for the slug field.
+func (r *articleResolver) Slug(ctx context.Context, obj *model.Article) (string, error) {
+	panic(fmt.Errorf("not implemented: Slug - slug"))
+}
+
 // TagList is the resolver for the tagList field.
 func (r *articleResolver) TagList(ctx context.Context, obj *model.Article) ([]*generated.Tag, error) {
 	panic(fmt.Errorf("not implemented: TagList - tagList"))

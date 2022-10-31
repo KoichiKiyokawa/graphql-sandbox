@@ -1,8 +1,14 @@
-package app
+//go:build wireinject
+// +build wireinject
+
+package di
 
 import (
+	"go-gqlgen-bun-wire/app/infra/dao"
+	"go-gqlgen-bun-wire/app/infra/db"
 	"go-gqlgen-bun-wire/app/infra/loader"
 	"go-gqlgen-bun-wire/app/resolver"
+	"go-gqlgen-bun-wire/app/service"
 	"go-gqlgen-bun-wire/generated"
 	"log"
 	"net/http"
@@ -10,22 +16,23 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/google/wire"
 	"github.com/uptrace/bun"
 )
 
-type App struct {
+type app struct {
 	resolver *resolver.Resolver
 	loaders  *loader.Loaders
 	db       *bun.DB
 }
 
-func NewApp(resolver *resolver.Resolver, loaders *loader.Loaders, db *bun.DB) *App {
-	return &App{resolver: resolver, loaders: loaders, db: db}
+func newApp(resolver *resolver.Resolver, loaders *loader.Loaders, db *bun.DB) *app {
+	return &app{resolver: resolver, loaders: loaders, db: db}
 }
 
 const defaultPort = "8080"
 
-func (a *App) Run() {
+func (a *app) Run() {
 	defer a.db.Close()
 
 	port := os.Getenv("PORT")
@@ -41,4 +48,20 @@ func (a *App) Run() {
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe("127.0.0.1:"+port, nil))
+}
+
+func InitializeApp() *app {
+	wire.Build(
+		// dao
+		dao.NewArticle,
+
+		// service
+		service.NewArticle,
+
+		db.NewDB,
+		resolver.NewResolver,
+		loader.NewLoaders,
+		newApp,
+	)
+	return &app{}
 }

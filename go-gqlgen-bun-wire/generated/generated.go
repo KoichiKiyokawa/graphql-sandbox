@@ -72,6 +72,8 @@ type ComplexityRoot struct {
 }
 
 type ArticleResolver interface {
+	Slug(ctx context.Context, obj *model.Article) (string, error)
+
 	TagList(ctx context.Context, obj *model.Article) ([]*Tag, error)
 	Author(ctx context.Context, obj *model.Article) (*model.User, error)
 }
@@ -366,7 +368,7 @@ func (ec *executionContext) _Article_slug(ctx context.Context, field graphql.Col
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Slug, nil
+		return ec.resolvers.Article().Slug(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -387,8 +389,8 @@ func (ec *executionContext) fieldContext_Article_slug(ctx context.Context, field
 	fc = &graphql.FieldContext{
 		Object:     "Article",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type String does not have child fields")
 		},
@@ -2935,12 +2937,25 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Article")
 		case "slug":
+			field := field
 
-			out.Values[i] = ec._Article_slug(ctx, field, obj)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Article_slug(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		case "title":
 
 			out.Values[i] = ec._Article_title(ctx, field, obj)
