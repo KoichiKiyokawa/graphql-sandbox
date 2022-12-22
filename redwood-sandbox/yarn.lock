@@ -56,6 +56,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@apollo/client@npm:3.7.2":
+  version: 3.7.2
+  resolution: "@apollo/client@npm:3.7.2"
+  dependencies:
+    "@graphql-typed-document-node/core": ^3.1.1
+    "@wry/context": ^0.7.0
+    "@wry/equality": ^0.5.0
+    "@wry/trie": ^0.3.0
+    graphql-tag: ^2.12.6
+    hoist-non-react-statics: ^3.3.2
+    optimism: ^0.16.1
+    prop-types: ^15.7.2
+    response-iterator: ^0.2.6
+    symbol-observable: ^4.0.0
+    ts-invariant: ^0.10.3
+    tslib: ^2.3.0
+    zen-observable-ts: ^1.2.5
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    graphql-ws: ^5.5.5
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    subscriptions-transport-ws: ^0.9.0 || ^0.11.0
+  peerDependenciesMeta:
+    graphql-ws:
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+    subscriptions-transport-ws:
+      optional: true
+  checksum: 781614a49c02aa21a0125693c30fe47e37d9f6a1e808c1c3a06968732b021c04287964452ba8de5842f6186b32fce172f06241d646b06a89fc3fcc115c3cd8b9
+  languageName: node
+  linkType: hard
+
 "@ardatan/relay-compiler@npm:12.0.0":
   version: 12.0.0
   resolution: "@ardatan/relay-compiler@npm:12.0.0"
@@ -2655,6 +2691,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime-corejs3@npm:7.20.6":
+  version: 7.20.6
+  resolution: "@babel/runtime-corejs3@npm:7.20.6"
+  dependencies:
+    core-js-pure: ^3.25.1
+    regenerator-runtime: ^0.13.11
+  checksum: 1fcd0182acd433e8fad4ebcb7169aef7192f6d04051f13c4960fce99671a5965d81349f143489a6be864551fb6ce3277c8c5ba95a6a2d2c7a3fa8f580f11f637
+  languageName: node
+  linkType: hard
+
 "@babel/runtime-corejs3@npm:^7.10.2":
   version: 7.17.9
   resolution: "@babel/runtime-corejs3@npm:7.17.9"
@@ -4531,6 +4577,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/auth@npm:3.8.0":
+  version: 3.8.0
+  resolution: "@redwoodjs/auth@npm:3.8.0"
+  dependencies:
+    "@babel/runtime-corejs3": 7.20.6
+    core-js: 3.26.1
+  checksum: deeb715b116bb05704193b3a506b524817316a124d1e6a9b526ae52061e8693db65e1e5274d8312ec8cfe31c960e173e02bbe00148dec52c35ddc0cfeb3ceb8d
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/cli@npm:2.0.0":
   version: 2.0.0
   resolution: "@redwoodjs/cli@npm:2.0.0"
@@ -4914,6 +4970,38 @@ __metadata:
     tsc: dist/bins/tsc.js
     webpack: dist/bins/webpack.js
   checksum: 5f71d377f426c54638982ce5940ac87cded35a85ebcca2652c0d3650b623a2913cc104acce6ad6cfaedd99e030cdd06f038b94c7328c3cf3f0b3756aecf9e947
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/web@npm:3.8.0":
+  version: 3.8.0
+  resolution: "@redwoodjs/web@npm:3.8.0"
+  dependencies:
+    "@apollo/client": 3.7.2
+    "@babel/runtime-corejs3": 7.20.6
+    "@redwoodjs/auth": 3.8.0
+    core-js: 3.26.1
+    graphql: 16.6.0
+    graphql-tag: 2.12.6
+    react-helmet-async: 1.3.0
+    react-hot-toast: 2.4.0
+    stacktracey: 2.1.8
+    ts-toolbelt: 9.6.0
+  peerDependencies:
+    prop-types: 15.8.1
+    react: 17.0.2
+    react-dom: 17.0.2
+  bin:
+    build-storybook: dist/bins/build-storybook.js
+    cross-env: dist/bins/cross-env.js
+    msw: dist/bins/msw.js
+    redwood: dist/bins/redwood.js
+    rw: dist/bins/redwood.js
+    rwfw: dist/bins/rwfw.js
+    start-storybook: dist/bins/start-storybook.js
+    tsc: dist/bins/tsc.js
+    webpack: dist/bins/webpack.js
+  checksum: 8ed2fc27c13ea2bae9a25ec876cbd20640fdc5319f582c6117d1d3575b50c215d374071eb0e8047c5c18ab6cc28255f88ceed0793c66d07ebf5f5ef711fea8eb
   languageName: node
   linkType: hard
 
@@ -7777,6 +7865,15 @@ __metadata:
   dependencies:
     tslib: ^2.3.0
   checksum: 48eec27b05363e251aea3a6faff1422d735a047473df44841d1dbb83432bea694f41fd225fcca99b60651d9df45d7d748f1af01058e5134ecbb4bc789e0b5141
+  languageName: node
+  linkType: hard
+
+"@wry/context@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@wry/context@npm:0.7.0"
+  dependencies:
+    tslib: ^2.3.0
+  checksum: bc9c7cc0e9c2ee17b1f90f99fdeace158937bb56918c68a85fc21637956469948c0868ad2484350ec4eaa4257b8a534876f7b6b059f446d17a91eebc2ca6431e
   languageName: node
   linkType: hard
 
@@ -10895,10 +10992,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js-pure@npm:^3.25.1":
+  version: 3.26.1
+  resolution: "core-js-pure@npm:3.26.1"
+  checksum: a58ec9bfc88b87d39a31c099a4701cb44a2b0856b182630341fe12a9170e60c087345e566b52479f5111349ae6eb52a74926bfee5d6553dfd15cb5a161470e57
+  languageName: node
+  linkType: hard
+
 "core-js@npm:3.22.8":
   version: 3.22.8
   resolution: "core-js@npm:3.22.8"
   checksum: 431fa4c9028bd2fdaffaba490e6dc2b9fcebef50a62d4ef15d37f04b98a7ae7adda370811db61a439a2068d75da7314ba0532b1e4ee00b39bda3b01af89c282a
+  languageName: node
+  linkType: hard
+
+"core-js@npm:3.26.1":
+  version: 3.26.1
+  resolution: "core-js@npm:3.26.1"
+  checksum: 82d36c6f54fc0349998fa7fc67d200ba272f1cd1674c6786dc17f9d259d6555fc05662044528eae73ad6e90f71d503ab5c060ad4745492ef804308209f9aec13
   languageName: node
   linkType: hard
 
@@ -15182,6 +15293,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"goober@npm:^2.1.10":
+  version: 2.1.11
+  resolution: "goober@npm:2.1.11"
+  peerDependencies:
+    csstype: ^3.0.10
+  checksum: 6916ddf08285153f096e0328692b57c6a24c6e8e0938addfa2ea1a879b4106c89c3f0c4f31f37bf939c2c57847cfc428ef552607c092741065989a986288cb63
+  languageName: node
+  linkType: hard
+
 "got@npm:^11.8.3":
   version: 11.8.3
   resolution: "got@npm:11.8.3"
@@ -15325,6 +15445,13 @@ __metadata:
   version: 16.5.0
   resolution: "graphql@npm:16.5.0"
   checksum: 082bad733549a032fe313dd94b780c0e2a46a6a362183e02e2050f6e083fb49722afb1413b069314d5ba1bc3fa14e22817820a9e61e2bbcba8d35f925d0de60e
+  languageName: node
+  linkType: hard
+
+"graphql@npm:16.6.0":
+  version: 16.6.0
+  resolution: "graphql@npm:16.6.0"
+  checksum: 3a2c15ff58b69d017618d2b224fa6f3c4a7937e1f711c3a5e0948db536b4931e6e649560b53de7cc26735e027ceea6e2d0a6bb7c29fc4639b290313e3aa71618
   languageName: node
   linkType: hard
 
@@ -22380,6 +22507,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hot-toast@npm:2.4.0":
+  version: 2.4.0
+  resolution: "react-hot-toast@npm:2.4.0"
+  dependencies:
+    goober: ^2.1.10
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 1df097bd2e4bdb54ff8ed96e0bf877999928704c2f30832867c7d6ee5db2bd059e949650e0b8391330172e2d9dfcf2b0ab1ae1acb72c6c4ee27850f583821b86
+  languageName: node
+  linkType: hard
+
 "react-inspector@npm:^5.1.0":
   version: 5.1.1
   resolution: "react-inspector@npm:5.1.1"
@@ -22633,6 +22772,13 @@ __metadata:
   version: 1.4.2
   resolution: "regenerate@npm:1.4.2"
   checksum: f73c9eba5d398c818edc71d1c6979eaa05af7a808682749dd079f8df2a6d91a9b913db216c2c9b03e0a8ba2bba8701244a93f45211afbff691c32c7b275db1b8
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.11":
+  version: 0.13.11
+  resolution: "regenerator-runtime@npm:0.13.11"
+  checksum: 12b069dc774001fbb0014f6a28f11c09ebfe3c0d984d88c9bced77fdb6fedbacbca434d24da9ae9371bfbf23f754869307fb51a4c98a8b8b18e5ef748677ca24
   languageName: node
   linkType: hard
 
@@ -23080,6 +23226,13 @@ __metadata:
     is-core-module: ^2.2.0
     path-parse: ^1.0.6
   checksum: ecd5da8e5f3042952bd9fd46725ef850144e7c3d707d963039df677809716660ccf5efa66742fbc6796d280c23d18915384fada76869a9c554e15cf1e6df9278
+  languageName: node
+  linkType: hard
+
+"response-iterator@npm:^0.2.6":
+  version: 0.2.6
+  resolution: "response-iterator@npm:0.2.6"
+  checksum: 60e6b552cd610643269d5d916d270cc8a4bea978cbe4779d6ef8083ac6b89006795508034e4c4ebe204eded75ac32bf243589ba82c1184591dde0674f6db785e
   languageName: node
   linkType: hard
 
@@ -26626,7 +26779,7 @@ __metadata:
   dependencies:
     "@redwoodjs/forms": 2.0.0
     "@redwoodjs/router": 2.0.0
-    "@redwoodjs/web": 2.0.0
+    "@redwoodjs/web": 3.8.0
     prop-types: 15.8.1
     react: 17.0.2
     react-dom: 18.1.0
