@@ -1886,6 +1886,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime-corejs3@npm:7.20.6":
+  version: 7.20.6
+  resolution: "@babel/runtime-corejs3@npm:7.20.6"
+  dependencies:
+    core-js-pure: ^3.25.1
+    regenerator-runtime: ^0.13.11
+  checksum: 1fcd0182acd433e8fad4ebcb7169aef7192f6d04051f13c4960fce99671a5965d81349f143489a6be864551fb6ce3277c8c5ba95a6a2d2c7a3fa8f580f11f637
+  languageName: node
+  linkType: hard
+
 "@babel/runtime-corejs3@npm:^7.10.2":
   version: 7.18.3
   resolution: "@babel/runtime-corejs3@npm:7.18.3"
@@ -4689,6 +4699,16 @@ __metadata:
     "@babel/runtime-corejs3": 7.16.7
     core-js: 3.22.8
   checksum: 9e4271656c1cf184034341b55f35cc3dba976abf4eab32d8a4ec6618d5046bf87a14ebdf2e6bb4719dea3e809242bb948fc8aa59e0d782984c02f1b64afbfdca
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/auth@npm:3.8.0":
+  version: 3.8.0
+  resolution: "@redwoodjs/auth@npm:3.8.0"
+  dependencies:
+    "@babel/runtime-corejs3": 7.20.6
+    core-js: 3.26.1
+  checksum: deeb715b116bb05704193b3a506b524817316a124d1e6a9b526ae52061e8693db65e1e5274d8312ec8cfe31c960e173e02bbe00148dec52c35ddc0cfeb3ceb8d
   languageName: node
   linkType: hard
 
@@ -10679,10 +10699,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js-pure@npm:^3.25.1":
+  version: 3.26.1
+  resolution: "core-js-pure@npm:3.26.1"
+  checksum: a58ec9bfc88b87d39a31c099a4701cb44a2b0856b182630341fe12a9170e60c087345e566b52479f5111349ae6eb52a74926bfee5d6553dfd15cb5a161470e57
+  languageName: node
+  linkType: hard
+
 "core-js@npm:3.22.8":
   version: 3.22.8
   resolution: "core-js@npm:3.22.8"
   checksum: 431fa4c9028bd2fdaffaba490e6dc2b9fcebef50a62d4ef15d37f04b98a7ae7adda370811db61a439a2068d75da7314ba0532b1e4ee00b39bda3b01af89c282a
+  languageName: node
+  linkType: hard
+
+"core-js@npm:3.26.1":
+  version: 3.26.1
+  resolution: "core-js@npm:3.26.1"
+  checksum: 82d36c6f54fc0349998fa7fc67d200ba272f1cd1674c6786dc17f9d259d6555fc05662044528eae73ad6e90f71d503ab5c060ad4745492ef804308209f9aec13
   languageName: node
   linkType: hard
 
@@ -21565,6 +21599,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"regenerator-runtime@npm:^0.13.11":
+  version: 0.13.11
+  resolution: "regenerator-runtime@npm:0.13.11"
+  checksum: 12b069dc774001fbb0014f6a28f11c09ebfe3c0d984d88c9bced77fdb6fedbacbca434d24da9ae9371bfbf23f754869307fb51a4c98a8b8b18e5ef748677ca24
+  languageName: node
+  linkType: hard
+
 "regenerator-runtime@npm:^0.13.4, regenerator-runtime@npm:^0.13.7":
   version: 0.13.9
   resolution: "regenerator-runtime@npm:0.13.9"
@@ -25168,7 +25209,7 @@ __metadata:
     "@chakra-ui/react": ^2.0.0
     "@emotion/react": ^11
     "@emotion/styled": ^11
-    "@redwoodjs/auth": 2.0.0
+    "@redwoodjs/auth": 3.8.0
     "@redwoodjs/forms": 2.0.0
     "@redwoodjs/router": 2.0.0
     "@redwoodjs/web": 2.0.0
