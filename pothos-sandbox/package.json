@@ -6,18 +6,18 @@
   "dependencies": {
     "@graphql-yoga/node": "2.13.6",
     "@pothos/core": "3.13.0",
-    "@pothos/plugin-prisma": "3.21.0",
-    "@prisma/client": "4.2.0",
+    "@pothos/plugin-simple-objects": "^3.6.7",
+    "@prisma/client": "4.8.0",
     "graphql": "16.5.0"
   },
-  "packageManager": "pnpm@7.9.0",
   "devDependencies": {
     "prettier": "2.7.1",
-    "prisma": "4.2.0",
+    "prisma": "4.8.0",
     "tsx": "3.8.1",
     "typescript": "4.7.4"
   },
   "prettier": {
     "printWidth": 120
-  }
+  },
+  "packageManager": "pnpm@7.9.0"
 }
