@@ -1,5 +1,6 @@
 import { defineConfig } from "vitest/config"
 import { resolve } from "path"
+const packageJson = require("./package.json")
 
 export default defineConfig({
   resolve: {
@@ -14,7 +15,14 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      external: ["fs", "process", "module", "path", "node:http"],
+      external: [
+        "fs",
+        "process",
+        "module",
+        "path",
+        "node:http",
+        ...Object.keys(packageJson.dependencies || {}),
+      ],
     },
   },
   plugins: [
@@ -23,7 +31,7 @@ export default defineConfig({
       transform(src, id) {
         if (id.endsWith(".gql")) {
           return {
-            code: `export default \`${src}\``,
+            code: `export default ${JSON.stringify(src)}`,
             map: null,
           }
         }
