@@ -1,12 +1,13 @@
+import type { User } from "@prisma/client"
 import { BaseRepository } from "~/features/core/base.repository"
 import type { CreateUserInput } from "../_generated"
 
 class UserRepository extends BaseRepository {
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.db.user.findMany()
   }
 
-  findById(id: string) {
+  findById(id: string): Promise<User | null> {
     return this.db.user.findUnique({ where: { id } })
   }
 
