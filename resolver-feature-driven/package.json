@@ -1,0 +1,34 @@
+{
+  "name": "resolver-feature-driven",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "vite build",
+    "test": "vitest",
+    "codegen": "graphql-codegen"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@graphql-tools/load-files": "6.6.1",
+    "@prisma/client": "4.8.0",
+    "graphql": "16.6.0",
+    "graphql-yoga": "3.3.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.16.2",
+    "@graphql-codegen/graphql-modules-preset": "2.5.10",
+    "@graphql-codegen/typescript-resolvers": "2.7.11",
+    "@tsconfig/node-lts-strictest-esm": "18.12.1",
+    "@types/node": "18.11.18",
+    "prisma": "4.8.0",
+    "tsx": "3.12.1",
+    "typescript": "4.9.4",
+    "vite": "4.0.3",
+    "vite-plugin-node": "1.0.0",
+    "vitest": "0.26.3"
+  },
+  "packageManager": "pnpm@7.21.0"
+}
