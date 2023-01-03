@@ -1,16 +1,15 @@
 import { createSchema, createYoga } from "graphql-yoga"
 import { createServer } from "node:http"
 
-import UserSchema from "~/features/user/user.gql"
-import PostSchema from "~/features/post/post.gql"
-
-import { resolvers } from "~/features/user/user.resolver"
-
 // Create a Yoga instance with a GraphQL schema.
 const yoga = createYoga({
   schema: createSchema({
-    typeDefs: [UserSchema, PostSchema],
-    resolvers: [resolvers],
+    typeDefs: Object.values(
+      import.meta.glob("./features/**/*.gql", { eager: true })
+    ).map((module: any) => module.default),
+    resolvers: Object.values(
+      import.meta.glob("./features/**/*.resolver.ts", { eager: true })
+    ).map((module: any) => module.resolvers),
   }),
 })
 
