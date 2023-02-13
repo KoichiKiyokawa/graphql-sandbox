@@ -1,3 +1,4 @@
+// FIXME: auto complete doesn't work
 /** @type {import('@graphql-codegen/cli').CodegenConfig} */
 module.exports = {
   schema: "./schemas/**/*.ts",
@@ -15,7 +16,6 @@ module.exports = {
     "./src/gql/resolver.ts": {
       plugins: ["typescript", "typescript-resolvers"],
       config: {
-        useIndexSignature: true,
         useTypeImports: true,
         defaultMapper: "Partial<{T}>",
         contextType: "../features/core/context#Context",
