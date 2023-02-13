@@ -1,0 +1,42 @@
+{
+  "name": "next-urql-yoga-stack",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "codegen": "graphql-codegen && prisma generate"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.mjs"
+  },
+  "dependencies": {
+    "@next/font": "13.1.6",
+    "@prisma/client": "^4.10.1",
+    "@types/node": "18.13.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.10",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.1.6",
+    "graphql": "^16.6.0",
+    "graphql-yoga": "^3.5.1",
+    "next": "13.1.6",
+    "next-urql": "^4.0.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "remeda": "^1.6.1",
+    "typescript": "4.9.5",
+    "urql": "^3.0.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "3.0.0",
+    "@graphql-codegen/client-preset": "^2.0.0",
+    "@graphql-codegen/typescript-resolvers": "3.0.0",
+    "@graphql-typed-document-node/core": "3.1.1",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-config-standard-with-typescript": "34.0.0",
+    "prisma": "4.10.1"
+  }
+}
