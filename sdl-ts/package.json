@@ -1,0 +1,27 @@
+{
+  "name": "sdl-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint 'src/**/*.ts' --ignore-path .gitignore && prettier --write . --ignore-path .gitignore"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql": "16.6.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/add": "4.0.0",
+    "@graphql-codegen/cli": "3.0.0",
+    "@graphql-codegen/typescript": "^3.0.0",
+    "@graphql-codegen/typescript-resolvers": "^3.0.0",
+    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-config-standard-with-typescript": "34.0.0",
+    "prettier": "2.8.4",
+    "typescript": "4.9.5"
+  }
+}
