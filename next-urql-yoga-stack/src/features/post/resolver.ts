@@ -1,6 +1,6 @@
 import { type Resolvers } from "@/gql/resolver"
 
-export const PostResolver: Resolvers = {
+export const PostResolver = {
   Query: {
     async posts(_parent, _args, ctx) {
       return await ctx.db.post.findMany()
@@ -11,4 +11,4 @@ export const PostResolver: Resolvers = {
       return await ctx.db.post.create({ data: args })
     },
   },
-}
+} satisfies Resolvers
