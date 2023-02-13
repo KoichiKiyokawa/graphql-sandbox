@@ -2,5 +2,6 @@
   "extends": ["next/core-web-vitals", "standard-with-typescript", "prettier"],
   "parserOptions": {
     "project": "./tsconfig.json"
-  }
+  },
+  "ignorePatterns": ["src/gql/**"]
 }
