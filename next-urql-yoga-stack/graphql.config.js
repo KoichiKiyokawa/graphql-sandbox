@@ -1,7 +1,6 @@
-import { type CodegenConfig } from "@graphql-codegen/cli"
-
-const config: CodegenConfig = {
-  schema: "schemas/**/*.ts",
+/** @type {import('@graphql-codegen/cli').CodegenConfig} */
+module.exports = {
+  schema: "./schemas/**/*.ts",
   documents: ["src/**/*.tsx", "!src/gql/**/*"],
   generates: {
     // for frontend
@@ -17,11 +16,13 @@ const config: CodegenConfig = {
       plugins: ["typescript", "typescript-resolvers"],
       config: {
         useIndexSignature: true,
+        useTypeImports: true,
         defaultMapper: "Partial<{T}>",
         contextType: "../features/core/context#Context",
+        scalars: {
+          DateTime: "Date",
+        },
       },
     },
   },
 }
-
-export default config

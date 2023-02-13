@@ -5,6 +5,8 @@ export default gql`
     id: ID!
     title: String!
     content: String!
+
+    comments: [Comment!]!
   }
 
   type Query {

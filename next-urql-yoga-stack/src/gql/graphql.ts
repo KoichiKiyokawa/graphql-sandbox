@@ -12,6 +12,15 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: any;
+};
+
+export type Comment = {
+  __typename?: 'Comment';
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type Mutation = {
@@ -27,6 +36,7 @@ export type MutationCreatePostArgs = {
 
 export type Post = {
   __typename?: 'Post';
+  comments: Array<Comment>;
   content: Scalars['String'];
   id: Scalars['ID'];
   title: Scalars['String'];

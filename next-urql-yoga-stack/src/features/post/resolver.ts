@@ -11,4 +11,11 @@ export const PostResolver = {
       return await ctx.db.post.create({ data: args })
     },
   },
+  Post: {
+    async comments(parent, _args, ctx) {
+      return await ctx.db.post
+        .findUniqueOrThrow({ where: { id: parent.id } })
+        .comment()
+    },
+  },
 } satisfies Resolvers

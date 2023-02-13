@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "codegen": "graphql-codegen && prisma generate"
+    "codegen": "graphql-codegen -c graphql.config.js && prisma generate"
   },
   "prisma": {
     "seed": "node prisma/seed.mjs"
