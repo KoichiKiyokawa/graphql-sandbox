@@ -2,8 +2,12 @@ import { type Resolvers } from "@/gql/resolver"
 
 export const PostResolver = {
   Query: {
-    async posts(_parent, _args, ctx) {
-      return await ctx.db.post.findMany()
+    async posts(_parent, args, ctx) {
+      return await ctx.db.post.findMany({
+        take: args.per,
+        skip: args.page * args.per,
+        orderBy: { createdAt: "desc" },
+      })
     },
   },
   Mutation: {

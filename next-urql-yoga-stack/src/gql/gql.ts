@@ -13,8 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-    "\n  query GetPosts {\n    posts {\n      id\n      title\n      content\n    }\n  }\n": types.GetPostsDocument,
     "\n  mutation CreatePost($title: String!, $content: String!) {\n    createPost(title: $title, content: $content) {\n      id\n      title\n      content\n    }\n  }\n": types.CreatePostDocument,
+    "\n  query GetPosts($per: Int!, $page: Int!) {\n    posts(per: $per, page: $page) {\n      id\n      title\n      content\n    }\n  }\n": types.GetPostsDocument,
 };
 
 /**
@@ -34,11 +34,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetPosts {\n    posts {\n      id\n      title\n      content\n    }\n  }\n"): (typeof documents)["\n  query GetPosts {\n    posts {\n      id\n      title\n      content\n    }\n  }\n"];
+export function graphql(source: "\n  mutation CreatePost($title: String!, $content: String!) {\n    createPost(title: $title, content: $content) {\n      id\n      title\n      content\n    }\n  }\n"): (typeof documents)["\n  mutation CreatePost($title: String!, $content: String!) {\n    createPost(title: $title, content: $content) {\n      id\n      title\n      content\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation CreatePost($title: String!, $content: String!) {\n    createPost(title: $title, content: $content) {\n      id\n      title\n      content\n    }\n  }\n"): (typeof documents)["\n  mutation CreatePost($title: String!, $content: String!) {\n    createPost(title: $title, content: $content) {\n      id\n      title\n      content\n    }\n  }\n"];
+export function graphql(source: "\n  query GetPosts($per: Int!, $page: Int!) {\n    posts(per: $per, page: $page) {\n      id\n      title\n      content\n    }\n  }\n"): (typeof documents)["\n  query GetPosts($per: Int!, $page: Int!) {\n    posts(per: $per, page: $page) {\n      id\n      title\n      content\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
