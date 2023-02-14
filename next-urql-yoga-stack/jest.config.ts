@@ -6,13 +6,11 @@ const createJestConfig = nextJest({
   dir: "./",
 })
 
-const config: Config = {
+export default createJestConfig({
   setupFilesAfterEnv: ["<rootDir>/test/setup.ts"],
   globalSetup: "<rootDir>/test/global-setup.ts",
   testEnvironment: "jest-environment-jsdom",
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
-}
-
-export default createJestConfig(config)
+} satisfies Config)
