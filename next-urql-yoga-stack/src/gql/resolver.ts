@@ -49,6 +49,12 @@ export type Query = {
 };
 
 
+export type QueryPostsArgs = {
+  page: Scalars['Int'];
+  per: Scalars['Int'];
+};
+
+
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -121,6 +127,7 @@ export type ResolversTypes = {
   Comment: ResolverTypeWrapper<Partial<Comment>>;
   DateTime: ResolverTypeWrapper<Partial<Scalars['DateTime']>>;
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
+  Int: ResolverTypeWrapper<Partial<Scalars['Int']>>;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Partial<Post>>;
   Query: ResolverTypeWrapper<{}>;
@@ -133,6 +140,7 @@ export type ResolversParentTypes = {
   Comment: Partial<Comment>;
   DateTime: Partial<Scalars['DateTime']>;
   ID: Partial<Scalars['ID']>;
+  Int: Partial<Scalars['Int']>;
   Mutation: {};
   Post: Partial<Post>;
   Query: {};
@@ -164,7 +172,7 @@ export type PostResolvers<ContextType = Context, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostsArgs, 'page' | 'per'>>;
 };
 
 export type Resolvers<ContextType = Context> = {

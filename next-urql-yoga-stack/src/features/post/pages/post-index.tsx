@@ -1,15 +1,7 @@
+import { usePaginationState } from "@/features/core/hooks/use-pagination-state"
 import { graphql } from "@/gql"
 import { useMutation, useQuery } from "urql"
-
-const GetPostsQuery = graphql(/* GraphQL */ `
-  query GetPosts {
-    posts {
-      id
-      title
-      content
-    }
-  }
-`)
+import * as R from "remeda"
 
 const CreatePostMutation = graphql(/* GraphQL */ `
   mutation CreatePost($title: String!, $content: String!) {
@@ -22,7 +14,7 @@ const CreatePostMutation = graphql(/* GraphQL */ `
 `)
 
 export const PostIndex: React.FC = () => {
-  const [{ data }] = useQuery({ query: GetPostsQuery })
+  const { page, goNext } = usePaginationState()
   const [mutationState, mutation] = useMutation(CreatePostMutation)
   const onSubmit: React.ChangeEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
@@ -55,10 +47,56 @@ export const PostIndex: React.FC = () => {
       </form>
 
       <ul>
-        {data?.posts.map((post) => (
-          <li key={post.id}> {post.title}</li>
+        {R.range(0, page + 1).map((i) => (
+          <PostCell
+            key={i}
+            page={i}
+            isLastPage={i === page}
+            loadMore={goNext}
+          />
         ))}
       </ul>
     </div>
+  )
+}
+
+const GetPostsQuery = graphql(/* GraphQL */ `
+  query GetPosts($per: Int!, $page: Int!) {
+    posts(per: $per, page: $page) {
+      id
+      title
+      content
+    }
+  }
+`)
+
+const per = 10
+
+const PostCell: React.FC<{
+  page: number
+  isLastPage: boolean
+  loadMore: () => void
+}> = ({ page, isLastPage, loadMore }) => {
+  const [{ data }] = useQuery({
+    query: GetPostsQuery,
+    variables: { per, page },
+  })
+
+  if (data === undefined) return <span>Loading...</span>
+
+  const hasReachedEnd = data?.posts.length === 0
+
+  return (
+    <>
+      {data.posts.map((post) => (
+        <li key={post.id}>
+          <h3>{post.title}</h3>
+          <pre>{post.content}</pre>
+        </li>
+      ))}
+      {isLastPage && !hasReachedEnd && (
+        <button onClick={loadMore}>load more</button>
+      )}
+    </>
   )
 }

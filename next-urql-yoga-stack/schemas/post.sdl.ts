@@ -10,7 +10,7 @@ export default gql`
   }
 
   type Query {
-    posts: [Post!]!
+    posts(per: Int!, page: Int!): [Post!]!
   }
 
   type Mutation {
