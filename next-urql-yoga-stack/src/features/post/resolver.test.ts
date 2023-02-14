@@ -22,7 +22,7 @@ test("posts query", async () => {
         updatedAt: now,
       },
     })
-    expect(await PostResolver.Query.posts({}, {}, { db }))
+    expect(await PostResolver.Query.posts({}, { per: 2, page: 0 }, { db }))
       .toMatchInlineSnapshot(`
 [
   {
