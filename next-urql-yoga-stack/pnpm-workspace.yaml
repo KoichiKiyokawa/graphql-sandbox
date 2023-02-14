@@ -1,0 +1,5 @@
+packages:
+  - schemas
+  - web
+  - api
+  - 'packages/**'

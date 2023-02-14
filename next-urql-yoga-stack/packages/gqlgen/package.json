@@ -1,0 +1,11 @@
+{
+  "name": "@project/gqlgen",
+  "scripts": {
+    "codegen": "graphql-codegen -c graphql.config.js"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "3.0.0",
+    "@graphql-codegen/client-preset": "^2.0.0",
+    "@graphql-codegen/typescript-resolvers": "3.0.0"
+  }
+}

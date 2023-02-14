@@ -1,4 +1,4 @@
-import { type PrismaClient } from "@prisma/client"
+import type { PrismaClient } from "@prisma/client"
 import { context } from "@/features/core/context"
 
 class Rollback extends Error {}

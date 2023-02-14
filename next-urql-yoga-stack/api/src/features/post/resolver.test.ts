@@ -1,4 +1,4 @@
-import { useTransactionalDB } from "@/../test/utils"
+import { useTransactionalDB } from "@test/utils"
 import { PostResolver } from "./resolver"
 
 test("posts query", async () => {

@@ -1,0 +1,5 @@
+{
+  "name": "@project/schemas",
+  "main": "index.ts",
+  "types": "index.ts"
+}

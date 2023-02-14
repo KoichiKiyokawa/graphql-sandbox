@@ -1,11 +1,11 @@
 // FIXME: auto complete doesn't work
 /** @type {import('@graphql-codegen/cli').CodegenConfig} */
 module.exports = {
-  schema: "./schemas/**/*.ts",
-  documents: ["src/**/*.tsx", "!src/gql/**/*"],
+  schema: "../../schemas/**/*.ts",
+  documents: ["../../web/src/**/*.tsx", "!../../web/src/gql/**/*"],
   generates: {
     // for frontend
-    "./src/gql/": {
+    "../../web/src/gql/": {
       preset: "client",
       plugins: [],
       presetConfig: {
@@ -13,11 +13,12 @@ module.exports = {
       },
     },
     // for server
-    "./src/gql/resolver.ts": {
+    "../../api/src/gql/generated.ts": {
       plugins: ["typescript", "typescript-resolvers"],
       config: {
         useTypeImports: true,
-        defaultMapper: "Partial<{T}>",
+        useIndexSignature: true,
+        resolverTypeWrapperSignature: "Promise<Partial<{T}>> | Partial<T>",
         contextType: "../features/core/context#Context",
         scalars: {
           DateTime: "Date",

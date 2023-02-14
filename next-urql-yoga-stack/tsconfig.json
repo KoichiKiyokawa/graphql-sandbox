@@ -17,9 +17,18 @@
     "baseUrl": ".",
     "checkJs": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["web/src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "prisma"],
+  "include": [
+    "web/next-env.d.tsd.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "prisma",
+    "../server/src/features/post/resolver.ts",
+    "../server/src/features/post/resolver.ts",
+    "../server/src/features/post/resolver.test.ts",
+    "../server/src/features/post/resolver.test.ts"
+  ],
   "exclude": ["node_modules"]
 }

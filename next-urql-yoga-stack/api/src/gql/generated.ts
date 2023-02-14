@@ -48,9 +48,10 @@ export type Query = {
   posts: Array<Post>;
 };
 
+export type WithIndex<TObject> = TObject & Record<string, any>;
+export type ResolversObject<TObject> = WithIndex<TObject>;
 
-
-export type ResolverTypeWrapper<T> = Promise<T> | T;
+export type ResolverTypeWrapper<T> = Promise<Partial<{T}>> | Partial<T>;
 
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
@@ -116,62 +117,62 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 /** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = {
-  Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
-  Comment: ResolverTypeWrapper<Partial<Comment>>;
-  DateTime: ResolverTypeWrapper<Partial<Scalars['DateTime']>>;
-  ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
+export type ResolversTypes = ResolversObject<{
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Comment: ResolverTypeWrapper<Comment>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
-  Post: ResolverTypeWrapper<Partial<Post>>;
+  Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
-};
+  String: ResolverTypeWrapper<Scalars['String']>;
+}>;
 
 /** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = {
-  Boolean: Partial<Scalars['Boolean']>;
-  Comment: Partial<Comment>;
-  DateTime: Partial<Scalars['DateTime']>;
-  ID: Partial<Scalars['ID']>;
+export type ResolversParentTypes = ResolversObject<{
+  Boolean: Scalars['Boolean'];
+  Comment: Comment;
+  DateTime: Scalars['DateTime'];
+  ID: Scalars['ID'];
   Mutation: {};
-  Post: Partial<Post>;
+  Post: Post;
   Query: {};
-  String: Partial<Scalars['String']>;
-};
+  String: Scalars['String'];
+}>;
 
-export type CommentResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = {
+export type CommentResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
 
-export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'content' | 'title'>>;
-};
+}>;
 
-export type PostResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+export type PostResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
   comments?: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
-};
+}>;
 
-export type Resolvers<ContextType = Context> = {
+export type Resolvers<ContextType = Context> = ResolversObject<{
   Comment?: CommentResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-};
+}>;
 
