@@ -107,7 +107,7 @@ importers:
       '@graphql-codegen/typed-document-node': 2.3.2
       '@graphql-codegen/typescript-operations': 2.4.0
       '@graphql-typed-document-node/core': 3.1.1
-      '@sveltejs/adapter-static': 1.0.0-next.31
+      '@sveltejs/adapter-static': 2.0.1
       '@sveltejs/kit': 1.0.0-next.338
       '@typescript-eslint/eslint-plugin': 5.25.0
       '@typescript-eslint/parser': 5.25.0
@@ -134,7 +134,7 @@ importers:
       '@graphql-codegen/typed-document-node': 2.3.2_graphql@15.8.0
       '@graphql-codegen/typescript-operations': 2.4.0_graphql@15.8.0
       '@graphql-typed-document-node/core': 3.1.1_graphql@15.8.0
-      '@sveltejs/adapter-static': 1.0.0-next.31
+      '@sveltejs/adapter-static': 2.0.1_burbtq7z23xdatfsoj4tf6qmpe
       '@sveltejs/kit': 1.0.0-next.338_svelte@3.48.0
       '@typescript-eslint/eslint-plugin': 5.25.0_jorowkvdqu6pwramweg5le7ncu
       '@typescript-eslint/parser': 5.25.0_utdtartgf6fqqgkivzeynh76la
@@ -1727,10 +1727,12 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /@sveltejs/adapter-static/1.0.0-next.31:
-    resolution: {integrity: sha512-d9RNA/de5ljb+gN8mKA3YfmfJoTbYFdH96NYDD8u4Lu9O/ZnseUxOAcAmD4/LKbLXOY/oYhRpt029xT2owyI3Q==}
+  /@sveltejs/adapter-static/2.0.1_burbtq7z23xdatfsoj4tf6qmpe:
+    resolution: {integrity: sha512-o5/q3YwD/ErxYCFlK1v3ydvldyNKk1lh3oeyxn4mhz+Pkbx/uuxhzmbOpytTlp5aVqNHDVsb04xadUzOFCDDzw==}
+    peerDependencies:
+      '@sveltejs/kit': ^1.5.0
     dependencies:
-      tiny-glob: 0.2.9
+      '@sveltejs/kit': 1.0.0-next.338_svelte@3.48.0
     dev: true
 
   /@sveltejs/kit/1.0.0-next.338_svelte@3.48.0:
@@ -4494,10 +4496,6 @@ packages:
       type-fest: 0.20.2
     dev: true
 
-  /globalyzer/0.1.0:
-    resolution: {integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==}
-    dev: true
-
   /globby/11.1.0:
     resolution: {integrity: sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==}
     engines: {node: '>=10'}
@@ -4508,10 +4506,6 @@ packages:
       ignore: 5.2.0
       merge2: 1.4.1
       slash: 3.0.0
-
-  /globrex/0.1.2:
-    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
-    dev: true
 
   /got/9.6.0:
     resolution: {integrity: sha512-R7eWptXuGYxwijs0eV+v3o6+XH1IqVK8dJOEecQfTmkncw9AV4dcw/Dhxi8MdlqPthxxpZyizMzyg8RTmEsG+Q==}
@@ -7096,13 +7090,6 @@ packages:
 
   /through/2.3.8:
     resolution: {integrity: sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=}
-    dev: true
-
-  /tiny-glob/0.2.9:
-    resolution: {integrity: sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==}
-    dependencies:
-      globalyzer: 0.1.0
-      globrex: 0.1.2
     dev: true
 
   /title-case/3.0.3:
