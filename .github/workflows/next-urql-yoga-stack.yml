@@ -34,6 +34,7 @@ jobs:
           cache: pnpm
           cache-dependency-path: next-urql-yoga-stack/pnpm-lock.yaml
       - run: pnpm i
+      - run: pnpm run lint
       - run: pnpm run codegen
       - name: Validate that there is no diff in a codegen result for web
         run: git diff --exit-code --quiet
