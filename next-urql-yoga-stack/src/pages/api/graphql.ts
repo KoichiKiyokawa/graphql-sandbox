@@ -1,7 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { createYoga, createSchema } from "graphql-yoga"
 import type { NextApiRequest, NextApiResponse } from "next"
+import CommonSchema from "@/../schemas/common.sdl"
 import PostSchema from "@/../schemas/post.sdl"
+import CommentSchema from "@/../schemas/comment.sdl"
 import { PostResolver } from "@/features/post/resolver"
 import { context } from "@/features/core/context"
 
@@ -13,7 +15,7 @@ export const config = {
 }
 
 const schema = createSchema<any>({
-  typeDefs: [PostSchema],
+  typeDefs: [CommonSchema, PostSchema, CommentSchema],
   resolvers: [PostResolver],
 })
 
