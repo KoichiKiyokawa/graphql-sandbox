@@ -1,46 +1,32 @@
-import type { Prisma } from '@prisma/client'
-import type { ResolverArgs } from '@redwoodjs/graphql-server'
+import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
 import { db } from 'src/lib/db'
 
-export const users = () => {
+export const users: QueryResolvers['users'] = () => {
   return db.user.findMany()
 }
 
-export const user = ({ id }: Prisma.UserWhereUniqueInput) => {
+export const user: QueryResolvers['user'] = ({ id }) => {
   return db.user.findUnique({
     where: { id },
   })
 }
 
-interface CreateUserArgs {
-  input: Prisma.UserCreateInput
-}
-
-export const createUser = ({ input }: CreateUserArgs) => {
+export const createUser: MutationResolvers['createUser'] = ({ input }) => {
   return db.user.create({
     data: input,
   })
 }
 
-interface UpdateUserArgs extends Prisma.UserWhereUniqueInput {
-  input: Prisma.UserUpdateInput
-}
-
-export const updateUser = ({ id, input }: UpdateUserArgs) => {
+export const updateUser: MutationResolvers['updateUser'] = ({ id, input }) => {
   return db.user.update({
     data: input,
     where: { id },
   })
 }
 
-export const deleteUser = ({ id }: Prisma.UserWhereUniqueInput) => {
+export const deleteUser: MutationResolvers['deleteUser'] = ({ id }) => {
   return db.user.delete({
     where: { id },
   })
-}
-
-export const User = {
-  Post: (_obj, { root }: ResolverArgs<ReturnType<typeof user>>) =>
-    db.user.findUnique({ where: { id: root.id } }).Post(),
 }

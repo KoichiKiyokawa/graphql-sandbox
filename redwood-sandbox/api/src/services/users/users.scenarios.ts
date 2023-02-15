@@ -1,10 +1,11 @@
-import type { Prisma } from '@prisma/client'
+import type { Prisma, User } from '@prisma/client'
+import type { ScenarioData } from '@redwoodjs/testing/api'
 
 export const standard = defineScenario<Prisma.UserCreateArgs>({
   user: {
-    one: { data: { email: 'String622513' } },
-    two: { data: { email: 'String9291039' } },
+    one: { data: { email: 'String4587254' } },
+    two: { data: { email: 'String1127572' } },
   },
 })
 
-export type StandardScenario = typeof standard
+export type StandardScenario = ScenarioData<User, 'user'>

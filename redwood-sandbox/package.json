@@ -3,27 +3,22 @@
   "workspaces": {
     "packages": [
       "api",
-      "web",
-      "packages/*"
+      "web"
     ]
   },
   "devDependencies": {
-    "@redwoodjs/core": "2.0.0",
-    "@vercel/nft": "^0.19.0",
-    "archiver": "^5.3.1",
-    "fs-extra": "^10.1.0",
-    "serverless": "^3.15.2"
+    "@redwoodjs/core": "4.1.4"
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
     "root": true
   },
   "engines": {
-    "node": ">=14.19 <=16.x",
+    "node": ">=16.19 <=18.x",
     "yarn": ">=1.15"
   },
   "prisma": {
     "seed": "yarn rw exec seed"
   },
-  "packageManager": "yarn@3.2.1"
+  "packageManager": "yarn@3.4.1"
 }

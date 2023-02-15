@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+  binaryTargets = "native"
 }
 
 // Define your own datamodels here and run `yarn redwood prisma migrate dev`
@@ -15,16 +15,16 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-  Post  Post[]
+  post  Post[]
 }
 
 model Post {
   id        Int      @id @default(autoincrement())
   title     String
   body      String
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
   createdAt DateTime @default(now())
-  updatedAt DateTime
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+  updatedAt DateTime @updatedAt
 }
