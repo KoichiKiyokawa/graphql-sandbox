@@ -19,7 +19,7 @@
     "graphql-modules": "^2.1.0"
   },
   "devDependencies": {
-    "@envelop/graphql-modules": "3.6.0",
+    "@envelop/graphql-modules": "4.0.6",
     "@graphql-codegen/cli": "^2.13.1",
     "@graphql-codegen/graphql-modules-preset": "^2.5.1",
     "@graphql-codegen/typescript-resolvers": "^2.7.3",
