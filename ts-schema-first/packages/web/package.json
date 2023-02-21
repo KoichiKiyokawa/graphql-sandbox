@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.11.8",
-    "@graphql-codegen/gql-tag-operations-preset": "1.6.0",
+    "@graphql-codegen/gql-tag-operations-preset": "2.1.0",
     "@ts-schema-first/schemas": "workspace:*",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
