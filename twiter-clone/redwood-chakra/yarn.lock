@@ -4241,71 +4241,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/animation@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/animation@npm:10.15.1"
-  dependencies:
-    "@motionone/easing": ^10.15.1
-    "@motionone/types": ^10.15.1
-    "@motionone/utils": ^10.15.1
-    tslib: ^2.3.1
-  checksum: 0b34079d1f8bbc342baf94ce849175edbe36aaee83e7167343e5f4dc73c22b34cdb3ad6dba2fd65f27cc5a516ca759791ceaa549a0b4ee4f34e76a262896c853
-  languageName: node
-  linkType: hard
-
-"@motionone/dom@npm:^10.15.3":
-  version: 10.15.5
-  resolution: "@motionone/dom@npm:10.15.5"
-  dependencies:
-    "@motionone/animation": ^10.15.1
-    "@motionone/generators": ^10.15.1
-    "@motionone/types": ^10.15.1
-    "@motionone/utils": ^10.15.1
-    hey-listen: ^1.0.8
-    tslib: ^2.3.1
-  checksum: fba2a8480f4c67183dcf18fd3969d0c654542c762ba69db8c8e1bc1986a90a568cc0f359a1703ea95cfdee81c87d8f705d219b6371a6e35cf06d1df60c6a285c
-  languageName: node
-  linkType: hard
-
-"@motionone/easing@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/easing@npm:10.15.1"
-  dependencies:
-    "@motionone/utils": ^10.15.1
-    tslib: ^2.3.1
-  checksum: e7a8043b9a0d9673a725b1b6c49904582c5bbc34ee63ed36a04eff280f8d076ebbea5f0e269b36bad1a29a20d5843c8db0729764f98304b44a05f89958ef95e7
-  languageName: node
-  linkType: hard
-
-"@motionone/generators@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/generators@npm:10.15.1"
-  dependencies:
-    "@motionone/types": ^10.15.1
-    "@motionone/utils": ^10.15.1
-    tslib: ^2.3.1
-  checksum: 247478a225849ec6019092d61f04cd13defff7e63aff706087af6b12dd424fbc374f5277f8e3825b9b2ee7527003dddcb9a6d4214bcaf42be9904bd4420bb0c1
-  languageName: node
-  linkType: hard
-
-"@motionone/types@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/types@npm:10.15.1"
-  checksum: e1cf3c980c835d583190bf7d99e549b0523da14c797a07ccc82da932b7c3f2930cedd429d737ecd80da4df0290588e6c2c5bf3d14c9e77c45e2a3d92bd50ad8c
-  languageName: node
-  linkType: hard
-
-"@motionone/utils@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/utils@npm:10.15.1"
-  dependencies:
-    "@motionone/types": ^10.15.1
-    hey-listen: ^1.0.8
-    tslib: ^2.3.1
-  checksum: 6bb1cbc90593fe67d91c4c63ef2c2f33862e842fc8c7c51401adc5281d5267437604e8c396d3d9d033f544f61a9f0983113c9b1822abcd4250de974adc6ac65a
-  languageName: node
-  linkType: hard
-
 "@mrmlnc/readdir-enhanced@npm:^2.2.1":
   version: 2.2.1
   resolution: "@mrmlnc/readdir-enhanced@npm:2.2.1"
@@ -14217,13 +14152,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^9.0.0":
-  version: 9.0.1
-  resolution: "framer-motion@npm:9.0.1"
+"framer-motion@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "framer-motion@npm:10.0.0"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
-    "@motionone/dom": ^10.15.3
-    hey-listen: ^1.0.8
     tslib: ^2.4.0
   peerDependencies:
     react: ^18.0.0
@@ -14231,7 +14164,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 8910f875a78e3ede525f750dc75ce1ec4393a88d601243f11b0bfcf8eb6dc71dfa46954b07e531380a751c7057fd3339fa1136bb83133bcce3e96125b36ffd88
+  checksum: 6f0547825fc15c83a125fb581328de7a887daa2936dfa55a0d1af8a00c5ec870ff60664f44f8895a61c7e512adc9fd24484f25725a4d79aa140be8506bfe151e
   languageName: node
   linkType: hard
 
@@ -15173,13 +15106,6 @@ __metadata:
   version: 3.0.7
   resolution: "headers-polyfill@npm:3.0.7"
   checksum: 08359a8ed582bb551d76095918d297631beb3251fa125d20183ff64cbc23d633642633646131b55b8444daf39823578ae8f4e8f114743e1adb24465c938c9857
-  languageName: node
-  linkType: hard
-
-"hey-listen@npm:^1.0.8":
-  version: 1.0.8
-  resolution: "hey-listen@npm:1.0.8"
-  checksum: 38db3028b4756f3d536c0f6a92da53bad577ab649b06dddfd0a4d953f9a46bbc6a7f693c8c5b466a538d6d23dbc469260c848427f0de14198a2bbecbac37b39e
   languageName: node
   linkType: hard
 
@@ -25531,7 +25457,7 @@ __metadata:
     "@redwoodjs/router": 2.0.0
     "@redwoodjs/web": 2.0.0
     dayjs: ^1.11.3
-    framer-motion: ^9.0.0
+    framer-motion: ^10.0.0
     prop-types: 15.8.1
     react: 18.2.0
     react-dom: 17.0.2
