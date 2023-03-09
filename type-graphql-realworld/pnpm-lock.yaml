@@ -111,7 +111,7 @@ importers:
       '@sveltejs/kit': 1.0.0-next.338
       '@typescript-eslint/eslint-plugin': 5.25.0
       '@typescript-eslint/parser': 5.25.0
-      '@urql/svelte': 2.0.2
+      '@urql/svelte': 3.0.4
       autoprefixer: 10.4.7
       eslint: 8.16.0
       eslint-config-prettier: 8.5.0
@@ -127,7 +127,7 @@ importers:
       tslib: 2.4.0
       typescript: 4.6.4
     dependencies:
-      '@urql/svelte': 2.0.2_hg6krgkwudl57fd65fqyrlvpaq
+      '@urql/svelte': 3.0.4_hg6krgkwudl57fd65fqyrlvpaq
       graphql: 15.8.0
     devDependencies:
       '@graphql-codegen/cli': 2.6.2_w2frz2rxl4t5adr4qjo5o26ium
@@ -2165,26 +2165,25 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@urql/core/2.5.0_graphql@15.8.0:
-    resolution: {integrity: sha512-xXdcgb0H3nNTP4OfC+5T3CHJ0iz7Jj0QQYSYhN/hvKrzFnisPz2n6WXmvsHmMXk5bJHsr39kx4eOHcpsJuyCew==}
+  /@urql/core/3.2.1_graphql@15.8.0:
+    resolution: {integrity: sha512-vQ54pChHadfa/h3qpaMMhJSrfOhf819mmqJpuhOik9eW7KX4eqm1AaoaMLtTDArDqVsPaT306oWQKgtpI2N4mA==}
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-typed-document-node/core': 3.1.1_graphql@15.8.0
       graphql: 15.8.0
-      wonka: 4.0.15
+      wonka: 6.2.3
     dev: false
 
-  /@urql/svelte/2.0.2_hg6krgkwudl57fd65fqyrlvpaq:
-    resolution: {integrity: sha512-b/gLJGZK78GHbyKgraEZ09uHcGc4n0RePSIAPhj+sMTnIgRRaMQwU4D88dNruUdU363MCxFmy+d+V3FYNxmgNQ==}
+  /@urql/svelte/3.0.4_hg6krgkwudl57fd65fqyrlvpaq:
+    resolution: {integrity: sha512-tgUhQ3V7Nb4Z1cD4wMyIq1mIfcr+Pxeb4j4bIp9sb0ORNKuLt+msPdc8YgvhHbyDFNrP7X0nrQmXsrunNIOU0w==}
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       svelte: ^3.0.0
     dependencies:
-      '@urql/core': 2.5.0_graphql@15.8.0
+      '@urql/core': 3.2.1_graphql@15.8.0
       graphql: 15.8.0
       svelte: 3.48.0
-      wonka: 4.0.15
+      wonka: 6.2.3
     dev: false
 
   /@vitejs/plugin-react/2.0.0_vite@3.0.0:
@@ -7599,8 +7598,8 @@ packages:
     hasBin: true
     dev: true
 
-  /wonka/4.0.15:
-    resolution: {integrity: sha512-U0IUQHKXXn6PFo9nqsHphVCE5m3IntqZNB9Jjn7EB1lrR7YTDY3YWgFvEvwniTzXSvOH/XMzAZaIfJF/LvHYXg==}
+  /wonka/6.2.3:
+    resolution: {integrity: sha512-EFOYiqDeYLXSzGYt2X3aVe9Hq1XJG+Hz/HjTRRT4dZE9q95khHl5+7pzUSXI19dbMO1/2UMrTf7JT7/7JrSQSQ==}
     dev: false
 
   /word-wrap/1.2.3:
