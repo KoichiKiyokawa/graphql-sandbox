@@ -16,7 +16,7 @@
     "graphql-tag": "2.12.6",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "urql": "2.2.2"
+    "urql": "3.0.4"
   },
   "devDependencies": {
     "@KoichiKiyokawa/eslint-config-prettier-react-typescript": "github:KoichiKiyokawa/eslint-config-prettier-react-typescript#v0.0.2",
