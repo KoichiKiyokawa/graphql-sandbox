@@ -11,7 +11,7 @@
     "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}' --ignore-path .gitignore && pnpm fmt"
   },
   "dependencies": {
-    "@urql/exchange-multipart-fetch": "0.1.14",
+    "@urql/exchange-multipart-fetch": "1.1.0",
     "graphql": "16.5.0",
     "graphql-tag": "2.12.6",
     "react": "18.0.0",
