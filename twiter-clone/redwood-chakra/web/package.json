@@ -18,7 +18,7 @@
     "@emotion/styled": "^11",
     "@redwoodjs/auth": "2.0.0",
     "@redwoodjs/forms": "2.0.0",
-    "@redwoodjs/router": "2.0.0",
+    "@redwoodjs/router": "4.5.0",
     "@redwoodjs/web": "2.0.0",
     "dayjs": "^1.11.3",
     "framer-motion": "^9.0.0",
