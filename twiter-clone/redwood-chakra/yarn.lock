@@ -1896,6 +1896,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime-corejs3@npm:7.21.0":
+  version: 7.21.0
+  resolution: "@babel/runtime-corejs3@npm:7.21.0"
+  dependencies:
+    core-js-pure: ^3.25.1
+    regenerator-runtime: ^0.13.11
+  checksum: b46896f9a774eeb0e8d2597a0a43a87ede27eebec650b3e17719c14a502289ece95029fe5bc8be84798fb1879b69d54efc1f42c3127f1afaf7778d3b8bb692b5
+  languageName: node
+  linkType: hard
+
 "@babel/runtime-corejs3@npm:^7.10.2":
   version: 7.18.3
   resolution: "@babel/runtime-corejs3@npm:7.18.3"
@@ -4848,6 +4858,17 @@ __metadata:
     "@babel/runtime-corejs3": 7.16.7
     core-js: 3.22.8
   checksum: 9e4271656c1cf184034341b55f35cc3dba976abf4eab32d8a4ec6618d5046bf87a14ebdf2e6bb4719dea3e809242bb948fc8aa59e0d782984c02f1b64afbfdca
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/auth@npm:4.5.0":
+  version: 4.5.0
+  resolution: "@redwoodjs/auth@npm:4.5.0"
+  dependencies:
+    "@babel/runtime-corejs3": 7.21.0
+    core-js: 3.30.0
+    react: 17.0.2
+  checksum: 8164946d104ee960859e1c1bb5c46bc48869a0a8af7b6db09a3b2b74d2ebb62d15d5a129df5c8de5c4f0400a43f0e74ca4bb1f46722a64b5bf6d9eaea51d69e5
   languageName: node
   linkType: hard
 
@@ -10910,6 +10931,13 @@ __metadata:
   version: 3.27.2
   resolution: "core-js@npm:3.27.2"
   checksum: dd0041b8bea1033935bb055e15ce81c09eed7f2548485783993bf93923d4e9908b70cdbccac03f9bf6393497eca1d46b476e3eef773fe2ce7d957d1e552ebdbc
+  languageName: node
+  linkType: hard
+
+"core-js@npm:3.30.0":
+  version: 3.30.0
+  resolution: "core-js@npm:3.30.0"
+  checksum: b96be6526e025f8b3382d6e7823c406987425c72d24efb27f64d7c4c38372b47dddb80ccf44cf4e198ab27765e8fa680f30e251b4758426701f252c2a0c49b4e
   languageName: node
   linkType: hard
 
@@ -21684,6 +21712,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react@npm:17.0.2"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+  checksum: 07ae8959acf1596f0550685102fd6097d461a54a4fd46a50f88a0cd7daaa97fdd6415de1dcb4bfe0da6aa43221a6746ce380410fa848acc60f8ac41f6649c148
+  languageName: node
+  linkType: hard
+
 "react@npm:18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
@@ -25526,7 +25564,7 @@ __metadata:
     "@chakra-ui/react": ^2.0.0
     "@emotion/react": ^11
     "@emotion/styled": ^11
-    "@redwoodjs/auth": 2.0.0
+    "@redwoodjs/auth": 4.5.0
     "@redwoodjs/forms": 2.0.0
     "@redwoodjs/router": 2.0.0
     "@redwoodjs/web": 2.0.0
