@@ -22,7 +22,7 @@
     "@KoichiKiyokawa/eslint-config-prettier-react-typescript": "github:KoichiKiyokawa/eslint-config-prettier-react-typescript#v0.0.2",
     "@graphql-codegen/cli": "2.8.0",
     "@graphql-codegen/introspection": "2.2.0",
-    "@graphql-codegen/typescript": "2.7.1",
+    "@graphql-codegen/typescript": "3.0.4",
     "@graphql-codegen/typescript-operations": "2.5.1",
     "@graphql-codegen/typescript-urql": "3.6.1",
     "@types/react": "18.0.0",
