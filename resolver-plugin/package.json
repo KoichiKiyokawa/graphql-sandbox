@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "codegen": "graphql-codegen"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "3.3.0",
+    "@graphql-codegen/plugin-helpers": "4.2.0",
+    "typescript": "5.0.4"
+  },
+  "dependencies": {
+    "graphql": "16.6.0"
+  }
+}
