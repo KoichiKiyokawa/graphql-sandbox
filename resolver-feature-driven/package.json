@@ -20,7 +20,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "2.16.2",
     "@graphql-codegen/graphql-modules-preset": "2.5.10",
-    "@graphql-codegen/typescript-resolvers": "2.7.11",
+    "@graphql-codegen/typescript-resolvers": "3.2.1",
     "@tsconfig/node-lts-strictest-esm": "18.12.1",
     "@types/node": "18.11.18",
     "prisma": "4.8.0",
