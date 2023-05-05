@@ -1,6 +1,7 @@
 import { withMockDB } from "@/test/db"
 import { getPostServiceForTest } from "./service"
 import { Post } from "@prisma/client"
+import { assertTrue } from "@/test/assert"
 
 describe("findAll", () => {
   it("should return all posts", async () => {
@@ -18,7 +19,8 @@ describe("findAll", () => {
       const postService = getPostServiceForTest(db)
       const result = await postService.findAll()
 
-      expect(result).toStrictEqual([
+      assertTrue(result.success)
+      expect(result.data).toStrictEqual([
         {
           id: expect.any(String),
           title: "post-title-1",
@@ -49,7 +51,50 @@ describe("findAll", () => {
       const postService = getPostServiceForTest(db)
       const result = await postService.findAll()
 
-      expect(result).toStrictEqual([])
+      assertTrue(result.success)
+      expect(result.data).toStrictEqual([])
+    })
+  })
+})
+
+describe("findById", () => {
+  it("should return a specific post", async () => {
+    return withMockDB(async (db) => {
+      await db.post.create({
+        data: { id: "1", title: "post-title-1", content: "post-content-1" },
+      })
+      await db.post.create({
+        data: { id: "2", title: "post-title-2", content: "post-content-2" },
+      })
+      await db.post.create({
+        data: { id: "3", title: "post-title-3", content: "post-content-3" },
+      })
+
+      const postService = getPostServiceForTest(db)
+      const result = await postService.findById("1")
+
+      assertTrue(result.success)
+      expect(result.data).toStrictEqual({
+        id: expect.any(String),
+        title: "post-title-1",
+        content: "post-content-1",
+        createdAt: expect.any(Date),
+        updatedAt: expect.any(Date),
+      } satisfies Post)
+    })
+  })
+
+  it("return null when there is no specific post", async () => {
+    return withMockDB(async (db) => {
+      await db.post.create({
+        data: { id: "1", title: "post-title-1", content: "post-content-1" },
+      })
+
+      const postService = getPostServiceForTest(db)
+      const result = await postService.findById("2")
+
+      assertTrue(result.success)
+      expect(result.data).toBeNull()
     })
   })
 })
