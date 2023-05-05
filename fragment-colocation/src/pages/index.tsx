@@ -1,7 +1,30 @@
-import { Inter } from "next/font/google"
+import CurrentUser from "@/features/user/components/current-user"
+import { graphql } from "@/gql"
+import { useQuery } from "urql"
 
-const inter = Inter({ subsets: ["latin"] })
+const query = graphql(/* GraphQL */ `
+  query FetchCurrentUser {
+    me {
+      ...CurrentUser
+      posts {
+        id
+        title
+      }
+    }
+  }
+`)
 
 export default function Home() {
-  return
+  const [{ data }] = useQuery({ query })
+  if (data === undefined) return null
+
+  return (
+    <div>
+      {data.me === null ? (
+        <div>Not logged in</div>
+      ) : (
+        <CurrentUser data={data.me} />
+      )}
+    </div>
+  )
 }

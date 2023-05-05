@@ -26,13 +26,15 @@ const schema = createSchema({
 
     type Query {
       user(id: ID!): User
+      me: User
     }
   `,
   resolvers: {
     Query: {
       user: async (_, { id }) => {
-        return {}
+        return { id, name: "John Doe" }
       },
+      me: async () => ({ id: "1", name: "John Doe" }),
     },
     User: {
       posts: async (user) => {
