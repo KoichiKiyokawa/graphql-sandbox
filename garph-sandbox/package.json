@@ -1,0 +1,23 @@
+{
+  "name": "garph-sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "private": true,
+  "license": "ISC",
+  "dependencies": {
+    "garph": "^0.5.3",
+    "graphql-yoga": "^3.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.2.5",
+    "tsx": "3.12.7",
+    "typescript": "5.0.4"
+  }
+}
