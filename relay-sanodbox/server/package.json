@@ -14,7 +14,7 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
-    "@graphql-yoga/node": "2.12.0",
+    "@graphql-yoga/node": "3.9.1",
     "@prisma/client": "4.0.0",
     "graphql": "^16.5.0",
     "graphql-relay": "^0.10.0",

@@ -42,6 +42,6 @@
   },
   "prettier": {},
   "dependencies": {
-    "@graphql-yoga/node": "^2.0.0"
+    "@graphql-yoga/node": "^3.0.0"
   }
 }
