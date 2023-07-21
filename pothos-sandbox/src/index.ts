@@ -1,6 +1,6 @@
 import { createServer } from "@graphql-yoga/node";
 import "./features/user/schema";
-import "./features/post/schema";
+import "./features/post/object";
 import { builder } from "./lib/builder";
 import { db } from "./lib/db";
 
