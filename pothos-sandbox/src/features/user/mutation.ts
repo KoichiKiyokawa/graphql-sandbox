@@ -9,8 +9,8 @@ const createUserInput = builder.inputType("CreateUserInput", {
   }),
 });
 
-builder.mutationFields((t) => ({
-  createUser: t.field({
+builder.mutationField("createUser", (t) =>
+  t.field({
     type: User,
     args: {
       input: t.arg({ type: createUserInput, required: true }),
@@ -19,4 +19,4 @@ builder.mutationFields((t) => ({
       return ctx.db.user.create({ data: args.input });
     },
   }),
-}));
+);

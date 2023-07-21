@@ -9,8 +9,8 @@ const createPostInput = builder.inputType("CreatePostInput", {
 });
 
 // Mutation Resolver
-builder.mutationFields((t) => ({
-  createPost: t.field({
+builder.mutationField("createPost", (t) =>
+  t.field({
     type: Post,
     args: {
       input: t.arg({ type: createPostInput, required: true }),
@@ -20,4 +20,4 @@ builder.mutationFields((t) => ({
       return ctx.db.post.create({ data: { ...args.input, authorId: user.id } });
     },
   }),
-}));
+);

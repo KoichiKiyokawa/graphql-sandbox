@@ -4,17 +4,18 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "@graphql-yoga/node": "2.13.6",
-    "@pothos/core": "3.13.0",
-    "@pothos/plugin-simple-objects": "^3.6.7",
-    "@prisma/client": "4.8.0",
-    "graphql": "16.5.0"
+    "@pothos/core": "3.31.0",
+    "@pothos/plugin-simple-objects": "3.7.0",
+    "@prisma/client": "5.0.0",
+    "graphql": "16.7.1",
+    "graphql-yoga": "4.0.3"
   },
   "devDependencies": {
-    "prettier": "2.7.1",
-    "prisma": "4.8.0",
-    "tsx": "3.8.1",
-    "typescript": "4.7.4"
+    "@types/node": "20.4.2",
+    "prettier": "3.0.0",
+    "prisma": "5.0.0",
+    "tsx": "3.12.7",
+    "typescript": "5.1.6"
   },
   "prettier": {
     "printWidth": 120

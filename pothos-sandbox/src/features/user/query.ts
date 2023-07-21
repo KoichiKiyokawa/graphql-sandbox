@@ -1,16 +1,18 @@
 import { builder } from "@/lib/builder";
 import { User } from "./object";
 
-builder.queryFields((t) => ({
-  users: t.field({
+builder.queryField("users", (t) =>
+  t.field({
     type: [User],
     description: "get all users",
     resolve: (_parent, _args, ctx) => {
       return ctx.db.user.findMany();
     },
   }),
+);
 
-  user: t.field({
+builder.queryField("user", (t) =>
+  t.field({
     type: User,
     description: "get a specific user",
     nullable: true,
@@ -21,4 +23,4 @@ builder.queryFields((t) => ({
       return ctx.db.user.findUnique({ where: { id: args.id } });
     },
   }),
-}));
+);

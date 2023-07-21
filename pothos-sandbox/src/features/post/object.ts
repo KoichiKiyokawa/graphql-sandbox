@@ -1,5 +1,4 @@
 import { builder } from "@/lib/builder";
-import { User } from "../user/schema";
 
 export const Post = builder.simpleObject("Post", {
   fields: (t) => ({
