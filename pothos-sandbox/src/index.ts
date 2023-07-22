@@ -12,6 +12,7 @@ const yoga = createYoga<YogaInitialContext & Context>({
   plugins: [
     useCookies,
     useReadinessCheck({
+      endpoint: "/ready",
       check: () => db.$queryRaw`SELECT 1`,
     }),
   ],
