@@ -1,9 +1,10 @@
 import { db } from "@/lib/db";
+import { serve } from "@hono/node-server";
 import { useCookies } from "@whatwg-node/server-plugin-cookies";
 import { YogaInitialContext, createYoga } from "graphql-yoga";
-import { createServer } from "node:http";
-import { schema } from "./schema";
+import { Hono } from "hono";
 import { Context, createContext } from "./context";
+import { schema } from "./schema";
 
 // Create a Yoga instance with a GraphQL schema.
 const yoga = createYoga<YogaInitialContext & Context>({
@@ -12,10 +13,13 @@ const yoga = createYoga<YogaInitialContext & Context>({
   plugins: [useCookies],
 });
 
-// Pass it into a server to hook into request handlers.
-const server = createServer(yoga);
+const app = new Hono();
 
-// Start the server and you're done!
-server.listen(4000, () => {
-  console.info("Server is running on http://localhost:4000/graphql");
-});
+app.mount(yoga.graphqlEndpoint, yoga.handle);
+
+app.get("/health", (c) =>
+  db.$queryRaw`SELECT 1`.then(() => c.json({ message: "ok" })).catch(() => c.json({ message: "error" }, 500)),
+);
+
+serve({ ...app, port: 4000 });
+console.log(`🚀 Server ready at http://localhost:4000${yoga.graphqlEndpoint}`);

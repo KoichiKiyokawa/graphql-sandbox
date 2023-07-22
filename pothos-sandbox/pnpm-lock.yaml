@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@hono/node-server': ^1.1.0
   '@pothos/core': 3.31.0
   '@pothos/plugin-simple-objects': 3.7.0
   '@prisma/client': 5.0.0
@@ -8,6 +9,7 @@ specifiers:
   '@whatwg-node/server-plugin-cookies': 1.0.1
   graphql: 16.7.1
   graphql-yoga: 4.0.3
+  hono: ^3.3.2
   prettier: 3.0.0
   prisma: 5.0.0
   tsx: 3.12.7
@@ -15,11 +17,13 @@ specifiers:
   vitest: 0.33.0
 
 dependencies:
+  '@hono/node-server': 1.1.0
   '@pothos/core': 3.31.0_graphql@16.7.1
   '@pothos/plugin-simple-objects': 3.7.0_2vanfqjsj74ybofhvatsg2zqnu
   '@prisma/client': 5.0.0_prisma@5.0.0
   graphql: 16.7.1
   graphql-yoga: 4.0.3_graphql@16.7.1
+  hono: 3.3.2
 
 devDependencies:
   '@types/node': 20.4.2
@@ -555,6 +559,11 @@ packages:
       tslib: 2.6.0
     dev: false
 
+  /@hono/node-server/1.1.0:
+    resolution: {integrity: sha512-1dwun4NkN+SDhKmEcGwjrEwV0rqgCBsb78XvZTHa4JGXCne09bNCv0wDRyQXVj99nYLpANqANZ9ABlTGxS70MQ==}
+    engines: {node: '>=18.0.0'}
+    dev: false
+
   /@jest/schemas/29.6.0:
     resolution: {integrity: sha512-rxLjXyJBTL4LQeJW3aKo0M/+GkCOXsO+8i9Iu7eDb6KwtP65ayoDsitrdPBtujxQ88k4wI2FNYfa6TOGwSn6cQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -914,6 +923,11 @@ packages:
   /graphql/16.7.1:
     resolution: {integrity: sha512-DRYR9tf+UGU0KOsMcKAlXeFfX89UiiIZ0dRU3mR0yJfu6OjZqUcp68NnFLnqQU5RexygFoDy1EW+ccOYcPfmHg==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
+    dev: false
+
+  /hono/3.3.2:
+    resolution: {integrity: sha512-7rsgLAUXTdxo2qU/+uso5oZiiNruB9++1TMxcy95c+pTK822L0ORuug5aPVr6JkYgLkkL3w4i1Y9zrcLZJBp8A==}
+    engines: {node: '>=16.0.0'}
     dev: false
 
   /jsonc-parser/3.2.0:
