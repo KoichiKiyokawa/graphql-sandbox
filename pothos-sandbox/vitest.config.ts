@@ -7,6 +7,6 @@ export default defineConfig({
     },
   },
   test: {
-    setupFiles: ["./src/test/setup.ts"],
+    globalSetup: ["./src/test/setup.ts"],
   },
 });

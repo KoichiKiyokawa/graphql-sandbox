@@ -1,4 +1,4 @@
-import { Context } from "@/types/context";
+import { Context } from "@/context";
 import SchemaBuilder from "@pothos/core";
 import SimpleObjectsPlugin from "@pothos/plugin-simple-objects";
 
