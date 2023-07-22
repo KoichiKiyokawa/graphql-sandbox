@@ -5,13 +5,11 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@hono/node-server": "^1.1.0",
     "@pothos/core": "3.31.0",
     "@pothos/plugin-simple-objects": "3.7.0",
     "@prisma/client": "5.0.0",
     "graphql": "16.7.1",
-    "graphql-yoga": "4.0.3",
-    "hono": "^3.3.2"
+    "graphql-yoga": "4.0.3"
   },
   "devDependencies": {
     "@types/node": "20.4.2",
