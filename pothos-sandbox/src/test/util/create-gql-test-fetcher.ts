@@ -2,7 +2,7 @@ import { schema } from "@/schema";
 import { Context } from "@/types/context";
 import { createYoga } from "graphql-yoga";
 
-export function createGqlFetcher(context: Context) {
+export function createGqlTestFetcher(context: Partial<Context>) {
   const yoga = createYoga({ schema, context });
 
   const fetcher = async (query: string, variables = {}) => {
