@@ -1,6 +1,6 @@
 import "./features/post/mutation";
 import "./features/post/query";
-import "./features/user/mutation";
+import "./features/user/schema/mutation";
 import "./features/user/query";
 import { builder } from "./lib/builder";
 

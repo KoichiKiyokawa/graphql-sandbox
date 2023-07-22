@@ -1,6 +1,6 @@
 import { builder } from "@/lib/builder";
-import { User } from "../user/object";
 import { Post } from "./object";
+import { User } from "@/features/user/object";
 
 // Query resolver
 builder.queryField("posts", (t) =>

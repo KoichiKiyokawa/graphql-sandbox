@@ -17,6 +17,8 @@ builder.mutationField("createPost", (t) =>
     },
     resolve: async (_parent, args, ctx) => {
       const user = await ctx.getCurrentUser();
+      if (user === null) throw new Error("Unauthorized");
+
       return ctx.db.post.create({ data: { ...args.input, authorId: user.id } });
     },
   }),
