@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "test": "DATABASE_URL='file:./test.db' vitest"
+    "test": "vitest"
   },
   "dependencies": {
     "@pothos/core": "3.31.0",

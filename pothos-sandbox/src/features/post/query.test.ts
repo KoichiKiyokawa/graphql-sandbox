@@ -3,15 +3,24 @@ import { expect, test } from "vitest";
 
 test("query posts", () =>
   withTransaction(async (db) => {
-    await db.user.create({ data: { id: "user1", name: "user1", email: "user1@example.com", password: "password" } });
-    await db.user.create({ data: { id: "user2", name: "user2", email: "user2@example.com", password: "password" } });
-    await db.post.create({
-      data: { id: "post1", title: "title1", content: "content1", published: true, authorId: "user1" },
+    await db.user.create({
+      data: {
+        id: "user1",
+        name: "user1",
+        email: "user1@example.com",
+        password: "password",
+        Post: { create: { id: "post1", title: "title1", content: "content1", published: true } },
+      },
     });
-    await db.post.create({
-      data: { id: "post2", title: "title2", content: "content2", published: true, authorId: "user2" },
+    await db.user.create({
+      data: {
+        id: "user2",
+        name: "user2",
+        email: "user2@example.com",
+        password: "password",
+        Post: { create: { id: "post2", title: "title2", content: "content2", published: true } },
+      },
     });
-
     const fetcher = createGqlFetcher({ db });
 
     const res = await fetcher(/* GraphQL */ `
@@ -31,12 +40,30 @@ test("query posts", () =>
 
     expect(res).toMatchInlineSnapshot(`
       {
-        "errors": [
-          {
-            "extensions": {},
-            "message": "Unexpected error.",
-          },
-        ],
+        "data": {
+          "posts": [
+            {
+              "author": {
+                "id": "user1",
+                "name": "user1",
+              },
+              "content": "content1",
+              "id": "post1",
+              "published": true,
+              "title": "title1",
+            },
+            {
+              "author": {
+                "id": "user2",
+                "name": "user2",
+              },
+              "content": "content2",
+              "id": "post2",
+              "published": true,
+              "title": "title2",
+            },
+          ],
+        },
       }
     `);
   }));

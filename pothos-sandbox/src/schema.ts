@@ -1,4 +1,3 @@
-import exp from "constants";
 import "./features/post/mutation";
 import "./features/post/query";
 import "./features/user/mutation";

@@ -6,7 +6,7 @@ import { Post } from "./object";
 builder.queryField("posts", (t) =>
   t.field({
     type: [Post],
-    resolve: (_parent, _args, ctx) => {
+    resolve(_parent, _args, ctx) {
       return ctx.db.post.findMany();
     },
   }),
@@ -17,8 +17,11 @@ builder.objectField(Post, "author", (t) =>
   t.field({
     type: User,
     description: "get an author of this post",
-    resolve: (parent, _args, ctx) => {
-      return ctx.db.user.findUniqueOrThrow({ where: { id: String(parent.id) } });
+    async resolve(parent, _args, ctx) {
+      const author = await ctx.db.post.findUniqueOrThrow({ where: { id: String(parent.id) } }).author();
+      if (!author) throw new Error("author not found");
+
+      return author;
     },
   }),
 );
