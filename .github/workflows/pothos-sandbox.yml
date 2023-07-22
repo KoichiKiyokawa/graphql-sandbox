@@ -1,0 +1,40 @@
+name: pothos-sandbox
+on:
+  push:
+    paths:
+      - pothos-sandbox/**
+      - .github/workflows/pothos-sandbox.yml
+    branches:
+      - main
+  pull_request:
+    paths:
+      - pothos-sandbox/**
+      - .github/workflows/pothos-sandbox.yml
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pothos-sandbox
+    strategy:
+      matrix:
+        node-version:
+          - 16.x
+          - 18.x
+          - 20.x
+    steps:
+      - uses: actions/checkout@v3
+      - run: corepack enable pnpm
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          # cache: pnpm
+          cache-dependency-path: pothos-sandbox/pnpm-lock.yaml
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm prisma generate
+      - run: pnpm tsc --noEmit
+      - run: pnpm test
