@@ -1,7 +1,7 @@
-import "./features/post/mutation";
-import "./features/post/query";
+import "./features/post/schema/mutation";
+import "./features/post/schema/query";
 import "./features/user/schema/mutation";
-import "./features/user/query";
+import "./features/user/schema/query";
 import { builder } from "./lib/builder";
 
 builder.queryType({});

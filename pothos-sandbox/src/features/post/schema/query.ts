@@ -1,11 +1,12 @@
 import { builder } from "@/lib/builder";
 import { Post } from "./object";
-import { User } from "@/features/user/object";
+import { User } from "@/features/user/schema/object";
 
 // Query resolver
 builder.queryField("posts", (t) =>
   t.field({
     type: [Post],
+    description: "get all posts",
     resolve(_parent, _args, ctx) {
       return ctx.db.post.findMany();
     },
