@@ -1,7 +1,4 @@
-import "./features/post/schema/mutation";
-import "./features/post/schema/query";
-import "./features/user/schema/mutation";
-import "./features/user/schema/query";
+import.meta.glob("./features/**/schema/{query,mutation,subscription}.ts", { eager: true });
 import { builder } from "./lib/builder";
 
 builder.queryType({});

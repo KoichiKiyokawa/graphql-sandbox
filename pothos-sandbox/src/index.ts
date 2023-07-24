@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { useCookies } from "@whatwg-node/server-plugin-cookies";
 import { YogaInitialContext, createYoga, useReadinessCheck } from "graphql-yoga";
-import { createServer } from "http";
+import { createServer } from "node:http";
 import { Context, createContext } from "./context";
 import { schema } from "./schema";
 
@@ -22,3 +22,10 @@ const server = createServer(yoga);
 server.listen(4000, () => {
   console.info("Server is running on http://localhost:4000/graphql");
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept();
+  import.meta.hot.dispose(() => {
+    server.close();
+  });
+}

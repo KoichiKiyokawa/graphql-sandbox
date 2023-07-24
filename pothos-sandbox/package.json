@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "vite-node --watch src/index.ts",
+    "build": "vite build",
     "test": "vitest"
   },
   "dependencies": {
@@ -16,8 +17,9 @@
     "@whatwg-node/server-plugin-cookies": "1.0.1",
     "prettier": "3.0.0",
     "prisma": "5.0.0",
-    "tsx": "3.12.7",
     "typescript": "5.1.6",
+    "vite": "4.4.6",
+    "vite-node": "0.33.0",
     "vitest": "0.33.0"
   },
   "prettier": {
