@@ -49,9 +49,6 @@ devDependencies:
   eslint-plugin-promise:
     specifier: 6.1.1
     version: 6.1.1(eslint@8.45.0)
-  eslint-plugin-strict-dependencies:
-    specifier: 1.1.0
-    version: 1.1.0
   prettier:
     specifier: 3.0.0
     version: 3.0.0
@@ -1305,15 +1302,6 @@ packages:
       eslint: 8.45.0
     dev: true
 
-  /eslint-plugin-strict-dependencies@1.1.0:
-    resolution: {integrity: sha512-VGI4wBQNPqGgslyQLVvxKFYzl6s0HG3FD5Z4CUSRauY9ik7dXMFo6Gk4nW3fp/NAKnCJAdk9cjm1oVM7cnw/GA==}
-    dependencies:
-      is-glob: 4.0.3
-      micromatch: 4.0.5
-      normalize-path: 3.0.0
-      require-strip-json-comments: 2.0.0
-    dev: true
-
   /eslint-scope@5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
     engines: {node: '>=8.0.0'}
@@ -1966,11 +1954,6 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /normalize-path@3.0.0:
-    resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
-    engines: {node: '>=0.10.0'}
-    dev: true
-
   /object-inspect@1.12.3:
     resolution: {integrity: sha512-geUvdk7c+eizMNUDkRpW1wJwgfOiOeHbxBR/hLXK1aT6zmVSO0jsQcs7fj6MGw89jC/cjGfLcNOrtMYtGqm81g==}
     dev: true
@@ -2155,12 +2138,6 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       functions-have-names: 1.2.3
-    dev: true
-
-  /require-strip-json-comments@2.0.0:
-    resolution: {integrity: sha512-Pta3KVBaVZ9DHMoOGRd+3PEc/EFZAQ1JVHQpKZfPo018fdT9iEsyPBzqNAgJAzKMF4kbr5G7GaqP0+UOwnGfPw==}
-    dependencies:
-      strip-json-comments: 3.1.1
     dev: true
 
   /resolve-from@4.0.0:

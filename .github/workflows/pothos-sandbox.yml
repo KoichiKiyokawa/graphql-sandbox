@@ -37,4 +37,5 @@ jobs:
       - run: pnpm i --frozen-lockfile
       - run: pnpm prisma generate
       - run: pnpm tsc --noEmit
+      - run: pnpm lint
       - run: pnpm test
