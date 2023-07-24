@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "vite-node --watch src/index.ts",
     "build": "vite build",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "eslint 'src/**/*.{ts,js}' && prettier --check .",
+    "lint:fix": "eslint --fix 'src/**/*.{ts,js}' && prettier --write ."
   },
   "dependencies": {
     "@pothos/core": "3.31.0",
@@ -15,6 +17,13 @@
   },
   "devDependencies": {
     "@types/node": "20.4.2",
+    "eslint": "8.45.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-config-standard": "17.1.0",
+    "eslint-config-standard-with-typescript": "37.0.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-n": "16.0.1",
+    "eslint-plugin-promise": "6.1.1",
     "prettier": "3.0.0",
     "prisma": "5.0.0",
     "typescript": "5.1.6",
@@ -23,7 +32,9 @@
     "vitest": "0.33.0"
   },
   "prettier": {
-    "printWidth": 120
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true
   },
   "packageManager": "pnpm@8.6.7"
 }

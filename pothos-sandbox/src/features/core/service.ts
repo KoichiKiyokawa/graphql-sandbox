@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-import { YogaInitialContext } from "graphql-yoga";
+import { type PrismaClient } from '@prisma/client'
+import { type YogaInitialContext } from 'graphql-yoga'
 
-export type ServiceContext = {
-  db: PrismaClient;
-  request: YogaInitialContext["request"];
-};
+export interface ServiceContext {
+  db: PrismaClient
+  request: YogaInitialContext['request']
+}

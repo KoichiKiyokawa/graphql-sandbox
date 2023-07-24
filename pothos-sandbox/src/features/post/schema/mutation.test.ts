@@ -1,20 +1,20 @@
-import { createGqlTestFetcher, withTransaction } from "@/test/util";
-import { expect, test } from "vitest";
+import { createGqlTestFetcher, withTransaction } from '@/test/util'
+import { expect, test } from 'vitest'
 
-test("create post", () =>
-  withTransaction(async (db) => {
+test('create post', async () => {
+  await withTransaction(async (db) => {
     const user = await db.user.create({
       data: {
-        id: "user1",
-        name: "user1",
-        email: "user1@example.com",
-        password: "password",
+        id: 'user1',
+        name: 'user1',
+        email: 'user1@example.com',
+        password: 'password',
       },
-    });
+    })
     const fetcher = createGqlTestFetcher({
       db,
       getCurrentUser: async () => user,
-    });
+    })
 
     const res = await fetcher(/* GraphQL */ `
       mutation CreatePost {
@@ -29,20 +29,21 @@ test("create post", () =>
           }
         }
       }
-    `);
+    `)
 
     expect(res).toMatchObject({
       data: {
         createPost: {
           author: {
-            id: "user1",
-            name: "user1",
+            id: 'user1',
+            name: 'user1',
           },
-          content: "content1",
+          content: 'content1',
           id: expect.any(String),
           published: false,
-          title: "title1",
+          title: 'title1',
         },
       },
-    });
-  }));
+    })
+  })
+})

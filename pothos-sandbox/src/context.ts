@@ -1,15 +1,15 @@
-import { getCurrentUser } from "@/features/auth/service";
-import { PrismaClient, User } from "@prisma/client";
-import { YogaInitialContext } from "graphql-yoga";
+import { getCurrentUser } from '@/features/auth/service'
+import { type PrismaClient, type User } from '@prisma/client'
+import { type YogaInitialContext } from 'graphql-yoga'
 
-export type Context = {
-  db: PrismaClient;
-  getCurrentUser(): Promise<User | null>;
-};
+export interface Context {
+  db: PrismaClient
+  getCurrentUser: () => Promise<User | null>
+}
 
 export const createContext =
   (db: PrismaClient) =>
   ({ request }: YogaInitialContext): Context => ({
     db,
-    getCurrentUser: () => getCurrentUser({ db, request }),
-  });
+    getCurrentUser: async () => await getCurrentUser({ db, request }),
+  })

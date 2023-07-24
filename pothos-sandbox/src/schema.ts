@@ -1,7 +1,7 @@
-import.meta.glob("./features/**/schema/{query,mutation,subscription}.ts", { eager: true });
-import { builder } from "./lib/builder";
+import { builder } from './lib/builder'
+import.meta.glob('./features/**/schema/{query,mutation,subscription}.ts', { eager: true })
 
-builder.queryType({});
-builder.mutationType({});
+builder.queryType({})
+builder.mutationType({})
 
-export const schema = builder.toSchema();
+export const schema = builder.toSchema()

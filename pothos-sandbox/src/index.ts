@@ -1,9 +1,9 @@
-import { db } from "@/lib/db";
-import { useCookies } from "@whatwg-node/server-plugin-cookies";
-import { YogaInitialContext, createYoga, useReadinessCheck } from "graphql-yoga";
-import { createServer } from "node:http";
-import { Context, createContext } from "./context";
-import { schema } from "./schema";
+import { db } from '@/lib/db'
+import { useCookies } from '@whatwg-node/server-plugin-cookies'
+import { type YogaInitialContext, createYoga, useReadinessCheck } from 'graphql-yoga'
+import { createServer } from 'node:http'
+import { type Context, createContext } from './context'
+import { schema } from './schema'
 
 // Create a Yoga instance with a GraphQL schema.
 const yoga = createYoga<YogaInitialContext & Context>({
@@ -12,20 +12,21 @@ const yoga = createYoga<YogaInitialContext & Context>({
   plugins: [
     useCookies,
     useReadinessCheck({
-      endpoint: "/ready",
-      check: () => db.$queryRaw`SELECT 1`,
+      endpoint: '/ready',
+      check: async () => await db.$queryRaw`SELECT 1`,
     }),
   ],
-});
+})
 
-const server = createServer(yoga);
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+const server = createServer(yoga)
 server.listen(4000, () => {
-  console.info("Server is running on http://localhost:4000/graphql");
-});
+  console.info('Server is running on http://localhost:4000/graphql')
+})
 
-if (import.meta.hot) {
-  import.meta.hot.accept();
+if (import.meta.hot != null) {
+  import.meta.hot.accept()
   import.meta.hot.dispose(() => {
-    server.close();
-  });
+    server.close()
+  })
 }

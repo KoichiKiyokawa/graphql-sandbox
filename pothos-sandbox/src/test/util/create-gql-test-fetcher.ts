@@ -1,18 +1,20 @@
-import { schema } from "@/schema";
-import { Context } from "@/context";
-import { createYoga } from "graphql-yoga";
+import { schema } from '@/schema'
+import { type Context } from '@/context'
+import { createYoga } from 'graphql-yoga'
 
-export function createGqlTestFetcher(context: Partial<Context>) {
-  const yoga = createYoga({ schema, context });
+type Fetcher = (query: string, variables?: any) => Promise<any>
 
-  const fetcher = async (query: string, variables = {}) => {
-    const res = await yoga.fetch("http://localhost:4000/graphql", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
+export function createGqlTestFetcher(context: Partial<Context>): Fetcher {
+  const yoga = createYoga({ schema, context })
+
+  const fetcher: Fetcher = async (query: string, variables = {}) => {
+    const res = await yoga.fetch('http://localhost:4000/graphql', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, variables }),
-    });
-    return await res.json();
-  };
+    })
+    return await res.json()
+  }
 
-  return fetcher;
+  return fetcher
 }
