@@ -9,12 +9,12 @@
     "@pothos/core": "3.31.0",
     "@pothos/plugin-simple-objects": "3.7.0",
     "@prisma/client": "5.0.0",
+    "@whatwg-node/server-plugin-cookies": "1.0.1",
     "graphql": "16.7.1",
     "graphql-yoga": "4.0.3"
   },
   "devDependencies": {
     "@types/node": "20.4.2",
-    "@whatwg-node/server-plugin-cookies": "1.0.1",
     "prettier": "3.0.0",
     "prisma": "5.0.0",
     "typescript": "5.1.6",
