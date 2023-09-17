@@ -1,0 +1,11 @@
+{
+  "name": "nitrogql-sandbox",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "codegen": "nitrogql generate"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}

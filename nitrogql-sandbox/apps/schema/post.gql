@@ -1,0 +1,6 @@
+type Post {
+  id: ID! @model
+  title: String! @model
+  content: String! @model
+  authorId: ID! @model
+}

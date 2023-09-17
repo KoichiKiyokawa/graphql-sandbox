@@ -1,0 +1,13 @@
+schema: ./apps/schema/*.gql
+documents: ./apps/front/**/*.gql
+extensions:
+  nitrogql:
+    plugins:
+      - "nitrogql:model-plugin"
+    generate:
+      # Specify the location of generated schema file.
+      schemaOutput: ./apps/server/generated/schema.d.ts
+      # Specify the location of generated resolver file.
+      resolversOutput: ./apps/server/generated/resolvers.d.ts
+      # Specify the location of generated server GraphQL schema file.
+      serverGraphqlOutput: ./apps/server/generated/graphql.ts

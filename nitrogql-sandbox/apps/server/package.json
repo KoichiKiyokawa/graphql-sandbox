@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch index.ts",
+    "seed": "bun scripts/seed.mts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.3.1",
+    "graphql": "^16.8.0",
+    "graphql-yoga": "^4.0.4"
+  },
+  "devDependencies": {
+    "@nitrogql/cli": "^1.1.0",
+    "bun-types": "1.0.2",
+    "prisma": "^5.3.1",
+    "typescript": "^5.0.0"
+  }
+}
