@@ -1,6 +1,7 @@
 /** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
   ignorePatterns: ['.eslintrc.js'],
+  plugins: [require('./plugins/eslint/restrict-imports.js')],
   overrides: [
     {
       files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
@@ -24,6 +25,7 @@ module.exports = {
             selector: 'MemberExpression > Identifier[name="subscriptionFields"]',
           },
         ],
+        'custom-no-import-db-except-index': 'error',
       },
     },
   ],
