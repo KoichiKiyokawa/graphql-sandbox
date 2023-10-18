@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
-  '@types/react-relay': 13.0.2
+  '@types/react-relay': 14.1.7
   '@types/relay-runtime': ^13.0.3
   '@vitejs/plugin-react': ^2.0.0
   graphql: ^16.5.0
@@ -26,7 +26,7 @@ dependencies:
 devDependencies:
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
-  '@types/react-relay': 13.0.2
+  '@types/react-relay': 14.1.7
   '@types/relay-runtime': 13.0.3
   '@vitejs/plugin-react': 2.0.0_vite@3.0.0
   relay-compiler: 14.0.0
@@ -355,8 +355,8 @@ packages:
       '@types/react': 18.0.15
     dev: true
 
-  /@types/react-relay/13.0.2:
-    resolution: {integrity: sha512-QyPV/BVKyv5/3bZKILIJYa2dM1r2HOMYNe6vuFbs/4G1uWj9RCbJiTcWFK2OxH3y70p1k9/A5gPS3lFDm0CvHQ==}
+  /@types/react-relay/14.1.7:
+    resolution: {integrity: sha512-EM5rXp+CbDYEazOgwG0bIzEJFow/m/b4SlaYiGotr37pLm8Egi5wbfR4mNBMOthzBCQuw/ObkSoJv9kEIHT9tw==}
     dependencies:
       '@types/react': 18.0.15
       '@types/relay-runtime': 13.0.3
@@ -775,7 +775,6 @@ packages:
   /graphql/16.5.0:
     resolution: {integrity: sha512-qbHgh8Ix+j/qY+a/ZcJnFQ+j8ezakqPiHwPiZhV/3PgGlgf96QMBB5/f2rkiC9sgLoy/xvT6TSiaf2nTHJh5iA==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-    dev: false
 
   /has-flag/3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
