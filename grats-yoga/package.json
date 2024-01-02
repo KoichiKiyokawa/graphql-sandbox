@@ -1,0 +1,26 @@
+{
+  "name": "grats-yoga",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "bun grats && bun run src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "grats && tsc -p tsconfig.json",
+    "lint": "biome check --apply ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql-yoga": "^5.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.4.1",
+    "@tsconfig/strictest": "^2.0.2",
+    "@types/bun": "^1.0.0",
+    "@types/node": "^20.10.5",
+    "grats": "0.0.11",
+    "typescript": "5.3.3"
+  }
+}
