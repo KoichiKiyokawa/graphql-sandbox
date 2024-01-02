@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "drizzle-orm": "^0.29.3",
     "graphql-yoga": "^5.1.0"
   },
   "devDependencies": {
@@ -20,6 +21,7 @@
     "@tsconfig/strictest": "^2.0.2",
     "@types/bun": "^1.0.0",
     "@types/node": "^20.10.5",
+    "drizzle-kit": "^0.20.9",
     "grats": "0.0.11",
     "typescript": "5.3.3"
   }
