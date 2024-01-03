@@ -1,7 +1,7 @@
-import { posts, users } from "../../db/schema";
+import { postsTable, usersTable } from "../../db/schema";
 import { db } from "./db";
 
-const allTables = [posts, users];
+const allTables = [postsTable, usersTable];
 
 // Add a table when you create a new feature
 export async function truncateAllTables() {

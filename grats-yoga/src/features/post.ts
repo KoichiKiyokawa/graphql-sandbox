@@ -4,6 +4,8 @@ import { User } from "./user";
 import DataLoader from "dataloader";
 import { db } from "../lib/db";
 import { sortItemsByFieldAndKeys } from "../utils/dataloader";
+import { postsTable, usersTable } from "../../db/schema";
+import { eq, inArray } from "drizzle-orm";
 
 /** @gqlType */
 export type Post = {
@@ -23,9 +25,11 @@ export async function post(
   args: { id: string },
   ctx: GqlContext
 ): Promise<Post | undefined> {
-  return ctx.db.query.posts.findFirst({
-    where: (fields, { eq }) => eq(fields.id, args.id),
-  });
+  const [post] = await ctx.db
+    .select()
+    .from(postsTable)
+    .where(eq(postsTable.id, args.id));
+  return post;
 }
 
 /** @gqlField */
@@ -34,16 +38,18 @@ export async function posts(
   args: { limit?: Int | null; offset?: Int | null },
   ctx: GqlContext
 ): Promise<Post[]> {
-  return ctx.db.query.posts.findMany({
-    limit: args.limit ?? 100,
-    offset: args.offset ?? 0,
-  });
+  return ctx.db
+    .select()
+    .from(postsTable)
+    .limit(args.limit ?? 100)
+    .offset(args.offset ?? 0);
 }
 
 const authorLoader = new DataLoader<string, User>(async (authorIds) => {
-  const users = await db.query.users.findMany({
-    where: (fields, { inArray }) => inArray(fields.id, authorIds as string[]),
-  });
+  const users = await db
+    .select()
+    .from(usersTable)
+    .where(inArray(usersTable.id, authorIds as string[]));
   return sortItemsByFieldAndKeys(users, "id", authorIds);
 });
 

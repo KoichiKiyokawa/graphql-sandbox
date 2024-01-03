@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "bun:test";
 import { user, users as usersQuery } from "./user";
 import { truncateAllTables } from "../lib/test";
 import { db } from "../lib/db";
-import { users } from "../../db/schema";
+import { usersTable } from "../../db/schema";
 
 beforeEach(async () => {
   await truncateAllTables();
@@ -10,8 +10,8 @@ beforeEach(async () => {
 
 describe("users Query ", async () => {
   it("user Query should return a user", async () => {
-    await db.insert(users).values({ id: "1", name: "target" });
-    await db.insert(users).values({ id: "2", name: "non-target" });
+    await db.insert(usersTable).values({ id: "1", name: "target" });
+    await db.insert(usersTable).values({ id: "2", name: "non-target" });
 
     const res = await user(null, { id: "1" }, { db });
 
@@ -19,7 +19,7 @@ describe("users Query ", async () => {
   });
 
   it("user Query should return null if not found", async () => {
-    await db.insert(users).values({ id: "1", name: "target" });
+    await db.insert(usersTable).values({ id: "1", name: "target" });
 
     const res = await user(null, { id: "2" }, { db });
 
@@ -30,7 +30,7 @@ describe("users Query ", async () => {
 describe("users Query", async () => {
   beforeEach(async () => {
     for (let i = 1; i <= 100; i++) {
-      await db.insert(users).values({ id: String(i), name: `user-${i}` });
+      await db.insert(usersTable).values({ id: String(i), name: `user-${i}` });
     }
   });
 

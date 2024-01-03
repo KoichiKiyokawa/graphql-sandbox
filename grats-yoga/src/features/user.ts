@@ -1,6 +1,6 @@
 import { Int } from "grats";
 import { GqlContext, type Query } from "./base";
-import { users as usersSchema } from "../../db/schema";
+import { usersTable } from "../../db/schema";
 import { eq } from "drizzle-orm";
 
 /** @gqlType */
@@ -19,8 +19,8 @@ export async function user(
 ): Promise<User | undefined> {
   const [user] = await ctx.db
     .select()
-    .from(usersSchema)
-    .where(eq(usersSchema.id, args.id));
+    .from(usersTable)
+    .where(eq(usersTable.id, args.id));
 
   return user;
 }
@@ -31,9 +31,9 @@ export async function users(
   args: { limit?: Int | null; offset?: Int | null },
   ctx: GqlContext
 ): Promise<User[]> {
-  const users = await ctx.db.query.users.findMany({
-    limit: args.limit ?? 100,
-    offset: args.offset ?? 0,
-  });
-  return users;
+  return await ctx.db
+    .select()
+    .from(usersTable)
+    .limit(args.limit ?? 100)
+    .offset(args.offset ?? 0);
 }
