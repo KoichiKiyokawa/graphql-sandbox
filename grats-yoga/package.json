@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "dev": "bun grats && bun run src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "bun test",
     "build": "grats && tsc -p tsconfig.json",
-    "lint": "biome check --apply ."
+    "lint": "biome check --apply .",
+    "seed": "bun scripts/seed.mts",
+    "migration:gen": "drizzle-kit generate:sqlite",
+    "migration:run": "bun scripts/migrate.mts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dataloader": "^2.2.2",
     "drizzle-orm": "^0.29.3",
     "graphql-yoga": "^5.1.0"
   },

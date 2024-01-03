@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1704271096375,
+      "tag": "0000_milky_gwen_stacy",
+      "breakpoints": true
+    }
+  ]
+}
