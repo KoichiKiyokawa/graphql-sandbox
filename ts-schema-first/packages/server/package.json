@@ -16,7 +16,7 @@
   "dependencies": {
     "@graphql-tools/load-files": "6.6.1",
     "@graphql-tools/schema": "^9.0.2",
-    "@graphql-yoga/node": "^2.13.11",
+    "@graphql-yoga/node": "^3.0.0",
     "@prisma/client": "4.2.1",
     "@ts-schema-first/schemas": "workspace:*",
     "graphql": "^16.6.0"
