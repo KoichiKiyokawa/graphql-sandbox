@@ -3,33 +3,38 @@ module go-gqlgen-gorm
 go 1.18
 
 require (
-	github.com/99designs/gqlgen v0.17.5
-	github.com/google/uuid v1.3.0
-	github.com/gorilla/sessions v1.2.1
-	github.com/samber/lo v1.21.0
-	github.com/vektah/gqlparser/v2 v2.4.2
-	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
-	gorm.io/driver/sqlite v1.3.2
-	gorm.io/gorm v1.23.5
+	github.com/99designs/gqlgen v0.17.45
+	github.com/google/uuid v1.6.0
+	github.com/gorilla/sessions v1.2.2
+	github.com/samber/lo v1.39.0
+	github.com/vektah/gqlparser/v2 v2.5.11
+	golang.org/x/crypto v0.21.0
+	gorm.io/driver/sqlite v1.5.5
+	gorm.io/gorm v1.25.7
 )
 
 require (
 	github.com/agnivade/levenshtein v1.1.1 // indirect
-	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
-	github.com/gorilla/securecookie v1.1.1 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
+	github.com/gorilla/securecookie v1.1.2 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
+	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/matryer/moq v0.2.7 // indirect
-	github.com/mattn/go-sqlite3 v1.14.12 // indirect
-	github.com/mitchellh/mapstructure v1.3.1 // indirect
+	github.com/matryer/moq v0.3.4 // indirect
+	github.com/mattn/go-sqlite3 v1.14.17 // indirect
+	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
-	github.com/urfave/cli/v2 v2.4.0 // indirect
+	github.com/sosodev/duration v1.2.0 // indirect
+	github.com/urfave/cli/v2 v2.27.1 // indirect
+	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
-	golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3 // indirect
-	golang.org/x/sys v0.0.0-20211019181941-9d821ace8654 // indirect
-	golang.org/x/tools v0.1.10 // indirect
+	golang.org/x/mod v0.16.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/tools v0.19.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
