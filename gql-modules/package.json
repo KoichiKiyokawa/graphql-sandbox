@@ -25,13 +25,13 @@
     "@graphql-codegen/typescript-resolvers": "^2.7.3",
     "@graphql-tools/load-files": "6.6.1",
     "@graphql-yoga/node": "2.13.13",
-    "@swc-node/register": "1.5.2",
-    "@swc/cli": "0.1.57",
-    "@swc/core": "1.3.3",
+    "@swc-node/register": "1.10.9",
+    "@swc/cli": "0.4.0",
+    "@swc/core": "1.7.35",
     "prisma": "4.4.0",
-    "typescript": "4.8.4"
+    "typescript": "4.9.5"
   },
-  "packageManager": "pnpm@7.12.2",
+  "packageManager": "pnpm@7.33.7",
   "prisma": {
     "seed": "pnpm ts prisma/seed.ts"
   }

@@ -12,11 +12,11 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "urql": "3.0.3"
+    "urql": "3.0.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.11.8",
-    "@graphql-codegen/gql-tag-operations-preset": "1.6.0",
+    "@graphql-codegen/cli": "2.16.5",
+    "@graphql-codegen/gql-tag-operations-preset": "1.7.4",
     "@ts-schema-first/schemas": "workspace:*",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
