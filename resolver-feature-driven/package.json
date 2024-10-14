@@ -14,21 +14,21 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@prisma/client": "4.8.0",
-    "graphql": "16.6.0",
-    "graphql-yoga": "3.3.0"
+    "graphql": "16.9.0",
+    "graphql-yoga": "3.9.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.16.2",
-    "@graphql-codegen/graphql-modules-preset": "2.5.10",
-    "@graphql-codegen/typescript-resolvers": "2.7.11",
+    "@graphql-codegen/cli": "2.16.5",
+    "@graphql-codegen/graphql-modules-preset": "2.5.12",
+    "@graphql-codegen/typescript-resolvers": "2.7.13",
     "@tsconfig/node-lts-strictest-esm": "18.12.1",
-    "@types/node": "18.11.18",
+    "@types/node": "18.19.55",
     "prisma": "4.8.0",
-    "tsx": "3.12.1",
-    "typescript": "4.9.4",
-    "vite": "4.0.3",
+    "tsx": "3.14.0",
+    "typescript": "4.9.5",
+    "vite": "4.5.5",
     "vite-plugin-node": "1.0.0",
-    "vitest": "0.26.3"
+    "vitest": "0.34.6"
   },
-  "packageManager": "pnpm@7.21.0"
+  "packageManager": "pnpm@7.33.7"
 }
