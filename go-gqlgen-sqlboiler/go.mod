@@ -3,16 +3,16 @@ module go-gqlgen-sqlboiler
 go 1.18
 
 require (
-	github.com/99designs/gqlgen v0.17.5
+	github.com/99designs/gqlgen v0.17.90
 	github.com/friendsofgo/errors v0.9.2
-	github.com/mattn/go-sqlite3 v1.14.13
+	github.com/mattn/go-sqlite3 v1.14.42
 	github.com/pkg/errors v0.9.1
-	github.com/samber/lo v1.21.0
-	github.com/spf13/viper v1.11.0
-	github.com/vektah/gqlparser/v2 v2.4.2
-	github.com/volatiletech/randomize v0.0.1
-	github.com/volatiletech/sqlboiler/v4 v4.11.0
-	github.com/volatiletech/strmangle v0.0.4
+	github.com/samber/lo v1.53.0
+	github.com/spf13/viper v1.21.0
+	github.com/vektah/gqlparser/v2 v2.5.33
+	github.com/volatiletech/randomize v0.0.2
+	github.com/volatiletech/sqlboiler/v4 v4.19.7
+	github.com/volatiletech/strmangle v0.0.9
 )
 
 require (
