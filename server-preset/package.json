@@ -19,7 +19,7 @@
     "@graphql-codegen/cli": "^5.0.0",
     "@types/node": "20.9.0",
     "prettier": "3.0.3",
-    "prisma": "5.5.2",
+    "prisma": "5.22.0",
     "tsx": "4.0.0",
     "typescript": "5.2.2"
   },
